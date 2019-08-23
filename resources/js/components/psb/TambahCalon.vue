@@ -590,7 +590,7 @@
                         </tab-content>
                         <tab-content title="Terima Kasih" icon="fas fa-thumbs-up">
                             <div
-                                v-if="Verror.errors !== null"
+                                v-if="Object.keys(Verror.errors).length === 0"
                                 class="alert alert-danger" role="alert">
                                 <ol>
                                     <li v-for="(pesan, index) in Verror.errors"
@@ -819,7 +819,7 @@ import { constants } from 'crypto';
                             type: "success",
                             title: "Tambah Data Unit Berhasil"
                         });
-                        $this.$router.push('psb')
+                        this.$router.push('psb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {
