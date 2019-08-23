@@ -22,7 +22,7 @@ Aplikasi ini dirancang dan dikembangkan berdasarkan aplikasi Penerimaan Siswa Ba
 *   Rest API
 *   Export dan Import file Excel
 *   Generate PDF
-*   dan lain2 
+*   dan lain2
 
 ## Default User
 *   Admin (username: admin@nf.local, password: 123)
