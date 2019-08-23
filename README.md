@@ -24,6 +24,9 @@ Aplikasi ini dirancang dan dikembangkan berdasarkan aplikasi Penerimaan Siswa Ba
 *   Generate PDF
 *   dan lain2 
 
+## Default User
+*   Admin (username: admin@nf.local, password: 123)
+*   User (username: tes@nf.local, password: 123)
 
 ## Kontak
 
