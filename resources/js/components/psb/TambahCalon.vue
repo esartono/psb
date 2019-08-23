@@ -590,10 +590,10 @@
                         </tab-content>
                         <tab-content title="Terima Kasih" icon="fas fa-thumbs-up">
                             <div
-                                v-if="Object.keys(Verror.errors).length === 0"
+                                v-if="Object.keys(Verror).length > 0"
                                 class="alert alert-danger" role="alert">
                                 <ol>
-                                    <li v-for="(pesan, index) in Verror.errors"
+                                    <li v-for="(pesan, index) in Verror"
                                         :key="index"
                                     >
                                         {{ pesan[0][0] }} --> {{ pesan[0][1] }}
@@ -823,7 +823,7 @@ import { constants } from 'crypto';
                         this.$Progress.finish()
                     })
                     .catch((error) => {
-                        this.Verror = this.form.errors;
+                        this.Verror = this.form.errors.errors;
                         this.$Progress.fail()
                     });
             },
