@@ -130,7 +130,11 @@ Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)
 Vue.filter('Tanggal', function(tanggalnya){
-    return moment(tanggalnya).format('Do MMMM YYYY');
+    if(tanggalnya) {
+        return moment(tanggalnya).format('Do MMMM YYYY');
+    } else {
+        return 'Tidak Ada';
+    }
 });
 
 Vue.filter('toCurrency', function (value) {

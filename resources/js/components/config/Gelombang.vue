@@ -30,6 +30,7 @@
                                 <v-th sortKey="name">Gelombang</v-th>
                                 <th>Tahun Pelajaran</th>
                                 <th>Unit</th>
+                                <th>Maksimal Kelahiran</th>
                                 <th>Kuota</th>
                                 <th>Kuota Inklusi</th>
                                 <th>Kode Registrasi</th>
@@ -43,6 +44,7 @@
                                     <td class="text-center">{{ row.name }}</td>
                                     <td class="text-center">{{ row.tpnya.name }}</td>
                                     <td class="text-center" width="150px">{{ row.unitnya.name }}</td>
+                                    <td class="text-center">{{ row.minimum_age | Tanggal }}</td>
                                     <td class="text-center">{{ row.kuota }}</td>
                                     <td class="text-center">{{ row.kuota_inklusi }}</td>
                                     <td class="text-center">{{ row.kode_va }}</td>
@@ -106,6 +108,14 @@
                                                 v-bind:value="unit.id">{{ unit.name }}</option>
                                         </select>
                                         <has-error :form="form" field="unit_id"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Minimal Kelahiran</label>
+                                    <div class="col-sm-8">
+                                        <input v-model="form.minimum_age" type="date" name="minimum_age" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('minimum_age') }" id="minimum_age" />
+                                        <has-error :form="form" field="minimum_age"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -187,6 +197,7 @@
                     name: "",
                     tp: 1,
                     unit_id: 1,
+                    minimum_age: "",
                     kuota: 0,
                     kuota_inklusi: 0,
                     kode_va: "",

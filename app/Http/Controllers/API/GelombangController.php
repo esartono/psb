@@ -48,6 +48,7 @@ class GelombangController extends Controller
             'name' => $request['name'],
             'tp' => $request['tp'],
             'unit_id' => $request['unit_id'],
+            'minimum_age' => $request['minimum_age'],
             'kuota' => $request['kuota'],
             'kuota_inklusi' => $request['kuota_inklusi'],
             'kode_va' => $request['kode_va'],

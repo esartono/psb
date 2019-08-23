@@ -56,7 +56,7 @@
                                 v-for="unit in units"
                                 :key="unit.id"
                                 v-bind:class="unit.catnya.name"
-                                v-on:click="pilihUnit(unit.id)">
+                                v-on:click="pilihUnit(unit.id, unit.catnya.name)">
                                 <i class="fas fa-address-card"></i>
                                 {{ unit.name }}</a>
                         </tab-content>
@@ -130,10 +130,21 @@
                                     <label class="col-md-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-md-3">
                                         <input
+                                            v-if="minimum_age == ''"
                                             v-model="form.tgl_lahir"
                                             type="date"
                                             name="tgl_lahir"
-                                            min="2014-10-01"
+                                            onkeydown="return false"
+                                            class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('tgl_lahir') }"
+                                            id="tgl_lahir"
+                                        >
+                                        <input
+                                            v-else
+                                            v-model="form.tgl_lahir"
+                                            type="date"
+                                            name="tgl_lahir"
+                                            v-bind:max="minimum_age"
                                             onkeydown="return false"
                                             class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('tgl_lahir') }"
@@ -632,6 +643,7 @@ import { constants } from 'crypto';
                 ceknya: "",
                 unit: "",
                 unit_ck: "",
+                minimum_age: "",
                 Verror: {},
                 agrees: {},
                 agamas: {},
@@ -745,10 +757,10 @@ import { constants } from 'crypto';
                 this.form
                     .get("../api/gelombangs/" + $unit)
                     .then((data) => {
-                        //this.gelombangs = data['data']['unitnya']['catnya']
                         this.unit = data['data']['unitnya']['name']
                         this.unit_ck = data['data']['unitnya']['catnya']['name']
                         this.form.gel_id = data['data']['id']
+                        this.minimum_age = data['data']['minimum_age']
                         axios
                             .get("../api/kelasnya/" + $unit)
                             .then(({ data }) => (this.kelass = data))
