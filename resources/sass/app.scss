@@ -1,0 +1,92 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+$fa-font-path: "../webfonts";
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '~admin-lte/dist/css/adminlte.css';
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+.router-link-exact-active{
+    background-color: royalblue;
+}
+
+th {
+    text-align: center;
+}
+
+td:last-of-type {
+    width: 80px;
+}
+
+.card-header a {
+    float: right;
+    margin: 2px;
+}
+
+.card-header a:hover{
+    color: #e9ecef !important;
+}
+
+.headline {
+    font-size: 100px
+}
+
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link.active {
+    color: #DAF7A6 !important;
+    background-color: #170380 !important;
+}
+
+.brand-text {
+    color:white;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.gulung {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#tombol-setuju {
+    display: none;
+}
+
+.btn-app {
+    height: 140px;
+    width: 180px;
+    border: #170380 solid 1px;
+    font-size: 15px !important;
+}
+
+.btn-app i {
+    margin: 5px 0 10px 0;
+    font-size: 70px !important;
+}
+
+.wizard-tab-content h5 {
+    text-align: center;
+    font-weight: bolder;
+    font-size: 150%;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.fr-view p {
+    text-align: justify;
+}
+
+.invalid-feedback {
+    display: block !important;
+}
