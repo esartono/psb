@@ -226,6 +226,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">No. Telepon/Handphone</label>
+                                    <div class="col-md-9">
+                                        <input
+                                        v-model="form.phone"
+                                        type="text"
+                                        name="phone"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('phone') }"
+                                        id="phone"
+                                        placeholder="No. HP"
+                                        >
+                                        <has-error :form="form" field="phone"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Provinsi</label>
                                     <div class="col-md-3">
                                         <select v-model="form.provinsi" v-on:change="listKota($event)" name="provinsi" class="form-control" id="provinsi">
