@@ -17,7 +17,6 @@
                 <div class="card-body">
                     <form-wizard
                         @on-change="createData()"
-                        
                         ref="wizard"
                         title=""
                         subtitle=""
@@ -749,8 +748,6 @@ import { constants } from 'crypto';
                         );
                         this.$refs.wizard.changeTab(0,1)
                     });
-
-                //this.$refs.wizard.changeTab(0,3)
             },
 
             listKota(event) {
@@ -812,11 +809,12 @@ import { constants } from 'crypto';
                             type: "success",
                             title: "Tambah Data Unit Berhasil"
                         });
-                        this.$Progress.finish();
+                        router.push('psb')
+                        this.$Progress.finish()
                     })
                     .catch((error) => {
                         this.Verror = this.form.errors;
-                        this.$Progress.fail();
+                        this.$Progress.fail()
                     });
             },
 
