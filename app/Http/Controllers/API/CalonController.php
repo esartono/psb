@@ -47,7 +47,7 @@ class CalonController extends Controller
             'kelas_tujuan' => $request['kelas_tujuan'],
             'photo' => 'Belum Ada',
             'tempat_lahir' => $request['tempat_lahir'],
-            'tgl_lahir' => date('tgl_lahir'),
+            'tgl_lahir' => $request['tgl_lahir'],
             'agama' => $request['agama'],
             'info' => $request['info'],
             'status' => false,

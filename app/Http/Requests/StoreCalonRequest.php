@@ -48,6 +48,7 @@ class StoreCalonRequest extends FormRequest
             'ibu_nama' => 'required',
             'ibu_pendidikan' => 'required',
             'ibu_pekerjaan' => 'required',
+            'asal_sekolah' => 'required',
         ];
     }
 
@@ -81,6 +82,7 @@ class StoreCalonRequest extends FormRequest
             'ibu_nama.required' => ['Nama Ibu' ,$kudu.'Nama Ibu'],
             'ibu_pendidikan.required' => ['Pendidikan Ibu' ,'Pilih Pendidikan'],
             'ibu_pekerjaan.required' => ['Pekerjaan Ibu' ,'Pilih Pekerjaan'],
+            'asal_sekolah.required' => ['Asal Sekolah', 'Jika tidak ada isi dengan `Tidak Ada`']
         ];
     }
 }

@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <form-wizard
-                        @on-change="createData()"
+                        @on-complete="onComplete"
                         ref="wizard"
                         title=""
                         subtitle=""
@@ -61,7 +61,6 @@
                                 {{ unit.name }}</a>
                         </tab-content>
                         <tab-content title="Data Pribadi" icon="fas fa-user">
-                            <form @submit.prevent="createData()">
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Jenjang Pendidikan</label>
                                     <div class="col-md-4">
@@ -130,17 +129,6 @@
                                     <label class="col-md-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-md-3">
                                         <input
-                                            v-if="minimum_age == ''"
-                                            v-model="form.tgl_lahir"
-                                            type="date"
-                                            name="tgl_lahir"
-                                            onkeydown="return false"
-                                            class="form-control"
-                                            :class="{ 'is-invalid':form.errors.has('tgl_lahir') }"
-                                            id="tgl_lahir"
-                                        >
-                                        <input
-                                            v-else
                                             v-model="form.tgl_lahir"
                                             type="date"
                                             name="tgl_lahir"
@@ -217,10 +205,8 @@
                                         <has-error :form="form" field="info"></has-error>
                                     </div>
                                 </div>
-                            </form>
                         </tab-content>
                         <tab-content title="Data Alamat" icon="fas fa-home">
-                            <form>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Alamat Tempat Tinggal</label>
                                     <div class="col-md-9">
@@ -339,10 +325,8 @@
                                         <has-error :form="form" field="kodepos"></has-error>
                                     </div>
                                 </div>
-                            </form>
                         </tab-content>
                         <tab-content title="Data Orang Tua" icon="fas fa-users">
-                            <form>
                             <div class="card-group">
                                 <div class="card">
                                 <div class="card-header">
@@ -523,10 +507,8 @@
                                 </div>
                                 </div>
                             </div>
-                            </form>
                         </tab-content>
                         <tab-content title="Data Asal Sekolah" icon="fas fa-school">
-                            <form>
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Nama Sekolah</label>
                                     <div class="col-md-5">
@@ -605,10 +587,11 @@
                                         <has-error :form="form" field="asal_kelurahan_sekolah"></has-error>
                                     </div>
                                 </div>
-                            </form>
                         </tab-content>
                         <tab-content title="Terima Kasih" icon="fas fa-thumbs-up">
-                            <div class="alert alert-danger" role="alert">
+                            <div
+                                v-if="Verror.errors !== null"
+                                class="alert alert-danger" role="alert">
                                 <ol>
                                     <li v-for="(pesan, index) in Verror.errors"
                                         :key="index"
@@ -624,7 +607,7 @@
                             v-bind:style="ygaktif == true && form.setuju == true ? 'display:block' : 'display:none'"
                             v-on:click="cektmbl_aktif()"
                         >Next</button>
-                        <button type="primary" class="btn btn-success" slot="finish">Finish</button>
+                        <button type="primary" class="btn btn-success" slot="finish">Data yang telah Saya isi adalah Benar </button>
                     </form-wizard>
                 </div>
             </div>
@@ -827,7 +810,7 @@ import { constants } from 'crypto';
                     .then(({ data }) => (this.lurahsekolah = data))
             },
 
-            createData() {
+            onComplete: function() {
                 this.$Progress.start();
                 this.form
                     .post("../api/calons")
@@ -836,7 +819,7 @@ import { constants } from 'crypto';
                             type: "success",
                             title: "Tambah Data Unit Berhasil"
                         });
-                        router.push('psb')
+                        $this.$router.push('psb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {
