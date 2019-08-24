@@ -17,8 +17,15 @@ class CalonController extends Controller
 
     public function index()
     {
-        $this->authorize('viewAny');
-        return Calon::orderBy('id', 'asc')->get()->toArray();
+        $calons = Calon::with('gelnya.unitnya.catnya', 'cknya');
+
+        if(auth('api')->user()->isAdmin()) {
+            return $calons->get()->toArray();
+        }
+
+        if (auth('api')->user()->isUser()){
+            return $calons->where('user_id', auth('api')->user()->id)->get()->toArray();
+        }
     }
 
     /**

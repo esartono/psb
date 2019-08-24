@@ -3,18 +3,30 @@
     <div class="card col-md-2 offset-md-5 p-1 mt-2">
         <router-link to="/tambahcalon" class="btn btn-success"><i class="fas fa-plus-circle"> </i> Tambah Calon</router-link>
     </div>
-    <div class="row justify-content-center">
+    <div
+        v-for="calon in calons" :key="calon.id"
+        class="row justify-content-center"
+    >
         <div class="col-md-5 mb-3">
             <div class="card card-primary card-outline h-100">
+                <div class="card-header">
+                    <h3 class="card-title">Data Calon Peserta PSB</h3>
+                    <div class="card-tools">
+                        <a href="#" class="btn btn-sm btn-success">
+                            <i class="fas fa-user-edit"> </i>
+                            Edit User
+                        </a>
+                    </div>
+                </div>
                 <div class="card-body box-profile">
                     <div class="text-center">
                         <img src="/img/user.svg" class="profile-user-img img-fluid img-circle" alt="Calon Siswa">
                     </div>
-                    <h3 class="profile-username text-center">Eko Sartono</h3>
+                    <h3 class="profile-username text-center">{{ calon.name }}</h3>
                     <p class="text-muted text-center">2021033001</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Tempat, Tanggal lahir</b> <a class="float-right">Wonogiri, 7 Oktober 1980</a>
+                            <b>Tempat, Tanggal lahir</b> <a class="float-right">{{ calon.tempat_lahir }}, {{ calon.tgl_lahir | Tanggal }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>Jenis Kelamin</b> <a class="float-right">Laki-Laki</a>
@@ -31,12 +43,12 @@
         </div>
         <div class="col-md-7 mb-3">
             <div class="card h-100">
-            <div class="card-header p-2 card-warning card-outline" style="background-color: #1F618D">
+            <div class="card-header p-2" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a class="nav-link active" href="#daftar" data-toggle="tab">Pendaftaran</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#seleksi" data-toggle="tab">Seleksi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pengumuman" data-toggle="tab">Pengumuman</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#daul" data-toggle="tab">Daftar Ulang</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" href="#seleksi" data-toggle="tab">Seleksi</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" href="#pengumuman" data-toggle="tab">Pengumuman</a></li>
+                    <li class="nav-item"><a class="nav-link disabled" href="#daul" data-toggle="tab">Daftar Ulang</a></li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -153,11 +165,15 @@
         data() {
             return {
                 units: {},
+                calons: [],
+                messageText: '',
             };
         },
 
         mounted() {
-            console.log('Component mounted.')
+            axios
+                .get("../api/calons")
+                .then(({ data }) => (this.calons = data))
         }
     }
 </script>

@@ -48,6 +48,10 @@ td:last-of-type {
     background-color: #170380 !important;
 }
 
+.nav-link.disabled {
+    background-color: grey !important;
+}
+
 .brand-text {
     color:white;
     font-size: 20px;

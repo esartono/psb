@@ -77,4 +77,8 @@ class User extends Authenticatable
         return $this->level == static::ACCESS_ADMIN;
     }
 
+    public function calons()
+    {
+        return $this->hasMany(Calon::class, 'user_id');
+    }
 }

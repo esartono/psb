@@ -589,16 +589,19 @@
                                 </div>
                         </tab-content>
                         <tab-content title="Terima Kasih" icon="fas fa-thumbs-up">
-                            <div
-                                v-if="Object.keys(Verror).length > 0"
-                                class="alert alert-danger" role="alert">
-                                <ol>
-                                    <li v-for="(pesan, index) in Verror"
-                                        :key="index"
-                                    >
-                                        {{ pesan[0][0] }} --> {{ pesan[0][1] }}
-                                    </li>
-                                </ol>
+                            <div>
+                                <div v-if="Object.keys(Verror).length === 0"></div>
+                                <div
+                                    v-else
+                                    class="alert alert-danger" role="alert">
+                                    <ol>
+                                        <li v-for="(pesan, index) in Verror"
+                                            :key="index"
+                                        >
+                                            {{ pesan[0][0] }} --> {{ pesan[0][1] }}
+                                        </li>
+                                    </ol>
+                                </div>
                             </div>
                         </tab-content>
                         <hr>

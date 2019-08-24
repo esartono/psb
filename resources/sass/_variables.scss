@@ -20,7 +20,7 @@ $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
 // Unit Colors
-$ccec: #ffc10d;
+$CCEC: #ffc10d;
 $TK: #f04e23;
 $SD: #067c3f;
 $SMP: #1d458b;
@@ -59,8 +59,8 @@ $SMA: #a85433;
 .cyan {
     color: $cyan !important;
 }
-.ccec {
-    color: $ccec !important;
+.CCEC {
+    color: $CCEC !important;
 }
 .TK {
     color: $TK !important;
@@ -108,18 +108,33 @@ $SMA: #a85433;
 .bg-cyan {
     background-color: $cyan !important;
 }
-.bg-ccec {
-    color: $ccec !important;
+.bg-CCEC {
+    background-color: $CCEC !important;
 }
 .bg-TK {
-    color: $TK !important;
+    background-color: $TK !important;
 }
 .bg-SD {
-    color: $SD !important;
+    background-color: $SD !important;
 }
 .bg-SMP {
-    color: $SMP !important;
+    background-color: $SMP !important;
 }
 .bg-SMA {
-    color: $SMA !important;
+    background-color: $SMA !important;
+}
+.card-CCEC-outline {
+    border-top: 3px solid $TK;
+}
+.card-TK-outline {
+    border-top: 3px solid $CCEC;
+}
+.card-SD-outline {
+    border-top: 3px solid $CCEC;
+}
+.card-SMP-outline {
+    border-top: 3px solid $cyan;
+}
+.card-SMA-outline {
+    border-top: 3px solid $SD;
 }

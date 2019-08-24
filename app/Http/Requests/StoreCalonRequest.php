@@ -24,7 +24,7 @@ class StoreCalonRequest extends FormRequest
     public function rules()
     {
         return [
-            'nik' => 'required|integer',
+            'nik' => 'required|integer|unique:calons',
             'name' => 'required',
             'panggilan' => 'required',
             'jk' => 'required',
@@ -57,6 +57,7 @@ class StoreCalonRequest extends FormRequest
         $kudu = 'Harus diisi dengan ';
         return [
             'nik.required' => ['No. NIK' ,$kudu.'No. Induk Kependudukan.'],
+            'nik.unique' => ['No. NIK', 'Sudah terdaftar'],
             'name.required' => ['Nama' ,$kudu.'Nama Lengkap.'],
             'panggilan.required' => ['panggilan' ,$kudu.'Panggilan'],
             'jk.required' => ['Jenis Kelamin' ,'Pilih Jenis Kelamin'],
