@@ -6,7 +6,7 @@
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
                         <i class="fas fa-user-edit"></i>
-                        Form Pendaftaran Calon Siswa
+                        Form Pendaftaran
                     </h3>
                     <div class="card-tools">
                         <router-link to="/psb" type="button" class="btn bg-danger btn-sm">

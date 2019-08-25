@@ -1,21 +1,20 @@
 <template>
 <div class="container">
-    <div class="card col-md-2 offset-md-5 p-1 mt-2">
-        <router-link to="/tambahcalon" class="btn btn-success"><i class="fas fa-plus-circle"> </i> Tambah Calon</router-link>
+    <div class="row justify-content-center">
+        <div class="card col-md-3 p-1 mt-2">
+            <router-link to="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon </b></router-link>
+        </div>
     </div>
     <div
         v-for="calon in calons" :key="calon.id"
         class="row justify-content-center"
     >
         <div class="col-md-5 mb-3">
-            <div class="card card-primary card-outline h-100">
-                <div class="card-header">
-                    <h3 class="card-title">Data Calon Peserta PSB</h3>
+            <div class="card h-100">
+                <div class="card-header" v-bind:class="'card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
+                    <h3 class="card-title">Data Calon Peserta</h3>
                     <div class="card-tools">
-                        <a href="#" class="btn btn-sm btn-success">
-                            <i class="fas fa-user-edit"> </i>
-                            Edit User
-                        </a>
+                        <router-link v-bind:to="'/editcalon/'+calon.id" class="btn btn-sm btn-warning"><i class="fas fa-user-edit"> </i><b> Edit </b></router-link>
                     </div>
                 </div>
                 <div class="card-body box-profile">
@@ -29,13 +28,13 @@
                             <b>Tempat, Tanggal lahir</b> <a class="float-right">{{ calon.tempat_lahir }}, {{ calon.tgl_lahir | Tanggal }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Jenis Kelamin</b> <a class="float-right">Laki-Laki</a>
+                            <b>Jenis Kelamin</b> <a class="float-right">{{ calon.kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas 1</a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelas_tujuan }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Tanggal Daftar</b> <a class="float-right">9 Agustus 2019</a>
+                            <b>Tanggal Daftar</b> <a class="float-right">{{ calon.tgl_daftar | Tanggal }}</a>
                         </li>
                     </ul>
                 </div>

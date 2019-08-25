@@ -18,6 +18,7 @@ Auth::routes();
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/psb', 'HomeController@psb')->name('psb');
     Route::get('/tambahcalon', 'HomeController@psb')->name('psb');
+    Route::get('/editcalon/{id}', 'HomeController@psb')->name('psb');
 });
 
 Route::middleware('auth', 'admin')->group(function(){

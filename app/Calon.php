@@ -60,6 +60,21 @@ class Calon extends Model
         'created_at', 'updated_at'
     ];
 
+    protected $appends = [
+        'kelamin'
+    ];
+
+    public function getKelaminAttribute()
+    {
+        if($this->attributes['jk'] === 1) {
+            return 'Laki-Laki';
+        }
+
+        if($this->attributes['jk'] === 2) {
+            return 'Perempuan';
+        }
+    }
+
     public function gelnya()
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');

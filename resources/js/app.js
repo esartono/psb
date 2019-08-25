@@ -78,6 +78,7 @@ let routes = [
      */
     { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
+    { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},
 
     /**
      * Import Data Siswa NF dan Karyawan

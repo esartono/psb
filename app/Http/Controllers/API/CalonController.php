@@ -100,8 +100,10 @@ class CalonController extends Controller
      */
     public function show($id)
     {
-        $this->authorize('view', $id);
-        return Calon::orderBy('id', 'asc')->get()->toArray();
+        return Calon::with('gelnya.unitnya.catnya', 'cknya')
+            ->where('id', $id)
+            ->where('user_id', auth('api')->user()->id)
+            ->first();
     }
 
     /**
