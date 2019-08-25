@@ -128,16 +128,30 @@
                                     </div>
                                     <label class="col-md-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-md-3">
-                                        <input
+                                        <VueDatePicker 
                                             v-model="form.tgl_lahir"
-                                            type="date"
-                                            name="tgl_lahir"
-                                            v-bind:max="minimum_age"
-                                            onkeydown="return false"
+                                            format="DD MMMM YYYY"
+                                            format-output="YYYY/MM/DD"
+                                            placeholder="Tanggal/Bulan/Tahun"
+                                            v-bind:end-date="minimum_age"
+                                            :locale='{ lang: {
+                                                "name": "id",
+                                                "weekdays": ["Ahad","Senin","Selasa","Rabu","Kamis","Jum`at","Sabtu"],
+                                                "weekdaysShort": ["Ahd","Sen","Sel","Rab","Kam","Jum","Sab"],
+                                                "weekStart": 1,
+                                                "months": ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],
+                                                "monthsShort": ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Ags","Sep","Okt","Nov","Des"],
+                                                "formats": {
+                                                    "LT": "HH:mm",
+                                                    "LTS": "HH:mm:ss",
+                                                    "L": "DD/MM/YYYY",
+                                                    "LL": "D MMMM YYYY",
+                                                    "LLL": "D MMMM YYYY HH:mm",
+                                                    "LLLL": "dddd D MMMM YYYY HH:mm"
+                                                }
+                                                } }'
                                             class="form-control"
-                                            :class="{ 'is-invalid':form.errors.has('tgl_lahir') }"
-                                            id="tgl_lahir"
-                                        >
+                                        no-header/>
                                         <has-error :form="form" field="tgl_lahir"></has-error>
                                     </div>
                                 </div>
