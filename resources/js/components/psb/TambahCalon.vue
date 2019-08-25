@@ -132,7 +132,7 @@
                                             v-model="form.tgl_lahir"
                                             format="DD MMMM YYYY"
                                             format-output="YYYY/MM/DD"
-                                            placeholder="Tanggal/Bulan/Tahun"
+                                            placeholder="Tgl/Bln/Tahun"
                                             v-bind:end-date="minimum_age"
                                             :locale='{ lang: {
                                                 "name": "id",
@@ -680,7 +680,7 @@ import { constants } from 'crypto';
                     kelas_tujuan: "",
                     photo: "",
                     tempat_lahir: "",
-                    tgl_lahir: "",
+                    tgl_lahir: new Date(),
                     agama: 1,
                     info: "",
                     status: "",
