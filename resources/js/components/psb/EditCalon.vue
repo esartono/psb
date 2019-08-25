@@ -569,11 +569,8 @@
                             </div>
                         </tab-content>
                         <hr>
-                        <button type="primary" class="btn btn-warning" slot="prev" v-on:click="cekback_aktif()">Back</button>
-                        <button type="primary" class="btn btn-primary" slot="next"
-                            v-bind:style="ygaktif == true && form.setuju == true ? 'display:block' : 'display:none'"
-                            v-on:click="cektmbl_aktif()"
-                        >Next</button>
+                        <button type="primary" class="btn btn-warning" slot="prev">Back</button>
+                        <button type="primary" class="btn btn-primary" slot="next">Next</button>
                         <button type="primary" class="btn btn-success" slot="finish">Data yang telah Saya isi adalah Benar </button>
                     </form-wizard>
                 </div>
@@ -589,8 +586,6 @@ import { constants } from 'crypto';
         data() {
             return {
                 stepIndex:0,
-                ygaktif: true,
-                ceknya: "",
                 unit: "",
                 minimum_age: "",
                 Verror: {},
@@ -758,6 +753,7 @@ import { constants } from 'crypto';
                         .get("../api/gelombangs/" + data.data.gel_id)
                         .then(( gel ) => {
                             this.unit = gel.data
+                            this.minimum_age = gel.data.minimum_age
                             axios
                                 .get("../api/kelasnya/" + gel.data.unitnya.id)
                                 .then(( kelas ) => {(this.kelass = kelas.data)
