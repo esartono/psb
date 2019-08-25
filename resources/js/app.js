@@ -53,6 +53,10 @@ Vue.use(VueFroala)
 //Progress Bar
 import VueProgressBar from 'vue-progressbar'
 
+//Datepicker
+import VueDatePicker from '@mathieustan/vue-datepicker';
+Vue.use(VueDatePicker)
+
 let routes = [
     { path: '/home', component: require('./components/Home.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},

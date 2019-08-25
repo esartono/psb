@@ -27,6 +27,7 @@
   "dependencies": {
     "@babel/runtime-corejs2": "^7.5.5",
     "@fortawesome/fontawesome-free": "^5.9.0",
+    "@mathieustan/vue-datepicker": "^0.1.8-rc.5",
     "admin-lte": "^3.0.0-beta.1",
     "axios": "^0.18.1",
     "babel-runtime": "^6.26.0",
