@@ -61,7 +61,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin'
+        'kelamin', 'uruts'
     ];
 
     public function getKelaminAttribute()
@@ -75,6 +75,12 @@ class Calon extends Model
         }
     }
 
+    public function getUrutsAttribute()
+    {
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        return $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+    }
+
     public function gelnya()
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');
@@ -83,6 +89,16 @@ class Calon extends Model
     public function cknya()
     {
         return $this->belongsTo(CalonKategori::class, 'ck_id');
+    }
+
+    public function kelasnya()
+    {
+        return $this->belongsTo(Kelasnya::class, 'kelas_tujuan');
+    }
+
+    public function biayates()
+    {
+        return $this->hasOne(CalonBiayaTes::class);
     }
 
 }

@@ -37346,7 +37346,7 @@ th {
 }
 
 td:last-of-type {
-  width: 90px;
+  width: 90px !important;
 }
 
 .card-header a {
@@ -37416,5 +37416,9 @@ td:last-of-type {
 
 .invalid-feedback {
   display: block !important;
+}
+
+table.table-mini th tr td {
+  font-size: 6px !important;
 }
 

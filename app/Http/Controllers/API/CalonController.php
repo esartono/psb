@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\BiayaTes;
 use App\Calon;
+use App\CalonBiayaTes;
+use App\Gelombang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCalonRequest;
@@ -17,14 +20,17 @@ class CalonController extends Controller
 
     public function index()
     {
-        $calons = Calon::with('gelnya.unitnya.catnya', 'cknya');
+        $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+
+        $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya');
 
         if(auth('api')->user()->isAdmin()) {
-            return $calons->get()->toArray();
+            return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
         }
 
         if (auth('api')->user()->isUser()){
-            return $calons->where('user_id', auth('api')->user()->id)->get()->toArray();
+            return $calons->where('user_id', auth('api')->user()->id)
+                    ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
     }
 
@@ -36,16 +42,13 @@ class CalonController extends Controller
      */
     public function store(StoreCalonRequest $request)
     {
-        if ($request['kelas_tujuan'] === '1' || $request['kelas_tujuan'] === '7' || $request['kelas_tujuan'] === '10') {
-            $pindahan = 0;
-        } else {
-            $pindahan = 1;
-        }
+        $urut = Calon::where('gel_id', $request['gel_id'])->get()->count();
 
-        Calon::create([
+        $calon = Calon::create([
             'gel_id' => $request['gel_id'],
             'ck_id' => $request['ck_id'],
             'tgl_daftar' => date('Y-m-d'),
+            'urut' => $urut+1,
             'nisn' => $request['nisn'],
             'nik' => $request['nik'],
             'name' => $request['name'],
@@ -82,13 +85,23 @@ class CalonController extends Controller
             'ibu_hp' => $request['ibu_hp'],
             'ibu_email' => $request['ibu_email'],
             'asal_nf' => $request['asal_nf'],
-            'pindahan' => $pindahan,
+            'pindahan' => 0,
             'asal_sekolah' => $request['asal_sekolah'],
             'asal_alamat_sekolah' => $request['asal_alamat_sekolah'],
             'asal_propinsi_sekolah' => $request['asal_propinsi_sekolah'],
             'asal_kota_sekolah' => $request['asal_kota_sekolah'],
             'asal_kecamatan_sekolah' => $request['asal_kecamatan_sekolah'],
             'asal_kelurahan_sekolah' => $request['asal_kelurahan_sekolah'],
+        ]);
+
+        $biaya = BiayaTes::where('gel_id', $request['gel_id'])
+                    ->where('ck_id', $request['ck_id'])
+                    ->get()->first();
+
+        CalonBiayaTes::create([
+            'calon_id' => $calon->id,
+            'biaya_id' => $biaya->id,
+            'expired' => date("Y-m-d", strtotime("+1 week"))
         ]);
     }
 
@@ -100,10 +113,16 @@ class CalonController extends Controller
      */
     public function show($id)
     {
-        return Calon::with('gelnya.unitnya.catnya', 'cknya')
+        $calon = Calon::with('gelnya.unitnya.catnya')
             ->where('id', $id)
             ->where('user_id', auth('api')->user()->id)
             ->first();
+
+        if($calon) {
+            return $calon;
+        } else {
+            return response()->json(['message' => 'Not Found!'], 404);
+        }
     }
 
     /**
@@ -115,7 +134,8 @@ class CalonController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $calon = Calon::findOrFail($id);
+        $calon->update($request->all());
     }
 
     /**

@@ -17,35 +17,42 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body table-responsive p-0">
-                        <v-table :data="cpdbarus" :filters="filters" :currentPage.sync="currentPage" :pageSize="7"
+                    <div class="card-body p-0">
+                        <v-table :data="calons" :filters="filters" :currentPage.sync="currentPage" :pageSize="7"
                             @totalPagesChanged="totalPages = $event"
-                            class="table table-bordered table-hover">
+                            class="table table-mini table-bordered table-head-fixed table-hover">
                             <thead slot="head">
                                 <th>No.</th>
                                 <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
-                                <v-th sortKey="ck_id">Calon Kategori</v-th>
-                                <v-th sortKey="biaya">No. ID</v-th>
-                                <v-th sortKey="biaya">Nama Lengkap</v-th>
-                                <v-th sortKey="biaya">Tanggal Lahir</v-th>
-                                <v-th sortKey="biaya">Asal Sekolah</v-th>
-                                <v-th sortKey="biaya">Nama Ayah</v-th>
-                                <v-th sortKey="biaya">Nama Ibu</v-th>
-                                <v-th sortKey="biaya">Alamat</v-th>
-                                <v-th sortKey="biaya">No. Telp</v-th>
+                                <v-th sortKey="cknya.name">Kategori</v-th>
+                                <v-th sortKey="uruts">No. ID</v-th>
+                                <v-th sortKey="name">Nama Lengkap</v-th>
+                                <v-th sortKey="tgl_lahir">Tanggal Lahir</v-th>
+                                <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
+                                <v-th sortKey="ayah_nama">Nama Ayah</v-th>
+                                <v-th sortKey="ibu_nama">Nama Ibu</v-th>
+                                <th>No. Telp</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <th>{{ index+((currentPage-1) * 7)+1 }}</th>
-                                    <td class="text-center">{{ row.gelnya.tpnya.name }}</td>
-                                    <td class="text-center">{{ row.gelnya.name }}</td>
-                                    <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
+                                    <td class="text-center">{{ row.gelnya.unitnya.name }}</td>
                                     <td class="text-center">{{ row.cknya.name }}</td>
-                                    <td class="text-center">{{ row.biaya | toCurrency }}</td>
-                                    <td class="text-center aksi">
+                                    <td class="text-center">{{ row.uruts }}</td>
+                                    <td>{{ row.name }}</td>
+                                    <td>{{ row.tgl_lahir | Tanggal}}</td>
+                                    <td class="text-center">{{ row.asal_sekolah }}</td>
+                                    <td>{{ row.ayah_nama }}</td>
+                                    <td>{{ row.ibu_nama }}</td>
+                                    <td>{{ row.telepon }}</td>
+                                    <td class="text-center aksi" style="width: 100px !important">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
+                                        </a>
+                                        /
+                                        <a href="#" @click="showData(row.id)">
+                                            <i class="fas fa-info orange"></i>
                                         </a>
                                         /
                                         <a href="#" @click="deleteData(row.id)">
@@ -78,8 +85,6 @@
                                     <label class="col-sm-4 col-form-label">Gelombang</label>
                                     <div class="col-sm-8">
                                         <select v-model="form.gel_id" name="gel_id" class="form-control" id="gel_id">
-                                            <option v-for="gel in gelombangs" :key="gel.id"
-                                                v-bind:value="gel.id">{{ gel.name }} - {{ gel.unitnya.name }}</option>
                                         </select>
                                         <has-error :form="form" field="gel_id"></has-error>
                                     </div>
@@ -121,13 +126,12 @@
         data() {
             return {
                 editmode: false,
-                gelombangs: {},
+                calons: [],
                 cks: {},
-                cpdbarus: [],
                 filters: {
                     name: {
                         value: "",
-                        keys: ["gel_id", "gelnya.unitnya.name", "ck_id", "biaya"]
+                        keys: ["gelnya.unitnya.name", "cknya.name", "uruts", "name", "tgl_lahir", "asal_sekolah", "ayah_nama", "ibu_nama"]
                     }
                 },
                 currentPage: 1,
@@ -144,9 +148,9 @@
         methods: {
             listData() {
                 this.$Progress.start();
-                axios.get("../api/cpdbarus").then(({
+                axios.get("../api/calons").then(({
                     data
-                }) => (this.cpdbarus = data));
+                }) => (this.calons = data));
                 this.$Progress.finish();
             },
 
@@ -159,7 +163,7 @@
             createData() {
                 this.$Progress.start();
                 this.form
-                    .post("../api/cpdbarus")
+                    .post("../api/calon")
                     .then(() => {
                         $("#addModal").modal("hide");
                         Fire.$emit("listData");
@@ -174,17 +178,17 @@
                     });
             },
 
-            editModal(cpdbaru) {
+            editModal(calon) {
                 this.editmode = true;
                 this.form.reset();
                 $("#addModal").modal("show");
-                this.form.fill(cpdbaru);
+                this.form.fill(calon);
             },
 
             updateData() {
                 this.$Progress.start();
                 this.form
-                    .put("../api/cpdbarus/" + this.form.id)
+                    .put("../api/calons/" + this.form.id)
                     .then(() => {
                         $("#addModal").modal("hide");
                         Fire.$emit("listData");
@@ -212,7 +216,7 @@
                 }).then(result => {
                     if (result.value) {
                         this.form
-                            .delete("../api/cpdbarus/" + id)
+                            .delete("../api/calons/" + id)
                             .then(() => {
                                 Swal.fire("Berhasil!", "Data Calon Siswa telah di hapus.", "success");
                                 Fire.$emit("listData");
@@ -241,14 +245,6 @@
         },
 
         mounted() {
-            axios
-                .get("../api/gelombangs")
-                .then(({ data }) => (this.gelombangs = data));
-
-            axios
-                .get("../api/cks")
-                .then(({ data }) => (this.cks = data));
-
             $("#addModal").on("hidden.bs.modal", this.modalOnHidden);
         }
     };

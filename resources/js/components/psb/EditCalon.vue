@@ -32,7 +32,7 @@
                                         type="text"
                                         class="form-control"
                                         disabled="disabled"
-                                        :value="unit.unitnya.name"
+                                        :value="unit.name"
                                         >
                                     </div>
                                     <label class="col-md-2 col-form-label">Kelas Tujuan</label>
@@ -140,7 +140,7 @@
                                         <has-error :form="form" field="agama"></has-error>
                                     </div>
                                 </div>
-                                <div class="form-group row" v-show="unit.unitnya.catnya.name !== 'TK' && unit.unitnya.catnya.name !== 'SD'">
+                                <div class="form-group row" v-show="unit_ck !== 'TK' && unit_ck !== 'SD'">
                                     <label class="col-md-3 col-form-label">NISN</label>
                                     <div class="col-md-4">
                                         <input
@@ -600,7 +600,8 @@ import { constants } from 'crypto';
         data() {
             return {
                 stepIndex:0,
-                unit: "",
+                unit: {},
+                unit_ck: "",
                 minimum_age: "",
                 Verror: {},
                 agamas: {},
@@ -618,6 +619,7 @@ import { constants } from 'crypto';
                 kelass: {},
                 calon: [],
                 form: new Form({
+                    id: "",
                     nisn: "",
                     nik: "",
                     name: "",
@@ -626,7 +628,7 @@ import { constants } from 'crypto';
                     kelas_tujuan: "",
                     photo: "",
                     tempat_lahir: "",
-                    tgl_lahir: "",
+                    tgl_lahir: '1980-10-07',
                     agama: "",
                     info: "",
                     status: "",
@@ -716,13 +718,13 @@ import { constants } from 'crypto';
             onComplete: function() {
                 this.$Progress.start();
                 this.form
-                    .post("../api/calons")
+                    .put("../api/calons/"+this.form.id)
                     .then(() => {
                         Toast.fire({
                             type: "success",
-                            title: "Tambah Data Unit Berhasil"
+                            title: "Edit Data Calon Siswa Berhasil"
                         });
-                        this.$router.push('psb')
+                        this.$router.push('../psb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {
@@ -739,6 +741,7 @@ import { constants } from 'crypto';
                 .then(( data ) => {
                     this.form.reset();
                     this.form.fill(data.data)
+                    this.$refs.wizard.activateAll()
                     axios
                         .get("../api/kota/" + data.data.provinsi)
                         .then(( kota ) => {(this.kotas = kota.data)
@@ -752,7 +755,7 @@ import { constants } from 'crypto';
                         .then(( lurah ) => {(this.lurahs = lurah.data)
                     })
                     axios
-                        .get("../api/kota/" + data.data.asal_provinsi_sekolah)
+                        .get("../api/kota/" + data.data.asal_propinsi_sekolah)
                         .then(( kota ) => {(this.kotasekolah = kota.data)
                     })
                     axios
@@ -766,7 +769,8 @@ import { constants } from 'crypto';
                     axios
                         .get("../api/gelombangs/" + data.data.gel_id)
                         .then(( gel ) => {
-                            this.unit = gel.data
+                            this.unit = gel.data.unitnya
+                            this.unit_ck = gel.data.unitnya.catnya.name
                             this.minimum_age = gel.data.minimum_age
                             axios
                                 .get("../api/kelasnya/" + gel.data.unitnya.id)

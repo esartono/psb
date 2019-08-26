@@ -21,8 +21,8 @@
                     <div class="text-center">
                         <img src="/img/user.svg" class="profile-user-img img-fluid img-circle" alt="Calon Siswa">
                     </div>
-                    <h3 class="profile-username text-center">{{ calon.name }}</h3>
-                    <p class="text-muted text-center">2021033001</p>
+                    <h3 class="profile-username text-center text-uppercase">{{ calon.name }}</h3>
+                    <p class="text-muted text-center">{{ calon.gelnya.kode_va }}{{ calon.uruts }}</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <b>Tempat, Tanggal lahir</b> <a class="float-right">{{ calon.tempat_lahir }}, {{ calon.tgl_lahir | Tanggal }}</a>
@@ -31,7 +31,7 @@
                             <b>Jenis Kelamin</b> <a class="float-right">{{ calon.kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelas_tujuan }}</a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ calon.tgl_daftar | Tanggal }}</a>
@@ -45,7 +45,7 @@
             <div class="card-header p-2" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
                 <ul class="nav nav-pills">
                     <li class="nav-item"><a class="nav-link active" href="#daftar" data-toggle="tab">Pendaftaran</a></li>
-                    <li class="nav-item"><a class="nav-link disabled" href="#seleksi" data-toggle="tab">Seleksi</a></li>
+                    <li class="nav-item"><a class="nav-link" v-bind:class="'disabled'" href="#seleksi" data-toggle="tab">Seleksi</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#pengumuman" data-toggle="tab">Pengumuman</a></li>
                     <li class="nav-item"><a class="nav-link disabled" href="#daul" data-toggle="tab">Daftar Ulang</a></li>
                 </ul>
@@ -53,11 +53,13 @@
             <div class="card-body">
                 <div class="tab-content">
                     <div class="active tab-pane" id="daftar">
-                        <div class="post clearfix">
-                            <p>Biaya Pendaftaran PSB : </p>
-                            <h2>RP. 500.000,-</h2>
-                            <p>Dibayarkan melalui rekening BSM : 20304489010</p>
-                            <p>Paling lambat pembayaran dilakukan pada tanggal : 17 Agustus 2019</p>
+                        <div class="clearfix text-center">
+                            <h3>Biaya Pendaftaran PSB : </h3>
+                            <hr>
+                            <h1>{{ calon.biayates.biayanya.biaya | toCurrency}}</h1>
+                            <hr>
+                            <p>Dibayarkan melalui rekening BSM : <b>{{ calon.gelnya.kode_va }}{{ calon.uruts }}</b><br>
+                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b></p>
                             <button class="btn btn-block btn-secondary mt-3 disabled">Cetak Kartu Seleksi</button>
                             <button class="btn btn-block btn-primary mt-3">Cetak Kartu Seleksi</button>
                         </div>
