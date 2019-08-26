@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
+Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 
 Auth::routes();
 

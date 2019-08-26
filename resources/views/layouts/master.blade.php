@@ -62,6 +62,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/edupay" class="nav-link">
+              <i class="nav-icon fas fa-dollar-sign green"></i>
+              <p>
+                Edupay
+              </p>
+            </a>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>

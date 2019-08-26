@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Edupay\Facades\Edupay;
 use Illuminate\Http\Request;
 use App\Gelombang;
 use App\TahunPelajaran;
@@ -46,6 +47,13 @@ class HomeController extends Controller
     public function cpd()
     {
         return view('cpd');
+    }
+
+    public function edupay()
+    {
+        $edupay = Edupay::delete();
+        dd($edupay);
+        return view('profile');
     }
 
     public function depan()
