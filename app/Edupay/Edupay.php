@@ -47,7 +47,7 @@ class Edupay
             'total_nominal_tagihan' => $total,
             'is_tagihan_aktif'=>'1',
             'waktu_berlaku'=>$start,
-            'waktu_berakhir'=>$end,
+            'waktu_berakhir'=>$end.' 23:59:59',
             'inquiry_response_nama' => $nama,
         );
 
@@ -83,7 +83,7 @@ class Edupay
             'nomor_pembayaran' => $idtagihan,
             'total_nominal_tagihan' => $total,
             'is_tagihan_aktif'=>'1',
-            'waktu_berakhir'=>$end,
+            'waktu_berakhir'=>$end.' 23:59:59',
             'inquiry_response_nama' => $nama,
         );
         $ch = curl_init();

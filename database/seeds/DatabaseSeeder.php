@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PenghasilanTableSeeder::class);
         $this->call(SumberInfoTableSeeder::class);
         $this->call(KelasnyaTableSeeder::class);
-        //$this->call(ProvinsiTableSeeder::class);
-        //$this->call(KotaTableSeeder::class);
+        $this->call(ProvinsiTableSeeder::class);
+        $this->call(KotaTableSeeder::class);
         //$this->call(KecamatanTableSeeder::class);
         //$this->call(KelurahanTableSeeder::class);
         $this->call(TPTabelSeeder::class);
@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AgamaTableSeeder::class);
         $this->call(GelombangTableSeeder::class);
         $this->call(AgreementTableSeeder::class);
+        $this->call(BiayaTesTableSeeder::class);
     }
 }

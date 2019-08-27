@@ -112,7 +112,6 @@ class CalonController extends Controller
     {
         if(auth('api')->user()->isUser()){
             $calon = Calon::with('gelnya.unitnya.catnya')
-                ->where('id', $id)
                 ->where('user_id', auth('api')->user()->id)
                 ->first();
 

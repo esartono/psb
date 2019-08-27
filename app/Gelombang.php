@@ -30,33 +30,11 @@ class Gelombang extends Model
 
     public function getJlhRekapAttribute()
     {
-        //$lbaru = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 0)->get()->count();
-        //$pbaru = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 0)->get()->count();
-        $lbaru = 10;
-        $pbaru = 30;
-        $laktif = 5;
-        $paktif = 15;
-        // $laktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 1)->get()->count();
-        // $paktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 1)->get()->count();
+        $lbaru = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 0)->get()->count();
+        $pbaru = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 0)->get()->count();
+        $laktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 1)->get()->count();
+        $paktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 1)->get()->count();
         return compact('lbaru', 'pbaru', 'laktif', 'paktif');
     }
-
-    // public function getLbaruAttribute()
-    // {
-    //     $calon = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 0)->get()->count();
-    //     return $calon;
-    // }
-
-    // public function getPbaruAttribute()
-    // {
-    //     $calon = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 1)->get()->count();
-    //     return $calon;
-    // }
-
-    // public function getLaktifAttribute()
-    // {
-    //     $calon = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 0)->get()->count();
-    //     return $calon;
-    // }
 
 }
