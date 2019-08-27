@@ -11,6 +11,8 @@ use Excel;
 use App\Exports\UserExport;
 
 use App\User;
+use App\Level;
+use App\Unit;
 
 class UserController extends Controller
 {
@@ -32,9 +34,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::orderBy('name', 'asc')
+        $user = User::orderBy('name', 'asc')
                 ->where('level', 2)
-                ->get()->toArray();
+                ->get();
+        $level = Level::orderBy('name', 'asc')->get();
+        $unit = Unit::get();
+
+        return compact('user', 'level', 'unit');
     }
 
     public function admin()
@@ -60,6 +66,8 @@ class UserController extends Controller
             'email' => $request['email'],
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
+            'level' => $request['level'],
+            'unit_id' => $request['unit_id'],
         ]);
     }
 
@@ -83,9 +91,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $user = User::findOrFail($id);
-        $user->update($request->all());
+        $user->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'phone' => $request['phone'],
+            'password' => Hash::make($request['password']),
+            'level' => $request['level'],
+            'unit_id' => $request['unit_id']
+        ]);
     }
 
     /**
@@ -96,8 +110,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
-
         $user = User::findOrFail($id);
         $user->delete();
     }

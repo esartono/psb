@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\BiayaTes;
 use App\Calon;
 use App\CalonBiayaTes;
+use App\Edupay\Facades\Edupay;
 use App\Gelombang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,15 +21,9 @@ class CalonController extends Controller
 
     public function index()
     {
-        $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-
-        $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya');
-
-        if(auth('api')->user()->isAdmin()) {
-            return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
-        }
-
         if (auth('api')->user()->isUser()){
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya');
             return $calons->where('user_id', auth('api')->user()->id)
                     ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
@@ -98,11 +93,13 @@ class CalonController extends Controller
                     ->where('ck_id', $request['ck_id'])
                     ->get()->first();
 
-        CalonBiayaTes::create([
+        $calonbiaya = CalonBiayaTes::create([
             'calon_id' => $calon->id,
             'biaya_id' => $biaya->id,
             'expired' => date("Y-m-d", strtotime("+1 week"))
         ]);
+
+        Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calonbiaya->expired);
     }
 
     /**
@@ -113,16 +110,36 @@ class CalonController extends Controller
      */
     public function show($id)
     {
-        $calon = Calon::with('gelnya.unitnya.catnya')
-            ->where('id', $id)
-            ->where('user_id', auth('api')->user()->id)
-            ->first();
+        if(auth('api')->user()->isUser()){
+            $calon = Calon::with('gelnya.unitnya.catnya')
+                ->where('id', $id)
+                ->where('user_id', auth('api')->user()->id)
+                ->first();
 
-        if($calon) {
-            return $calon;
-        } else {
-            return response()->json(['message' => 'Not Found!'], 404);
+            if($calon) {
+                return $calon;
+            } else {
+                return response()->json(['message' => 'Not Found!'], 404);
+            }
         }
+            else
+        {
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya')
+                        ->where('status',$id);
+
+            if(auth('api')->user()->isAdmin()) {
+                return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
+            }
+
+            if(auth('api')->user()->isAdminUnit()) {
+                $unit = auth('api')->user()->unit_id;
+                $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+                return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
+            }
+        }
+
     }
 
     /**

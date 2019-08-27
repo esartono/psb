@@ -6,10 +6,8 @@ use SimpleXMLElement;
 
 class Edupay
 {
-    public function view()
+    public function view($idtagihan)
     {
-        $idtagihan = 181934001;
-
         $apikey = config('edupay.api');
         $biller = config('edupay.biller');
         $checksum = sha1($biller.$apikey.$idtagihan);
@@ -36,13 +34,8 @@ class Edupay
 
     }
 
-    public function create()
+    public function create($idtagihan, $total, $nama, $start, $end)
     {
-        $idtagihan = 202131002;
-        $total = 10000;
-        $nama = 'Arif Pribadi';
-        $start = '2019-08-07 00:00:00';
-        $end = '2019-12-10 23:59:59';
         $apikey = config('edupay.api');
         $biller = config('edupay.biller');
         $checksum = sha1($biller.$apikey.$idtagihan);
@@ -78,12 +71,8 @@ class Edupay
         }
     }
 
-    public function edit()
+    public function edit($idtagihan, $total, $nama, $end)
     {
-        $idtagihan = 202131002;
-        $total = 20000;
-        $nama = 'Arif Pribadi Banget';
-        $end = '2019-12-31 23:59:59';
         $apikey = config('edupay.api');
         $biller = config('edupay.biller');
         $checksum = sha1($biller.$apikey.$idtagihan);
@@ -113,9 +102,8 @@ class Edupay
         }
     }
 
-    public function delete()
+    public function delete($idtagihan)
     {
-        $idtagihan = 202131002;
         $apikey = config('edupay.api');
         $biller = config('edupay.biller');
         $checksum = sha1($biller.$apikey.$idtagihan);

@@ -46,7 +46,7 @@ class PegawaiController extends Controller
      */
     public function show($id)
     {
-        //
+        return Pegawai::where('nip', $id)->get()->count();
     }
 
     /**

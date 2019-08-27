@@ -22,7 +22,7 @@
                         <img src="/img/user.svg" class="profile-user-img img-fluid img-circle" alt="Calon Siswa">
                     </div>
                     <h3 class="profile-username text-center text-uppercase">{{ calon.name }}</h3>
-                    <p class="text-muted text-center">{{ calon.gelnya.kode_va }}{{ calon.uruts }}</p>
+                    <p class="text-muted text-center">{{ calon.uruts }}</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <b>Tempat, Tanggal lahir</b> <a class="float-right">{{ calon.tempat_lahir }}, {{ calon.tgl_lahir | Tanggal }}</a>
@@ -58,7 +58,7 @@
                             <hr>
                             <h1>{{ calon.biayates.biayanya.biaya | toCurrency}}</h1>
                             <hr>
-                            <p>Dibayarkan melalui rekening BSM : <b>{{ calon.gelnya.kode_va }}{{ calon.uruts }}</b><br>
+                            <p>Dibayarkan melalui rekening BSM : <b>{{ calon.uruts }}</b><br>
                             Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b></p>
                             <button class="btn btn-block btn-secondary mt-3 disabled">Cetak Kartu Seleksi</button>
                             <button class="btn btn-block btn-primary mt-3">Cetak Kartu Seleksi</button>

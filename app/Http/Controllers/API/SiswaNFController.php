@@ -50,7 +50,9 @@ class SiswaNFController extends Controller
      */
     public function show($id)
     {
-        //
+        $siswa = SiswaNF::with('unitnya', 'tpnya', 'kelasnya')->where('nis', $id)->get();
+        $cek = $siswa->count();
+        return compact('siswa', 'cek');
     }
 
     /**

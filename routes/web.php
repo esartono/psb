@@ -48,6 +48,5 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/pegawai', function () {return view('front');});
 
     //Route untuk Data Calon Peserta Didik
-    Route::get('/cpdbaru', function () {return view('front');});
-    Route::get('/cpdaktif', function () {return view('front');});
+    Route::get('/cpd/{id}', function () {return view('front');});
 });

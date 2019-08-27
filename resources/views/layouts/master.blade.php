@@ -173,13 +173,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/cpdbaru" class="nav-link">
+                <router-link :to="{path: '/cpd/0' }" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>CPD Baru</p>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/cpdaktif" class="nav-link">
+                <router-link :to="{path: '/cpd/1' }" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>CPD Aktif</p>
                 </router-link>

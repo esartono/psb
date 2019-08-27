@@ -51,8 +51,8 @@ class HomeController extends Controller
 
     public function edupay()
     {
-        $edupay = Edupay::delete();
-        dd($edupay);
+        //$edupay = Edupay::view('181934001');
+        //dd($edupay);
         return view('profile');
     }
 

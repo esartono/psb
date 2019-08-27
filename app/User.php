@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     const ACCESS_ADMIN = 1;
     const ACCESS_USER = 2;
+    const ACCESS_ADMINUNIT = 3;
 
     use HasApiTokens, Notifiable;
 
@@ -20,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'level'
+        'name', 'email', 'phone', 'password', 'level', 'unit'
     ];
 
     /**
@@ -29,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'level'
+        'created_at', 'updated_at', 'password', 'remember_token', 'level', 'unit'
     ];
 
     /**
@@ -75,6 +76,11 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->level == static::ACCESS_ADMIN;
+    }
+
+    public function isAdminUnit()
+    {
+        return $this->level == static::ACCESS_ADMINUNIT;
     }
 
     public function calons()

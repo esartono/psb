@@ -148,9 +148,8 @@
         methods: {
             listData() {
                 this.$Progress.start();
-                axios.get("../api/calons").then(({
-                    data
-                }) => (this.calons = data));
+                axios.get("../api/calons/" + this.$route.params.id )
+                    .then(({ data }) => (this.calons = data));
                 this.$Progress.finish();
             },
 

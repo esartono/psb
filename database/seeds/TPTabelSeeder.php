@@ -12,6 +12,7 @@ class TPTabelSeeder extends Seeder
      */
     public function run()
     {
+        TahunPelajaran::create(['name' => '2019/2020', 'status' => 0]);
         TahunPelajaran::create(['name' => '2020/2021', 'status' => 1]);
     }
 }

@@ -5,7 +5,6 @@
         <div class="card border-info">
           <div class="card-header bg-info">
             <h3 class="card-title">Daftar Nama User</h3>
-
             <div class="card-tools">
               <a class="btn btn-sm btn-danger" @click="addModal">
                 <i class="fas fa-plus"></i> Tambah Data
@@ -125,6 +124,20 @@
                   </div>
                 </div>
                 <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Password</label>
+                  <div class="col-sm-8">
+                    <input
+                      v-model="form.password"
+                      type="password"
+                      name="password"
+                      class="form-control"
+                      :class="{ 'is-invalid':form.errors.has('password') }"
+                      id="password"
+                    />
+                    <has-error :form="form" field="passwords"></has-error>
+                  </div>
+                </div>
+                <div class="form-group row">
                   <label class="col-sm-4 col-form-label">No. Handphone</label>
                   <div class="col-sm-8">
                     <input
@@ -136,6 +149,32 @@
                       id="phone"
                     />
                     <has-error :form="form" field="name"></has-error>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Level</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.level" name="level" class="form-control" id="level">
+                      <option
+                        v-for="level in levels"
+                        :key="level.id"
+                        v-bind:value="level.id"
+                      >{{ level.name }}</option>
+                    </select>
+                    <has-error :form="form" field="level"></has-error>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Unit</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.unit_id" name="unit_id" class="form-control" id="unit_id">
+                      <option
+                        v-for="unit in units"
+                        :key="unit.id"
+                        v-bind:value="unit.id"
+                      >{{ unit.name }}</option>
+                    </select>
+                    <has-error :form="form" field="unit_id"></has-error>
                   </div>
                 </div>
               </div>
@@ -157,6 +196,8 @@ export default {
     return {
       editmode: false,
       users: [],
+      units: [],
+      levels: [],
       filters: {
         name: { value: "", keys: ["name"] }
       },
@@ -167,7 +208,9 @@ export default {
         name: "",
         email: "",
         phone: "",
-        password: ""
+        password: "",
+        level: "",
+        unit_id: ""
       })
     };
   },
@@ -175,7 +218,11 @@ export default {
   methods: {
     listData() {
       this.$Progress.start();
-      axios.get("../api/users").then(({ data }) => (this.users = data));
+      axios.get("../api/users").then((data) => {
+        this.users = data.data.user
+        this.levels = data.data.level
+        this.units = data.data.unit
+      });
       this.$Progress.finish();
     },
 
@@ -270,6 +317,7 @@ export default {
   },
 
   mounted() {
+    this.listData();
     $("#addModal").on("hidden.bs.modal", this.modalOnHidden);
   }
 };

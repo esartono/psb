@@ -93,8 +93,7 @@ let routes = [
     /**
      * Data Calon Peserta Didik
      */
-    { path: '/cpdbaru', component: require('./components/cpd/CPDBaru.vue').default},
-    { path: '/cpdaktif', component: require('./components/cpd/CPDAktif.vue').default},
+    { path: '/cpd/:id', component: require('./components/cpd/CPDBaru.vue').default},
 
     /**
      * Component untuk page yang belum dibuat/tidak ada

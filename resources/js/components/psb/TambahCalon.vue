@@ -92,6 +92,7 @@
                                             type="text"
                                             name="name"
                                             class="form-control"
+                                            :disabled="form.ck_id == 2"
                                             :class="{ 'is-invalid':form.errors.has('name') }"
                                             id="name"
                                             placeholder="Nama Lengkap"
@@ -680,7 +681,7 @@ import { constants } from 'crypto';
                     kelas_tujuan: "",
                     photo: "",
                     tempat_lahir: "",
-                    tgl_lahir: new Date(),
+                    tgl_lahir: new Date().toJSON().slice(0,10).replace(/-/g,'/'),
                     agama: 1,
                     info: "",
                     status: "",
@@ -744,13 +745,89 @@ import { constants } from 'crypto';
             },
 
             pilihAsal($asal) {
-                this.form.ck_id = $asal
-                if ($asal == 2) {
-                    this.form.asal_nf == 1
-                } else {
-                    this.form.asal_nf == 0
+                if($asal === 1)
+                {
+                    this.form.ck_id = $asal
+                    this.form.asal_nf = 0
+                    this.$refs.wizard.changeTab(0,2)
                 }
-                this.$refs.wizard.changeTab(0,2)
+
+                if($asal === 2)
+                {
+                    Swal.fire({
+                        title: 'Masukan No. Induk Siswa',
+                        input: 'text',
+                        showCancelButton: true,
+                        inputValidator: (nis) => {
+                            if(!nis) {
+                                return 'NIS harus diisi'
+                            }
+
+                            if(nis) {
+                                axios
+                                    .get("../api/siswanfs/"+nis)
+                                    .then((data) => {
+                                        //this.ceknya = data.data.siswa
+                                        if(data.data.cek == 1) {
+                                            this.form.ck_id = $asal
+                                            this.form.asal_nf = 1
+                                            this.form.name = data.data.siswa[0].name
+                                            this.form.jk = data.data.siswa.jk
+                                            this.$refs.wizard.changeTab(0,3)
+                                            switch(data.data.siswa.unit) {
+                                                case 1:
+                                                    this.gel_id = 2;
+                                                    break;
+                                                case 2:
+                                                    this.gel_id = 3;
+                                                    break;
+                                                case 3:
+                                                    this.gel_id = 4;
+                                                    break;
+                                            }
+                                        } else {
+                                            Toast.fire({
+                                                type: "error",
+                                                title: "No. Induk Siswa tidak ditemukan !"
+                                            });
+                                        }
+                                    });
+                            }
+                        }
+                    })
+                }
+
+                if($asal === 3)
+                {
+                    Swal.fire({
+                        title: 'Masukan No. Induk Pegawai',
+                        input: 'text',
+                        showCancelButton: true,
+                        inputValidator: (nip) => {
+                            if(!nip) {
+                                return 'No. Induk Pegawai harus diisi'
+                            }
+
+                            if(nip) {
+                                axios
+                                    .get("../api/pegawais/"+nip)
+                                    .then((data) => {
+                                        this.ceknya = data.data.cek
+                                        if(data.data.cek == 1) {
+                                            this.form.ck_id = $asal
+                                            this.form.asal_nf = 0
+                                            this.$refs.wizard.changeTab(0,2)
+                                        } else {
+                                            Toast.fire({
+                                                type: "error",
+                                                title: "No. Induk Pegawai tidak ditemukan !"
+                                            });
+                                        }
+                                    });
+                            }
+                        }
+                    })
+                }
             },
 
             pilihUnit($unit) {
