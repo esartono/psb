@@ -42,6 +42,11 @@
   color: #777777;
   font-weight: 300; }
 
+.bg-TK {background-color: #f04e23 !important;}
+.bg-SD {background-color: #067c3f !important;}
+.bg-SMP {background-color: #1d458b !important;}
+.bg-SMA {background-color: #a85433 !important;}
+
 body {
   color: #777777;
   font-family: "Roboto", sans-serif;
@@ -2015,6 +2020,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   bottom: -30px; }
 .single-faculty .meta-text {
   padding: 60px 30px 40px;
+  border-radius: 20px;
   background: #fff; }
   @media (max-width: 1024px) {
     .single-faculty .meta-text {

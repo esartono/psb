@@ -34,7 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="/img/logo.svg" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Aplikasi PSB</span>
     </a>
@@ -59,14 +59,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-th cyan"></i>
               <p>
                 Dashboard
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/edupay" class="nav-link">
-              <i class="nav-icon fas fa-dollar-sign green"></i>
-              <p>
-                Edupay
               </p>
             </a>
           </li>
@@ -136,6 +128,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <router-link to="/config/agreement" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Persetujuan</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/config/berita" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Berita</p>
                 </router-link>
               </li>
             </ul>

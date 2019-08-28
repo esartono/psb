@@ -76,6 +76,7 @@ let routes = [
     { path: '/config/gelombang', component: require('./components/config/Gelombang.vue').default},
     { path: '/config/biayates', component: require('./components/config/BiayaTes.vue').default},
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
+    { path: '/config/berita', component: require('./components/config/Berita.vue').default},
 
     /**
      * Dashboard Ortu

@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@depan')->name('depan');
 
 Auth::routes(['verify' => true]);
 
+
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/psb', 'HomeController@psb')->name('psb');
     Route::get('/tambahcalon', 'HomeController@psb')->name('psb');
@@ -38,6 +39,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/config/gelombang', function () {return view('front');});
     Route::get('/config/biayates', function () {return view('front');});
     Route::get('/config/agreement', function () {return view('front');});
+    Route::get('/config/berita', function () {return view('front');});
 
     //Route untuk eksport Data
     Route::get('EksportUser', 'API\UserController@export');

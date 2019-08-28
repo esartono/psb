@@ -31,6 +31,7 @@ Route::apiResources([
     'cks' => 'API\CalonKategoriController',
     'calons' => 'API\CalonController',
     'agreements' => 'API\AgreementController',
+    'beritas' => 'API\BeritaController',
     //'telegrams' => 'API\TelegramController',
 ]);
 

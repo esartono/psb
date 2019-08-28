@@ -6,6 +6,8 @@ use App\Edupay\Facades\Edupay;
 use Illuminate\Http\Request;
 use App\Gelombang;
 use App\TahunPelajaran;
+use App\Unit;
+use App\Berita;
 
 class HomeController extends Controller
 {
@@ -51,8 +53,6 @@ class HomeController extends Controller
 
     public function edupay()
     {
-        //$edupay = Edupay::view('181934001');
-        //dd($edupay);
         return view('profile');
     }
 
@@ -63,6 +63,9 @@ class HomeController extends Controller
         $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
 
         $start = date('M d, Y H:i:s', strtotime($gelombang->start));
-        return view('depan', compact('start', 'tp'));
+        $units = Unit::with('catnya')->orderBy('id', 'asc')->get();
+        $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
+
+        return view('front.depan', compact('start', 'tp', 'units', 'berita'));
     }
 }
