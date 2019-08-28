@@ -25,7 +25,25 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
+    public function redirectTo(){
+
+        // User role
+        $role = Auth::user()->level;
+
+        // Check user role
+        switch ($role) {
+            case '1':
+                return '/home';
+                break;
+            case '2':
+                return '/psb';
+                break;
+            default:
+                return '/login';
+                break;
+        }
+    }
 
     /**
      * Create a new controller instance.
