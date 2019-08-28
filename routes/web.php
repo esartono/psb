@@ -12,9 +12,8 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
-Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/psb', 'HomeController@psb')->name('psb');

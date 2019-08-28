@@ -5,9 +5,10 @@ namespace App;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     const ACCESS_ADMIN = 1;
     const ACCESS_USER = 2;
@@ -86,5 +87,15 @@ class User extends Authenticatable
     public function calons()
     {
         return $this->hasMany(Calon::class, 'user_id');
+    }
+
+    public function kirimDaftar()
+    {
+        $user = $this;
+        Mail::send('emails.daftar', compact('user'), function ($m) use ($user)
+            {
+                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id')->subject('Pendaftaran User di PSB Online SIT Nurul Fikri berhasil');
+            }
+        );
     }
 }
