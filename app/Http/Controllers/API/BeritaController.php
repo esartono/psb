@@ -16,7 +16,7 @@ class BeritaController extends Controller
      */
     public function index()
     {
-        return Berita::orderBy('id', 'asc')->get()->toArray();
+        return Berita::orderBy('id', 'desc')->get()->toArray();
     }
 
     /**
@@ -27,7 +27,10 @@ class BeritaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Berita::create([
+            'judul' => $request['judul'],
+            'berita' => $request['berita'],
+        ]);
     }
 
     /**
@@ -50,7 +53,8 @@ class BeritaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $berita = Berita::findOrFail($id);
+        $berita->update($request->all());
     }
 
     /**
@@ -61,6 +65,7 @@ class BeritaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $berita = Berita::findOrFail($id);
+        $berita->delete();
     }
 }

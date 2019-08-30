@@ -32,6 +32,7 @@ Route::apiResources([
     'calons' => 'API\CalonController',
     'agreements' => 'API\AgreementController',
     'beritas' => 'API\BeritaController',
+    'jadwals' => 'API\JadwalController',
     //'telegrams' => 'API\TelegramController',
 ]);
 

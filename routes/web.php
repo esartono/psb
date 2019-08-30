@@ -37,6 +37,7 @@ Route::middleware('auth', 'admin')->group(function(){
     //Route untuk folder config
     Route::get('/config/tp', function () {return view('front');});
     Route::get('/config/gelombang', function () {return view('front');});
+    Route::get('/config/jadwal', function () {return view('front');});
     Route::get('/config/biayates', function () {return view('front');});
     Route::get('/config/agreement', function () {return view('front');});
     Route::get('/config/berita', function () {return view('front');});

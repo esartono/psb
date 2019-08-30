@@ -15,7 +15,10 @@ class AgreementController extends Controller
      */
     public function index()
     {
-        return Agreement::orderBy('id', 'desc')->first();
+        $agree = Agreement::orderBy('id', 'desc')->get();
+        $ttl =  $agree->sum('id');
+
+        return compact('agree', 'ttl');
     }
 
     /**
@@ -26,7 +29,9 @@ class AgreementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Agreement::create([
+            'agreement' => $request['agreement'],
+        ]);
     }
 
     /**
@@ -61,6 +66,7 @@ class AgreementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $agree = Agreement::findOrFail(1);
+        $agree->delete();
     }
 }

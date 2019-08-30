@@ -119,6 +119,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
+                <router-link to="/config/jadwal" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Jadwal</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/config/biayates" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Biaya Tes</p>

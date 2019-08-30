@@ -25,10 +25,27 @@
                         color="#20a0ff"
                         error-color="#ff4949">
                         <tab-content title="Form Persetujuan" icon="fas fa-handshake" :start-index="stepIndex">
-                            <h5>Form Persetujuan</h5>
-                            <div class="card offset-md-1 bg-light p-4 gulung" @scroll="gulungabis">
-                                <froalaView v-model="agrees.agreement"></froalaView>
-                            </div>
+                                <table class="table table-bordered table-hover table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Pernyataan Persetujuan</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(row, index) in agrees.agree" :key="row.id">
+                                            <th>{{ index+1 }}</th>
+                                            <td>{{ row.agreement }}</td>
+                                            <td class="text-center">
+                                                <div class="icheck-success">
+                                                    <input v-model="setujuok" :value="row.id" type="checkbox" id="ok1" v-on:change="ceksetujusemua()">
+                                                    <label>Ya</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             <div id="tombol-setuju" class="custom-control offset-md-1 custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="setujudonk" v-model="form.setuju">
                                 <label class="custom-control-label" for="setujudonk">Saya setuju dengan ketentuan dan syarat yang berlaku</label>
@@ -641,6 +658,7 @@ import { constants } from 'crypto';
             return {
                 stepIndex:0,
                 ygaktif: true,
+                setujuok:[],
                 ceknya: "",
                 unit: "",
                 unit_ck: "",
@@ -721,10 +739,14 @@ import { constants } from 'crypto';
         },
 
         methods: {
-            gulungabis ({ target: { scrollTop, clientHeight, scrollHeight }}) {
-                if (scrollTop + clientHeight >= scrollHeight) {
-                    document.getElementById('tombol-setuju').style.display='block'
-                }
+            ceksetujusemua() {
+                var totalnya = 0
+                this.setujuok.forEach((item) => {
+                    totalnya = totalnya+item
+                    if(totalnya === this.agrees.ttl) {
+                        this.form.setuju = true
+                    }
+                });
             },
 
             cekback_aktif() {

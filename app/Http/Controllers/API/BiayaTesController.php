@@ -21,11 +21,9 @@ class BiayaTesController extends Controller
 
     public function index()
     {
-        $tp = TahunPelajaran::where('status',1)->first();
-
         return BiayaTes::with('gelnya.unitnya', 'gelnya.tpnya','cknya')
-                ->whereHas('gelnya', function ($query) use($tp) {
-                    $query->where('tp', $tp->id);
+                ->whereHas('gelnya', function ($query) {
+                    $query->where('tp', auth('api')->user()->tpid);
                 })
                 ->orderBy('id', 'asc')
                 ->get()

@@ -19,22 +19,19 @@ class GelombangController extends Controller
 
     public function index()
     {
-        $tp = TahunPelajaran::where('status',1)->first();
-
         return Gelombang::with('unitnya.catnya', 'tpnya')
-                ->where('tp', $tp->id)
+                ->where('tp', auth('api')->user()->tpid)
                 ->orderBy('unit_id', 'asc')->get()->toArray();
     }
 
     public function show($id)
     {
         $tgl_sekarang = today()->format('Y-m-d');
-        $tp = TahunPelajaran::where('status',1)->first();
 
         $gelombang = Gelombang::with('unitnya.catnya', 'tpnya')
                 ->where('unit_id', $id)
                 ->where('end', '>', $tgl_sekarang)
-                ->where('tp', $tp->id)
+                ->where('tp', auth('api')->user()->tpid)
                 ->first();
 
         if ($gelombang !== null) {

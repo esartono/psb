@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card border-info">
                     <div class="card-header bg-info">
                         <h3 class="card-title">Daftar Berita</h3>
@@ -25,8 +25,8 @@
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <th>{{ index+((currentPage-1) * 7)+1 }}</th>
-                                    <td class="text-center">{{ row.judul }}</td>
-                                    <td class="text-center">{{ row.berita }}</td>
+                                    <td>{{ row.judul }}</td>
+                                    <td>{{ row.berita }}</td>
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -47,7 +47,7 @@
             <!-- Modal -->
             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <form @submit.prevent="editmode ? updateData() : createData()">
                             <div class="modal-header">
@@ -59,17 +59,17 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Judul</label>
-                                    <div class="col-sm-8">
+                                    <label class="col-sm-2 col-form-label">Judul :</label>
+                                    <div class="col-sm-10">
                                         <input v-model="form.judul" type="text" name="judul" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('judul') }" id="judul"
                                         />
                                         <has-error :form="form" field="judul"></has-error>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Berita</label>
-                                    <froala id="berita" :tag="'textarea'" v-model="form.berita"></froala>
+                                <div class="form-group">
+                                    <label class="col-form-label">Berita :</label>
+                                    <textarea class="form-control" rows="5" v-model="form.berita"></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -149,7 +149,7 @@
             updateData() {
                 this.$Progress.start();
                 this.form
-                    .put("../api/berita/" + this.form.id)
+                    .put("../api/beritas/" + this.form.id)
                     .then(() => {
                         $("#addModal").modal("hide");
                         Fire.$emit("listData");

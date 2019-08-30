@@ -74,6 +74,7 @@ let routes = [
      */
     { path: '/config/tp', component: require('./components/config/TP.vue').default},
     { path: '/config/gelombang', component: require('./components/config/Gelombang.vue').default},
+    { path: '/config/jadwal', component: require('./components/config/Jadwal.vue').default},
     { path: '/config/biayates', component: require('./components/config/BiayaTes.vue').default},
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
     { path: '/config/berita', component: require('./components/config/Berita.vue').default},
@@ -157,6 +158,14 @@ Vue.filter('toCurrency', function (value) {
     });
     return formatter.format(parseInt(uangnya));
 });
+
+Vue.filter('YaTidak', function (value) {
+    if(value === 0){
+        return 'Tidak';
+    } else {
+        return 'Ya';
+    }
+})
 
 //Untuk Event
 let Fire = new Vue()
