@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CalonKategoriTableSeeder::class);
         $this->call(AgamaTableSeeder::class);
         $this->call(GelombangTableSeeder::class);
-        $this->call(AgreementTableSeeder::class);
+        //$this->call(AgreementTableSeeder::class);
         $this->call(BiayaTesTableSeeder::class);
+        $this->call(BeritaTableSeeder::class);
     }
 }

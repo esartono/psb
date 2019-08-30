@@ -104,7 +104,7 @@
                 this.$Progress.start();
                 axios.get("../api/agreements").then(({
                     data
-                }) => (this.agreements = data));
+                }) => (this.agreements = data.agree));
                 this.$Progress.finish();
             },
 
