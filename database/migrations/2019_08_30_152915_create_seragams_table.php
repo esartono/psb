@@ -18,7 +18,8 @@ class CreateSeragamsTable extends Migration
             $table->integer('cat_id')->unsigned();
             $table->boolean('jk')->default(0);
             $table->string('jenis');
-            $table->json('ukuran');
+            $table->string('ukuran');
+            $table->json('keterangan');
             $table->timestamps();
         });
     }

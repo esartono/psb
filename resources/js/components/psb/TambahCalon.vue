@@ -146,7 +146,7 @@
                                     </div>
                                     <label class="col-md-2 col-form-label">Tanggal Lahir</label>
                                     <div class="col-md-3">
-                                        <VueDatePicker 
+                                        <VueDatePicker
                                             v-model="form.tgl_lahir"
                                             format="DD MMMM YYYY"
                                             format-output="YYYY/MM/DD"
@@ -176,7 +176,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Jenis Kelamin</label>
                                     <div class="col-md-3">
-                                        <select v-model="form.jk" name="jk" class="form-control" id="jk">
+                                        <select v-model="form.jk" v-on:change="listSeragam($event)" name="jk" class="form-control" id="jk">
                                             <option value=1>Laki-Laki</option>
                                             <option value=2>Perempuan</option>
                                         </select>
@@ -620,8 +620,38 @@
                                     </div>
                                 </div>
                         </tab-content>
-                        <tab-content title="Terima Kasih" icon="fas fa-thumbs-up">
+                        <tab-content title="Ukuran Seragam" icon="fas fa-thumbs-up">
                             <div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Ukuran Baju Seragam</label>
+                                    <div class="col-md-3">
+                                        <select v-model="form.baju" name="baju" class="form-control" id="baju">
+                                            <option
+                                                v-for="ukur in bajus"
+                                                :key="ukur.id"
+                                                v-bind:value="ukur.id"
+                                            >{{ ukur.ukuran }}</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Ukuran Celana/Rok Seragam</label>
+                                    <div class="col-md-3">
+                                        <select v-model="form.celana" name="celana" class="form-control" id="celana">
+                                            <option
+                                                v-for="ukur in celanas"
+                                                :key="ukur.id"
+                                                v-bind:value="ukur.id"
+                                            >{{ ukur.ukuran }}</option>
+                                        </select>
+                                    </div>
+                                    <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
                                 <div v-if="Object.keys(Verror).length === 0"></div>
                                 <div
                                     v-else
@@ -662,11 +692,14 @@ import { constants } from 'crypto';
                 ceknya: "",
                 unit: "",
                 unit_ck: "",
+                unit_ck_id: "",
                 minimum_age: "",
                 Verror: {},
                 agrees: {},
                 agamas: {},
                 infos: {},
+                bajus: {},
+                celanas: {},
                 provinsi: {},
                 kotas: {},
                 camats: {},
@@ -858,6 +891,7 @@ import { constants } from 'crypto';
                     .then((data) => {
                         this.unit = data['data']['unitnya']['name']
                         this.unit_ck = data['data']['unitnya']['catnya']['name']
+                        this.unit_ck_id = data['data']['unitnya']['catnya']['id']
                         this.form.gel_id = data['data']['id']
                         this.minimum_age = data['data']['minimum_age']
                         axios
@@ -874,6 +908,16 @@ import { constants } from 'crypto';
                         );
                         this.$refs.wizard.changeTab(0,1)
                     });
+            },
+
+            listSeragam(event) {
+                var pr = event.target.value + ':' + this.unit_ck_id
+                axios
+                    .get("../api/seragam/" + pr)
+                    .then(({ data }) => (
+                        (this.bajus = data.baju),
+                        (this.celanas = data.celana)
+                    ))
             },
 
             listKota(event) {

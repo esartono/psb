@@ -10,6 +10,7 @@ use App\Gelombang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCalonRequest;
+use App\CalonSeragam;
 
 class CalonController extends Controller
 {
@@ -92,6 +93,20 @@ class CalonController extends Controller
         $biaya = BiayaTes::where('gel_id', $request['gel_id'])
                     ->where('ck_id', $request['ck_id'])
                     ->get()->first();
+
+        if($request['baju']) {
+            CalonSeragam::create([
+                'calon_id' => $calon->id,
+                'seragam_id' => $request['baju'],
+            ]);
+        }
+
+        if($request['celana']) {
+            CalonSeragam::create([
+                'calon_id' => $calon->id,
+                'seragam_id' => $request['celana'],
+            ]);
+        }
 
         $calonbiaya = CalonBiayaTes::create([
             'calon_id' => $calon->id,

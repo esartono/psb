@@ -33,6 +33,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/master/user', function () {return view('front');});
     Route::get('/master/unit', function () {return view('front');});
     Route::get('/master/kelas', function () {return view('front');});
+    Route::get('/master/seragam', function () {return view('front');});
 
     //Route untuk folder config
     Route::get('/config/tp', function () {return view('front');});

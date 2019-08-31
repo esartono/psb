@@ -33,12 +33,14 @@ Route::apiResources([
     'agreements' => 'API\AgreementController',
     'beritas' => 'API\BeritaController',
     'jadwals' => 'API\JadwalController',
+    'seragams' => 'API\SeragamController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
 Route::get('admins', 'API\UserController@admin');
 Route::get('kelasnya/{unit}', 'API\KelasnyaController@dataKelas');
 Route::get('provinsi', 'API\ProvinsiController@index');
+Route::get('seragam/{pr}', 'API\SeragamController@dataSeragam');
 Route::get('kota/{prov}', 'API\KotaController@dataKota');
 Route::get('kecamatan/{kota}', 'API\KecamatanController@dataKecamatan');
 Route::get('kelurahan/{camat}', 'API\KelurahanController@dataKelurahan');

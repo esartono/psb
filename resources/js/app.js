@@ -68,6 +68,7 @@ let routes = [
     { path: '/master/user', component: require('./components/master/User.vue').default},
     { path: '/master/unit', component: require('./components/master/Unit.vue').default},
     { path: '/master/kelas', component: require('./components/master/Kelas.vue').default},
+    { path: '/master/seragam', component: require('./components/master/Seragam.vue').default},
 
     /**
      * Konfigurasi
@@ -144,13 +145,13 @@ Vue.filter('Tanggal', function(tanggalnya){
 });
 
 Vue.filter('toCurrency', function (value) {
-    
+
     if(isNaN(value)){
         var uangnya = 0;
     } else {
         var uangnya = value;
     }
-    
+
     var formatter = new Intl.NumberFormat('id-ID', {
         style: 'currency',
         currency: 'IDR',
@@ -165,6 +166,18 @@ Vue.filter('YaTidak', function (value) {
     } else {
         return 'Ya';
     }
+})
+
+Vue.filter('Judul', function (str) {
+    if (!str) return ''
+    str = str.toLowerCase().split(' ');
+    let final = [ ];
+
+    for(let  word of str){
+        final.push(word.charAt(0).toUpperCase()+ word.slice(1));
+    }
+
+    return final.join(' ')
 })
 
 //Untuk Event
