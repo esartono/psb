@@ -122,7 +122,7 @@ class CalonController extends Controller
 
         Mail::send('pdf.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
             {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id')->subject('Biaya Tes SIT Nurul Fikri');
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
             }
         );
     }

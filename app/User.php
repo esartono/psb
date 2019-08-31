@@ -89,13 +89,4 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Calon::class, 'user_id');
     }
 
-    public function kirimDaftar()
-    {
-        $user = $this;
-        Mail::send('emails.daftar', compact('user'), function ($m) use ($user)
-            {
-                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id')->subject('Pendaftaran User di PSB Online SIT Nurul Fikri berhasil');
-            }
-        );
-    }
 }

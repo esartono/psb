@@ -17,12 +17,13 @@ Auth::routes(['verify' => true]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/biayatesPDF/{id}', 'CalonPDFController@biayates')->name('biayatesPDF');
+    Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
 });
 
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/psb', 'HomeController@psb')->name('psb');
-    Route::get('/tambahcalon', 'HomeController@psb')->name('psb');
-    Route::get('/editcalon/{id}', 'HomeController@psb')->name('psb');
+    Route::get('/tambahcalon', 'HomeController@psb')->name('tambahcalon');
+    Route::get('/editcalon/{id}', 'HomeController@psb')->name('editcalon');
 });
 
 Route::middleware('auth', 'admin')->group(function(){

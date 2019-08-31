@@ -230,7 +230,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Edupay' => App\Edupay\Facades\Edupay::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
     ],
 
 ];
