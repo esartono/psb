@@ -46,7 +46,7 @@
                 <th>Logo</th>
                 <th>Alamat</th>
                 <th>Email</th>
-                <th>No. Handphone</th>
+                <th>No. Ponsel</th>
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -172,7 +172,7 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-4 col-form-label">No. Handphone</label>
+                  <label class="col-sm-4 col-form-label">No. Ponsel</label>
                   <div class="col-sm-8">
                     <input
                       v-model="form.phone"

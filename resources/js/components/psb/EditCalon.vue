@@ -201,7 +201,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">No. Telepon/Handphone</label>
+                                    <label class="col-md-3 col-form-label">No. Telepon/Ponsel</label>
                                     <div class="col-md-9">
                                         <input
                                         v-model="form.phone"
@@ -380,7 +380,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-5 col-form-label">No. Handphone</label>
+                                    <label class="col-md-5 col-form-label">No. Ponsel</label>
                                     <div class="col-md-7">
                                         <input
                                         v-model="form.ayah_hp"
@@ -469,7 +469,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-5 col-form-label">No. Handphone</label>
+                                    <label class="col-md-5 col-form-label">No. Ponsel</label>
                                     <div class="col-md-7">
                                         <input
                                         v-model="form.ibu_hp"
