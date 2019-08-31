@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder
             'email' => 'admin@nf.local',
             'phone' => '081295941985',
             'password' => Hash::make('123'),
+            'email_verified_at' => '2019-08-30 00:00:00',
             'level' => 1
         ]); 
 
@@ -26,6 +27,7 @@ class UserTableSeeder extends Seeder
             'email' => 'tes@nf.local',
             'phone' => '081295941985',
             'password' => Hash::make('123'),
+            'email_verified_at' => '2019-08-30 00:00:00',
             'level' => 2
         ]); 
     }
