@@ -24,33 +24,6 @@
                         shape="circle"
                         color="#20a0ff"
                         error-color="#ff4949">
-                        <tab-content title="Form Persetujuan" icon="fas fa-handshake" :start-index="stepIndex">
-                                <table class="table table-bordered table-hover table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Pernyataan Persetujuan</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="(row, index) in agrees.agree" :key="row.id">
-                                            <th>{{ index+1 }}</th>
-                                            <td>{{ row.agreement }}</td>
-                                            <td class="text-center">
-                                                <div class="icheck-success">
-                                                    <input v-model="setujuok" :value="row.id" type="checkbox" id="ok1" v-on:change="ceksetujusemua()">
-                                                    <label>Ya</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            <div id="tombol-setuju" class="custom-control offset-md-1 custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="setujudonk" v-model="form.setuju">
-                                <label class="custom-control-label" for="setujudonk">Saya setuju dengan ketentuan dan syarat yang berlaku</label>
-                            </div>
-                        </tab-content>
                         <tab-content title="Orang Tua" icon="fas fa-users" class="text-center">
                             <h5>Data Calon Siswa</h5>
                             <a
@@ -666,13 +639,42 @@
                                 </div>
                             </div>
                         </tab-content>
+                        <tab-content title="Form Persetujuan" icon="fas fa-handshake" :start-index="stepIndex">
+                                <table class="table table-bordered table-hover table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Pernyataan Persetujuan</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(row, index) in agrees.agree" :key="row.id">
+                                            <th>{{ index+1 }}</th>
+                                            <td>{{ row.agreement }}</td>
+                                            <td class="text-center">
+                                                <div class="icheck-success">
+                                                    <input v-model="setujuok" :value="row.id" type="checkbox" id="ok1" v-on:change="ceksetujusemua()">
+                                                    <label>Ya</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            <div id="tombol-setuju" class="custom-control offset-md-1 custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="setujudonk" v-model="form.setuju">
+                                <label class="custom-control-label" for="setujudonk">Saya setuju dengan ketentuan dan syarat yang berlaku </label>
+                            </div>
+                        </tab-content>
                         <hr>
                         <button type="primary" class="btn btn-warning" slot="prev" v-on:click="cekback_aktif()">Back</button>
                         <button type="primary" class="btn btn-primary" slot="next"
-                            v-bind:style="ygaktif == true && form.setuju == true ? 'display:block' : 'display:none'"
+                            v-bind:style="ygaktif == true ? 'display:block' : 'display:none'"
                             v-on:click="cektmbl_aktif()"
                         >Next</button>
-                        <button type="primary" class="btn btn-success" slot="finish">Data yang telah Saya isi adalah Benar </button>
+                        <button type="primary" class="btn btn-success" slot="finish"
+                            v-bind:style="this.form.setuju == true ? 'display:block' : 'display:none'"
+                        >Data yang telah Saya isi adalah Benar </button>
                     </form-wizard>
                 </div>
             </div>
@@ -687,7 +689,7 @@ import { constants } from 'crypto';
         data() {
             return {
                 stepIndex:0,
-                ygaktif: true,
+                ygaktif: false,
                 setujuok:[],
                 ceknya: "",
                 unit: "",
@@ -778,12 +780,14 @@ import { constants } from 'crypto';
                     totalnya = totalnya+item
                     if(totalnya === this.agrees.ttl) {
                         this.form.setuju = true
+                    } else {
+                        this.form.setuju = false
                     }
                 });
             },
 
             cekback_aktif() {
-                if (this.$refs.wizard.activeTabIndex == 2 || this.$refs.wizard.activeTabIndex == 3) {
+                if (this.$refs.wizard.activeTabIndex == 1 || this.$refs.wizard.activeTabIndex == 2) {
                     this.ygaktif = false
                 } else {
                     this.ygaktif = true
@@ -804,7 +808,7 @@ import { constants } from 'crypto';
                 {
                     this.form.ck_id = $asal
                     this.form.asal_nf = 0
-                    this.$refs.wizard.changeTab(0,2)
+                    this.$refs.wizard.changeTab(0,1)
                 }
 
                 if($asal === 2)
@@ -871,7 +875,7 @@ import { constants } from 'crypto';
                                         if(data.data.cek == 1) {
                                             this.form.ck_id = $asal
                                             this.form.asal_nf = 0
-                                            this.$refs.wizard.changeTab(0,2)
+                                            this.$refs.wizard.changeTab(0,1)
                                         } else {
                                             Toast.fire({
                                                 type: "error",
@@ -898,7 +902,7 @@ import { constants } from 'crypto';
                             .get("../api/kelasnya/" + $unit)
                             .then(({ data }) => (this.kelass = data))
                         this.ygaktif = true
-                        this.$refs.wizard.changeTab(0,3)
+                        this.$refs.wizard.changeTab(0,2)
                     })
                     .catch(() => {
                         Swal.fire(
@@ -906,7 +910,7 @@ import { constants } from 'crypto';
                             "Sudah Tutup atau Belum Ada",
                             "danger"
                         );
-                        this.$refs.wizard.changeTab(0,1)
+                        this.$refs.wizard.changeTab(0,0)
                     });
             },
 

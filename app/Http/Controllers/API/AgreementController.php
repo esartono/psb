@@ -15,7 +15,7 @@ class AgreementController extends Controller
      */
     public function index()
     {
-        $agree = Agreement::orderBy('id', 'desc')->get();
+        $agree = Agreement::orderBy('id', 'asc')->get();
         $ttl =  $agree->sum('id');
 
         return compact('agree', 'ttl');
