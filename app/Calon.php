@@ -101,4 +101,9 @@ class Calon extends Model
         return $this->hasOne(CalonBiayaTes::class);
     }
 
+    public function usernya()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

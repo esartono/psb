@@ -60,8 +60,8 @@
                             <hr>
                             <p>Dibayarkan melalui rekening BSM : <b>{{ calon.uruts }}</b><br>
                             Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b></p>
-                            <button class="btn btn-block btn-secondary mt-3 disabled">Cetak Kartu Seleksi</button>
-                            <button class="btn btn-block btn-primary mt-3">Cetak Kartu Seleksi</button>
+                            <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-block btn-success mt-3">Cetak Cara Pembayaran Biaya Tes</a>
+                            <a v-bind:href="'seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-block btn-primary mt-3">Cetak Kartu Seleksi</a>
                         </div>
                     </div>
                     <div class="tab-pane" id="seleksi">

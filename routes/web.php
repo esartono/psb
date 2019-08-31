@@ -15,6 +15,9 @@ Route::get('/', 'HomeController@depan')->name('depan');
 
 Auth::routes(['verify' => true]);
 
+Route::middleware('auth')->group(function(){
+    Route::get('/biayatesPDF/{id}', 'CalonPDFController@biayates')->name('biayatesPDF');
+});
 
 Route::middleware('auth', 'user')->group(function(){
     Route::get('/psb', 'HomeController@psb')->name('psb');

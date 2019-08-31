@@ -13,7 +13,23 @@ class AgreementTableSeeder extends Seeder
     public function run()
     {
         Agreement::create([
-            'agreement' =>''
+            'agreement' =>'Menerima keputusan hasil tes seleksi siswa baru.'
+        ]);
+
+        Agreement::create([
+            'agreement' =>'Menyelesaikan kewajiban pembiayaan pendidikan yang meliputi SPP sebelum tanggal 10 setiap bulannya, biaya daftar ulang tahunan, biaya komite sekolah tahunan.'
+        ]);
+
+        Agreement::create([
+            'agreement' =>'Menyepakati seluruh pola pendidikan dan pembelajaran yang dilaksanakan sekolah.'
+        ]);
+
+        Agreement::create([
+            'agreement' =>'Menaati seluruh peraturan dan tata tertib yang ditetapkan sekolah.'
+        ]);
+
+        Agreement::create([
+            'agreement' =>'Bersedia mengikuti kegiatan parenting yang diselenggarakan sekolah.'
         ]);
     }
 }

@@ -8,6 +8,8 @@ use App\CalonBiayaTes;
 use App\Edupay\Facades\Edupay;
 use App\Gelombang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use PDF;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCalonRequest;
 use App\CalonSeragam;
@@ -115,6 +117,14 @@ class CalonController extends Controller
         ]);
 
         Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calonbiaya->expired);
+
+        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+
+        Mail::send('pdf.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+            {
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id')->subject('Biaya Tes SIT Nurul Fikri');
+            }
+        );
     }
 
     /**
