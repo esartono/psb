@@ -67,7 +67,7 @@
 					<ul class="nav-menu">
 						<li class="menu-active"><a href="#">Info PSB</a></li>
 						<li><a href="file/Prosedur Pendaftaran PSB SIT NF.pdf" target="_blank">Alur Pendaftaran</a></li>
-						<li><a href="#">Biaya Pendaftaran</a></li>
+						<li><a href="biaya">Biaya Pendaftaran</a></li>
 						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
 						<li class="menu-has-children"><a href="">Jadwal Tes</a>
 							<ul>

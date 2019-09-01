@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
+Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 
 Auth::routes(['verify' => true]);
 

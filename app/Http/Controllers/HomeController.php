@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except('depan');
+        $this->middleware(['auth', 'verified'])->except('depan', 'biaya');
     }
 
     /**
@@ -54,6 +54,11 @@ class HomeController extends Controller
     public function edupay()
     {
         return view('profile');
+    }
+
+    public function biaya()
+    {
+        return view('layouts.biaya');
     }
 
     public function depan()
