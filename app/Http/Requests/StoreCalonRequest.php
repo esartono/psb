@@ -25,6 +25,7 @@ class StoreCalonRequest extends FormRequest
     {
         return [
             'nik' => 'required|integer|unique:calons',
+            'nik' => 'required|integer',
             'name' => 'required',
             'panggilan' => 'required',
             'jk' => 'required',
@@ -58,6 +59,7 @@ class StoreCalonRequest extends FormRequest
         return [
             'nik.required' => ['No. NIK' ,$kudu.'No. Induk Kependudukan.'],
             'nik.unique' => ['No. NIK', 'Sudah terdaftar'],
+            'nisn.required' => ['NISN' ,$kudu.'Nomor Induk Siswa Nasional'],
             'name.required' => ['Nama' ,$kudu.'Nama Lengkap.'],
             'panggilan.required' => ['panggilan' ,$kudu.'Panggilan'],
             'jk.required' => ['Jenis Kelamin' ,'Pilih Jenis Kelamin'],
@@ -75,7 +77,7 @@ class StoreCalonRequest extends FormRequest
             'rt.integer' => ['RT' ,$kudu.'Angka'],
             'rw.required' => ['RW' ,$kudu.'No. RW'],
             'rw.integer' => ['RW' ,$kudu.'Angka'],
-            'phone.required' => ['Handphone' ,$kudu.'No. Handphone'],
+            'phone.required' => ['Ponsel' ,$kudu.'No. Ponsel'],
             'ayah_nama.required' => ['Nama Ayah' ,$kudu.'Nama Ayah'],
             'ayah_pendidikan.required' => ['Pendidikan Ayah' ,'Pilih Pendidikan'],
             'ayah_pekerjaan.required' => ['Pekerjaan Ayah' ,'Pilih Pekerjaan'],

@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card col-md-3 p-1 mt-2">
-            <router-link to="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon </b></router-link>
+            <router-link to="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon Siswa </b></router-link>
         </div>
     </div>
     <div

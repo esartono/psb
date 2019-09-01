@@ -24,6 +24,17 @@
                         shape="circle"
                         color="#20a0ff"
                         error-color="#ff4949">
+                        <tab-content title="Pilih Unit" icon="fas fa-school" class="text-center" :start-index="stepIndex">
+                            <h5>Pilih Unit</h5>
+                            <a
+                                class="btn btn-app btn-lg white"
+                                v-for="unit in units"
+                                :key="unit.id"
+                                v-bind:class="unit.catnya.name"
+                                v-on:click="pilihUnit(unit.id, unit.catnya.name)">
+                                <i class="fas fa-address-card"></i>
+                                {{ unit.name }}</a>
+                        </tab-content>
                         <tab-content title="Orang Tua" icon="fas fa-users" class="text-center">
                             <h5>Data Calon Siswa</h5>
                             <a
@@ -39,17 +50,6 @@
                                 {{ ck.name }}
                             </a>
                         </tab-content>
-                        <tab-content title="Pilih Unit" icon="fas fa-school" class="text-center">
-                            <h5>Pilih Unit</h5>
-                            <a
-                                class="btn btn-app btn-lg white"
-                                v-for="unit in units"
-                                :key="unit.id"
-                                v-bind:class="unit.catnya.name"
-                                v-on:click="pilihUnit(unit.id, unit.catnya.name)">
-                                <i class="fas fa-address-card"></i>
-                                {{ unit.name }}</a>
-                        </tab-content>
                         <tab-content title="Data Pribadi" icon="fas fa-user">
                                 <div class="form-group row">
                                     <label class="col-md-3 col-form-label">Jenjang Pendidikan</label>
@@ -63,7 +63,7 @@
                                     </div>
                                     <label class="col-md-2 col-form-label">Kelas Tujuan</label>
                                     <div class="col-md-2">
-                                        <select v-model="form.kelas_tujuan" name="kelas_tujuan" class="form-control" id="kelas_tujuan">
+                                        <select :disabled="form.ck_id == 2" v-model="form.kelas_tujuan" name="kelas_tujuan" class="form-control" id="kelas_tujuan">
                                             <option
                                                 v-for="kls in kelass"
                                                 :key="kls.id"
@@ -295,24 +295,22 @@
                                     <div class="col-md-2">
                                         <input
                                         v-model="form.rt"
-                                        type="text"
+                                        type="number"
                                         name="rt"
                                         class="form-control"
                                         :class="{ 'is-invalid':form.errors.has('rt') }"
                                         id="rt"
-                                        placeholder="000"
                                         >
                                         <has-error :form="form" field="rt"></has-error>
                                     </div>
                                     <div class="col-md-2">
                                         <input
                                         v-model="form.rw"
-                                        type="text"
+                                        type="number"
                                         name="rw"
                                         class="form-control"
                                         :class="{ 'is-invalid':form.errors.has('rw') }"
                                         id="rw"
-                                        placeholder="00"
                                         >
                                         <has-error :form="form" field="rt"></has-error>
                                     </div>
@@ -325,7 +323,6 @@
                                         class="form-control"
                                         :class="{ 'is-invalid':form.errors.has('kodepos') }"
                                         id="kodepos"
-                                        placeholder="00000"
                                         >
                                         <has-error :form="form" field="kodepos"></has-error>
                                     </div>
@@ -606,8 +603,15 @@
                                             >{{ ukur.ukuran }}</option>
                                         </select>
                                     </div>
-                                    <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
+                                    <label class="col-md-3 col-form-label">Ukuran Baju Olahraga</label>
                                     <div class="col-md-3">
+                                        <select v-model="form.bajuolahraga" name="bajuolahraga" class="form-control" id="bajuolahraga">
+                                            <option
+                                                v-for="ukur in bajuolahragas"
+                                                :key="ukur.id"
+                                                v-bind:value="ukur.id"
+                                            >{{ ukur.ukuran }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -621,8 +625,15 @@
                                             >{{ ukur.ukuran }}</option>
                                         </select>
                                     </div>
-                                    <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
+                                    <label class="col-md-3 col-form-label">Ukuran Celana Olahraga</label>
                                     <div class="col-md-3">
+                                        <select v-model="form.celanaolahraga" name="celanaolahraga" class="form-control" id="celanaolahraga">
+                                            <option
+                                                v-for="ukur in celanaolahragas"
+                                                :key="ukur.id"
+                                                v-bind:value="ukur.id"
+                                            >{{ ukur.ukuran }}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div v-if="Object.keys(Verror).length === 0"></div>
@@ -639,7 +650,7 @@
                                 </div>
                             </div>
                         </tab-content>
-                        <tab-content title="Form Persetujuan" icon="fas fa-handshake" :start-index="stepIndex">
+                        <tab-content title="Form Persetujuan" icon="fas fa-handshake">
                                 <table class="table table-bordered table-hover table-responsive">
                                     <thead>
                                         <tr>
@@ -701,6 +712,8 @@ import { constants } from 'crypto';
                 agamas: {},
                 infos: {},
                 bajus: {},
+                bajuolahragas: {},
+                celanaolahragas: {},
                 celanas: {},
                 provinsi: {},
                 kotas: {},
@@ -726,7 +739,7 @@ import { constants } from 'crypto';
                     gel_id: "",
                     ck_id: "",
                     tgl_daftar: "",
-                    nisn: "",
+                    nisn: 123,
                     nik: "",
                     name: "",
                     panggilan: "",
@@ -769,6 +782,10 @@ import { constants } from 'crypto';
                     asal_kota_sekolah: "",
                     asal_kecamatan_sekolah: "",
                     asal_kelurahan_sekolah: "",
+                    baju: "",
+                    bajuolahraga: "",
+                    celana: "",
+                    celanaolahraga: "",
                 })
             }
         },
@@ -808,7 +825,7 @@ import { constants } from 'crypto';
                 {
                     this.form.ck_id = $asal
                     this.form.asal_nf = 0
-                    this.$refs.wizard.changeTab(0,1)
+                    this.$refs.wizard.changeTab(0,2)
                 }
 
                 if($asal === 2)
@@ -821,7 +838,6 @@ import { constants } from 'crypto';
                             if(!nis) {
                                 return 'NIS harus diisi'
                             }
-
                             if(nis) {
                                 axios
                                     .get("../api/siswanfs/"+nis)
@@ -831,17 +847,18 @@ import { constants } from 'crypto';
                                             this.form.ck_id = $asal
                                             this.form.asal_nf = 1
                                             this.form.name = data.data.siswa[0].name
-                                            this.form.jk = data.data.siswa.jk
-                                            this.$refs.wizard.changeTab(0,3)
-                                            switch(data.data.siswa.unit) {
+                                            this.form.jk = data.data.siswa[0].jk
+                                            this.form.kelas_tujuan = data.data.siswa[0].kelas+1
+                                            this.$refs.wizard.changeTab(0,2)
+                                            switch(data.data.siswa[0].unit) {
                                                 case 1:
-                                                    this.gel_id = 2;
+                                                    this.form.gel_id = 2;
                                                     break;
                                                 case 2:
-                                                    this.gel_id = 3;
+                                                    this.form.gel_id = 3;
                                                     break;
                                                 case 3:
-                                                    this.gel_id = 4;
+                                                    this.form.gel_id = 4;
                                                     break;
                                             }
                                         } else {
@@ -875,7 +892,7 @@ import { constants } from 'crypto';
                                         if(data.data.cek == 1) {
                                             this.form.ck_id = $asal
                                             this.form.asal_nf = 0
-                                            this.$refs.wizard.changeTab(0,1)
+                                            this.$refs.wizard.changeTab(0,2)
                                         } else {
                                             Toast.fire({
                                                 type: "error",
@@ -895,14 +912,18 @@ import { constants } from 'crypto';
                     .then((data) => {
                         this.unit = data['data']['unitnya']['name']
                         this.unit_ck = data['data']['unitnya']['catnya']['name']
+                        if(this.unit_ck !== 'TK' || this.unit_ck !== 'SD') {
+                            this.form.nisn = ""
+                        }
                         this.unit_ck_id = data['data']['unitnya']['catnya']['id']
                         this.form.gel_id = data['data']['id']
+                        this.form.tgl_lahir = data['data']['minimum_age']
                         this.minimum_age = data['data']['minimum_age']
                         axios
                             .get("../api/kelasnya/" + $unit)
                             .then(({ data }) => (this.kelass = data))
                         this.ygaktif = true
-                        this.$refs.wizard.changeTab(0,2)
+                        this.$refs.wizard.changeTab(0,1)
                     })
                     .catch(() => {
                         Swal.fire(
@@ -910,7 +931,6 @@ import { constants } from 'crypto';
                             "Sudah Tutup atau Belum Ada",
                             "danger"
                         );
-                        this.$refs.wizard.changeTab(0,0)
                     });
             },
 
@@ -920,7 +940,9 @@ import { constants } from 'crypto';
                     .get("../api/seragam/" + pr)
                     .then(({ data }) => (
                         (this.bajus = data.baju),
-                        (this.celanas = data.celana)
+                        (this.bajuolahragas = data.bajuolahraga),
+                        (this.celanas = data.celana),
+                        (this.celanaolahragas = data.celanaolahraga)
                     ))
             },
 
@@ -981,7 +1003,7 @@ import { constants } from 'crypto';
                     .then(() => {
                         Toast.fire({
                             type: "success",
-                            title: "Tambah Data Unit Berhasil"
+                            title: "Tambah Data Calon Siswa Berhasil"
                         });
                         this.$router.push('psb')
                         this.$Progress.finish()
