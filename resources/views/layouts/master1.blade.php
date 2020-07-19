@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       IT Team - SIT Nurul Fikri
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+    <strong>Copyright &copy; 2019 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri - 2019</a>.</strong>
   </footer>
 </div>
 <!-- ./wrapper -->

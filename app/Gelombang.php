@@ -34,7 +34,18 @@ class Gelombang extends Model
         $pbaru = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 0)->get()->count();
         $laktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 1)->where('status', 1)->get()->count();
         $paktif = Calon::where('gel_id', $this->attributes['id'])->where('jk', 2)->where('status', 1)->get()->count();
-        return compact('lbaru', 'pbaru', 'laktif', 'paktif');
+        $umumbaru = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 1)->where('status', 0)->get()->count();
+        $nfbaru = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 2)->where('status', 0)->get()->count();
+        $pegbaru = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 3)->where('status', 0)->get()->count();
+        $umumaktif = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 1)->where('status', 1)->get()->count();
+        $nfaktif = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 2)->where('status', 1)->get()->count();
+        $pegaktif = Calon::where('gel_id', $this->attributes['id'])->where('ck_id', 3)->where('status', 1)->get()->count();
+
+        $terima = CalonTagihan::where('lunas', 1)->where('pendaftaran', 'like',  $this->attributes['kode_va'] .'%')->get()->pluck('calonid');
+        $umumdaul = Calon::whereIn('id', $terima)->where('ck_id', 1)->get()->count();
+        $nfdaul = Calon::whereIn('id', $terima)->where('ck_id', 2)->get()->count();
+        $pegdaul = Calon::whereIn('id', $terima)->where('ck_id', 3)->get()->count();
+        return compact('lbaru', 'pbaru', 'laktif', 'paktif', 'umumbaru', 'nfbaru', 'pegbaru', 'umumaktif', 'nfaktif', 'pegaktif', 'umumdaul', 'nfdaul', 'pegdaul');
     }
 
 }

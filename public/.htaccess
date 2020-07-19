@@ -8,6 +8,10 @@
     # Redirect Trailing Slashes...
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
+    # Force SSL
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f

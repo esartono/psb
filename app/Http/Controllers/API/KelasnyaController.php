@@ -45,7 +45,7 @@ class KelasnyaController extends Controller
 
     public function dataKelas($unit)
     {
-        return Kelasnya::where('unit_id',$unit)->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::where('unit_id',$unit)->whereNotIn('name',['2', '3', '6'])->orderBy('id', 'asc')->get()->toArray();
     }
 
 }

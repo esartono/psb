@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ViewCalonBiayaTes',
     ];
 
     /**
@@ -24,8 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('view:calon_biaya_tes')->everyTenMinutes();
+        $schedule->command('daily:report')->dailyAt('07:01');
+        $schedule->command('daily:report')->dailyAt('12:01');
+        $schedule->command('daily:report')->dailyAt('17:01');
     }
 
     /**

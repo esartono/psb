@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: http://psb.nurulfikri.sch.id/sitemap.xml

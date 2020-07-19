@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Calon extends Model
@@ -61,7 +62,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'uruts'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'hasil'
     ];
 
     public function getKelaminAttribute()
@@ -75,10 +76,49 @@ class Calon extends Model
         }
     }
 
+    public function getUsiaAttribute()
+    {
+        $age = Carbon::create($this->attributes['tgl_lahir']);
+        $patok = Carbon::create('2020', '7', '1');
+        return $age->diff($patok)->format('%y Tahun, %m Bulan dan %d Hari');
+    }
+
+    public function getLahirAttribute()
+    {
+        $age = Carbon::create($this->attributes['tgl_lahir']);
+        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->formatLocalized('%d %B %Y');
+    }
+
     public function getUrutsAttribute()
     {
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
         return $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+    }
+
+    public function getJadwalAttribute()
+    {
+        $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
+        if($jadwal) {
+            return $jadwal->jadwalnya;
+        } else {
+            return $jadwal=['seleksi'=> "Belum Ada"];
+        }
+    }
+
+    public function getHasilAttribute()
+    {
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+
+        $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
+        $tagihan = CalonTagihan::where('pendaftaran', $daftar)->first();
+        if(!$hasil) {
+            $hasil = 'Kosong';
+            $tagihan = 'Kosong';
+            return compact('hasil', 'tagihan');
+        }
+
+        return compact('hasil', 'tagihan');
     }
 
     public function gelnya()

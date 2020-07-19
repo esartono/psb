@@ -13,6 +13,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_ADMIN = 1;
     const ACCESS_USER = 2;
     const ACCESS_ADMINUNIT = 3;
+    const ACCESS_ADMINKEU = 4;
 
     use HasApiTokens, Notifiable;
 
@@ -82,6 +83,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isAdminUnit()
     {
         return $this->level == static::ACCESS_ADMINUNIT;
+    }
+
+    public function isAdminKeu()
+    {
+        return $this->level == static::ACCESS_ADMINKEU;
     }
 
     public function calons()

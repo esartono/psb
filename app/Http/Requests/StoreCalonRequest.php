@@ -24,8 +24,7 @@ class StoreCalonRequest extends FormRequest
     public function rules()
     {
         return [
-            'nik' => 'required|integer|unique:calons',
-            'nik' => 'required|integer',
+            'nik' => 'required',
             'name' => 'required',
             'panggilan' => 'required',
             'jk' => 'required',
@@ -39,8 +38,8 @@ class StoreCalonRequest extends FormRequest
             'kota' => 'required',
             'kecamatan' => 'required',
             'kelurahan' => 'required',
-            'rt' => 'required|integer',
-            'rw' => 'required|integer',
+            'rt' => 'required',
+            'rw' => 'required',
             'phone' => 'required',
             'ayah_nama' => 'required',
             'ayah_pendidikan' => 'required',
@@ -49,7 +48,6 @@ class StoreCalonRequest extends FormRequest
             'ibu_nama' => 'required',
             'ibu_pendidikan' => 'required',
             'ibu_pekerjaan' => 'required',
-            'asal_sekolah' => 'required',
         ];
     }
 

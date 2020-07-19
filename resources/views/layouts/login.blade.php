@@ -11,14 +11,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Login | PSB SIT Nurul Fikri 2020-2021</title>
+  <title>Login | PPDB SIT Nurul Fikri 2020-2021</title>
 
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="#"><b>Aplikasi </b>PSB</a>
+    <a href="#">PPDB Online - SIT Nurul Fikri - Depok</a>
   </div>
   <div class="card">
     <div class="card-body login-card-body">

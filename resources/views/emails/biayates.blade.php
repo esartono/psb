@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>Tempat, Tanggal Lahir</th>
-                <td>{{ $calonsnya->tempat_lahir }}, {{ date('d M Y', strtotime($calonsnya->tgl_lahir)) }}</td>
+                <td>{{ $calonsnya->lahir }}</td>
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>

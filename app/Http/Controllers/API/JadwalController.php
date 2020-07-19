@@ -19,13 +19,10 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        return Jadwal::with('gelnya.unitnya', 'gelnya.tpnya')
-                ->whereHas('gelnya', function ($query) {
-                    $query->where('tp', auth('api')->user()->tpid);
-                })
-                ->orderBy('id', 'asc')
-                ->get()
-                ->toArray();
+        return Jadwal::with('gelnya.unitnya.catnya', 'gelnya.tpnya')
+                    ->whereHas('gelnya', function ($query) {
+                        $query->where('tp', auth('api')->user()->tpid);
+                    })->orderBy('seleksi', 'asc')->get()->toArray();
     }
 
     /**

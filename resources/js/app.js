@@ -7,13 +7,6 @@
 require('./bootstrap');
 require('moment/locale/id');
 
-// Require Froala Editor js file.
-require('froala-editor/js/froala_editor.pkgd.min.js');
-
-// Require Froala Editor css files.
-require('froala-editor/css/froala_editor.pkgd.min.css');
-require('froala-editor/css/froala_style.min.css');
-
 window.Vue = require('vue');
 
 // Plugins momentjs
@@ -46,10 +39,6 @@ import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 Vue.use(VueFormWizard)
 
-// Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg'
-Vue.use(VueFroala)
-
 //Progress Bar
 import VueProgressBar from 'vue-progressbar'
 
@@ -57,8 +46,10 @@ import VueProgressBar from 'vue-progressbar'
 import VueDatePicker from '@mathieustan/vue-datepicker';
 Vue.use(VueDatePicker)
 
+const newLocal = '/psb';
 let routes = [
     { path: '/home', component: require('./components/Home.vue').default},
+    { path: '/siswa', component: require('./components/CPDSiswa.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
 
     /**
@@ -86,6 +77,7 @@ let routes = [
     { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
     { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},
+    { path: '/editcalons/:id', component: require('./components/psb/EditCalon.vue').default},
 
     /**
      * Import Data Siswa NF dan Karyawan
@@ -96,7 +88,29 @@ let routes = [
     /**
      * Data Calon Peserta Didik
      */
-    { path: '/cpd/:id', component: require('./components/cpd/CPDBaru.vue').default},
+    { path: '/cpdAll', component: require('./components/cpd/CPDAll.vue').default},
+    { path: '/cpd/:id', component: require('./components/cpd/CPD.vue').default},
+    { path: '/cpdHasil/:id', component: require('./components/cpd/CPDHasil.vue').default},
+
+    /**
+     * Data Jadwal
+     */
+    { path: '/tes', component: require('./components/cpd/Tes.vue').default},
+
+    /**
+     * Data Surat Seragam
+     */
+    { path: '/suratseragam', component: require('./components/cpd/CPDSuratSeragam.vue').default},
+
+    /**
+     * Data Tagihan
+     */
+    { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},
+
+    /**
+     * Component untuk page yang blank
+     */
+    { path: '/waw-keu', component: require('./components/Blank.vue').default},
 
     /**
      * Component untuk page yang belum dibuat/tidak ada
@@ -138,7 +152,15 @@ Vue.component('v-select', vSelect)
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)
 Vue.filter('Tanggal', function(tanggalnya){
     if(tanggalnya) {
-        return moment(tanggalnya).format('Do MMMM YYYY');
+        return moment(tanggalnya).format('DD MMMM YYYY');
+    } else {
+        return 'Tidak Ada';
+    }
+});
+
+Vue.filter('TanggalKecil', function(tanggalnya){
+    if(tanggalnya) {
+        return moment(tanggalnya).format('DD-MM-YY');
     } else {
         return 'Tidak Ada';
     }

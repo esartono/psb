@@ -5,14 +5,26 @@ namespace App\Http\Controllers\API;
 use App\BiayaTes;
 use App\Calon;
 use App\CalonBiayaTes;
+use App\CalonJadwal;
 use App\Edupay\Facades\Edupay;
 use App\Gelombang;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use PDF;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCalonRequest;
+use App\Kecamatan;
+use App\Kelurahan;
+use App\Kota;
 use App\CalonSeragam;
+
+use Excel;
+use App\Exports\SiswaBaruExport;
+use App\Exports\CpdBaruExport;
+use App\Exports\CpdAktifExport;
+use App\Exports\CpdJadwalTes;
 
 class CalonController extends Controller
 {
@@ -22,11 +34,16 @@ class CalonController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru');
+    }
+
     public function index()
     {
         if (auth('api')->user()->isUser()){
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya');
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya');
             return $calons->where('user_id', auth('api')->user()->id)
                     ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
@@ -96,31 +113,25 @@ class CalonController extends Controller
                     ->where('ck_id', $request['ck_id'])
                     ->get()->first();
 
-        if($request['baju']) {
-            CalonSeragam::create([
-                'calon_id' => $calon->id,
-                'seragam_id' => $request['baju'],
-            ]);
-        }
-
-        if($request['celana']) {
-            CalonSeragam::create([
-                'calon_id' => $calon->id,
-                'seragam_id' => $request['celana'],
-            ]);
-        }
-
         $calonbiaya = CalonBiayaTes::create([
             'calon_id' => $calon->id,
             'biaya_id' => $biaya->id,
-            'expired' => date("Y-m-d", strtotime("+1 week"))
+            'expired' => date("Y-m-d", strtotime("+1 days"))
         ]);
 
-        Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calonbiaya->expired);
+        CalonSeragam::create([
+            'calon_id' => $calon->id,
+            'bahu' => $request['bahu'],
+            'panjang_baju' => $request['panjang_baju'],
+            'lingkar' => $request['lingkar'],
+            'panjang_celana' => $request['panjang_celana'],
+        ]);
+
+        Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
 
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
 
-        Mail::send('pdf.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+        Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
             {
                 $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
             }
@@ -138,32 +149,73 @@ class CalonController extends Controller
         if(auth('api')->user()->isUser()){
             $calon = Calon::with('gelnya.unitnya.catnya')
                 ->where('user_id', auth('api')->user()->id)
+                ->where('id', $id)
                 ->first();
 
             if($calon) {
-                return $calon;
+                $kota = Kota::where('prov_id', $calon->provinsi)->get();
+                $camat = Kecamatan::where('kota_id', $calon->kota)->get();
+                $lurah = Kelurahan::where('camat_id', $calon->kecamatan)->get();
+                $kota_sekolah = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
+                $camat_sekolah = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
+                $lurah_sekolah = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
+                return compact('calon','kota','camat','lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
             } else {
                 return response()->json(['message' => 'Not Found!'], 404);
             }
         }
-            else
-        {
-            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
 
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya')
-                        ->where('status',$id);
+        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()){
+            $calon = Calon::with('gelnya.unitnya.catnya')->where('id', $id)->first();
 
+            if($calon) {
+                $kota = Kota::where('prov_id', $calon->provinsi)->get();
+                $camat = Kecamatan::where('kota_id', $calon->kota)->get();
+                $lurah = Kelurahan::where('camat_id', $calon->kecamatan)->get();
+                $kota_sekolah = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
+                $camat_sekolah = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
+                $lurah_sekolah = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
+                return compact('calon','kota','camat','lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
+            } else {
+                return response()->json(['message' => 'Not Found!'], 404);
+            }
+        }
+
+    }
+
+    public function indexAdmin($id)
+    {
             if(auth('api')->user()->isAdmin()) {
-                return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
+                $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             }
 
             if(auth('api')->user()->isAdminUnit()) {
                 $unit = auth('api')->user()->unit_id;
                 $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-                return $calons->whereIn('gel_id', $gelombang)->get()->toArray();
             }
-        }
 
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+                if ($id === '100') {
+                    return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                        ->whereIn('gel_id', $gelombang)
+                        ->get()->toArray();
+                } else {
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ayah_hp', 'ibu_nama', 'ibu_hp',
+                                'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'tgl_daftar', 'expired',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                        ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('status', $id)
+                        ->get()->toArray();
+                    // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                    //     ->whereIn('gel_id', $gelombang)
+                    //     ->where('status',$id)
+                    //     ->get()->toArray();
+                }
+            }
     }
 
     /**
@@ -189,4 +241,25 @@ class CalonController extends Controller
     {
         //
     }
+
+    public function exportsiswabaru()
+    {
+        return Excel::download(new SiswaBaruExport, 'Siswa Baru - PSB.xlsx');
+    }
+
+    public function exportbaru()
+    {
+        return Excel::download(new CpdBaruExport, 'cpdBaru.xlsx');
+    }
+
+    public function exportaktif()
+    {
+        return Excel::download(new CpdAktifExport, 'cpdAktif.xlsx');
+    }
+
+    public function exportjadwal()
+    {
+        return Excel::download(new CpdJadwalTes, 'cpdTes.xlsx');
+    }
+
 }

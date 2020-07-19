@@ -21,6 +21,10 @@ th {
     text-align: center;
 }
 
+td hr {
+    margin: 1.5px;
+}
+
 td:last-of-type {
     width: 90px !important;
 }
@@ -39,8 +43,9 @@ td:last-of-type {
 }
 
 
-.nav-link {
-    color: white !important;
+.dashboard {
+    background-color: beige !important;
+    color: black !important;
 }
 
 .nav-link.active {

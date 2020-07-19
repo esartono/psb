@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::apiResources([
     'users' => 'API\UserController',
@@ -34,10 +34,19 @@ Route::apiResources([
     'beritas' => 'API\BeritaController',
     'jadwals' => 'API\JadwalController',
     'seragams' => 'API\SeragamController',
+    'calonseragams' => 'API\CalonSeragamController',
+    'calonbiayates' => 'API\CalonBiayaTesController',
+    'calonjadwals' => 'API\CalonJadwalController',
+    'calonhasils' => 'API\CalonHasilController',
+    'calontagihans' => 'API\CalonTagihanController',
+    'suratseragam' => 'API\SuratSeragamController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
+Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::get('admins', 'API\UserController@admin');
+Route::post('rpass/{id}', 'API\UserController@resetPassword');
+Route::post('gpass/{id}', 'API\UserController@gantiPassword');
 Route::get('kelasnya/{unit}', 'API\KelasnyaController@dataKelas');
 Route::get('provinsi', 'API\ProvinsiController@index');
 Route::get('seragam/{pr}', 'API\SeragamController@dataSeragam');
@@ -49,3 +58,6 @@ Route::get('pendidikan', 'API\PendidikanController@index');
 Route::get('penghasilan', 'API\PenghasilanController@index');
 Route::get('sumberinfo', 'API\SumberInfoController@index');
 Route::get('agama', 'API\AgamaController@dataAgama');
+Route::get('indexadmin/{id}', 'API\CalonController@indexAdmin');
+//Route::get('getcalon/{id}', 'API\CalonController@getCalon');
+Route::get('/937a8ddfc66c29ec39ad5f75cdd44b8e/{id}', 'HomeController@apiCalon');

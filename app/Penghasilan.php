@@ -13,4 +13,10 @@ class Penghasilan extends Model
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    public static function nama($id)
+    {
+        $namanya = static::where('id', $id)->first();
+        return $namanya['name'];
+    }
 }

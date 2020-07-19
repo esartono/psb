@@ -15,12 +15,12 @@ class CalonKategoriController extends Controller
 {
     public function index()
     {
-        return CalonKategori::orderBy('id', 'asc')->get()->toArray();
+        return CalonKategori::where('id',1)->orWhere('id',3)->orderBy('id', 'asc')->get()->toArray();
     }
 
     public function dataCK()
     {
-        return CalonKategori::orderBy('id', 'asc')->paginate(1000);
+        return CalonKategori::where('id',1)->orWhere('id',3)->orderBy('id', 'asc')->paginate(1000);
     }
 
 }

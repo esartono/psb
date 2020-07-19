@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="card border-primary">
                   <div class="card-header">
                     <i class="fa fa-align-justify"></i> Daftar Nama Pegawai

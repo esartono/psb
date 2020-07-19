@@ -6,12 +6,12 @@
     <style>
             /** Define the margins of your page **/
             @page {
-                margin: 100px 50px 120px 50px;
+                margin: 20px 50px 110px 50px;
             }
 
             header {
                 position: fixed;
-                top: -60px;
+                top: 0px;
                 left: 0px;
                 right: 0px;
                 border-bottom: solid black 1px;
@@ -19,17 +19,22 @@
 
             footer {
                 position: fixed; 
-                bottom: -20px; 
+                bottom: 0px; 
                 left: 0px; 
                 right: 0px;
-                height: 50px; 
+                height: 30px; 
                 text-align: center;
                 border-top: solid black 1px;
                 padding: 10px;
             }
 
+            .page-break {
+                page-break-before: always;
+            }
+
             main {
-                margin-top: 120px;
+                margin-top: 145px;
+                margin-bottom: 40px;
             }
 
             .biodata {
@@ -41,6 +46,43 @@
             .biodata, .biodata th, .biodata td {
                 border: 1px solid black;
                 padding: 10px;
+            }
+
+            .sehat {
+                width: 100%;
+                margin: 25px;
+                border-collapse: collapse;
+            }
+
+            .sehat, .sehat th, .sehat td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+
+            .qr {
+                margin: -20px 0px 10px 0px;
+                font-size: 20px !important;
+            }
+
+            .cardTest {
+                font-size: 13px !important;
+                width: 55%;
+                border-collapse: collapse;
+            }
+
+            .cardTest, .cardTest th, .cardTest td {
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+            .cardTest th h1 {
+                margin: 0px;
+                font-size: 25px !important;
+            }
+
+            .cardTest th h3 {
+                margin: 10px 0px 0px 0px;
+                font-size: 15px !important;
             }
 
             .kotak {
@@ -73,12 +115,10 @@
         </table>
     </header>
     <footer>
-        <b>Panitia PSB SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
-        informasi lebih lanjut hubungi Panitia PSB SIT NF Depok +62 822 1133 3434<br>
-        Telepon: Pusat +62 21 87206745, TK +62 21 870 8919, SD +62 21 872 0645,<br>
-        SMP +62 21 870 8300, SMA +62 21 872 2070<br>
-        Website: psb.nurulfikri.sch.id<br>
-        Email: psb@nurulfikri.sch.id
+        <b>Panitia Penerimaan Siswa Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
+        informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)<br>
+        Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070<br>
+        Website: psb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
     </footer>
     <main>
         @yield('isi')

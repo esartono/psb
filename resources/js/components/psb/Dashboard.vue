@@ -7,20 +7,21 @@
     </div>
     <div
         v-for="calon in calons" :key="calon.id"
-        class="row justify-content-center"
+        style="border-bottom: 2px solid grey"
+        class="row justify-content-center mb-4"
     >
         <div class="col-md-5 mb-3">
             <div class="card h-100">
-                <div class="card-header" v-bind:class="'card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
-                    <h3 class="card-title">Data Calon Peserta</h3>
+                <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
+                    <h5>Data Calon Peserta - {{ calon.gelnya.unitnya.name }}</h5>
                     <div class="card-tools">
                         <router-link v-bind:to="'/editcalon/'+calon.id" class="btn btn-sm btn-warning"><i class="fas fa-user-edit"> </i><b> Edit </b></router-link>
                     </div>
                 </div>
                 <div class="card-body box-profile">
-                    <div class="text-center">
-                        <img src="/img/user.svg" class="profile-user-img img-fluid img-circle" alt="Calon Siswa">
-                    </div>
+                    <!-- <div class="text-center">
+                        <img src="/img/logo.png" class="profile-user-img img-fluid img-circle" alt="Logo NF">
+                    </div> -->
                     <h3 class="profile-username text-center text-uppercase">{{ calon.name }}</h3>
                     <p class="text-muted text-center">{{ calon.uruts }}</p>
                     <ul class="list-group list-group-unbordered mb-3">
@@ -44,80 +45,79 @@
             <div class="card h-100">
             <div class="card-header p-2" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#daftar" data-toggle="tab">Pendaftaran</a></li>
-                    <li class="nav-item"><a class="nav-link" v-bind:class="'disabled'" href="#seleksi" data-toggle="tab">Seleksi</a></li>
-                    <li class="nav-item"><a class="nav-link disabled" href="#pengumuman" data-toggle="tab">Pengumuman</a></li>
-                    <li class="nav-item"><a class="nav-link disabled" href="#daul" data-toggle="tab">Daftar Ulang</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link dashboard"
+                            :href="'#daftar'+calon.id" data-toggle="tab">
+                            Pendaftaran
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a v-if="calon.hasil.hasil == 'Kosong'" class="nav-link dashboard"
+                            v-bind:class="calon.status == 1 ? 'active' : ''"
+                            :href="'#seleksi'+calon.id" data-toggle="tab">
+                            Seleksi
+                        </a>
+                        <a v-else class="nav-link dashboard"
+                            :href="'#seleksi'+calon.id" data-toggle="tab">
+                            Seleksi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dashboard"
+                            v-bind:class="calon.hasil.hasil == 'Kosong' ? 'disabled' : 'active'"
+                            :href="'#pengumuman'+calon.id" data-toggle="tab">Pengumuman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dashboard"
+                            v-bind:class="calon.hasil.tagihan == 'Kosong' || calon.hasil.hasil.lulus !== 1 ? 'disabled' : ''"
+                            :href="'#daul'+calon.id" data-toggle="tab">Daftar Ulang</a>
+                    </li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="active tab-pane" id="daftar">
+                    <div class="tab-pane"
+                        v-bind:class="calon.status == 0 ? 'active' : ''"
+                        :id="'daftar'+calon.id">
                         <div class="clearfix text-center">
-                            <h3>Biaya Pendaftaran PSB : </h3>
+                            <h3>Biaya Pendaftaran PSB</h3>
                             <hr>
-                            <h1>{{ calon.biayates.biayanya.biaya | toCurrency}}</h1>
+                            <h1>{{ calon.biayates.biayanya.biaya | toCurrency }}</h1>
                             <hr>
-                            <p>Dibayarkan melalui rekening BSM : <b>{{ calon.uruts }}</b><br>
-                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b></p>
-                            <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-block btn-success mt-3">Cetak Cara Pembayaran Biaya Tes</a>
-                            <a v-bind:href="'seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-block btn-primary mt-3">Cetak Kartu Seleksi</a>
+                            <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Mandiri (BSM):</p>
+                            <h3><b>{{ calon.uruts }}</b></h3>
+                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b>
+                            <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-success mt-3">Cetak Tata Cara Pembayaran</a>
                         </div>
                     </div>
-                    <div class="tab-pane" id="seleksi">
+                    <div class="tab-pane"
+                        v-bind:class="calon.status == 1 && calon.hasil.hasil == 'Kosong' ? 'active' : 'disabled'"
+                        :id="'seleksi'+calon.id">
                         <ul class="timeline timeline-inverse">
                             <li class="time-label">
-                                <span class="bg-danger">
-                                    10 Feb. 2020
-                                </span>
+                                <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success">Cetak Kartu Seleksi</a>
                             </li>
                             <li>
                                 <div class="timeline-item">
-                                    <h3 class="timeline-header">Tes PSB</h3>
+                                    <h3 class="timeline-header">Tes Seleksi ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h3>
                                     <div class="timeline-body">
-                                        <p>Tes dilakukan di unit SMA IT Nurul Fikri pada pukul 08.00</p>
                                         <p>
                                             Tahapan Tes terdiri dari :
                                             <ul>
-                                                <li>Tes Akademik Siswa</li>
-                                                <li>Tes Wawancara Orang Tua</li>
-                                                <li>Tes Wawancara Siswa</li>
-                                            </ul>
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="time-label">
-                                <span class="bg-success">3 Jan. 2020 - 17 Feb. 2020</span>
-                            </li>
-                            <li>
-                                <div class="timeline-item">
-                                    <h3 class="timeline-header border-0">Tes Kesehatan</h3>
-                                    <div class="timeline-body">
-                                        <p>Dilakukan di Klinik Nurul Fikri</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="tab-pane" id="pengumuman">
-                        <ul class="timeline timeline-inverse">
-                            <li class="time-label">
-                                <span class="bg-danger">
-                                    10 Maret 2020
-                                </span>
-                            </li>
-                            <li>
-                                <div class="timeline-item">
-                                    <h3 class="timeline-header">Tes PSB</h3>
-                                    <div class="timeline-body">
-                                        <p>Tes dilakukan di unit SMA IT Nurul Fikri pada pukul 08.00</p>
-                                        <p>
-                                            Tahapan Tes terdiri dari :
-                                            <ul>
-                                                <li>Tes Akademik Siswa</li>
-                                                <li>Tes Wawancara Orang Tua</li>
-                                                <li>Tes Wawancara Siswa</li>
+                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
+                                                <li>Tes Psikologi</li>
+                                                <li>Tes Kemampuan Berbahasa Inggris</li>
+                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Wawancara Siswa</li>
+                                                <li>Tes Wawancara Orang Tua (<b>Wajib dihadiri oleh kedua Orang Tua</b>)</li>
+                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">
+                                                    Pelaksanaan Tes akan dimulai pukul 07.00 sampai dengan 15.00
+                                                </li>
+                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SD'">
+                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 09.30 atau pada pukul 09.30 sampai dengan 11.30 (akan dikonfirmasi ulang oleh panitia).
+                                                </li>
+                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'TK'">
+                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 10.00
+                                                </li>
                                             </ul>
                                         </p>
                                     </div>
@@ -125,33 +125,93 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-pane" id="daul">
-                        <ul class="timeline timeline-inverse">
-                            <li class="time-label">
-                                <span class="bg-danger">
-                                    17 Juni 2020
-                                </span>
-                            </li>
-                            <li>
-                                <div class="timeline-item">
-                                    <h3 class="timeline-header">Pengambilan Seragam</h3>
-                                    <div class="timeline-body">
-                                        <p>Tes dilakukan di unit SMA IT Nurul Fikri pada pukul 08.00</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="time-label">
-                                <span class="bg-success">18 Juni 2020</span>
-                            </li>
-                            <li>
-                                <div class="timeline-item">
-                                    <h3 class="timeline-header border-0">Pengambilan Buku</h3>
-                                    <div class="timeline-body">
-                                        <p>Dilakukan di Toko Sekolah Nurul Fikri</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                    <div class="tab-pane"
+                        v-bind:class="calon.hasil.hasil == 'Kosong' ? 'disabled' : 'active'"
+                        :id="'pengumuman'+calon.id">
+                        <div class="clearfix text-center">
+                            <h3>Pengumuman</h3>
+                            <hr>
+                            <p>Berdasarkan keputusan panitia PPDB SIT Nurul Fikri menyatakan:</p>
+                            <h2 v-if="calon.hasil.hasil.lulus === 1"><b>Diterima</b></h2>
+                            <h2 v-else-if="calon.hasil.hasil.lulus === 2"><b>Cadangan</b></h2>
+                            <h2 v-else><b>Tidak Diterima</b></h2>
+                            <hr>
+                            <p>{{ calon.hasil.hasil.catatan }}</p>
+                            <br>
+                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
+                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane"
+                        v-bind:class="calon.hasil.tagihan == 'Kosong' ? 'disabled' : ''"
+                        :id="'daul'+calon.id">
+                        <div class="clearfix">
+                            <h3 class="text-center">Daftar Ulang</h3>
+                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
+                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a>
+                            <hr>
+                            <table width="100%" class="table-bordered">
+                                <tr>
+                                    <th width="37%">Keterangan</th>
+                                    <th width="23%">Biaya</th>
+                                    <td width="40%" rowspan="9">
+                                        <ol>
+                                            <li>Pembayaran dilakukan pada tanggal : <br><b>{{ calon.jadwal.keterangan }}</b></li>
+                                            <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
+                                            <li>Pembayaran melalui Rekening Virtual Bank BJB Syariah :
+                                                <center><h3 class="mt-3 red"><u><b>{{ calon.hasil.hasil.va }}</b></u></h3>
+                                                <p>atas nama: {{ calon.name }}</p></center>
+                                            </li>
+                                        </ol>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dana Pengembangan</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.pengembangan | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dana Pendidikan</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.pendidikan | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Iuran SPP bulan Juli</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.spp | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Iuran Komite Sekolah / tahun</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.komite | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dana Seragam</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.seragam | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Potongan</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">({{ calon.hasil.tagihan.diskon | toCurrency }})</td>
+                                </tr>
+                                <tr>
+                                    <td>Infaq</td>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.infaq | toCurrency }}</td>
+                                </tr>
+                                <tr>
+                                    <th>TOTAL TAGIHAN</th>
+                                    <td v-if="calon.hasil.tagihan" class="text-right">{{
+                                        (calon.hasil.tagihan.pengembangan+
+                                        calon.hasil.tagihan.pendidikan+
+                                        calon.hasil.tagihan.spp+
+                                        calon.hasil.tagihan.komite+
+                                        calon.hasil.tagihan.seragam+
+                                        calon.hasil.tagihan.infaq)-
+                                        calon.hasil.tagihan.diskon
+                                        | toCurrency }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

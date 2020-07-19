@@ -32,6 +32,32 @@
                 padding: 10px;
             }
 
+            .qr {
+                margin: -20px 0px 10px 0px;
+                font-size: 20px !important;
+            }
+
+            .cardTest {
+                font-size: 13px !important;
+                width: 80%;
+                border-collapse: collapse;
+            }
+
+            .cardTest, .cardTest th, .cardTest td {
+                border: 1px solid black;
+                padding: 10px;
+            }
+
+            .cardTest th h1 {
+                margin: 0px;
+                font-size: 25px !important;
+            }
+
+            .cardTest th h3 {
+                margin: 10px 0px 0px 0px;
+                font-size: 15px !important;
+            }
+
             .kotak {
                 width: 100%;
                 margin: 0 25px 0px 25px;
@@ -53,7 +79,7 @@
     <header>
         <table>
             <tr>
-                <td><img src="{{ $message->embed('img/logo.png')}}" alt="Logo NF" height="150" width="150"></img></td>
+                <td></td>
                 <td>
                     <h1>Sekolah Islam Terpadu Nurul Fikri</h1>
                     <h2>TKIT - SDIT - SMPIT - SMAIT Nurul Fikri </h2>
@@ -65,12 +91,10 @@
         @yield('isi')
     </main>
     <hr>
-        <b>Panitia PSB SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
-        informasi lebih lanjut hubungi Panitia PSB SIT NF Depok +62 822 1133 3434<br>
-        Telepon: Pusat +62 21 87206745, TK +62 21 870 8919, SD +62 21 872 0645,<br>
-        SMP +62 21 870 8300, SMA +62 21 872 2070<br>
-        Website: psb.nurulfikri.sch.id<br>
-        Email: psb@nurulfikri.sch.id
+        <b>Panitia Penerimaan Siswa Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
+        informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)<br>
+        Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070<br>
+        Website: psb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
 </body>
 
 </html>

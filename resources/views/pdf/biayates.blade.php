@@ -1,11 +1,11 @@
 @extends('pdf.template')
 
 @section('isi')
-        <p>
+        <div>
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
         Terimakasih anda telah melakukan pendaftaran calon siswa baru SIT Nurul Fikri. Ini merupakan tahap awal dari Pendaftaran Penerimaan Siswa Baru SIT Nurul Fikri.
         Berikut data yang telah Anda isikan :
-        </p>
+        </div>
         <table class="biodata">
             <tr>
                 <th width="30%">Nama Lengkap</th>
@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>Tempat, Tanggal Lahir</th>
-                <td>{{ $calonsnya->tempat_lahir }}, {{ date('d M Y', strtotime($calonsnya->tgl_lahir)) }}</td>
+                <td>{{ $calonsnya->lahir }}</td>
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>
@@ -34,5 +34,9 @@
         <p>Untuk melanjutkan proses pendaftaran, silakan melunasi biaya pendaftaran sejumlah:
             Rp. {{ number_format($calonsnya->biayates->biayanya->biaya) }},-, 
             batas waktu pembayaran sampai tanggal : <b>{{ date('d M Y', strtotime($calonsnya->biayates->expired)) }}</b></p>
-        <p>Terima kasih.</p>
+    </div>
+    <div class="page-break"></div>
+    <div class="hal2">
+        @include('pdf.tatacara')
+    </div>
 @endsection

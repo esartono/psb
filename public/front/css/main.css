@@ -931,18 +931,14 @@ h1, h2, h3, h4, h5, h6 {
   background: #f9f9ff;
   border-left: 2px solid #39cfca; }
 
-.progress-table-wrap {
-  overflow-x: scroll; }
-
 .progress-table {
   background: #f9f9ff;
-  padding: 15px 0px 30px 0px;
-  min-width: 800px; }
+  padding: 15px 0px 30px 0px;}
   .progress-table .serial {
     width: 11.83%;
     padding-left: 30px; }
   .progress-table .country {
-    width: 28.07%; }
+    width: 78.07%; }
   .progress-table .visit {
     width: 19.74%; }
   .progress-table .percentage {

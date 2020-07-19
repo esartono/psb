@@ -11,10 +11,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Aplikasi PSB | 2020-2021</title>
+  <title>PPDB Online SIT Nurul Fikri | 2020-2021</title>
 
   <link rel="stylesheet" href="/css/app.css">
-  <link rel="stylesheet" href="/css/froala_style.min.css">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E2EXL2S2X8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-E2EXL2S2X8');
+</script>
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -36,9 +44,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="/img/logo.svg" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Aplikasi PSB</span>
+      <span class="brand-text font-weight-light">PPDB Online</span>
     </a>
 
+    @if(Auth::check())
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
@@ -61,6 +70,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Dashboard
               </p>
             </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <router-link to="/siswa" class="nav-link">
+              <i class="nav-icon fas fa-thumbs-up green"></i>
+              <p>
+                Data Siswa Baru
+              </p>
+            </router-link>
+          </li>
+          @if(Auth::user()->isAdmin())
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie orange"></i>
+              <p>
+                Statistik
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/statistik/mentah" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Mentah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/statistik/all" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>All</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/statistik/aktif" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Aktif</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/statistik/terima" class="nav-link">
+                  <i class="fas fa-grin-beam nav-icon"></i>
+                  <p>Di Terima</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -173,6 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="fas fa-graduation-cap nav-icon blue"></i>
@@ -183,19 +237,115 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link :to="{path: '/cpd/0' }" class="nav-link">
+                <router-link to="/cpdAll" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>CPD Semua</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpd/0" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>CPD Baru</p>
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{path: '/cpd/1' }" class="nav-link">
+                <router-link to="/cpd/1" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>CPD Aktif</p>
                 </router-link>
               </li>
+
+              <!-- <li class="nav-item">
+                <router-link to="/cpdBaru" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>CPD Baru</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpdAktif" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>CPD Aktif</p>
+                </router-link>
+              </li> -->
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <router-link to="/tes" class="nav-link">
+              <i class="nav-icon fas fa-calendar TK"></i>
+              <p>
+                Jadwal Tes
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user-graduate blue"></i>
+              <p>
+                Data Hasil Tes
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/cpdHasil/0" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Belum</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpdHasil/1" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Diterima</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpdHasil/2" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Cadangan</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpdHasil/3" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Tidak Diterima</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/cpdHasil/4" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Mengundurkan Diri</p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          @if(Auth::user()->isAdmin()||Auth::user()->isAdminKeu())
+          <!-- <li class="nav-item">
+            <a href="/waw-keu" class="nav-link">
+              <i class="nav-icon fas fa-money-check-alt green"></i>
+              <p>
+                Wawancara Keuangan
+              </p>
+            </a>
+          </li> -->
+          @endif
+          <li class="nav-item">
+            <router-link to="/tagihan" class="nav-link">
+              <i class="nav-icon fas fa-wallet green"></i>
+              <p>
+                Data Tagihan
+              </p>
+            </router-link>
+          </li>
+          @if(Auth::user()->isAdmin())
+          <li class="nav-item">
+            <router-link to="/suratseragam" class="nav-link">
+              <i class="nav-icon fas fa-tshirt yellow"></i>
+              <p>
+                Data Surat Seragam
+              </p>
+            </router-link>
+          </li>
+          @endif
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user green"></i>
@@ -206,21 +356,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <a href="{{ route('logout')}}" class="nav-link"
-                onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                <i class="nav-icon fas fa-power-off red"></i>
-                <p>{{ __('Logout') }}</p>
-              </a>
-
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
+              onclick="event.preventDefault();
+              document.getElementById('logout-form').submit();">
+              <i class="nav-icon fas fa-power-off red"></i>
+              <p>{{ __('Logout') }}</p>
             </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
+    @endif
     <!-- /.sidebar -->
   </aside>
 
@@ -229,7 +379,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <router-view></router-view>
+        @yield('content')
+        <router-view :key="$route.path"></router-view>
         <vue-progress-bar></vue-progress-bar>
       </div><!-- /.container-fluid -->
     </div>

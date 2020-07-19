@@ -1,101 +1,18 @@
 
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-	<!-- Mobile Specific Meta -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/fav.png">
-	<!-- Author Meta -->
-	<meta name="author" content="codepixer">
-	<!-- Meta Description -->
-	<meta name="description" content="">
-	<!-- Meta Keyword -->
-	<meta name="keywords" content="">
-	<!-- meta character set -->
-	<meta charset="UTF-8">
-	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<!-- Site Title -->
-	<title>App-PSB 3.0</title>
+@extends('front.template1')
 
-	<!--
-			Google Font
-			============================================= -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
-
-	<!--
-			CSS
-			============================================= -->
-	<link rel="stylesheet" href="/front/css/linearicons.css">
-	<link rel="stylesheet" href="/front/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/front/css/bootstrap.css">
-	<link rel="stylesheet" href="/front/css/magnific-popup.css">
-	<link rel="stylesheet" href="/front/css/nice-select.css">
-	<link rel="stylesheet" href="/front/css/animate.min.css">
-	<link rel="stylesheet" href="/front/css/owl.carousel.css">
-	<link rel="stylesheet" href="/front/css/main.css">
-	<style>
-	li {
-		display: inline-block;
-		font-size: 1em;
-		list-style-type: none;
-		padding: 0.5em;
-		text-transform: uppercase;
-		color: #024A81;
-		}
-
-		li span {
-		display: block;
-		font-size: 3em;
-		}
-	</style>
-</head>
-
-<body>
-	<button type="button" id="mobile-nav-toggle">
-		<i class="lnr lnr-menu"></i>
-	</button>
-	<!-- Start Header Area -->
-	<header id="header">
-		<div class="container">
-			<div class="row align-items-center justify-content-between d-flex">
-				<div id="logo">
-					<a href="index.html"><img src="img/logo.png" width="50" height="50" alt="Logo NF" title="Logo SIT Nurul Fikri" /></a>
-				</div>
-				<nav id="nav-menu-container">
-					<ul class="nav-menu">
-						<li class="menu-active"><a href="#">Info PSB</a></li>
-						<li><a href="file/Prosedur Pendaftaran PSB SIT NF.pdf" target="_blank">Alur Pendaftaran</a></li>
-						<li><a href="biaya">Biaya Pendaftaran</a></li>
-						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
-						<li class="menu-has-children"><a href="">Jadwal Tes</a>
-							<ul>
-								<li><a href="">Agenda PSB</a></li>
-								<li><a href="">Tes Kesehatan</a></li>
-							</ul>
-						</li>
-						<li><a href="file/Tata Cara Pembayaran Menggunakan Edupay BSM.pdf" target="_blank">Tata Cara Pembayaran</a></li>
-						<li><a href="">Download</a></li>
-						<li><a href="">Hasil TES</a></li>
-					</ul>
-				</nav><!-- #nav-menu-container -->
-			</div>
-		</div>
-	</header>
-	<!-- End Header Area -->
-
+@section('isi')
 	<!-- Start Banner Area -->
 	<section class="home-banner-area relative">
 		<div class="container">
 			<div class="row fullscreen d-flex align-items-center justify-content-center">
 				<div class="banner-content col-md-7">
-					<h1 class="wow fadeIn" data-wow-duration="4s">Penerimaan Siswa Baru<br> SIT Nurul Fikri - Depok</h1>
+					<h1 class="wow fadeIn" data-wow-duration="4s">PPDB Online<br> SIT Nurul Fikri - Depok</h1>
 					<hr>
 					<p class="wow fadeIn text-white">
-						Selamat Datang di Sistem Penerimaan Siswa Baru SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
-						Perhatikan semua informasi mengenai pendaftaran Siswa Baru sebelum anda mulai mendaftar.
-					</p>
+						Selamat Datang di Sistem PPDB Online SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
+						Perhatikan semua informasi mengenai Peserta Didik Baru sebelum anda mulai mendaftar.
+						Apabila Anda belum mempunyai akun, silahkan melakukan proses Daftar Akun.</p>
 					<div class="wow fadeIn card col-md-6 offset-md-3 border-warning countdown mt-4">
 						<ul class="mt-4">
 							<li><span id="days" class="mb-3"></span>hari</li>
@@ -108,11 +25,11 @@
 						@if (Route::has('login'))
 							<div class="top-right links">
 								@auth
-									@if (auth()->user()->isAdmin())
-										<a href="{{ url('/home') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-2 success circle mr-10 mb-10 wow fadeInDown">Home</a>
+									@if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit())
+										<a href="{{ url('/home') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Home</a>
 									@endif
 									@if (auth()->user()->isUser())
-										<a href="{{ url('/psb') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-2 success circle mr-10 mb-10 wow fadeInDown">Home</a>
+										<a href="{{ url('/psb') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Home</a>
 									@endif
 								@else
 									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 danger circle mr-10 mb-10 wow fadeInDown">Login</a>
@@ -124,10 +41,10 @@
 				</div>
 				<div class="col-md-5">
 					<div class="card wow fadeIn border-info" data-wow-duration="4s">
-						<div class="card-header bg-info text-white">Info PSB</div>
+						<div class="card-header bg-info text-white">Informasi Penerimaan Peserta Didik Baru</div>
 						<div class="card-body">
 							@foreach($berita as $b)
-								<h4 class="mb-2">{{ $b->judul }}</h4>
+								<h5>{{ $b->judul }}</h5>
 								{{ mb_strimwidth($b->berita, 0, 150, '...') }}
 								<hr>
 							@endforeach
@@ -156,7 +73,7 @@
 						<div class="info wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
 							<p style="font-size: 11px"> {{ $unit->address }} <br> Cimanggis, Kota Depok - Jawa Barat</p>
 							<p class="designation">Telepon : {{ $unit->phone }}<br>Email : {{ $unit->email }}</p>
-							<a href="https://{{ strtolower($unit->catnya->name) }}it.nurulfikri.sch.id"
+							<a style="font-size: 0.8em" href="https://{{ strtolower($unit->catnya->name) }}it.nurulfikri.sch.id"
 							target="_blank" class="genric-btn info-border circle arrow"><b>{{ $unit->name }}</b></a>
 						</div>
 					</div>
@@ -173,25 +90,6 @@
 	</div>
 	<!-- ####################### End Scroll to Top Area ####################### -->
 
-	<script src="/front/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script src="/front/js/vendor/bootstrap.min.js"></script>
-	<script src="/front/js/easing.min.js"></script>
-	<script src="/front/js/hoverIntent.js"></script>
-	<script src="/front/js/superfish.min.js"></script>
-	<script src="/front/js/jquery.ajaxchimp.min.js"></script>
-	<script src="/front/js/jquery.magnific-popup.min.js"></script>
-	<script src="/front/js/owl.carousel.min.js"></script>
-	<script src="/front/js/owl-carousel-thumb.min.js"></script>
-	<script src="/front/js/jquery.sticky.js"></script>
-	<script src="/front/js/jquery.nice-select.min.js"></script>
-	<script src="/front/js/parallax.min.js"></script>
-	<script src="/front/js/waypoints.min.js"></script>
-	<script src="/front/js/wow.min.js"></script>
-	<script src="/front/js/jquery.counterup.min.js"></script>
-	<script src="/front/js/mail-script.js"></script>
-	<script src="/front/js/main.js"></script>
 	<script>
 		const second = 1000,
 			minute = second * 60,
@@ -216,6 +114,4 @@
 
 			}, second)
 	</script>
-</body>
-
-</html>
+@endsection

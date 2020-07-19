@@ -5,14 +5,13 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use Excel;
 
 use App\Exports\UserExport;
 
 use App\User;
-use App\Level;
-use App\Unit;
 
 class UserController extends Controller
 {
@@ -37,10 +36,8 @@ class UserController extends Controller
         $user = User::orderBy('name', 'asc')
                 ->where('level', 2)
                 ->get();
-        $level = Level::orderBy('name', 'asc')->get();
-        $unit = Unit::get();
 
-        return compact('user', 'level', 'unit');
+        return compact('user');
     }
 
     public function admin()
@@ -66,8 +63,6 @@ class UserController extends Controller
             'email' => $request['email'],
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
-            'level' => $request['level'],
-            'unit_id' => $request['unit_id'],
         ]);
     }
 
@@ -79,7 +74,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::where('id', auth('api')->user()->id)->first();
     }
 
     /**
@@ -96,9 +91,6 @@ class UserController extends Controller
             'name' => $request['name'],
             'email' => $request['email'],
             'phone' => $request['phone'],
-            'password' => Hash::make($request['password']),
-            'level' => $request['level'],
-            'unit_id' => $request['unit_id']
         ]);
     }
 
@@ -120,6 +112,29 @@ class UserController extends Controller
                 ->get();
 
         return $users;
+    }
+
+    public function resetPassword($id)
+    {
+        $user = User::findOrFail($id);
+        $newPass = rand(10000, 99999);
+        $user->update([
+            'password' => Hash::make($newPass),
+        ]);
+
+        $mail = Mail::send('emails.resetPassword', compact('user', 'newPass'), function ($m) use ($user)
+            {
+                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Reset Password');
+            }
+        );
+    }
+
+    public function gantiPassword($pass)
+    {
+        $user = User::where('id', auth('api')->user()->id);
+        $user->update([
+            'password' => Hash::make($pass),
+        ]);
     }
 
     public function export()

@@ -16,7 +16,8 @@
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
-        "phpoffice/phpspreadsheet": "^1.8"
+        "phpoffice/phpspreadsheet": "^1.8",
+	"simplesoftwareio/simple-qrcode": "~2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

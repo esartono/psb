@@ -1,0 +1,16 @@
+@include('exports.statistik.pekerjaan')
+<br>
+@include('exports.statistik.pendidikan')
+<br>
+@include('exports.statistik.penghasilan')
+<br>
+@include('exports.statistik.asal')
+<br>
+@include('exports.statistik.kelurahan')
+<br>
+@include('exports.statistik.kecamatan')
+<br>
+@include('exports.statistik.kota')
+<br>
+@include('exports.statistik.provinsi')
+<br>
