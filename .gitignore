@@ -5,6 +5,7 @@
 /vendor
 /catatan
 .env
+.env-nyoba
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
