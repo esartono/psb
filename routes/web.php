@@ -24,6 +24,7 @@ Auth::routes(['verify' => true]);
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::middleware('auth')->group(function(){
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/biayatesPDF/{id}', 'CalonPDFController@biayates')->name('biayatesPDF');
     Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
@@ -38,8 +39,7 @@ Route::middleware('auth', 'user')->group(function(){
 
 Route::middleware('auth', 'admin')->group(function(){
 
-    //Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/home', 'HomeController@front');
+    Route::get('/dashboard', 'HomeController@front')->name('dashboard');
     Route::get('/profile', 'HomeController@front');
     Route::get('/siswa', 'HomeController@front');
     Route::get('/statistik/{id}', 'CalonHasilController@statistik');

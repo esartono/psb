@@ -48,7 +48,7 @@ Vue.use(VueDatePicker)
 
 const newLocal = '/psb';
 let routes = [
-    { path: '/home', component: require('./components/Home.vue').default},
+    { path: '/dashboard', component: require('./components/Home.vue').default},
     { path: '/siswa', component: require('./components/CPDSiswa.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
 

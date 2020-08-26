@@ -14,6 +14,7 @@ use App\CalonHasil;
 use App\CalonBiayaTes;
 use App\Jadwal;
 
+use Auth;
 use Telegram;
 
 class HomeController extends Controller
@@ -36,29 +37,18 @@ class HomeController extends Controller
     public function index()
     {
         if(auth()->user()->isAdmin()){
-            return view('home');
+            return redirect()->route('dashboard');
+            // return view('home');
         }
 
         if(auth()->user()->isUser()){
-            return view('psb');
+            return redirect()->route('psb');
+            // return view('psb');
         }
     }
 
     public function front()
     {
-        // $jadwal = null;
-
-        // if(auth()->user()->isAdmin()) {
-        //     $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
-        // }
-
-        // if(auth()->user()->isAdminUnit()) {
-        //     $unit = auth('api')->user()->unit_id;
-        //     $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth()->user()->tpid)->get()->pluck('id');
-        // }
-        // $jadwal = Jadwal::with('gelnya.unitnya.catnya')->whereIn('gel_id', $gelombang)->orderBy('seleksi', 'asc')->get();
-
-        // return view('front', compact('jadwal'));
         return view('front');
     }
 
@@ -97,14 +87,6 @@ class HomeController extends Controller
 
     public function edupay()
     {
-        // $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',2)->first();
-
-        // Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
-        //     {
-        //         $m->to('eko.sartono@nurulfikri.sch.id', $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Kartu Seleksi');
-        //     }
-        // );
-
         $tp = TahunPelajaran::where('status', 1)->first();
 
         $gelombang = Gelombang::with('unitnya.catnya')->where('tp', $tp->id)
@@ -180,6 +162,10 @@ class HomeController extends Controller
 
     public function depan()
     {
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+
         $tp = TahunPelajaran::where('status', 1)->first();
 
         $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
