@@ -8,10 +8,10 @@ class Edupay
 {
     public function view($idtagihan)
     {
-        if ($idtagihan === '202134292')
-        {
-            $idtagihan = 'inv9000329220200709176315';
-        }
+        // if ($idtagihan === '202134292')
+        // {
+        //     $idtagihan = 'inv9000329220200709176315';
+        // }
         $apikey = config('edupay.api');
         $biller = config('edupay.biller');
         $checksum = sha1($biller.$apikey.$idtagihan);

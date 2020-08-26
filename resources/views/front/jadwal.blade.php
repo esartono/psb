@@ -25,19 +25,19 @@
                         <tbody>
                             <tr>
                                 <td>Pendaftaran</td>
-                                <td>3 September - 16 Januari 2020</td>
+                                <td>3 September - 30 Juni 2020</td>
                             </tr>
                             <tr>
                                 <td>Seleksi</td>
-                                <td>5 Oktober 2019 dan<br> 9 November 2019<br> 18 Januari 2020</td>
+                                <td>5 Oktober 2019 dan<br> 9 November 2019<br> 18 Januari 2020<br>14 Maret 2020</td>
                             </tr>
                             <tr>
                                 <td>Pengumuman</td>
-                                <td>10 Oktober 2019 dan<br> 14 November 2019<br> 24 Januari 2020</td>
+                                <td>10 Oktober 2019 dan<br> 14 November 2019<br> 24 Januari 2020<br>27 Maret 2020</td>
                             </tr>
                             <tr>
                                 <td>Daftar Ulang</td>
-                                <td>11 - 17 Oktober 2019 dan<br> 15 - 21 November 2019<br>  27 - 30 Januari 2020</td>
+                                <td>11 - 17 Oktober 2019 dan<br> 15 - 21 November 2019<br>  27 - 30 Januari 2020<<br>30 Maret - 3 April 2020</td>
                             </tr>
                             <tr>
                                 <td>Pembagian Seragam</td>

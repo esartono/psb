@@ -4,7 +4,11 @@
 /storage/*.key
 /vendor
 /catatan
+/public/file
+/.vscode
 .env
+.env-ASLI
+.env copy
 .env-nyoba
 .phpunit.result.cache
 Homestead.json

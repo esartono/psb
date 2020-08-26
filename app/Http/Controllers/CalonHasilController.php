@@ -8,6 +8,7 @@ use Excel;
 use App\Exports\Statistik;
 use App\Exports\Terima;
 use App\Exports\Raw;
+use App\Exports\RawTerima;
 
 class CalonHasilController extends Controller
 {
@@ -16,6 +17,10 @@ class CalonHasilController extends Controller
         if (auth()->user()->isAdmin()){
             if($id === 'mentah'){
                 return Excel::download(new Raw, 'Data Mentah PSB.xlsx');
+            }
+
+            if($id === 'mentah_terima'){
+                return Excel::download(new RawTerima, 'Data Mentah PSB Diterima.xlsx');
             }
 
             if($id === 'all' || $id === 'aktif'){

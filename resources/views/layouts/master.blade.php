@@ -92,7 +92,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <a href="/statistik/mentah" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Mentah</p>
+                  <p>Mentah ( Status Aktif )</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/statistik/mentah_terima" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Mentah ( Status Diterima )</p>
                 </a>
               </li>
               <li class="nav-item">
