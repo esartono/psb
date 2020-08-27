@@ -1,0 +1,8 @@
+[2020-07-23 19:50:28] development.ERROR: Maximum execution time of 30 seconds exceeded {"userId":199,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at /home/tik/psb/vendor/laravel/framework/src/Illuminate/Database/Connection.php:326)
+[stacktrace]
+#0 {main}
+"} 
+[2020-07-23 19:51:09] development.ERROR: Maximum execution time of 30 seconds exceeded {"userId":199,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 30 seconds exceeded at /home/tik/psb/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php:1305)
+[stacktrace]
+#0 {main}
+"} 
