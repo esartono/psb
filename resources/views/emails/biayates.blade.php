@@ -32,7 +32,7 @@
             </tr>
         </table>
         <p>Untuk melanjutkan proses pendaftaran, silakan melunasi biaya pendaftaran sejumlah:
-            Rp. {{ number_format($calonsnya->biayates->biayanya->biaya) }},-, 
+            Rp. {{ number_format($calonsnya->biayates->biayanya->biaya) }},-,
             batas waktu pembayaran sampai tanggal : <b>{{ date('d M Y', strtotime($calonsnya->biayates->expired)) }}</b></p>
         <p>Terima kasih.</p>
 @endsection

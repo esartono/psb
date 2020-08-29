@@ -80,6 +80,19 @@ class HomeController extends Controller
         return view('profile');
     }
 
+    public function dashboardUser()
+    {
+        if (auth()->user()->isUser()){
+            $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                    ->where('user_id', auth()->user()->id)
+                    ->whereIn('gel_id', $gelombang)->get();
+        }
+
+        return view('user.dashboard', compact('calons'));
+        // return view('psb');
+    }
+
     public function psb()
     {
         return view('psb');

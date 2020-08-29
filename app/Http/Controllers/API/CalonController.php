@@ -119,14 +119,6 @@ class CalonController extends Controller
             'expired' => date("Y-m-d", strtotime("+1 days"))
         ]);
 
-        CalonSeragam::create([
-            'calon_id' => $calon->id,
-            'bahu' => $request['bahu'],
-            'panjang_baju' => $request['panjang_baju'],
-            'lingkar' => $request['lingkar'],
-            'panjang_celana' => $request['panjang_celana'],
-        ]);
-
         Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
 
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
