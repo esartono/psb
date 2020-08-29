@@ -18,17 +18,17 @@ class UserTableSeeder extends Seeder
             'email' => 'admin@nf.local',
             'phone' => '081295941985',
             'password' => Hash::make('123'),
-            'email_verified_at' => '2019-08-30 00:00:00',
+            'email_verified_at' => '2020-08-29 00:00:00',
             'level' => 1
-        ]); 
+        ]);
 
         User::create([
             'name' => 'Tes User',
             'email' => 'tes@nf.local',
             'phone' => '081295941985',
             'password' => Hash::make('123'),
-            'email_verified_at' => '2019-08-30 00:00:00',
+            'email_verified_at' => '2020-08-29 00:00:00',
             'level' => 2
-        ]); 
+        ]);
     }
 }
