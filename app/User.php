@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Notifications\UserMail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -16,6 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_ADMINKEU = 4;
 
     use HasApiTokens, Notifiable;
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new UserMail);
+    }
 
     /**
      * The attributes that are mass assignable.
