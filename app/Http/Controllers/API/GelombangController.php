@@ -30,7 +30,8 @@ class GelombangController extends Controller
 
         $gelombang = Gelombang::with('unitnya.catnya', 'tpnya')
                 ->where('unit_id', $id)
-                ->where('end', '>', $tgl_sekarang)
+                ->where('start', '>', $tgl_sekarang)
+                ->where('end', '<=', $tgl_sekarang)
                 ->where('tp', auth('api')->user()->tpid)
                 ->first();
 

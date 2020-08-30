@@ -151,8 +151,11 @@ Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)
 Vue.filter('Tanggal', function(tanggalnya){
-    if(tanggalnya) {
-        return moment(tanggalnya).format('DD MMMM YYYY');
+    var timestamp = Date.parse(tanggalnya);
+
+    if (isNaN(timestamp) == true) {
+        var d = new Date(timestamp);
+        return moment(d).format('DD MMMM YYYY');
     } else {
         return 'Tidak Ada';
     }
