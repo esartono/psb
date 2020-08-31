@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\UserMail;
+use App\Notifications\MailResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -17,6 +18,11 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_ADMINKEU = 4;
 
     use HasApiTokens, Notifiable;
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new MailResetPasswordNotification($token));
+    }
 
     public function sendEmailVerificationNotification()
     {
