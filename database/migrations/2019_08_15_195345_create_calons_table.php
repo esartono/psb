@@ -31,8 +31,8 @@ class CreateCalonsTable extends Migration
             $table->date('tgl_lahir');
             $table->integer('agama')->default(1);
             $table->string('alamat');
-            $table->integer('rt')->unsigned();
-            $table->integer('rw')->unsigned();
+            $table->string('rt');
+            $table->string('rw');
             $table->string('kodepos')->nullable();
             $table->integer('provinsi')->unsigned();
             $table->integer('kota')->unsigned();

@@ -199,6 +199,7 @@
                                     :key="unit.id"
                                     v-bind:value="unit.id"
                                 >{{ unit.name }}</option>
+                                <option value="5">NFBS Bogor</option>
                                 </select>
                             </div>
                         </div>

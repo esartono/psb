@@ -57,6 +57,7 @@ Route::get('pekerjaan', 'API\PekerjaanController@index');
 Route::get('pendidikan', 'API\PendidikanController@index');
 Route::get('penghasilan', 'API\PenghasilanController@index');
 Route::get('sumberinfo', 'API\SumberInfoController@index');
+Route::get('kategoris', 'API\CalonKategoriController@data');
 Route::get('agama', 'API\AgamaController@dataAgama');
 Route::get('indexadmin/{id}', 'API\CalonController@indexAdmin');
 //Route::get('getcalon/{id}', 'API\CalonController@getCalon');

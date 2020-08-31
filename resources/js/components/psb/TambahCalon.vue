@@ -53,6 +53,7 @@
                                 <i v-if="ck.name == 'Umum'" class="fas fa-users"></i>
                                 <i v-else-if="ck.name == 'Siswa SIT NF'" class="fas fa-address-card"></i>
                                 <img v-else-if="ck.name == 'Pegawai SIT NF'" src="/img/logo.png" alt="Logo" height="70%" width="60%" class="mb-1">
+                                <img v-else-if="ck.name == 'Beasiswa'" src="/img/logo.png" alt="Logo" height="70%" width="60%" class="mb-1">
                                 <!-- <br v-else-if="ck.name == 'Pegawai SIT NF'"> -->
                                 {{ ck.name }}
                             </a>
@@ -678,7 +679,8 @@ import { constants } from 'crypto';
                     'bg-red',
                     'bg-blue',
                     'bg-orange',
-                    'bg-teal'
+                    'bg-teal',
+                    'bg-green',
                 ],
                 units: {},
                 cks: {},
@@ -943,12 +945,20 @@ import { constants } from 'crypto';
                                         '</div>' +
                                     '</div>',
                                 showCancelButton: false,
+                                allowOutsideClick: false,
                                 preConfirm: () => {
-                                    return [
-                                        this.form.jurusan = document.getElementById('jurusan').value
-                                    ]
+                                    if(document.getElementById('jurusan').value === "Pilih Jurusan") {
+                                        this.$refs.wizard.changeTab(0,0)
+                                    } else {
+                                        return [
+                                            this.form.jurusan = document.getElementById('jurusan').value
+                                        ]
+                                    }
                                 }
                             })
+                            if(this.form.jurusan === "") {
+                                this.$refs.wizard.changeTab(0,0)
+                            }
                         }
                         if(this.unit_ck !== 'TK' || this.unit_ck !== 'SD') {
                             this.form.nisn = ""
@@ -1064,7 +1074,7 @@ import { constants } from 'crypto';
                 .then(({ data }) => (this.units = data));
 
             axios
-                .get("../api/cks")
+                .get("../api/kategoris")
                 .then(({ data }) => (this.cks = data));
 
             axios

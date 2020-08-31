@@ -20,7 +20,7 @@ class SiswaNFController extends Controller
      */
     public function index()
     {
-        return SiswaNF::with('unitnya', 'tpnya', 'kelasnya')->orderBy('name', 'asc')->get()->toArray();
+        return SiswaNF::with('tpnya', 'kelasnya')->orderBy('name', 'asc')->get()->toArray();
     }
 
     /**
@@ -50,7 +50,7 @@ class SiswaNFController extends Controller
      */
     public function show($id)
     {
-        $siswa = SiswaNF::with('unitnya', 'tpnya', 'kelasnya')->where('nis', $id)->get();
+        $siswa = SiswaNF::with('tpnya', 'kelasnya')->where('nis', $id)->get();
         $cek = $siswa->count();
         return compact('siswa', 'cek');
     }
