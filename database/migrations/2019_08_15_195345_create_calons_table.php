@@ -25,6 +25,7 @@ class CreateCalonsTable extends Migration
             $table->string('panggilan');
             $table->boolean('jk')->default(1);
             $table->integer('kelas_tujuan')->unsigned();
+            $table->string('jurusan')->default("-");
             $table->string('photo')->default('calon.jpg');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
@@ -60,6 +61,7 @@ class CreateCalonsTable extends Migration
             $table->integer('asal_kelurahan_sekolah')->nullable()->unsigned();
             $table->integer('info')->nullable()->unsigned();
             $table->boolean('status')->default(0);
+            $table->boolean('aktif')->default(0);
             $table->boolean('setuju')->default(0);
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();

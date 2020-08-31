@@ -18,6 +18,7 @@ class Calon extends Model
         'panggilan',
         'jk',
         'kelas_tujuan',
+        'jurusan',
         'photo',
         'tempat_lahir',
         'tgl_lahir',
@@ -54,6 +55,7 @@ class Calon extends Model
         'info',
         'status',
         'setuju',
+        'aktif',
         'user_id'
     ];
 

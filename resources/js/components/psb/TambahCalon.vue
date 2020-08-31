@@ -688,6 +688,7 @@ import { constants } from 'crypto';
                     gel_id: "",
                     ck_id: "",
                     tgl_daftar: "",
+                    jurusan: "",
                     nisn: 123,
                     nik: "",
                     name: "",
@@ -930,13 +931,23 @@ import { constants } from 'crypto';
                         if(this.unit_ck === "SMA"){
                             Swal.fire({
                                 title: "Pilih Jurusan",
-                                input: 'select',
-                                inputOptions: {
-                                    'IPA': 'IPA',
-                                    'IPS': 'IPS'
-                                },
-                                inputPlaceholder: 'Pilih Jurusan',
+                                html:
+                                    '<hr><div class="form-group row">' +
+                                        '<label class="col-md-7 col-form-label">Jurusan yg diinginkan</label>' +
+                                        '<div class="col-md-5">' +
+                                            '<select id="jurusan" class="form-control" required>'+
+                                                '<option selected disabled>Pilih Jurusan</option>' +
+                                                '<option value="IPA">IPA</option>' +
+                                                '<option value="IPS">IPS</option>' +
+                                            '</select>' +
+                                        '</div>' +
+                                    '</div>',
                                 showCancelButton: false,
+                                preConfirm: () => {
+                                    return [
+                                        this.form.jurusan = document.getElementById('jurusan').value
+                                    ]
+                                }
                             })
                         }
                         if(this.unit_ck !== 'TK' || this.unit_ck !== 'SD') {
