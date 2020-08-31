@@ -17,6 +17,7 @@ class CreateKelasnyasTable extends Migration
             $table->increments('id');
             $table->integer('unit_id')->unsigned();
             $table->string('name');
+            $table->boolean('status')->default(true);
             $table->timestamps();
 
             $table->foreign('unit_id')

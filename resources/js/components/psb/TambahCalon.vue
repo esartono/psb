@@ -374,13 +374,22 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
+                                        <!-- <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ayah_penghasilan"
+                                        type="number"
+                                        name="ayah_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ayah_penghasilan') }"
+                                        id="ayah_penghasilan"
+                                        >
+
                                         <has-error :form="form" field="ayah_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -463,13 +472,22 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
+                                        <!-- <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ibu_penghasilan"
+                                        type="number"
+                                        name="ibu_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ibu_penghasilan') }"
+                                        id="ibu_penghasilan"
+                                        >
+
                                         <has-error :form="form" field="ibu_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -791,7 +809,7 @@ import { constants } from 'crypto';
                         if(this.form.ayah_nama == ""){this.salahs.push('Nama Ayah Calon Siswa harus diisi')}
                         if(this.form.ayah_pendidikan == ""){this.salahs.push('Pendidikan Ayah harus dipilih')}
                         if(this.form.ayah_pekerjaan == ""){this.salahs.push('Pekerjaan Ayah harus dipilih')}
-                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus dipilih')}
+                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus diisi')}
                         if(this.form.ayah_hp == ""){this.salahs.push('Nomor Ponsel Ayah harus dipilih')}
                         if(this.form.ibu_nama == ""){this.salahs.push('Nama Ibu Calon Siswa harus diisi')}
                         if(this.form.ibu_pendidikan == ""){this.salahs.push('Pendidikan Ibu harus dipilih')}

@@ -42,13 +42,13 @@ class CreateCalonsTable extends Migration
             $table->string('ayah_nama')->nullable();
             $table->integer('ayah_pendidikan')->nullable()->unsigned();
             $table->integer('ayah_pekerjaan')->nullable()->unsigned();
-            $table->integer('ayah_penghasilan')->nullable()->unsigned();
+            $table->string('ayah_penghasilan')->nullable();
             $table->string('ayah_hp')->nullable()->nullable();
             $table->string('ayah_email')->nullable()->nullable();
             $table->string('ibu_nama')->nullable();
             $table->integer('ibu_pendidikan')->nullable()->unsigned();
             $table->integer('ibu_pekerjaan')->nullable()->unsigned();
-            $table->integer('ibu_penghasilan')->nullable()->unsigned();
+            $table->string('ibu_penghasilan')->nullable();
             $table->string('ibu_hp')->nullable()->nullable();
             $table->string('ibu_email')->nullable()->nullable();
             $table->boolean('asal_nf')->default(0);

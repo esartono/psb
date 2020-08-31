@@ -28,6 +28,7 @@ class KelasnyaController extends Controller
         Kelasnya::create([
             'name' => $request['name'],
             'unit_id' => $request['unit_id'],
+            'status' => $request['status']
         ]);
     }
 
@@ -45,7 +46,7 @@ class KelasnyaController extends Controller
 
     public function dataKelas($unit)
     {
-        return Kelasnya::where('unit_id',$unit)->whereNotIn('name',['2', '3', '6'])->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::where('unit_id',$unit)->where('status',true)->orderBy('id', 'asc')->get()->toArray();
     }
 
 }

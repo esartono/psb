@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AgreementTableSeeder::class);
         $this->call(BiayaTesTableSeeder::class);
         $this->call(BeritaTableSeeder::class);
+        $this->call(JadwalSeeder::class);
     }
 }

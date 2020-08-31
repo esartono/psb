@@ -50,6 +50,7 @@
                   <th>{{ index+((currentPage-1) * 7)+1 }}</th>
                   <td class="text-center">{{ row.name }}</td>
                   <td class="text-center">{{ row.unitnya.name }}</td>
+                  <td class="text-center">{{ statusnya.data[row.status].name }}</td>
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>
@@ -119,6 +120,16 @@
                     </select>
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Status</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.status" name="status" class="form-control" id="status">
+                      <option v-for="status in statusnya.data" :key="status.id"
+                              v-bind:value="status.id">{{ status.name }}</option>
+                    </select>
+                    <has-error :form="form" field="status"></has-error>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -137,6 +148,16 @@ export default {
   data() {
     return {
       editmode: false,
+      statusnya: {
+        data: [{
+            'id': 0,
+            'name': 'Tidak Tersedia'
+          },
+          {
+            'id': 1,
+            'name': 'Tersedia'
+          }
+        ]},
       units: {},
       kelasnyas: [],
       filters: {
@@ -147,7 +168,8 @@ export default {
       form: new Form({
         id: "",
         name: "",
-        unit_id: ""
+        unit_id: "",
+        status: 0
       })
     };
   },
