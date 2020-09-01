@@ -15,9 +15,10 @@
         "laravel/framework": "5.8.*",
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
+        "laravolt/avatar": "^3.2",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "^1.8",
-	"simplesoftwareio/simple-qrcode": "~2"
+        "simplesoftwareio/simple-qrcode": "~2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

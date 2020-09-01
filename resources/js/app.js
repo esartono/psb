@@ -76,6 +76,7 @@ let routes = [
      * Dashboard Ortu
      */
     { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
+    { path: '/dokumen/:id', component: require('./components/psb/Dokumen.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
     { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},
     { path: '/editcalons/:id', component: require('./components/psb/EditCalon.vue').default},
@@ -152,11 +153,8 @@ Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)
 Vue.filter('Tanggal', function(tanggalnya){
-    var timestamp = Date.parse(tanggalnya);
-
-    if (isNaN(timestamp) == true) {
-        var d = new Date(timestamp);
-        return moment(d).format('DD MMMM YYYY');
+    if (tanggalnya) {
+        return moment(tanggalnya).format('DD MMMM YYYY');
     } else {
         return 'Tidak Ada';
     }

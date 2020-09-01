@@ -64,7 +64,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'hasil'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'hasil', 'bt'
     ];
 
     public function getKelaminAttribute()
@@ -121,6 +121,26 @@ class Calon extends Model
         }
 
         return compact('hasil', 'tagihan');
+    }
+
+    public function getBtAttribute()
+    {
+        $bt = CalonBiayaTes::where('calon_id', $this->attributes['id'])->first();
+        if($bt){
+            $biayates = $bt;
+            $bn = BiayaTes::where('id', $biayates->biaya_id)->first();
+        } else {
+            $biayates = "-";
+            $bn = "-";
+        }
+
+        if($bn !== "-"){
+            $biayanya = $bn;
+        } else {
+            $biayanya = "-";
+        }
+
+        return compact('biayates', 'biayanya');
     }
 
     public function gelnya()

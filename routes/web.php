@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth', 'user')->group(function(){
     // Route::get('/psb', 'HomeController@dashboardUser')->name('psb');
     Route::get('/psb', 'HomeController@psb')->name('psb');
+    Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
     Route::get('/tambahcalon', 'HomeController@psb')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'HomeController@psb')->name('editcalon');
 });

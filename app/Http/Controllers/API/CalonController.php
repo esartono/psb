@@ -45,6 +45,7 @@ class CalonController extends Controller
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya');
             return $calons->where('user_id', auth('api')->user()->id)
+                    ->where('aktif', true)
                     ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
     }
@@ -112,22 +113,21 @@ class CalonController extends Controller
         $biaya = BiayaTes::where('gel_id', $request['gel_id'])
                     ->where('ck_id', $request['ck_id'])
                     ->get()->first();
+        if($biaya) {
+            $calonbiaya = CalonBiayaTes::create([
+                'calon_id' => $calon->id,
+                'biaya_id' => $biaya->id,
+                'expired' => date("Y-m-d", strtotime("+1 days"))
+            ]);
 
-        $calonbiaya = CalonBiayaTes::create([
-            'calon_id' => $calon->id,
-            'biaya_id' => $biaya->id,
-            'expired' => date("Y-m-d", strtotime("+1 days"))
-        ]);
-
-        Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
-
-        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-
-        Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-            {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-            }
-        );
+            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+            Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+                {
+                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                }
+            );
+        }
     }
 
     /**

@@ -61,7 +61,7 @@ class CreateCalonsTable extends Migration
             $table->integer('asal_kelurahan_sekolah')->nullable()->unsigned();
             $table->integer('info')->nullable()->unsigned();
             $table->boolean('status')->default(0);
-            $table->boolean('aktif')->default(0);
+            $table->boolean('aktif')->default(1);
             $table->boolean('setuju')->default(0);
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();

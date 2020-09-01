@@ -179,7 +179,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
-	    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
 
     ],
 
@@ -235,7 +236,8 @@ return [
         'Edupay' => App\Edupay\Facades\Edupay::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
-	    'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Avatar' => Laravolt\Avatar\Facade::class,
     ],
 
 ];

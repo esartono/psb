@@ -388,6 +388,8 @@
                                         class="form-control"
                                         :class="{ 'is-invalid':form.errors.has('ayah_penghasilan') }"
                                         id="ayah_penghasilan"
+                                        min=0
+                                        step=500000
                                         >
 
                                         <has-error :form="form" field="ayah_penghasilan"></has-error>
@@ -486,6 +488,8 @@
                                         class="form-control"
                                         :class="{ 'is-invalid':form.errors.has('ibu_penghasilan') }"
                                         id="ibu_penghasilan"
+                                        min=0
+                                        step=500000
                                         >
 
                                         <has-error :form="form" field="ibu_penghasilan"></has-error>

@@ -72,6 +72,9 @@
                             v-bind:class="calon.hasil.tagihan == 'Kosong' || calon.hasil.hasil.lulus !== 1 ? 'disabled' : ''"
                             :href="'#daul'+calon.id" data-toggle="tab">Daftar Ulang</a>
                     </li>
+                    <li class="nav-item">
+                        <router-link v-bind:to="'/dokumen/'+calon.id" class="btn btn-warning"><i class="fas fa-book"> </i><b> Upload Dokumen </b></router-link>
+                    </li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -79,15 +82,20 @@
                     <div class="tab-pane"
                         v-bind:class="calon.status == 0 ? 'active' : ''"
                         :id="'daftar'+calon.id">
-                        <div class="clearfix text-center">
+                        <div v-if="calon.bt.biayanya !== '-'" class="clearfix text-center">
                             <h3>Biaya Pendaftaran PSB</h3>
                             <hr>
-                            <h1>{{ calon.biayates.biayanya.biaya | toCurrency }}</h1>
+                            <h1>{{ calon.bt.biayanya.biaya | toCurrency }}</h1>
                             <hr>
                             <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Mandiri (BSM):</p>
                             <h3><b>{{ calon.uruts }}</b></h3>
-                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b>
+                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.bt.biayates.expired | Tanggal }}</b>
                             <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-success mt-3">Cetak Tata Cara Pembayaran</a>
+                        </div>
+                        <div v-else class="clearfix text-center">
+                            <h3>Belum Tersedia</h3>
+                            <hr>
+                            <p>Silahkan hubungi panitia PPDB Online - SIT Nurul Fikri</p>
                         </div>
                     </div>
                     <div class="tab-pane"

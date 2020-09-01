@@ -27,6 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
+            <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" class="user-image" alt="User Image" style="height: 35px;"/>
             {{ Auth::user()->name }} &nbsp; &nbsp;
             <i class="fas fa-caret-down"></i>
           </a>
