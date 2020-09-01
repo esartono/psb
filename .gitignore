@@ -5,6 +5,7 @@
 /vendor
 /catatan
 /public/file
+/storage/dokumen
 /.vscode
 .env
 .env-ASLI

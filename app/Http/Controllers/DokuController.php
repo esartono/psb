@@ -34,15 +34,15 @@ class DokuController extends Controller
 
     public function update(Request $request)
     {
-        $calon = $request->calon;
+        $calon = Calon::where('id', $request->calon)->first();
         $file = $request->file('file');
 
         $extension = $file->getClientOriginalExtension();
         $namefile = $file->getClientOriginalName();
 
-        Storage::disk('my_upload')->put('/'.$calon.'/'.$namefile, File::get($file));
+        Storage::disk('my_upload')->put('/'.$calon->uruts.'/'.$namefile, File::get($file));
         Doku::create([
-            'calon_id' => $calon,
+            'calon_id' => $calon->id,
             'user_id' => auth()->user()->id,
             'jdoku' => $request->jdoku,
             'file' => $namefile
