@@ -29,12 +29,14 @@ Route::middleware('auth')->group(function(){
     Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
+    Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
+    Route::resource('doku', 'DokuController');
 });
 
 Route::middleware('auth', 'user')->group(function(){
     // Route::get('/psb', 'HomeController@dashboardUser')->name('psb');
     Route::get('/psb', 'HomeController@psb')->name('psb');
-    Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
+    // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
     Route::get('/tambahcalon', 'HomeController@psb')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'HomeController@psb')->name('editcalon');
 });

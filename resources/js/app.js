@@ -76,7 +76,7 @@ let routes = [
      * Dashboard Ortu
      */
     { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
-    { path: '/dokumen/:id', component: require('./components/psb/Dokumen.vue').default},
+    // { path: '/dokumen/:id', component: require('./components/psb/Dokumen.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
     { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},
     { path: '/editcalons/:id', component: require('./components/psb/EditCalon.vue').default},

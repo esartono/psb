@@ -73,7 +73,7 @@
                             :href="'#daul'+calon.id" data-toggle="tab">Daftar Ulang</a>
                     </li>
                     <li class="nav-item">
-                        <router-link v-bind:to="'/dokumen/'+calon.id" class="btn btn-warning"><i class="fas fa-book"> </i><b> Upload Dokumen </b></router-link>
+                        <a :href="'/dokumen/'+calon.id" class="btn btn-warning"><i class="fas fa-book"> </i><b> Upload Dokumen </b></a>
                     </li>
                 </ul>
             </div><!-- /.card-header -->
