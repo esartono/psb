@@ -20,47 +20,34 @@
                     <table class="table table-bordered">
                         <tr>
                             <td>No. Pendaftaran</td>
-                            <td style="width: 300px !important">{{ $calon->name }}</td>
+                            <td style="width: 300px !important">{{ $calon->uruts }}</td>
                         </tr>
                         <tr>
                             <td>Nama Calon Siswa</td>
-                            <td>{{ $calon->uruts }}</td>
+                            <td>{{ $calon->name }}</td>
                         </tr>
                     </table>
                     <hr>
+                    <a class="btn btn-warning mb-3" href="{{ route('doku.show', $calon->id) }}">
+                        <i class="fas fa-upload"></i> Upload Dokumen
+                    </a>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <td>Jenis Dokumen</td>
                                 <td>Status</td>
-                                <td>Aksi</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Akte Kelahiran</td>
-                                <td></td>
-                                <td>Upload</td>
-                            </tr>
-                            <tr>
-                                <td>Kartu Keluarga</td>
-                                <td></td>
-                                <td>Upload</td>
-                            </tr>
-                            <tr>
-                                <td>KTP Ayah</td>
-                                <td></td>
-                                <td>Upload</td>
-                            </tr>
-                            <tr>
-                                <td>KTP Ibu</td>
-                                <td></td>
-                                <td>Upload</td>
-                            </tr>
+                            @foreach(App\JDoku::orderBy('id', 'asc')->get() as $j)
+                                <tr>
+                                    <td>{{ $j->name }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
                             <tr>
                                 <td>Rapot</td>
                                 <td></td>
-                                <td>Upload</td>
                             </tr>
                         </tbody>
                     </table>

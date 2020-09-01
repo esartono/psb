@@ -65,6 +65,7 @@ let routes = [
      * Konfigurasi
      */
     { path: '/config/tp', component: require('./components/config/TP.vue').default},
+    { path: '/config/jdokus', component: require('./components/config/JDoku.vue').default},
     { path: '/config/kategori', component: require('./components/config/Kategori.vue').default},
     { path: '/config/gelombang', component: require('./components/config/Gelombang.vue').default},
     { path: '/config/jadwal', component: require('./components/config/Jadwal.vue').default},

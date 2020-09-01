@@ -57,6 +57,7 @@ Route::middleware('auth', 'admin')->group(function(){
 
     //Route untuk folder config
     Route::get('/config/tp', 'HomeController@front');
+    Route::get('/config/jdokus', 'HomeController@front');
     Route::get('/config/kategori', 'HomeController@front');
     Route::get('/config/gelombang', 'HomeController@front');
     Route::get('/config/jadwal', 'HomeController@front');

@@ -69,5 +69,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <script src="/js/app.js"></script>
+@stack('js')
 </body>
 </html>

@@ -13,7 +13,13 @@ class DokuController extends Controller
     public function calon($id){
         $calon = Calon::where('id',$id)->where('user_id',auth()->user()->id)->first();
         if($calon) {
-            return view('doku.index', compact('calon'));
+            $doku = Doku::where('calon_id',$id)->where('user_id',auth()->user()->id)->pluck('file', 'jdoku');
+            return view('doku.index', compact('calon', 'doku'));
         }
+    }
+
+    public function show($calon)
+    {
+        return view('doku.create', compact('calon'));
     }
 }

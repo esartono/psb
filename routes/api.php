@@ -29,6 +29,7 @@ Route::apiResources([
     'siswanfs' => 'API\SiswaNFController',
     'pegawais' => 'API\PegawaiController',
     'cks' => 'API\CalonKategoriController',
+    'jdokus' => 'API\JDokuController',
     'calons' => 'API\CalonController',
     'agreements' => 'API\AgreementController',
     'beritas' => 'API\BeritaController',
