@@ -7,34 +7,34 @@
             <div class="card card-primary card-outline">
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
-                        <i class="fas fa-user-edit"></i>
+                        <i class="fas fa-upload"></i>
                         Form Upload Dokumen
                     </h3>
                     <div class="card-tools">
-                        <a href="/psb" type="button" class="btn bg-danger btn-sm">
+                        <a href="/dokumen/{{ $calon }}" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="alert alert-danger">
+                        File yang diupload hanya file dalam bentuk <strong>PDF atau Gambar</strong>.
+                    </div>
                 <form role="form" method="POST" action="{{ route('doku.update', $calon) }}" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                     <div class="form-group row">
                         <label for="name" class="col-sm-4 col-form-label">Jenis Dokumen</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="jdoku" required>
-                                <option selected disabled>Pilih Jenis Dokumen</option>
-                                @foreach(App\JDoku::orderBy('id', 'asc')->get() as $j)
-                                    <option value="{{ $j->code }}">{{ $j->name }}</option>
-                                @endforeach
-                            </select>
+                            <input name="calon" type="hidden" class="form-control" value="{{ $calon }}" required readonly>
+                            <input name="jdoku" type="hidden" class="form-control" value="{{ $jd->code }}" required readonly>
+                            <input type="text" class="form-control" value="{{ $jd->name }}" disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="file" class="col-sm-4 col-form-label">Upload Dokumen</label>
                         <div class="col-sm-8">
-                            <input name="file" type="file" class="form-control" required>
+                            <input name="file" type="file" class="form-control" required accept="application/pdf, image/*">
                         </div>
                     </div>
                     <div class="form-group row">

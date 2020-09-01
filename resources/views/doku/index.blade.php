@@ -28,27 +28,39 @@
                         </tr>
                     </table>
                     <hr>
-                    <a class="btn btn-warning mb-3" href="{{ route('doku.show', $calon->id) }}">
-                        <i class="fas fa-upload"></i> Upload Dokumen
-                    </a>
+                    <div class="alert alert-danger">
+                        File yang diupload hanya file dokumen dalam bentuk <strong>PDF atau Gambar</strong>. 
+                        Dan apabila ingin mengganti file dokumen yang sudah diupload, dapat dilakukan dengan 
+                        cara mengupload ulang dokumen tersebut.
+                    </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td>Jenis Dokumen</td>
-                                <td>Status</td>
+                                <th width="10%">No.</th>
+                                <th>Jenis Dokumen</th>
+                                <th width="20%">Status</th>
+                                <th width="20%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(App\JDoku::orderBy('id', 'asc')->get() as $j)
+                        @php
+                            $no = 1;
+                        @endphp
+                            @foreach(App\JDoku::Dokumen($calon->gel_id) as $j)
                                 <tr>
+                                    <th>{{ $no++ }}</th>
                                     <td>{{ $j->name }}</td>
-                                    <td></td>
+                                    @isset($doku[$j->code])
+                                        <th>
+                                            <span><i class="fas fa-thumbs-up"></i><strong> Sudah Terupload</strong></span>
+                                        </th>
+                                    @endisset
+                                    @empty($doku[$j->code])
+                                        <th><code>Belum Terupload</code></th>
+                                    @endempty
+                                    <th><a class="btn btn-warning" href="{{ route('doku.upload', ['calon' => $calon->id, 'code' => $j->code ]) }}">Upload</a></th>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <td>Rapot</td>
-                                <td></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

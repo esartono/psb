@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
     Route::resource('doku', 'DokuController');
+    Route::get('uploaddokumen/{calon}/{code?}', 'DokuController@upload')->name('doku.upload');
 });
 
 Route::middleware('auth', 'user')->group(function(){
