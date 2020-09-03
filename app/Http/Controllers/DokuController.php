@@ -10,6 +10,7 @@ use App\Doku;
 use App\JDoku;
 use App\Calon;
 use App\User;
+use App\CalonJadwal;
 
 class DokuController extends Controller
 {
@@ -49,5 +50,25 @@ class DokuController extends Controller
         ]);
 
         return redirect()->route('dokumen', compact('calon'));
+    }
+
+    public function pilihJadwal($id)
+    {
+        $calon = Calon::where('id',$id)->where('user_id',auth()->user()->id)->first();
+        if($calon) {
+            return view('user.pilihjadwal', compact('calon'));
+        }
+
+        return redirect()->route('home');
+    }
+
+    public function updatejadwal(Request $request)
+    {
+        $calon = Calon::where('id',$request->calon)->where('user_id',auth()->user()->id)->first();
+        if($calon) {
+            CalonJadwal::updateOrCreate(['calon_id' => $request->calon],['jadwal_id' => $request->jadwal_id]);
+        }
+
+        return redirect()->route('home');
     }
 }

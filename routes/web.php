@@ -12,10 +12,10 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
-Route::get('/biaya', 'HomeController@biaya')->name('biaya');
+Route::get('/biaya1', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
-Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
-Route::get('/jadwalkesehatan', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
+Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
+Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
@@ -30,8 +30,10 @@ Route::middleware('auth')->group(function(){
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
+    Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
     Route::resource('doku', 'DokuController');
     Route::get('uploaddokumen/{calon}/{code?}', 'DokuController@upload')->name('doku.upload');
+    Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
 });
 
 Route::middleware('auth', 'user')->group(function(){

@@ -29,4 +29,24 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');
     }
+
+    public static function pilihJadwal($cat)
+    {
+        if ($cat > 0){
+            $jadwal = static::whereDate('seleksi', '>=', Carbon::now('Asia/Jakarta'));
+        } else {
+            $jadwal = static::whereDate('seleksi', '>=', Carbon::now('Asia/Jakarta'))->where('internal', false);
+        }
+        return $jadwal->get();
+    }
+
+    public static function itungJadwal($cat)
+    {
+        if ($cat > 0){
+            $jadwal = static::whereDate('seleksi', '>=', Carbon::now('Asia/Jakarta'));
+        } else {
+            $jadwal = static::whereDate('seleksi', '>=', Carbon::now('Asia/Jakarta'))->where('internal', false);
+        }
+        return $jadwal->get()->count();
+    }
 }

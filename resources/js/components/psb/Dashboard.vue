@@ -53,11 +53,12 @@
                     </li>
                     <li class="nav-item">
                         <a v-if="calon.hasil.hasil == 'Kosong'" class="nav-link dashboard"
-                            v-bind:class="calon.status == 1 ? 'active' : ''"
+                            v-bind:class="calon.status == 1 ? 'active' : 'disabled'"
                             :href="'#seleksi'+calon.id" data-toggle="tab">
                             Seleksi
                         </a>
                         <a v-else class="nav-link dashboard"
+                            v-bind:class="calon.status == 1 ? 'active' : 'disabled'"
                             :href="'#seleksi'+calon.id" data-toggle="tab">
                             Seleksi
                         </a>
@@ -101,13 +102,15 @@
                     <div class="tab-pane"
                         v-bind:class="calon.status == 1 && calon.hasil.hasil == 'Kosong' ? 'active' : 'disabled'"
                         :id="'seleksi'+calon.id">
-                        <ul class="timeline timeline-inverse">
-                            <li class="time-label">
-                                <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success">Cetak Kartu Seleksi</a>
+                        <ul v-if="calon.jadwal.seleksi !== 'Belum Ada'" style="list-style-type: none;">
+                            <li>
+                                <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success mb-2">Cetak Kartu Seleksi</a>
+                                <a v-bind:href="'/uploadRapot/'+ calon.id " v-show="calon.status == 1 && calon.gelnya.unit_id > 2" class="btn btn-info mb-2"><strong> Nilai Rapot</strong></a>
                             </li>
+                            <hr>
                             <li>
                                 <div class="timeline-item">
-                                    <h3 class="timeline-header">Tes Seleksi ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h3>
+                                    <h2 class="timeline-header">Tes Seleksi ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h2>
                                     <div class="timeline-body">
                                         <p>
                                             Tahapan Tes terdiri dari :
@@ -131,6 +134,9 @@
                                     </div>
                                 </div>
                             </li>
+                        </ul>
+                        <ul v-else style="list-style-type: none;">
+                            <li><a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-success mb-2">Pilih Jadwal Tes</a></li>
                         </ul>
                     </div>
                     <div class="tab-pane"

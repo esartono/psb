@@ -898,6 +898,14 @@ import { constants } from 'crypto';
                                                 case 3:
                                                     this.form.gel_id = 4;
                                                     break;
+                                                case 5:
+                                                    this.form.gel_id = 4;
+                                                    this.form.asal_sekolah = 'NFBS Bogor'
+                                                    this.form.asal_propinsi_sekolah = 32
+                                                    this.form.asal_kota_sekolah = 3201
+                                                    this.form.asal_kecamatan_sekolah = 3201071
+                                                    this.form.asal_kelurahan_sekolah = 3201071002
+                                                    break;
                                             }
                                         } else {
                                             Toast.fire({

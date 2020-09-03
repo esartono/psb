@@ -29,57 +29,63 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="3" class="text-center">PG / TK A</th>
+                                        <th colspan="4" class="text-center">PG / TK A</th>
                                     </tr>
                                     <tr>
-                                        <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Putra</th>
-                                        <th class="text-center">Putri</th>
+                                        <th class="text-center">Komponen Biaya PSB</th>
+                                        <th class="text-center">Reguler 1</th>
+                                        <th class="text-center">Reguler 2</th>
+                                        <th class="text-center">Reguler 3</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Dana Pengembangan</td>
-                                        <td class="currency">Rp. 7.500.000,-</td>
-                                        <td class="currency">Rp. 7.500.000,-</td>
+                                        <td class="currency">Rp. 8.000.000,-</td>
+                                        <td class="currency">Rp. 8.000.000,-</td>
+                                        <td class="currency">Rp. 8.500.000,-</td>
                                     </tr>
                                     <tr>
                                         <td>Dana Pendidikan</td>
+                                        <td class="currency">Rp. 5.000.000,-</td>
                                         <td class="currency">Rp. 8.500.000,-</td>
                                         <td class="currency">Rp. 8.500.000,-</td>
                                     </tr>
                                     <tr>
                                         <td>Iuran SPP Bulan Juli</td>
-                                        <td class="currency">Rp. 1.100.000,-</td>
-                                        <td class="currency">Rp. 1.100.000,-</td>
+                                        <td class="currency">Rp. 900.000,-</td>
+                                        <td class="currency">Rp. 1.200.000,-</td>
+                                        <td class="currency">Rp. 1.250.000,-</td>
                                     </tr>
                                     <tr>
-                                        <td>Iuran Komite Sekolah / tahun</td>
+                                        <td>Iuran Komite Sekolah/tahun</td>
+                                        <td class="currency">Rp. 300.000,-</td>
                                         <td class="currency">Rp. 300.000,-</td>
                                         <td class="currency">Rp. 300.000,-</td>
                                     </tr>
                                     <tr>
-                                        <td>Biaya Seragam</td>
-                                        <td class="currency">Rp. 1.050.000,-</td>
+                                        <td>Biaya Seragam PUTRA</td>
+                                        <td class="currency">Rp. 1.200.000,-</td>
+                                        <td class="currency">Rp. 1.200.000,-</td>
+                                        <td class="currency">Rp. 1.200.000,-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Biaya Seragam PUTRI</td>
+                                        <td class="currency">Rp. 1.400.000,-</td>
+                                        <td class="currency">Rp. 1.400.000,-</td>
                                         <td class="currency">Rp. 1.400.000,-</td>
                                     </tr>
-                                    <tr bgcolor="#f1948a">
-                                        <td><h4>Total</h4></td>
-                                        <td class="currency"><h4>Rp. 18.450.000,-</h4></td>
-                                        <td class="currency"><h4>Rp. 18.800.000,-</h4></td>
+                                    <tr bgcolor="#01DFD7">
+                                        <td><b>Total Biaya PUTRA</b></td>
+                                        <td class="currency"><b>Rp. 15.400.000,-</b></td>
+                                        <td class="currency"><b>Rp. 19.200.000,-</b></td>
+                                        <td class="currency"><b>Rp. 19.750.000,-</b></td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b><p>A. Daftar Ulang / tahun Rp. 1.500.000 <br> &nbsp; &nbsp; ketika Playgroup naik ke TK A atau TK A naik ke TK B</p></b>
-                                            <b>B. Biaya Seragam dalam bentuk pakaian jadi, yang terdiri dari</b>
-                                            <ul>
-                                                <li>1 setel pakaian seragam olahraga Orange</li>
-                                                <li>1 setel pakaian seragam olahraga Biru</li>
-                                                <li>1 setel pakaian seragam Batik</li>
-                                                <li>1 setel pakaian seragam Putih Orange</li>
-                                            </ul>
-                                            <b><p>C. Kenaikan SPP dan Daftar Ulang maksimal 8% / tahun</p></b>
-                                        </td>
+                                    <tr bgcolor="#f1948a">
+                                        <td><b>Total Biaya PUTRI</b></td>
+                                        <td class="currency"><b>Rp. 15.600.000,-</b></td>
+                                        <td class="currency"><b>Rp. 19.400.000,-</b></td>
+                                        <td class="currency"><b>Rp. 19.950.000,-</b></td>
                                     </tr>
                                 </tbody>
                             </table>
