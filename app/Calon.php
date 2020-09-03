@@ -81,14 +81,14 @@ class Calon extends Model
     public function getUsiaAttribute()
     {
         $age = Carbon::create($this->attributes['tgl_lahir']);
-        $patok = Carbon::create('2020', '7', '1');
+        $patok = Carbon::create('2021', '7', '1');
         return $age->diff($patok)->format('%y Tahun, %m Bulan dan %d Hari');
     }
 
     public function getLahirAttribute()
     {
         $age = Carbon::create($this->attributes['tgl_lahir']);
-        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->formatLocalized('%d %B %Y');
+        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->locale('id')->formatLocalized('%d %B %Y');
     }
 
     public function getUrutsAttribute()

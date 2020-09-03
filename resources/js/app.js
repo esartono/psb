@@ -169,6 +169,22 @@ Vue.filter('TanggalKecil', function(tanggalnya){
     }
 });
 
+Vue.filter('Usia', function(tanggalnya){
+    let th = parseInt(moment(tanggalnya).format('YYYY'));
+    let bl = parseInt(moment(tanggalnya).format('MM'));
+    let dt = parseInt(moment(tanggalnya).format('DD'));
+
+    var d1 = new Date(2021, 7, 1);
+    var d2 = new Date(th, bl, dt);
+
+    var diff = new Date(
+        d1.getFullYear()-d2.getFullYear(), 
+        d1.getMonth()-d2.getMonth(), 
+        d1.getDate()-d2.getDate()
+    );
+    return diff.getYear() + " Tahun, " + diff.getMonth() + " Bulan, " + diff.getDate() + " Hari";
+});
+
 Vue.filter('toCurrency', function (value) {
 
     if(isNaN(value)){
