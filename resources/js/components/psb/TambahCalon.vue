@@ -712,7 +712,7 @@ import { constants } from 'crypto';
                     gel_id: "",
                     ck_id: "",
                     tgl_daftar: "",
-                    jurusan: "",
+                    jurusan: "-",
                     nisn: 123,
                     nik: "",
                     name: "",

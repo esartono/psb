@@ -32,7 +32,7 @@
                             <b>Jenis Kelamin</b> <a class="float-right">{{ calon.kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }}</a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }} <b v-show="calon.jurusan !== '-'"> - Jurusan {{ calon.jurusan  }}</b></a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ calon.tgl_daftar | Tanggal }}</a>
