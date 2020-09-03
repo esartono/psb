@@ -92,7 +92,7 @@ class Edupay
             'inquiry_response_nama' => $nama,
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://bsm.edupay.co.id/index.php/apiprod/update/');
+        curl_setopt($ch, CURLOPT_URL,'https://bsm.edupay.co.id/legacy/index.php/apiprod/update/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

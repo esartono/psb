@@ -25,7 +25,7 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-5 col-form-label">Tanggal Tes Wawancara</label>
                         <div class="col-sm-7">
-                            @if(App\Jadwal::itungJadwal($calon->asal_nf) > 0)
+                            @if(App\Jadwal::itungJadwal($calon->asal_nf) < 0)
                             <select class="form-control" name="jadwal_id" required>
                                 <option selected disabled>Pilih Jadwal</option>
                                 @foreach(App\Jadwal::pilihJadwal($calon->asal_nf) as $j)
@@ -39,10 +39,16 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <a href="/psb" type="button" class="btn bg-danger">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                        @if(App\Jadwal::itungJadwal($calon->asal_nf) < 0)
                         <div class="col-sm-8">
                             <button type="submit" class="col btn btn-success">Simpan</button>
                         </div>
+                        @endif
                     </div>
                 </form>
                 </div>

@@ -18,6 +18,7 @@ Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
+// Route::get('/uji', 'UjicobaController@cek')->name('uji');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 
 Auth::routes(['verify' => true]);
