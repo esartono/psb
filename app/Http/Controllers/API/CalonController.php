@@ -127,13 +127,13 @@ class CalonController extends Controller
                 'expired' => date("Y-m-d", strtotime("+3 days"))
             ]);
 
-            // Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
-            // $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-            // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-            //     {
-            //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-            //     }
-            // );
+            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+            Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+                {
+                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                }
+            );
         }
     }
 
@@ -207,7 +207,7 @@ class CalonController extends Controller
                         ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
                         ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
                         ->whereIn('gel_id', $gelombang)
-                        ->where('status', $id)
+                        ->where('calons.status', $id)
                         ->get()->toArray();
                     // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                     //     ->whereIn('gel_id', $gelombang)

@@ -37,5 +37,10 @@ class CalonBiayaTes extends Model
                 $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Terima Kasih');
             }
         );
+        Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
+            {
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Kartu Seleksi');
+            }
+        );
     }
 }

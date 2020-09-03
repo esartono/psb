@@ -32,6 +32,10 @@
                 <td>{{ $calonsnya->kelasnya->name }}</td>
             </tr>
             <tr>
+                <th>Tes Seleksi</th>
+                <td><b>{{ $calonsnya->jadwal->seleksinya }}</b></td>
+            </tr>
+            <tr>
                 <td colspan="2" style="padding: 2px !important; text-align: center"><h2>Kartu Wajib dibawa saat tes seleksi</h2></td>
             </tr>
         </table>

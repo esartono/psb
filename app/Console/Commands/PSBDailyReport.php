@@ -64,10 +64,10 @@ class PSBDailyReport extends Command
             'text' => $cek
         ]);
 
-        Telegram::sendMessage([
-            //'chat_id' => '-1001194337341',
-            'chat_id' => '11095399',
-            'text' => $cek
-        ]);
+        // Telegram::sendMessage([
+        //     //'chat_id' => '-1001194337341',
+        //     'chat_id' => '11095399',
+        //     'text' => $cek
+        // ]);
     }
 }
