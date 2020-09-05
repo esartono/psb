@@ -30,14 +30,4 @@ class Jadwal extends Model
         return $this->belongsTo(Gelombang::class, 'gel_id');
     }
 
-    public static function pilihWaktu($day)
-    {
-        if ($day == 5){
-            return ['a', 'b', 'c'];
-        } else {
-            return ['a', 'b', 'c', 'd', 'e'];
-        }
-        return $jadwal->get();
-    }
-
 }

@@ -20,6 +20,7 @@ Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 // Route::get('/uji', 'UjicobaController@cek2')->name('uji');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
+Route::get('api/waktu','DokuController@getWaktu');
 
 Auth::routes(['verify' => true]);
 Route::get('logout', 'Auth\LoginController@logout');

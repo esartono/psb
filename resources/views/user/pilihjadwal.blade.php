@@ -26,25 +26,23 @@
                         <label for="name" class="col-sm-5 col-form-label">Tanggal Wawancara</label>
                         <div class="col-sm-7">
                             @if(count($jadwal) > 0)
-                            <select class="form-control" name="wawancara" required>
+                            <select class="form-control" name="wawancara" id="wawancara" required>
                                 <option selected disabled>Pilih Jadwal</option>
-                                @foreach($jadwal as $j)
-                                    <option value="{{ $j }}">{{ $j }}</option>
+                                @foreach($jadwal as $k => $j)
+                                    <option value="{{ $k }}">{{ $j }}</option>
                                 @endforeach
                             </select>
                             @else
                             <input type="text" class="form-control" value="Belum Tersedia" required readonly>
                             @endif
-                            <input name="calon" type="hidden" class="form-control" value="{{ $calon }}" required readonly>
+                            <input name="calon" id="calon" type="hidden" class="form-control" value="{{ $calon }}" required readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-5 col-form-label">Waktu Wawancara</label>
                         <div class="col-sm-7">
                             @if(count($jadwal) > 0)
-                            <select class="form-control" id="waktu" name="waktu" required>
-                                <option selected disabled>Pilih Waktu</option>
-                            </select>
+                            <select class="form-control" id="waktu" name="waktu" required></select>
                             @else
                             <input type="text" class="form-control" value="Belum Tersedia" required readonly>
                             @endif
@@ -69,3 +67,29 @@
     </div>
 </div>
 @endsection
+
+@push ('js')
+<script>
+    $('#wawancara').change(function(){
+        var id = $(this).val();
+        var calon = $('#calon').val();
+        if(id){
+            $.ajax({
+                type:"GET",
+                url:"{{url('api/waktu')}}?jadwal="+id+"&calon="+calon,
+                success:function(res){
+                    if(res){
+                        $("#waktu").empty();
+                        $("#waktu").append('<option selected disabled>Pilih Waktu</option>');
+                        $.each(res,function(key,value){
+                            $("#waktu").append('<option value="'+value+'">'+value+'</option>');
+                        });
+                    }else{
+                        $("#waktu").empty();
+                    }
+                }
+            });
+        }
+    });
+</script>
+@endpush
