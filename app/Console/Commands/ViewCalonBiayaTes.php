@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use App\Edupay\Facades\Edupay;
 use Illuminate\Console\Command;
+
+use Carbon\Carbon;
+
 use Telegram;
 use App\CalonBiayaTes;
 
@@ -40,13 +43,14 @@ class ViewCalonBiayaTes extends Command
      */
     public function handle()
     {
-        $lihat = CalonBiayaTes::with('calonnya')->where('lunas', 0)->whereDate('expired', '>=', date('Y-m-d'))->get();
+        $lihat = CalonBiayaTes::with('calonnya')->where('lunas', 0)
+            ->whereDate('expired','>=', Carbon::today()->timezone('Asia/Jakarta')->toDateString())->get();
         foreach($lihat as $l){
             $bayar = Edupay::view($l->calonnya->uruts);
             if($bayar['status_bayar'] == 1){
                 $cek = CalonBiayaTes::where('calon_id', $l->calon_id)->first();
                 $cek->update(['lunas' => 1]);
-                $cek->lunas();
+                $cek->lunas($l->calon_id);
 
                 Telegram::sendMessage([
                     'chat_id' => '643982879',

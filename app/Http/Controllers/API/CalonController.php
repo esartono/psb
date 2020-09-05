@@ -127,7 +127,7 @@ class CalonController extends Controller
                 'expired' => date("Y-m-d", strtotime("+3 days"))
             ]);
 
-            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
+            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
             $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
             Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
                 {

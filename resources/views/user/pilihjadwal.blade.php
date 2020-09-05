@@ -23,19 +23,31 @@
                 <form role="form" method="POST" action="{{ route('doku.updatejadwal') }}" enctype="multipart/form-data">
                 @csrf
                     <div class="form-group row">
-                        <label for="name" class="col-sm-5 col-form-label">Tanggal Tes Wawancara</label>
+                        <label for="name" class="col-sm-5 col-form-label">Tanggal Wawancara</label>
                         <div class="col-sm-7">
-                            @if(App\Jadwal::itungJadwal($calon->asal_nf) < 0)
-                            <select class="form-control" name="jadwal_id" required>
+                            @if(count($jadwal) > 0)
+                            <select class="form-control" name="wawancara" required>
                                 <option selected disabled>Pilih Jadwal</option>
-                                @foreach(App\Jadwal::pilihJadwal($calon->asal_nf) as $j)
-                                    <option value="{{ $j->id }}">{{ $j->seleksinya }}</option>
+                                @foreach($jadwal as $j)
+                                    <option value="{{ $j }}">{{ $j }}</option>
                                 @endforeach
                             </select>
                             @else
                             <input type="text" class="form-control" value="Belum Tersedia" required readonly>
                             @endif
-                            <input name="calon" type="hidden" class="form-control" value="{{ $calon->id }}" required readonly>
+                            <input name="calon" type="hidden" class="form-control" value="{{ $calon }}" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-5 col-form-label">Waktu Wawancara</label>
+                        <div class="col-sm-7">
+                            @if(count($jadwal) > 0)
+                            <select class="form-control" id="waktu" name="waktu" required>
+                                <option selected disabled>Pilih Waktu</option>
+                            </select>
+                            @else
+                            <input type="text" class="form-control" value="Belum Tersedia" required readonly>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group row">
@@ -44,7 +56,7 @@
                                 <i class="fas fa-times"></i> Cancel
                             </a>
                         </div>
-                        @if(App\Jadwal::itungJadwal($calon->asal_nf) < 0)
+                        @if(count($jadwal) > 0)
                         <div class="col-sm-8">
                             <button type="submit" class="col btn btn-success">Simpan</button>
                         </div>

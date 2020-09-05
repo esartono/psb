@@ -105,38 +105,26 @@
                         <ul v-if="calon.jadwal.seleksi !== 'Belum Ada'" style="list-style-type: none;">
                             <li>
                                 <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success mb-2">Cetak Kartu Seleksi</a>
-                                <a v-bind:href="'/uploadRapot/'+ calon.id " v-show="calon.status == 1 && calon.gelnya.unit_id > 2" class="btn btn-info mb-2"><strong> Nilai Rapot</strong></a>
+                                <!-- <a v-bind:href="'/uploadRapot/'+ calon.id " v-show="calon.status == 1 && calon.gelnya.unit_id > 2" class="btn btn-info mb-2"><strong> Nilai Rapot</strong></a> -->
                             </li>
                             <hr>
                             <li>
                                 <div class="timeline-item">
-                                    <h2 class="timeline-header">Tes Seleksi ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h2>
+                                    <h4 class="timeline-header">Tes Seleksi - Online ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h4>
                                     <div class="timeline-body">
                                         <p>
                                             Tahapan Tes terdiri dari :
                                             <ul>
                                                 <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
                                                 <li>Tes Psikologi</li>
-                                                <li>Tes Kemampuan Berbahasa Inggris</li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Wawancara Siswa</li>
-                                                <li>Tes Wawancara Orang Tua (<b>Wajib dihadiri oleh kedua Orang Tua</b>)</li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.00 sampai dengan 15.00
-                                                </li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SD'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 09.30 atau pada pukul 09.30 sampai dengan 11.30 (akan dikonfirmasi ulang oleh panitia).
-                                                </li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'TK'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 10.00
-                                                </li>
                                             </ul>
                                         </p>
                                     </div>
+                                    <hr class="mt--2 mb--2">
+                                    <h4 class="timeline-header">Wawancara Orang Tua dan Siswa</h4>
+                                        <a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-primary mb-2">Pilih Jadwal Tes</a>
                                 </div>
                             </li>
-                        </ul>
-                        <ul v-else style="list-style-type: none;">
-                            <li><a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-success mb-2">Pilih Jadwal Tes</a></li>
                         </ul>
                     </div>
                     <div class="tab-pane"

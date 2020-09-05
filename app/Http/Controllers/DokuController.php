@@ -10,6 +10,7 @@ use App\Doku;
 use App\JDoku;
 use App\Calon;
 use App\User;
+use App\Jadwal;
 use App\CalonJadwal;
 
 class DokuController extends Controller
@@ -54,9 +55,19 @@ class DokuController extends Controller
 
     public function pilihJadwal($id)
     {
-        $calon = Calon::where('id',$id)->where('user_id',auth()->user()->id)->first();
+        $calon = Calon::where('id',$id)->where('user_id',auth()->user()->id)->first()->id;
         if($calon) {
-            return view('user.pilihjadwal', compact('calon'));
+            $cj = CalonJadwal::where('calon_id', $id)->first()->jadwal_id;
+            $seleksi = strtotime(Jadwal::where('id', $cj)->first()->seleksi);
+            $jadwal = array();
+            for ($i = 0; $i < 7; $i++) {
+                $seleksi = strtotime('-1 day', $seleksi);
+                $cek = strftime('%w', $seleksi);
+                if( $cek != 0 && $cek != 6) {
+                    $jadwal[date("yy-m-d", $seleksi)] = strftime('%A, %d %B %Y', $seleksi);
+                }
+            }
+            return view('user.pilihjadwal', compact('calon', 'jadwal'));
         }
 
         return redirect()->route('home');
