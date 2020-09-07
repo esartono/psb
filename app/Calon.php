@@ -64,7 +64,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'hasil', 'bt'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt'
     ];
 
     public function getKelaminAttribute()
@@ -104,6 +104,16 @@ class Calon extends Model
             return $jadwal->jadwalnya;
         } else {
             return $jadwal=['seleksi'=> "Belum Ada"];
+        }
+    }
+
+    public function getWawancaraAttribute()
+    {
+        $jadwal = CalonJadwal::where('calon_id', $this->attributes['id'])->first();
+        if($jadwal) {
+            return $jadwal=['wawancara'=> $jadwal->wawancara, 'waktu'=>$jadwal->waktu];
+        } else {
+            return $jadwal=['wawancara'=> "Belum Ada", 'waktu'=>"-"];
         }
     }
 

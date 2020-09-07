@@ -10,6 +10,7 @@
         style="border-bottom: 2px solid grey"
         class="row justify-content-center mb-4"
     >
+    {{ cekJurusan(calon.id, calon.jurusan, calon.gelnya.unitnya.catnya.name)  }}
         <div class="col-md-5 mb-3">
             <div class="card h-100">
                 <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
@@ -32,7 +33,7 @@
                             <b>Jenis Kelamin</b> <a class="float-right">{{ calon.kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }} <b v-show="calon.jurusan !== '-'"> - Jurusan {{ calon.jurusan  }}</b></a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }} <b>{{ jurusannya }}</b></a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ calon.tgl_daftar | Tanggal }}</a>
@@ -122,6 +123,7 @@
                                     </div>
                                     <hr class="mt--2 mb--2">
                                     <h4 class="timeline-header">Wawancara Orang Tua dan Siswa</h4>
+                                        <p>Jadwal Wawancara : <b>{{ calon.wawancara.wawancara | Tanggal }}, waktu {{ calon.wawancara.waktu }}</b></p>
                                         <a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-primary mb-2">Pilih Jadwal Tes</a>
                                 </div>
                             </li>
@@ -229,14 +231,67 @@
             return {
                 units: {},
                 calons: [],
-                messageText: '',
+                jurusannya: "",
+                form: new Form({
+                    id: "",
+                    jurusan: "",
+                })
             };
+        },
+
+        methods: {
+            cekJurusan(id, jurusan, unit) {
+                if(jurusan === "-" && unit === "SMA"){
+                    Swal.fire({
+                        title: "Pilih Jurusan",
+                        html:
+                            '<hr><div class="form-group row">' +
+                                '<label class="col-md-7 col-form-label">Jurusan yg diinginkan</label>' +
+                                '<div class="col-md-5">' +
+                                    '<select id="jurusan" class="form-control" required>'+
+                                        '<option selected disabled>Pilih Jurusan</option>' +
+                                        '<option value="IPA">IPA</option>' +
+                                        '<option value="IPS">IPS</option>' +
+                                    '</select>' +
+                                '</div>' +
+                            '</div>',
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        preConfirm: () => {
+                            if(document.getElementById('jurusan').value !== "Pilih Jurusan") {
+                                this.form.jurusan = document.getElementById('jurusan').value
+                                this.form.id = id
+                                this.form
+                                    .post("api/cekJurusan")
+                                    .then(() => {
+                                        Toast.fire({
+                                            type: "success",
+                                            title: "Edit Jurusan Berhasil"
+                                        });
+                                        this.$Progress.finish()
+                                    })
+                                    .catch((error) => {
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            type: 'error',
+                                        })
+                                        this.$Progress.fail()
+                                    });
+                            }
+                        }
+                    })
+                this.jurusannya = ' (Jurusan ' + this.form.jurusan + ')'
+                }
+                if (unit === "SMA" && jurusan !== "-") {
+                    this.jurusannya = ' (Jurusan ' + jurusan + ')'
+                }
+            }
         },
 
         mounted() {
             axios
                 .get("../api/calons")
                 .then(({ data }) => (this.calons = data))
-        }
+        },
     }
 </script>

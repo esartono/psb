@@ -36,7 +36,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru');
+        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru', 'updateJurusan');
     }
 
     public function index()
@@ -44,6 +44,7 @@ class CalonController extends Controller
         if (auth('api')->user()->isUser()){
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya');
+
             return $calons->where('user_id', auth('api')->user()->id)
                     ->where('aktif', true)
                     ->whereIn('gel_id', $gelombang)->get()->toArray();
@@ -228,6 +229,14 @@ class CalonController extends Controller
     {
         $calon = Calon::findOrFail($id);
         $calon->update($request->all());
+    }
+
+    public function updateJurusan(Request $request)
+    {
+        $calon = Calon::whereId($request->id);
+        $calon->update([
+            'jurusan' => $request->jurusan
+        ]);
     }
 
     /**

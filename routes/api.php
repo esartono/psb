@@ -61,5 +61,6 @@ Route::get('sumberinfo', 'API\SumberInfoController@index');
 Route::get('kategoris', 'API\CalonKategoriController@data');
 Route::get('agama', 'API\AgamaController@dataAgama');
 Route::get('indexadmin/{id}', 'API\CalonController@indexAdmin');
+Route::post('cekJurusan', 'API\CalonController@updateJurusan');
 //Route::get('getcalon/{id}', 'API\CalonController@getCalon');
 Route::get('/937a8ddfc66c29ec39ad5f75cdd44b8e/{id}', 'HomeController@apiCalon');
