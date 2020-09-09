@@ -18,7 +18,8 @@ Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
-// Route::get('/uji', 'UjicobaController@cek2')->name('uji');
+Route::get('/uji', 'UjicobaController@cek')->name('uji');
+Route::get('/uji1', 'UjicobaController@cek1')->name('uji1');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 Route::get('api/waktu','DokuController@getWaktu');
 

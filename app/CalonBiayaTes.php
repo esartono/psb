@@ -26,7 +26,7 @@ class CalonBiayaTes extends Model
         return $this->belongsTo(BiayaTes::class, 'biaya_id');
     }
 
-    public function lunas()
+    public function lunas($id)
     {
         // $calonbiayates = $this;
         $calon = Calon::with('gelnya')->where('id', $id)->first();
