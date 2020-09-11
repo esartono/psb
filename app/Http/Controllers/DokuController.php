@@ -57,6 +57,8 @@ class DokuController extends Controller
 
     public function pilihJadwal($calon)
     {
+        return redirect()->route('home');
+        //Gak JADI .....
         $calons = Calon::where('id',$calon)->where('user_id',auth()->user()->id)->first()->gel_id;
         if($calons) {
             $cj = CalonJadwal::where('calon_id', $calon)->first()->jadwal_id;

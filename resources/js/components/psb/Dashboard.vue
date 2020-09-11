@@ -118,13 +118,15 @@
                                             <ul>
                                                 <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
                                                 <li>Tes Psikologi</li>
+                                                <li>Wawancara Orangtua</li>
+                                                <li>Wawancara Siswa (khusus calon siswa SMP dan SMA)</li>
                                             </ul>
                                         </p>
                                     </div>
-                                    <hr class="mt--2 mb--2">
+                                    <!-- <hr class="mt--2 mb--2">
                                     <h4 class="timeline-header">Wawancara Orang Tua dan Siswa</h4>
                                         <p>Jadwal Wawancara : <b>{{ calon.wawancara.wawancara | Tanggal }}, waktu {{ calon.wawancara.waktu }}</b></p>
-                                        <a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-primary mb-2">Pilih Jadwal Tes</a>
+                                        <a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-primary mb-2">Pilih Jadwal Tes</a> -->
                                 </div>
                             </li>
                         </ul>

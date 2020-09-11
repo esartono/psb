@@ -10,6 +10,9 @@ use Carbon\Carbon;
 use Telegram;
 use App\CalonBiayaTes;
 use App\Calon;
+use App\CalonJadwal;
+use App\Jadwal;
+
 
 class ViewCalonBiayaTes extends Command
 {

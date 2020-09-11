@@ -7,10 +7,6 @@
             <h3 class="card-title">Daftar Nama Administrator</h3>
 
             <div class="card-tools">
-              <!-- <a href="/EksportAdmin" class="btn btn-sm btn-success">
-                <i class="fas fa-file-excel"></i>
-                Ekspor
-              </a> -->
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input
                   v-model="filters.name.value"
@@ -138,7 +134,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-primary" v-if="(form.id > 1)">Simpan</button>
               </div>
             </form>
           </div>

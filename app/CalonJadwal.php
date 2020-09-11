@@ -19,10 +19,10 @@ class CalonJadwal extends Model
         'calonnya'
     ];
 
-    // public function calonnya()
-    // {
-    //     return $this->belongsTo(Calon::class, 'calon_id');
-    // }
+    public function calonsnya()
+    {
+        return $this->belongsTo(Calon::class, 'calon_id');
+    }
 
     public function jadwalnya()
     {
