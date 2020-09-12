@@ -36,7 +36,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->isAdmin()){
+        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
             return redirect()->route('dashboard');
             // return view('home');
         }

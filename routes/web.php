@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
-Route::get('/biaya1', 'HomeController@biaya')->name('biaya');
+Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');

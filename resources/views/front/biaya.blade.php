@@ -7,377 +7,59 @@
         </div>
         <div id="exTab1" class="container">
             <ul class="nav nav-pills">
-                <li class="active">
-                    <a href="#1a" data-toggle="tab">TKIT</a>
-                </li>
-                <li><a href="#2a" data-toggle="tab">SDIT NF</a>
-                </li>
-                <li><a href="#3a" data-toggle="tab">SMPIT NF</a>
-                </li>
-                <li><a href="#4a" data-toggle="tab">SMAIT NF</a>
-                </li>
-                <li><a href="#5a" data-toggle="tab">Ketentuan Pembiayaan</a>
-                </li>
+                <li class="active"><a href="#0a" data-toggle="tab">CCEC</a></li>
+                <li><a href="#1a" data-toggle="tab">TKIT</a></li>
+                <li><a href="#2a" data-toggle="tab">SDIT NF</a></li>
+                <li><a href="#3a" data-toggle="tab">SMPIT NF</a></li>
+                <li><a href="#4a" data-toggle="tab">SMAIT NF</a></li>
             </ul>
 
             <div class="tab-content clearfix">
-                <!-- unit tk -->
-                <div class="tab-pane active" id="1a">
-                    <h3>TKIT Nurul Fikri</h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="4" class="text-center">PG / TK A</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Komponen Biaya PSB</th>
-                                        <th class="text-center">Reguler 1</th>
-                                        <th class="text-center">Reguler 2</th>
-                                        <th class="text-center">Reguler 3</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dana Pengembangan</td>
-                                        <td class="currency">Rp. 8.000.000,-</td>
-                                        <td class="currency">Rp. 8.000.000,-</td>
-                                        <td class="currency">Rp. 8.500.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dana Pendidikan</td>
-                                        <td class="currency">Rp. 5.000.000,-</td>
-                                        <td class="currency">Rp. 8.500.000,-</td>
-                                        <td class="currency">Rp. 8.500.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran SPP Bulan Juli</td>
-                                        <td class="currency">Rp. 900.000,-</td>
-                                        <td class="currency">Rp. 1.200.000,-</td>
-                                        <td class="currency">Rp. 1.250.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran Komite Sekolah/tahun</td>
-                                        <td class="currency">Rp. 300.000,-</td>
-                                        <td class="currency">Rp. 300.000,-</td>
-                                        <td class="currency">Rp. 300.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biaya Seragam PUTRA</td>
-                                        <td class="currency">Rp. 1.200.000,-</td>
-                                        <td class="currency">Rp. 1.200.000,-</td>
-                                        <td class="currency">Rp. 1.200.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biaya Seragam PUTRI</td>
-                                        <td class="currency">Rp. 1.400.000,-</td>
-                                        <td class="currency">Rp. 1.400.000,-</td>
-                                        <td class="currency">Rp. 1.400.000,-</td>
-                                    </tr>
-                                    <tr bgcolor="#01DFD7">
-                                        <td><b>Total Biaya PUTRA</b></td>
-                                        <td class="currency"><b>Rp. 15.400.000,-</b></td>
-                                        <td class="currency"><b>Rp. 19.200.000,-</b></td>
-                                        <td class="currency"><b>Rp. 19.750.000,-</b></td>
-                                    </tr>
-                                    <tr bgcolor="#f1948a">
-                                        <td><b>Total Biaya PUTRI</b></td>
-                                        <td class="currency"><b>Rp. 15.600.000,-</b></td>
-                                        <td class="currency"><b>Rp. 19.400.000,-</b></td>
-                                        <td class="currency"><b>Rp. 19.950.000,-</b></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3" class="text-center">TK B</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Putra</th>
-                                        <th class="text-center">Putri</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dana Pengembangan</td>
-                                        <td class="currency">Rp. 5.000.000,-</td>
-                                        <td class="currency">Rp. 5.000.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dana Pendidikan</td>
-                                        <td class="currency">Rp. 8.000.000,-</td>
-                                        <td class="currency">Rp. 8.000.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran SPP Bulan Juli</td>
-                                        <td class="currency">Rp. 1.100.000,-</td>
-                                        <td class="currency">Rp. 1.100.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran Komite Sekolah / tahun</td>
-                                        <td class="currency">Rp. 300.000,-</td>
-                                        <td class="currency">Rp. 300.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biaya Seragam</td>
-                                        <td class="currency">Rp. 1.050.000,-</td>
-                                        <td class="currency">Rp. 1.400.000,-</td>
-                                    </tr>
-                                    <tr bgcolor="#f1948a">
-                                        <td><h4>Jumlah</h4></td>
-                                        <td class="currency"><h4>Rp. 15.450.000,-</h4></td>
-                                        <td class="currency"><h4>Rp. 15.800.000,-</h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b><p>A. Biaya Siswa baru level TK B</p></b>
-                                            <b>B. Biaya Seragam dalam bentuk pakaian jadi, yang terdiri dari</b>
-                                            <ul>
-                                                <li>1 setel pakaian seragam olahraga Orange</li>
-                                                <li>1 setel pakaian seragam olahraga Biru</li>
-                                                <li>1 setel pakaian seragam Batik</li>
-                                                <li>1 setel pakaian seragam Putih Orange</li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="tab-pane active" id="0a">
+                    @include('front.biaya.ccec')
                 </div>
-
-                <!-- unit sd -->
+                <div class="tab-pane" id="1a">
+                    @include('front.biaya.tk')
+                </div>
                 <div class="tab-pane" id="2a">
-                    <h3>SDIT Nurul Fikri</h3>
-                    <div class="row">
-                    <div class="col-md-7">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th colspan="3" class="text-center">SD</th>
-                            </tr>
-                            <tr>
-                                <th class="text-center">Keterangan</th>
-                                <th class="text-center">Putra</th>
-                                <th class="text-center">Putri</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Dana Pengembangan</td>
-                                <td class="currency">Rp. 22.000.000,-</td>
-                                <td class="currency">Rp. 22.000.000,-</td>
-                            </tr>
-                            <tr>
-                                <td>Dana Pendidikan</td>
-                                <td class="currency">Rp. 12.500.000,-</td>
-                                <td class="currency">Rp. 12.500.000,-</td>
-                            </tr>
-                            <tr>
-                                <td>Iuran SPP Bulan Juli</td>
-                                <td class="currency">Rp. 1.800.000,-</td>
-                                <td class="currency">Rp. 1.800.000,-</td>
-                            </tr>
-                            <tr>
-                                <td>Iuran Komite Sekolah / tahun</td>
-                                <td class="currency">Rp. 300.000,-</td>
-                                <td class="currency">Rp. 300.000,-</td>
-                            </tr>
-                            <tr>
-                                <td colspan="1">Biaya Seragam</td>
-                                <td class="currency">Rp. 1.780.000,-</td>
-                                <td class="currency">Rp. 2.385.000,-</td>
-                            </tr>
-                            <tr bgcolor="#f1948a">
-                                <td><h4>Jumlah</h4></td>
-                                <td class="currency"><h4>Rp. 38.380.000,-</h4></td>
-                                <td class="currency"><h4>Rp. 38.985.000,-</h4></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3">
-                                    <b><p>A. Daftar Ulang / tahun Rp. 3.000.000</p></b>
-                                    <b>B. Biaya Seragam dalam bentuk pakaian jadi, yang terdiri dari</b>
-                                        <ul>
-                                            <li>1 setel pakaian seragam warna Hijau</li>
-                                            <li>1 setel pakaian seragam Batik</li>
-                                            <li>1 setel pakaian seragam Merah Putih</li>
-                                            <li>1 setel pakaian seragam Pramuka</li>
-                                            <li>1 setel pakaian seragam Olahraga</li>
-                                        </ul>
-                                    <b><p>C. Kenaikan SPP dan Daftar Ulang maksimal 8% / tahun</p></b>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                        </div>
-                        </div>
-                </div>
-
-                <!-- unit smp -->
+                    @include('front.biaya.sd')
+                    </div>
                 <div class="tab-pane" id="3a">
-                    <h3>SMPIT Nurul Fikri</h3>
-                        <div class="row">
-                            <div class="col-md-7">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3" class="text-center">SMP</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Putra</th>
-                                        <th class="text-center">Putri</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dana Pengembangan</td>
-                                        <td class="currency">Rp. 20.000.000,-</td>
-                                        <td class="currency">Rp. 20.000.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dana Pendidikan</td>
-                                        <td class="currency">Rp. 13.500.000,-</td>
-                                        <td class="currency">Rp. 13.500.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran SPP Bulan Juli</td>
-                                        <td class="currency">Rp. 1.800.000,-</td>
-                                        <td class="currency">Rp. 1.800.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran Komite Sekolah / tahun</td>
-                                        <td class="currency">Rp. 450.000,-</td>
-                                        <td class="currency">Rp. 450.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biaya Seragam</td>
-                                        <td class="currency">Rp. 1.900.000,-</td>
-                                        <td class="currency">Rp. 2.660.000,-</td>
-                                    </tr>
-                                    <tr bgcolor="#f1948a">
-                                        <td><h4>Jumlah Putra</h4></td>
-                                        <td class="currency"><h4>Rp. 37.650.000,-</h4></td>
-                                        <td class="currency"><h4>Rp. 38.410.000,-</h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b><p>*Daftar Ulang / tahun Rp. 3.500.000</p></b>
-                                            <b>B. Biaya Seragam dalam bentuk pakaian jadi, yang terdiri dari</b>
-                                            <ul>
-                                                <li>1 setel pakaian seragam warna Biru</li>
-                                                <li>1 setel pakaian seragam Batik</li>
-                                                <li>1 setel pakaian seragam Biru Putih</li>
-                                                <li>1 setel pakaian seragam Pramuka</li>
-                                                <li>1 setel pakaian seragam Olahraga</li>
-                                            </ul>
-                                            <b><p>C. Kenaikan SPP dan Daftar Ulang maksimal 8% / tahun</p></b>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    @include('front.biaya.smp')
                 </div>
-            <!-- unit sma -->
-            <div class="tab-pane" id="4a">
-                <h3>SMAIT Nurul Fikri</h3>
-                <div class="row">
-                        <div class="col-md-7">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3" class="text-center">SMA</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-center">Keterangan</th>
-                                        <th class="text-center">Putra</th>
-                                        <th class="text-center">Putri</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dana Pengembangan</td>
-                                        <td class="currency">Rp. 16.000.000,-</td>
-                                        <td class="currency">Rp. 16.000.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dana Pendidikan</td>
-                                        <td class="currency">Rp. 14.500.000,-</td>
-                                        <td class="currency">Rp. 14.500.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran SPP Bulan Juli</td>
-                                        <td class="currency">Rp. 1.800.000,-</td>
-                                        <td class="currency">Rp. 1.800.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iuran Komite Sekolah / tahun</td>
-                                        <td class="currency">Rp. 450.000,-</td>
-                                        <td class="currency">Rp. 450.000,-</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Biaya Seragam</td>
-                                        <td class="currency">Rp. 2.000.000,-</td>
-                                        <td class="currency">Rp. 2.700.000,-</td>
-                                    </tr>
-                                    <tr bgcolor="#f1948a">
-                                        <td><h4>Jumlah</h4></td>
-                                        <td class="currency"><h4>Rp. 34.750.000,-</h4></td>
-                                        <td class="currency"><h4>Rp. 35.450.000,-</h4></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b><p>A. Daftar Ulang / tahun Rp. 4.000.000</p></b>
-                                            <b>B. Biaya Seragam dalam bentuk pakaian jadi, yang terdiri dari</b>
-                                                <ul>
-                                                    <li>1 setel pakaian seragam warna Coklat</li>
-                                                    <li>1 setel pakaian seragam Batik</li>
-                                                    <li>1 setel pakaian seragam Abu Putih</li>
-                                                    <li>1 setel pakaian seragam Pramuka</li>
-                                                    <li>1 setel pakaian seragam Olahraga</li>
-                                                </ul>
-                                            <b><p>C. Kenaikan SPP dan Daftar Ulang maksimal 8% / tahun</p></b>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="tab-pane" id="4a">
+                    @include('front.biaya.sma')
+                </div>
             </div>
-            <div class="tab-pane" id="5a">
-                    <h4>I. BIAYA PENDAFTARAN DAN SELEKSI </h4> 
-                    <ol>
-                        <li>TK : Rp. 1.000.000,-</li>
-                        <li>SD : Rp. 1.000.000,-</li>
-                        <li>SMP : Rp. 1.000.000,-</li>
-                        <li>SMA : Rp. 1.000.000,-</li>
-                    </ol>
-                    <br>
-                    <h4>II. KETENTUAN UMUM PEMBIAYAAN:</h4> 
-                    <ol>
-                        <li>Komponen Dana Pengembangan dan Dana Pendidikan dibayarkan satu kali selama menempuh pendidikan di unit terkait.</li>
-                        <li>Komponen Biaya Komite Sekolah dibayarkan pertahun bersamaan dengan SPP bulan Juli.</li>
-                        <li>SPP TK dibayarkan setiap bulan sudah termasuk biaya katering.</li>
-                        <li>SPP SD, SMP dan SMA dibayarkan setiap bulan sudah termasuk iuran kesehatan Rp. 50.000,-.</li>
-                        <li>Biaya Pendidikan dan dana daftar ulang tahunan sudah termasuk biaya <b>Buku Paket</b>.</li>
-                        <li>Kenaikan SPP dan Daftar Ulang <b>maksimal 8% / tahun</b>.</li>
-                    </ol>
-                    <br>
-                    <h4>III. KETENTUAN KHUSUS:</h4>
-                    <ol>
-                        <li>Bagi siswa yang memiliki saudara kandung bersekolah di SIT Nurul Fikri, mendapatkan potongan biaya <b>5% dari Dana Pengembangan</b>.</li>
-                        <li>Bagi siswa yang berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor peringkat paralel 10 besar saat kelas 5 atau 8 mendapatkan potongan biaya <b>25% dari Dana Pengembangan</b>.</li>
-                        <li>Bagi siswa yang berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor mendapatkan potongan biaya <b>10% dari Dana Pengembangan</b>.</li>
-                        <li>Bagi Siswa Pemenang Lomba tingkat Nasional (Bertingkat) Juara 1 dan 2 yang dibuktikan dengan sertifikat dan diverifikasi oleh panitia, mendapatkan potongan biaya <b>50 % dari Dana Pengembangan</b>.</li>
-                        <li>Bagi siswa yang memiliki hafalan minimal 15 Juz dan sudah diverifikasi oleh SIT NF, mendapatkan potongan biaya <b>25% dari Dana Pengembangan</b>.</li>
-                        <li><b>Ketentuan potongan biaya tidak berlaku akumulatif dan tidak dapat digabung dengan jenis potongan lainnya</b>.</li>
-                    </ol>
+            <div>
+                <h4>I. BIAYA PENDAFTARAN DAN SELEKSI </h4>
+                <ol>
+                    <li>CCEC : Rp. 550.000,-</li>
+                    <li>TK : Rp. 550.000,-</li>
+                    <li>SD : Rp. 700.000,-</li>
+                    <li>SMP : Rp. 700.000,-</li>
+                    <li>SMA : Rp. 700.000,-</li>
+                </ol>
+                <br>
+                <h4>II. KETENTUAN UMUM BIAYA PENDIDIKAN:</h4>
+                <ol>
+                    <li><strong>Pembiayaan Reguler 1</strong>, berlaku untuk pendaftar yang sudah melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 31 Oktober 2020.</strong></li>
+                    <li><strong>Pembiayaan Reguler 2</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 30 November 2020.</strong></li>
+                    <li><strong>Pembiayaan Reguler 3</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas setelah 30 November 2020.</strong></li>
+                    <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk regular 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li>
+                    <li>Komponen <strong>Biaya Komite Sekolah</strong> dibayarkan pertahun bersamaan dengan SPP bulan Juli.</li>
+                    <li>SPP yang dibayarkan <strong>tidak termasuk biaya catering.</strong></li>
+                </ol>
+                <br>
+                <h4>III. KETENTUAN POTONGAN BIAYA PENERIMAAN SISWA BARU:</h4>
+                <ol>
+                    <li>Bagi siswa yang memiliki <strong>saudara kandung</strong> bersekolah di <strong>SIT Nurul Fikri</strong>, mendapatkan potongan biaya <b>5% dari Dana Pengembangan</b>.</li>
+                    <li>Bagi siswa yang <strong>berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor</strong> yang mendapatkan undangan khusus dari YPPU Nurul Fikri, maka mendapatkan benefit potongan biaya <b>25% dari Dana Pengembangan</b> dan bebas biaya pendaftaran, jika melakukan daftar ulang pada <b>periode regular 1</b>.</li>
+                    <li>Bagi Siswa <strong>Pemenang Lomba tingkat Nasional (Bertingkat)</strong> Juara 1 dan 2 yang dibuktikan dengan sertifikat dan diverifikasi oleh panitia, mendapatkan potongan biaya <b>50 % dari Dana Pengembangan</b>.</li>
+                    <li>Bagi siswa yang memiliki <strong>hafalan minimal 15 Juz</strong> dan sudah diverifikasi oleh SIT NF, mendapatkan potongan biaya <b>25% dari Dana Pengembangan</b>.</li>
+                    <li><b>Ketentuan potongan biaya tidak berlaku akumulatif dan tidak dapat digabung dengan jenis potongan lainnya</b>.</li>
+                </ol>
+                <br>
             </div>
         </div>
     </div>
