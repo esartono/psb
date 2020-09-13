@@ -9,12 +9,12 @@
                         Form Pendaftaran
                     </h3>
                     <div class="card-tools">
-                        <router-link v-if="level === false" to="/psb" type="button" class="btn bg-danger btn-sm">
+                        <a v-if="level === false" href="psb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
-                        </router-link>
-                        <router-link v-else to="/cpdBaru" type="button" class="btn bg-danger btn-sm">
+                        </a>
+                        <a v-else @click="$router.go(-1)" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
-                        </router-link>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -343,13 +343,24 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
+                                        <!-- <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ayah_penghasilan"
+                                        type="number"
+                                        name="ayah_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ayah_penghasilan') }"
+                                        id="ayah_penghasilan"
+                                        min=0
+                                        step=500000
+                                        >
+
                                         <has-error :form="form" field="ayah_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -432,13 +443,24 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
+                                        <!-- <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ibu_penghasilan"
+                                        type="number"
+                                        name="ibu_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ibu_penghasilan') }"
+                                        id="ibu_penghasilan"
+                                        min=0
+                                        step=500000
+                                        >
+
                                         <has-error :form="form" field="ibu_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -562,100 +584,6 @@
                                 <p>Kec. Cimanggis Kota Depok - Jawa Barat</p>
                             </div>
                         </tab-content>
-                        <tab-content title="Ukuran Seragam Sekolah" icon="fas fa-school">
-                            <h5>Form Ukuran Seragam</h5>
-                            <div class="card-group">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Lebar Badan</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.bahu"
-                                                        type="number"
-                                                        name="bahu"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('bahu') }"
-                                                        id="bahu"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="bahu"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Panjang Badan</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.panjang_baju"
-                                                        type="number"
-                                                        name="panjang_baju"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('panjang_baju') }"
-                                                        id="panjang_baju"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="panjang_baju"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Lingkar Pinggang</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.lingkar"
-                                                        type="number"
-                                                        name="lingkar"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('lingkar') }"
-                                                        id="lingkar"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="lingkar"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Panjang Celana/Rok</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.panjang_celana"
-                                                        type="number"
-                                                        name="panjang_celana"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('panjang_celana') }"
-                                                        id="panjang_celana"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="panjang_celana"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="alert alert-info alert-dismissible">
-                                            <h5><i class="icon fas fa-info"></i> Informasi</h5>
-                                            <img src="/img/baju.jpeg" height="175px">
-                                            <img src="/img/celana.png" height="175px">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab-content>
                         <button type="primary" class="btn btn-warning" slot="prev">Back</button>
                         <button type="primary" class="btn btn-primary" slot="next" v-on:click="cekform()">Next</button>
                         <button type="primary" class="btn btn-success" slot="finish"
@@ -744,11 +672,6 @@ import { constants } from 'crypto';
                     asal_kota_sekolah: "",
                     asal_kecamatan_sekolah: "",
                     asal_kelurahan_sekolah: "",
-                    bahu: 0,
-                    panjang_baju: 0,
-                    lingkar: 0,
-                    panjang_celana: 0,
-
                 })
             }
         },
@@ -794,25 +717,12 @@ import { constants } from 'crypto';
                         if(this.form.ayah_nama == ""){this.salahs.push('Nama Ayah Calon Siswa harus diisi')}
                         if(this.form.ayah_pendidikan == ""){this.salahs.push('Pendidikan Ayah harus dipilih')}
                         if(this.form.ayah_pekerjaan == ""){this.salahs.push('Pekerjaan Ayah harus dipilih')}
-                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus dipilih')}
+                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus diisi')}
                         if(this.form.ayah_hp == ""){this.salahs.push('Nomor Ponsel Ayah harus dipilih')}
                         if(this.form.ibu_nama == ""){this.salahs.push('Nama Ibu Calon Siswa harus diisi')}
                         if(this.form.ibu_pendidikan == ""){this.salahs.push('Pendidikan Ibu harus dipilih')}
                         if(this.form.ibu_pekerjaan == ""){this.salahs.push('Pekerjaan Ibu harus dipilih')}
                         if(this.form.ibu_hp == ""){this.salahs.push('Nomor Ponsel Ibu harus dipilih')}
-                        if(this.salahs.length) {
-                            this.$refs.wizard.changeTab(0,aI-1)
-                        } else {
-                            this.salahs = []
-                            this.$refs.wizard.nextTab
-                        }
-                        break
-
-                    case 4:
-                        if(this.form.bahu == 0){this.salahs.push('Lebar Bahu harus diisi')}
-                        if(this.form.panjang_baju == 0){this.salahs.push('Panjang Badan harus dipilih')}
-                        if(this.form.lingkar == 0){this.salahs.push('Lingkar Pinggang harus dipilih')}
-                        if(this.form.panjang_celana == 0){this.salahs.push('Panjang Celana harus dipilih')}
                         if(this.salahs.length) {
                             this.$refs.wizard.changeTab(0,aI-1)
                         } else {
@@ -932,15 +842,6 @@ import { constants } from 'crypto';
                     })
 
                     })
-                })
-
-            axios
-                .get("../api/calonseragams/"+this.$route.params.id)
-                .then(({ data }) => {
-                    this.form.bahu = data.bahu
-                    this.form.panjang_baju = data.panjang_baju
-                    this.form.lingkar = data.lingkar
-                    this.form.panjang_celana = data.panjang_celana
                 })
 
             axios

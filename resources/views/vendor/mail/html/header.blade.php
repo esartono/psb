@@ -1,7 +1,10 @@
 <tr>
     <td class="header">
-        <a href="{{ $url }}">
-            {{ $slot }}
-        </a>
+        <center>
+            <a href="{{ $url }}">
+                <img src="{{ $url }}/img/logo.png" alt="Logo" style="height: 125px; width: auto"><br>
+                {{ $slot }}
+            </a>
+        </center>
     </td>
 </tr>

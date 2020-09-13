@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Calon;
 use App\CalonBiayaTes;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 use App\Http\Controllers\Controller;
 use App\Edupay\Facades\Edupay;
 
@@ -43,6 +47,7 @@ class CalonBiayaTesController extends Controller
      */
     public function show($id)
     {
+        dd('EKO Sartono');
         //
     }
 
@@ -55,20 +60,32 @@ class CalonBiayaTesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $start = date("Y-m-d");
+        $end = date("Y-m-d", strtotime("+3 days"));
+
         $biayates = CalonBiayaTes::with('calonnya', 'biayanya')->where('calon_id', $id)->first();
         $biayates->update([
-                //'expired' => date("Y-m-d", strtotime("+3 days"))
-                'expired' => date("Y-m-d")
+                'expired' => $end,
+                // 'expired' => date("Y-m-d")
             ]
         );
 
         $idtagihan = $biayates->calonnya->uruts;
         $total = $biayates->biayanya->biaya;
         $nama = $biayates->calonnya->name;
-        //$end = date("Y-m-d", strtotime("+3 days"));
-        $end = date("Y-m-d");
 
-        return Edupay::edit($idtagihan, $total, $nama, $end);
+        $bayar = Edupay::view($biayates->calonnya->uruts);
+        if(isset($bayar['status_bayar'])){
+            Edupay::edit($idtagihan, $total, $nama, $end);
+        } else {
+            Edupay::create($idtagihan, $total, $nama, $start, $end);
+        }
+        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$id)->first();
+        Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+            {
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+            }
+        );
     }
 
     /**

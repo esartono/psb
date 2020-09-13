@@ -21,19 +21,19 @@
     @foreach($calons as $calon)
         <tr>
             <td>{{ $no++ }}</td>
-            <td>{{ $calon->calonnya->gelnya->unitnya->name }}</td>
-            <td>{{ $calon->calonnya->cknya->name }}</td>
-            <td>{{ $calon->calonnya->uruts }}</td>
-            <td>{{ $calon->calonnya->name }}</td>
-            <td>{{ $calon->calonnya->panggilan }}</td>
-            <td>{{ $calon->calonnya->kelamin }}</td>
-            <td>{{ $calon->calonnya->lahir }}</td>
-            <td>{{ $calon->calonnya->ayah_nama }}</td>
-            <td>{{ $calon->calonnya->ibu_nama }}</td>
-            <td>{{ $calon->calonnya->ayah_hp }}, {{ $calon->calonnya->ibu_hp }}</td>
-            <td>{{ $calon->calonnya->asal_sekolah }}</td>
-            <td>{{ $calon->calonnya->alamat }}</td>
-            <td>Kelas {{ $calon->calonnya->kelasnya->name }}</td>
+            <td>{{ $calon->calonsnya->gelnya->unitnya->name }}</td>
+            <td>{{ $calon->calonsnya->cknya->name }}</td>
+            <td>{{ $calon->calonsnya->uruts }}</td>
+            <td>{{ $calon->calonsnya->name }}</td>
+            <td>{{ $calon->calonsnya->panggilan }}</td>
+            <td>{{ $calon->calonsnya->kelamin }}</td>
+            <td>{{ $calon->calonsnya->lahir }}</td>
+            <td>{{ $calon->calonsnya->ayah_nama }}</td>
+            <td>{{ $calon->calonsnya->ibu_nama }}</td>
+            <td>{{ $calon->calonsnya->ayah_hp }}, {{ $calon->calonsnya->ibu_hp }}</td>
+            <td>{{ $calon->calonsnya->asal_sekolah }}</td>
+            <td>{{ $calon->calonsnya->alamat }}</td>
+            <td>Kelas {{ $calon->calonsnya->kelasnya->name }}</td>
         </tr>
     @endforeach
     </tbody>

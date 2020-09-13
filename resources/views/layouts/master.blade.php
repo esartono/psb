@@ -178,6 +178,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
+                <router-link to="/config/jdokus" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Jenis Dokumen</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/config/kategori" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Kategori</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/config/gelombang" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Gelombang</p>

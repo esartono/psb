@@ -36,7 +36,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru');
+        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru', 'updateJurusan');
     }
 
     public function index()
@@ -44,7 +44,9 @@ class CalonController extends Controller
         if (auth('api')->user()->isUser()){
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya');
+
             return $calons->where('user_id', auth('api')->user()->id)
+                    ->where('aktif', true)
                     ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
     }
@@ -59,6 +61,12 @@ class CalonController extends Controller
     {
         $urut = Calon::where('gel_id', $request['gel_id'])->get()->count();
 
+        if ($request['jurusan']) {
+            $jurusan = $request['jurusan'];
+        } else {
+            $jurusan = "-";
+        }
+
         $calon = Calon::create([
             'gel_id' => $request['gel_id'],
             'ck_id' => $request['ck_id'],
@@ -70,6 +78,7 @@ class CalonController extends Controller
             'panggilan' => $request['panggilan'],
             'jk' => $request['jk'],
             'kelas_tujuan' => $request['kelas_tujuan'],
+            'jurusan' => $jurusan,
             'photo' => 'Belum Ada',
             'tempat_lahir' => $request['tempat_lahir'],
             'tgl_lahir' => $request['tgl_lahir'],
@@ -112,30 +121,21 @@ class CalonController extends Controller
         $biaya = BiayaTes::where('gel_id', $request['gel_id'])
                     ->where('ck_id', $request['ck_id'])
                     ->get()->first();
+        if($biaya) {
+            $calonbiaya = CalonBiayaTes::create([
+                'calon_id' => $calon->id,
+                'biaya_id' => $biaya->id,
+                'expired' => date("Y-m-d", strtotime("+3 days"))
+            ]);
 
-        $calonbiaya = CalonBiayaTes::create([
-            'calon_id' => $calon->id,
-            'biaya_id' => $biaya->id,
-            'expired' => date("Y-m-d", strtotime("+1 days"))
-        ]);
-
-        CalonSeragam::create([
-            'calon_id' => $calon->id,
-            'bahu' => $request['bahu'],
-            'panjang_baju' => $request['panjang_baju'],
-            'lingkar' => $request['lingkar'],
-            'panjang_celana' => $request['panjang_celana'],
-        ]);
-
-        Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, $calon->tgl_daftar);
-
-        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-
-        Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-            {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-            }
-        );
+            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+            Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+                {
+                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                }
+            );
+        }
     }
 
     /**
@@ -208,7 +208,7 @@ class CalonController extends Controller
                         ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
                         ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
                         ->whereIn('gel_id', $gelombang)
-                        ->where('status', $id)
+                        ->where('calons.status', $id)
                         ->get()->toArray();
                     // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                     //     ->whereIn('gel_id', $gelombang)
@@ -229,6 +229,14 @@ class CalonController extends Controller
     {
         $calon = Calon::findOrFail($id);
         $calon->update($request->all());
+    }
+
+    public function updateJurusan(Request $request)
+    {
+        $calon = Calon::whereId($request->id);
+        $calon->update([
+            'jurusan' => $request->jurusan
+        ]);
     }
 
     /**

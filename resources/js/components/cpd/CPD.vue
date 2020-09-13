@@ -111,6 +111,23 @@
                     .then(({ data }) => (this.calons = data));
                 this.$Progress.finish();
             },
+
+            updateBiaya(id) {
+                axios
+                .put("../api/calonbiayates/" + id)
+                .then(() => {
+                    $("#addModal").modal("hide");
+                    Fire.$emit("listData");
+                    Toast.fire({
+                        type: "success",
+                        title: "Berhasil perpanjang masa berlaku pembayaran"
+                    });
+                    this.$Progress.finish();
+                    })
+                    .catch(() => {
+                    this.$Progress.fail();
+                    });
+            }
         },
 
         created() {

@@ -9,9 +9,9 @@
                         Form Pendaftaran
                     </h3>
                     <div class="card-tools">
-                        <router-link to="/psb" type="button" class="btn bg-danger btn-sm">
+                        <a href="psb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
-                        </router-link>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -51,9 +51,10 @@
                                 v-bind:class="backgroundnya[ck.id]"
                                 v-on:click="pilihAsal(ck.id)">
                                 <i v-if="ck.name == 'Umum'" class="fas fa-users"></i>
-                                <!-- <i v-else-if="ck.name == 'Siswa SIT NF'" class="fas fa-address-card"></i> -->
+                                <i v-else-if="ck.name == 'Siswa SIT NF'" class="fas fa-address-card"></i>
                                 <img v-else-if="ck.name == 'Pegawai SIT NF'" src="/img/logo.png" alt="Logo" height="70%" width="60%" class="mb-1">
-                                <br v-else-if="ck.name == 'Pegawai SIT NF'">
+                                <img v-else-if="ck.name == 'Beasiswa'" src="/img/logo.png" alt="Logo" height="70%" width="60%" class="mb-1">
+                                <!-- <br v-else-if="ck.name == 'Pegawai SIT NF'"> -->
                                 {{ ck.name }}
                             </a>
                         </tab-content>
@@ -373,13 +374,24 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
+                                        <!-- <select v-model="form.ayah_penghasilan" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ayah_penghasilan"
+                                        type="number"
+                                        name="ayah_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ayah_penghasilan') }"
+                                        id="ayah_penghasilan"
+                                        min=0
+                                        step=500000
+                                        >
+
                                         <has-error :form="form" field="ayah_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -462,13 +474,24 @@
                                 <div class="form-group row">
                                     <label class="col-md-5 col-form-label">Penghasilan</label>
                                     <div class="col-md-7">
-                                        <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
+                                        <!-- <select v-model="form.ibu_penghasilan" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan">
                                             <option
                                                 v-for="gaji in gajis"
                                                 :key="gaji.id"
                                                 v-bind:value="gaji.id"
                                             >{{ gaji.name }}</option>
-                                        </select>
+                                        </select> -->
+                                        <input
+                                        v-model="form.ibu_penghasilan"
+                                        type="number"
+                                        name="ibu_penghasilan"
+                                        class="form-control"
+                                        :class="{ 'is-invalid':form.errors.has('ibu_penghasilan') }"
+                                        id="ibu_penghasilan"
+                                        min=0
+                                        step=500000
+                                        >
+
                                         <has-error :form="form" field="ibu_penghasilan"></has-error>
                                     </div>
                                 </div>
@@ -592,100 +615,6 @@
                                 <p>Kec. Cimanggis Kota Depok - Jawa Barat</p>
                             </div>
                         </tab-content>
-                        <tab-content title="Ukuran Seragam Sekolah" icon="fas fa-school">
-                            <h5>Form Ukuran Seragam</h5>
-                            <div class="card-group">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Lebar Badan</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.bahu"
-                                                        type="number"
-                                                        name="bahu"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('bahu') }"
-                                                        id="bahu"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="bahu"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Panjang Badan</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.panjang_baju"
-                                                        type="number"
-                                                        name="panjang_baju"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('panjang_baju') }"
-                                                        id="panjang_baju"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="panjang_baju"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Lingkar Pinggang</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.lingkar"
-                                                        type="number"
-                                                        name="lingkar"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('lingkar') }"
-                                                        id="lingkar"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="lingkar"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-6 col-form-label">Panjang Celana/Rok</label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                                    <input
-                                                        v-model="form.panjang_celana"
-                                                        type="number"
-                                                        name="panjang_celana"
-                                                        class="form-control"
-                                                        :class="{ 'is-invalid':form.errors.has('panjang_celana') }"
-                                                        id="panjang_celana"
-                                                    >
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text"> Cm</span>
-                                                    </div>
-                                                </div>
-                                                <has-error :form="form" field="panjang_celana"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="alert alert-info alert-dismissible">
-                                            <h5><i class="icon fas fa-info"></i> Informasi</h5>
-                                            <img src="/img/baju.jpeg" height="175px">
-                                            <img src="/img/celana.png" height="175px">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab-content>
                         <tab-content title="Form Persetujuan" icon="fas fa-handshake">
                             <table class="table table-bordered table-hover table-responsive">
                                 <thead>
@@ -750,6 +679,7 @@ import { constants } from 'crypto';
                 cekasalnf: {},
                 unit: "",
                 unit_ck: "",
+                jurusan: "",
                 unit_ck_id: "",
                 minimum_age: "",
                 Verror: {},
@@ -771,7 +701,8 @@ import { constants } from 'crypto';
                     'bg-red',
                     'bg-blue',
                     'bg-orange',
-                    'bg-teal'
+                    'bg-teal',
+                    'bg-green',
                 ],
                 units: {},
                 cks: {},
@@ -781,6 +712,7 @@ import { constants } from 'crypto';
                     gel_id: "",
                     ck_id: "",
                     tgl_daftar: "",
+                    jurusan: "-",
                     nisn: 123,
                     nik: "",
                     name: "",
@@ -824,10 +756,6 @@ import { constants } from 'crypto';
                     asal_kota_sekolah: "",
                     asal_kecamatan_sekolah: "",
                     asal_kelurahan_sekolah: "",
-                    bahu: 0,
-                    panjang_baju: 0,
-                    lingkar: 0,
-                    panjang_celana: 0,
                 })
             }
         },
@@ -885,25 +813,12 @@ import { constants } from 'crypto';
                         if(this.form.ayah_nama == ""){this.salahs.push('Nama Ayah Calon Siswa harus diisi')}
                         if(this.form.ayah_pendidikan == ""){this.salahs.push('Pendidikan Ayah harus dipilih')}
                         if(this.form.ayah_pekerjaan == ""){this.salahs.push('Pekerjaan Ayah harus dipilih')}
-                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus dipilih')}
+                        if(this.form.ayah_penghasilan == ""){this.salahs.push('Penghasilan Ayah harus diisi')}
                         if(this.form.ayah_hp == ""){this.salahs.push('Nomor Ponsel Ayah harus dipilih')}
                         if(this.form.ibu_nama == ""){this.salahs.push('Nama Ibu Calon Siswa harus diisi')}
                         if(this.form.ibu_pendidikan == ""){this.salahs.push('Pendidikan Ibu harus dipilih')}
                         if(this.form.ibu_pekerjaan == ""){this.salahs.push('Pekerjaan Ibu harus dipilih')}
                         if(this.form.ibu_hp == ""){this.salahs.push('Nomor Ponsel Ibu harus dipilih')}
-                        if(this.salahs.length) {
-                            this.$refs.wizard.changeTab(0,aI-1)
-                        } else {
-                            this.salahs = []
-                            this.$refs.wizard.nextTab
-                        }
-                        break
-
-                    case 6:
-                        if(this.form.bahu == 0){this.salahs.push('Lebar Bahu harus diisi')}
-                        if(this.form.panjang_baju == 0){this.salahs.push('Panjang Badan harus dipilih')}
-                        if(this.form.lingkar == 0){this.salahs.push('Lingkar Pinggang harus dipilih')}
-                        if(this.form.panjang_celana == 0){this.salahs.push('Panjang Celana harus dipilih')}
                         if(this.salahs.length) {
                             this.$refs.wizard.changeTab(0,aI-1)
                         } else {
@@ -983,6 +898,14 @@ import { constants } from 'crypto';
                                                 case 3:
                                                     this.form.gel_id = 4;
                                                     break;
+                                                case 5:
+                                                    this.form.gel_id = 4;
+                                                    this.form.asal_sekolah = 'NFBS Bogor'
+                                                    this.form.asal_propinsi_sekolah = 32
+                                                    this.form.asal_kota_sekolah = 3201
+                                                    this.form.asal_kecamatan_sekolah = 3201071
+                                                    this.form.asal_kelurahan_sekolah = 3201071002
+                                                    break;
                                             }
                                         } else {
                                             Toast.fire({
@@ -1036,11 +959,40 @@ import { constants } from 'crypto';
                     .then((data) => {
                         this.unit = data['data']['unitnya']['name']
                         this.unit_ck = data['data']['unitnya']['catnya']['name']
+                        this.form.gel_id = data['data']['id']
+                        if(this.unit_ck === "SMA"){
+                            Swal.fire({
+                                title: "Pilih Jurusan",
+                                html:
+                                    '<hr><div class="form-group row">' +
+                                        '<label class="col-md-7 col-form-label">Jurusan yg diinginkan</label>' +
+                                        '<div class="col-md-5">' +
+                                            '<select id="jurusan" class="form-control" required>'+
+                                                '<option selected disabled>Pilih Jurusan</option>' +
+                                                '<option value="IPA">IPA</option>' +
+                                                '<option value="IPS">IPS</option>' +
+                                            '</select>' +
+                                        '</div>' +
+                                    '</div>',
+                                showCancelButton: false,
+                                allowOutsideClick: false,
+                                preConfirm: () => {
+                                    if(document.getElementById('jurusan').value === "Pilih Jurusan") {
+                                        this.$refs.wizard.changeTab(0,0)
+                                    } else {
+                                        return [
+                                            this.form.jurusan = document.getElementById('jurusan').value
+                                        ]
+                                    }
+                                }
+                            })
+                            if(this.form.jurusan === "") {
+                                this.$refs.wizard.changeTab(0,0)
+                            }
+                        }
                         if(this.unit_ck !== 'TK' || this.unit_ck !== 'SD') {
                             this.form.nisn = ""
                         }
-                        this.unit_ck_id = data['data']['unitnya']['catnya']['id']
-                        this.form.gel_id = data['data']['id']
                         this.form.tgl_lahir = data['data']['minimum_age']
                         this.minimum_age = data['data']['minimum_age']
                         axios
@@ -1052,7 +1004,7 @@ import { constants } from 'crypto';
                         Swal.fire(
                             "PENDAFTARAN!",
                             "Sudah Tutup atau Belum Ada",
-                            "danger"
+                            "warning"
                         );
                     });
             },
@@ -1152,7 +1104,7 @@ import { constants } from 'crypto';
                 .then(({ data }) => (this.units = data));
 
             axios
-                .get("../api/cks")
+                .get("../api/kategoris")
                 .then(({ data }) => (this.cks = data));
 
             axios

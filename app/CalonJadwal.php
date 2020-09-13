@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class CalonJadwal extends Model
 {
     protected $fillable = [
-        'calon_id', 'jadwal_id', 'kesehatan', 'wawancara_ortu', 'wawancara_siswa', 'wawancara_inggris'
+        'calon_id', 'jadwal_id', 'kesehatan', 'wawancara_siswa', 'wawancara_inggris', 'wawancara', 'waktu'
     ];
 
     protected $hidden = [
@@ -19,10 +19,10 @@ class CalonJadwal extends Model
         'calonnya'
     ];
 
-    // public function calonnya()
-    // {
-    //     return $this->belongsTo(Calon::class, 'calon_id');
-    // }
+    public function calonsnya()
+    {
+        return $this->belongsTo(Calon::class, 'calon_id');
+    }
 
     public function jadwalnya()
     {
@@ -41,5 +41,4 @@ class CalonJadwal extends Model
                 ->where('calons.id', $this->attributes['calon_id'])
                 ->first();
     }
-
 }

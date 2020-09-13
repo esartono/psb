@@ -10,6 +10,7 @@
         style="border-bottom: 2px solid grey"
         class="row justify-content-center mb-4"
     >
+    {{ cekJurusan(calon.id, calon.jurusan, calon.gelnya.unitnya.catnya.name)  }}
         <div class="col-md-5 mb-3">
             <div class="card h-100">
                 <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
@@ -32,7 +33,7 @@
                             <b>Jenis Kelamin</b> <a class="float-right">{{ calon.kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }}</a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ calon.kelasnya.name }} <b>{{ jurusannya }}</b></a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ calon.tgl_daftar | Tanggal }}</a>
@@ -53,11 +54,12 @@
                     </li>
                     <li class="nav-item">
                         <a v-if="calon.hasil.hasil == 'Kosong'" class="nav-link dashboard"
-                            v-bind:class="calon.status == 1 ? 'active' : ''"
+                            v-bind:class="calon.status == 1 ? 'active' : 'disabled'"
                             :href="'#seleksi'+calon.id" data-toggle="tab">
                             Seleksi
                         </a>
                         <a v-else class="nav-link dashboard"
+                            v-bind:class="calon.status == 1 ? 'active' : 'disabled'"
                             :href="'#seleksi'+calon.id" data-toggle="tab">
                             Seleksi
                         </a>
@@ -72,6 +74,9 @@
                             v-bind:class="calon.hasil.tagihan == 'Kosong' || calon.hasil.hasil.lulus !== 1 ? 'disabled' : ''"
                             :href="'#daul'+calon.id" data-toggle="tab">Daftar Ulang</a>
                     </li>
+                    <li class="nav-item">
+                        <a :href="'/dokumen/'+calon.id" class="btn btn-warning"><i class="fas fa-book"> </i><b> Upload Dokumen </b></a>
+                    </li>
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -79,48 +84,49 @@
                     <div class="tab-pane"
                         v-bind:class="calon.status == 0 ? 'active' : ''"
                         :id="'daftar'+calon.id">
-                        <div class="clearfix text-center">
+                        <div v-if="calon.bt.biayanya !== '-'" class="clearfix text-center">
                             <h3>Biaya Pendaftaran PSB</h3>
                             <hr>
-                            <h1>{{ calon.biayates.biayanya.biaya | toCurrency }}</h1>
+                            <h1>{{ calon.bt.biayanya.biaya | toCurrency }}</h1>
                             <hr>
                             <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Mandiri (BSM):</p>
                             <h3><b>{{ calon.uruts }}</b></h3>
-                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.biayates.expired | Tanggal }}</b>
+                            Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.bt.biayates.expired | Tanggal }}</b>
                             <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-success mt-3">Cetak Tata Cara Pembayaran</a>
+                        </div>
+                        <div v-else class="clearfix text-center">
+                            <h3>Belum Tersedia</h3>
+                            <hr>
+                            <p>Silahkan hubungi panitia PPDB Online - SIT Nurul Fikri</p>
                         </div>
                     </div>
                     <div class="tab-pane"
                         v-bind:class="calon.status == 1 && calon.hasil.hasil == 'Kosong' ? 'active' : 'disabled'"
                         :id="'seleksi'+calon.id">
-                        <ul class="timeline timeline-inverse">
-                            <li class="time-label">
-                                <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success">Cetak Kartu Seleksi</a>
+                        <ul v-if="calon.jadwal.seleksi !== 'Belum Ada'" style="list-style-type: none;">
+                            <li>
+                                <a v-bind:href="'/seleksiPDF/'+ calon.id " v-show="calon.status == 1" class="btn btn-success mb-2">Cetak Kartu Seleksi</a>
+                                <!-- <a v-bind:href="'/uploadRapot/'+ calon.id " v-show="calon.status == 1 && calon.gelnya.unit_id > 2" class="btn btn-info mb-2"><strong> Nilai Rapot</strong></a> -->
                             </li>
+                            <hr>
                             <li>
                                 <div class="timeline-item">
-                                    <h3 class="timeline-header">Tes Seleksi ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h3>
+                                    <h4 class="timeline-header">Tes Seleksi - Online ( <b>{{ calon.jadwal.seleksi | Tanggal }}</b> )</h4>
                                     <div class="timeline-body">
                                         <p>
                                             Tahapan Tes terdiri dari :
                                             <ul>
                                                 <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
                                                 <li>Tes Psikologi</li>
-                                                <li>Tes Kemampuan Berbahasa Inggris</li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Wawancara Siswa</li>
-                                                <li>Tes Wawancara Orang Tua (<b>Wajib dihadiri oleh kedua Orang Tua</b>)</li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.00 sampai dengan 15.00
-                                                </li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SD'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 09.30 atau pada pukul 09.30 sampai dengan 11.30 (akan dikonfirmasi ulang oleh panitia).
-                                                </li>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'TK'">
-                                                    Pelaksanaan Tes akan dimulai pukul 07.30 sampai dengan 10.00
-                                                </li>
+                                                <li>Wawancara Orangtua</li>
+                                                <li>Wawancara Siswa (khusus calon siswa SMP dan SMA)</li>
                                             </ul>
                                         </p>
                                     </div>
+                                    <!-- <hr class="mt--2 mb--2">
+                                    <h4 class="timeline-header">Wawancara Orang Tua dan Siswa</h4>
+                                        <p>Jadwal Wawancara : <b>{{ calon.wawancara.wawancara | Tanggal }}, waktu {{ calon.wawancara.waktu }}</b></p>
+                                        <a :href="'/pilihJadwal/'+ calon.id " v-show="calon.status == 1" class="btn btn-primary mb-2">Pilih Jadwal Tes</a> -->
                                 </div>
                             </li>
                         </ul>
@@ -227,14 +233,67 @@
             return {
                 units: {},
                 calons: [],
-                messageText: '',
+                jurusannya: "",
+                form: new Form({
+                    id: "",
+                    jurusan: "",
+                })
             };
+        },
+
+        methods: {
+            cekJurusan(id, jurusan, unit) {
+                if(jurusan === "-" && unit === "SMA"){
+                    Swal.fire({
+                        title: "Pilih Jurusan",
+                        html:
+                            '<hr><div class="form-group row">' +
+                                '<label class="col-md-7 col-form-label">Jurusan yg diinginkan</label>' +
+                                '<div class="col-md-5">' +
+                                    '<select id="jurusan" class="form-control" required>'+
+                                        '<option selected disabled>Pilih Jurusan</option>' +
+                                        '<option value="IPA">IPA</option>' +
+                                        '<option value="IPS">IPS</option>' +
+                                    '</select>' +
+                                '</div>' +
+                            '</div>',
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                        preConfirm: () => {
+                            if(document.getElementById('jurusan').value !== "Pilih Jurusan") {
+                                this.form.jurusan = document.getElementById('jurusan').value
+                                this.form.id = id
+                                this.form
+                                    .post("api/cekJurusan")
+                                    .then(() => {
+                                        Toast.fire({
+                                            type: "success",
+                                            title: "Edit Jurusan Berhasil"
+                                        });
+                                        this.$Progress.finish()
+                                    })
+                                    .catch((error) => {
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            type: 'error',
+                                        })
+                                        this.$Progress.fail()
+                                    });
+                            }
+                        }
+                    })
+                this.jurusannya = ' (Jurusan ' + this.form.jurusan + ')'
+                }
+                if (unit === "SMA" && jurusan !== "-") {
+                    this.jurusannya = ' (Jurusan ' + jurusan + ')'
+                }
+            }
         },
 
         mounted() {
             axios
                 .get("../api/calons")
                 .then(({ data }) => (this.calons = data))
-        }
+        },
     }
 </script>

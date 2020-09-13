@@ -6,9 +6,9 @@
           <div class="card-header bg-info">
             <h3 class="card-title">Daftar Nama User</h3>
             <div class="card-tools">
-              <!-- <a class="btn btn-sm btn-danger" @click="addModal">
+              <a class="btn btn-sm btn-danger" @click="addModal">
                 <i class="fas fa-plus"></i> Tambah Data
-              </a> -->
+              </a>
               <!-- <a href="/EksportUser" class="btn btn-sm btn-success">
                 <i class="fas fa-file-excel"></i>
                 Ekspor
@@ -44,7 +44,7 @@
                 <v-th sortKey="email">Email</v-th>
                 <th>No. Ponsel</th>
                 <th>Reset Password</th>
-                <th>Admin</th>
+                <!-- <th>Admin</th> -->
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -58,11 +58,11 @@
                       <i class="fas fa-key blue"> Reset</i>
                     </a>
                   </td>
-                  <td class="text-center">
+                  <!-- <td class="text-center">
                     <a href="#" @click="setAsAdam(row.id)" class="btn btn-sm btn-danger">
                       <i class="fas fa-users white"></i>
                     </a>
-                  </td>
+                  </td> -->
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>

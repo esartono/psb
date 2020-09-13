@@ -22,14 +22,15 @@ class DatabaseSeeder extends Seeder
         $this->call(KelasnyaTableSeeder::class);
         $this->call(ProvinsiTableSeeder::class);
         $this->call(KotaTableSeeder::class);
-        //$this->call(KecamatanTableSeeder::class);
-        //$this->call(KelurahanTableSeeder::class);
+        $this->call(KecamatanTableSeeder::class);
+        $this->call(KelurahanTableSeeder::class);
         $this->call(TPTabelSeeder::class);
         $this->call(CalonKategoriTableSeeder::class);
         $this->call(AgamaTableSeeder::class);
         $this->call(GelombangTableSeeder::class);
-        //$this->call(AgreementTableSeeder::class);
+        $this->call(AgreementTableSeeder::class);
         $this->call(BiayaTesTableSeeder::class);
         $this->call(BeritaTableSeeder::class);
+        $this->call(JadwalSeeder::class);
     }
 }

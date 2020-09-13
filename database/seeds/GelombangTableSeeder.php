@@ -14,50 +14,50 @@ class GelombangTableSeeder extends Seeder
     {
         Gelombang::create([
             'name' =>'Satu',
-            'tp' => 2,
+            'tp' => 3,
             'unit_id' => 1,
-            'minimum_age' => '2018-07-01',
+            'minimum_age' => '2019-07-01',
             'kuota' => 75,
             'kuota_inklusi' => 0,
-            'kode_va' => 202131,
-            'start' => '2019-09-01',
-            'end' => '2020-05-30'
+            'kode_va' => 212231,
+            'start' => '2020-09-01',
+            'end' => '2020-12-30'
         ]);
 
         Gelombang::create([
             'name' =>'Satu',
-            'tp' => 2,
+            'tp' => 3,
             'unit_id' => 2,
-            'minimum_age' => '2014-07-01',
+            'minimum_age' => '2015-07-01',
             'kuota' => 120,
             'kuota_inklusi' => 0,
-            'kode_va' => 202132,
-            'start' => '2019-09-01',
-            'end' => '2020-05-30'
+            'kode_va' => 212232,
+            'start' => '2020-09-01',
+            'end' => '2020-12-30'
         ]);
 
         Gelombang::create([
             'name' =>'Satu',
-            'tp' => 2,
+            'tp' => 3,
             'unit_id' => 3,
-            'minimum_age' => '2007-07-01',
+            'minimum_age' => '2008-07-01',
             'kuota' => 128,
             'kuota_inklusi' => 0,
-            'kode_va' => 202133,
-            'start' => '2019-09-01',
-            'end' => '2020-05-30'
+            'kode_va' => 212233,
+            'start' => '2020-09-01',
+            'end' => '2020-12-30'
         ]);
 
         Gelombang::create([
             'name' =>'Satu',
-            'tp' => 2,
+            'tp' => 3,
             'unit_id' => 4,
-            'minimum_age' => '2006-07-01',
+            'minimum_age' => '2007-07-01',
             'kuota' => 168,
             'kuota_inklusi' => 0,
-            'kode_va' => 202134,
-            'start' => '2019-09-01',
-            'end' => '2020-05-30'
+            'kode_va' => 212234,
+            'start' => '2020-09-01',
+            'end' => '2020-12-30'
         ]);
     }
 }

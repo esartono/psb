@@ -14,8 +14,7 @@ class BeritaTableSeeder extends Seeder
     {
         Berita::create([
             'judul' => 'PSB Open',
-            'Berita' => 'PSB SIT Nurul Fikri akan dibuka pada tanggal 1 September 2019, segera daftarkan putra/i Anda.'
+            'Berita' => 'PSB SIT Nurul Fikri akan dibuka pada tanggal 1 September 2020, segera daftarkan putra/i Anda.'
         ]);
-        
     }
 }

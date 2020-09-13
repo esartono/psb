@@ -12,10 +12,6 @@ class KelasnyaTableSeeder extends Seeder
      */
     public function run()
     {
-        Kelasnya::create([
-            'unit_id' => 1,
-            'name' =>'Toddler'
-        ]);
 
         Kelasnya::create([
             'unit_id' => 1,

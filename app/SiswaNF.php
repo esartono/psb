@@ -15,7 +15,7 @@ class SiswaNF extends Model
     ];
 
     protected $appends = [
-        'kelamin'
+        'kelamin', 'unitnya'
     ];
 
     public function getKelaminAttribute()
@@ -29,9 +29,18 @@ class SiswaNF extends Model
         }
     }
 
-    public function unitnya()
+    public function getUnitnyaAttribute()
     {
-        return $this->belongsTo(Unit::class, 'unit');
+        $unit = Unit::where('id', $this->attributes['unit'])->first();
+        if($unit){
+            return $unit;
+        } else {
+            return [
+                'id' => 5,
+                'cat_id' => 3,
+                'name' => 'NFBS Bogor'
+            ];
+        }
     }
 
     public function tpnya()

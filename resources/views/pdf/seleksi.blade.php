@@ -36,25 +36,8 @@
                 <td>{{ $calonsnya->asal_sekolah }}</td>
             </tr>
             <tr>
-                <th>Tes Seleksi</th>
-                <td><b>{{ $calonsnya->jadwal->seleksinya }}</b></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="padding: 2px !important; text-align: center">
-                    <h2>Kartu Wajib dibawa saat tes seleksi</h2>
-                    @switch($calonsnya->gelnya->unitnya->catnya->name)
-                        @case('TK')
-                            <p>Jam 07.30 - 10.00 WIB di TKIT Nurul Fikri</p>
-                            @break
-                        @case('SMP')
-                            <p>Jam 07.00 - 15.00 WIB di SMPIT Nurul Fikri</p>
-                            @break
-                        @case('SMA')
-                            <p>Jam 07.00 - 15.00 WIB di SMAIT Nurul Fikri</p>
-                            @break
-                        @default
-                    @endswitch
-                </td>
+                <th>Jadwal Seleksi</th>
+                <td>{{ $calonsnya->jadwal->seleksinya }}</td>
             </tr>
         </table>
     </div>

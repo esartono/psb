@@ -5,10 +5,12 @@
 /vendor
 /catatan
 /public/file
+/storage/dokumen
 /.vscode
 .env
 .env-ASLI
 .env copy
+.env GMAIL
 .env-nyoba
 .phpunit.result.cache
 Homestead.json

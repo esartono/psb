@@ -29,4 +29,5 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');
     }
+
 }

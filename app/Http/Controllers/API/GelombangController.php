@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -26,11 +27,12 @@ class GelombangController extends Controller
 
     public function show($id)
     {
-        $tgl_sekarang = today()->format('Y-m-d');
+        $tgl_sekarang = Carbon::now('Asia/Jakarta');
 
         $gelombang = Gelombang::with('unitnya.catnya', 'tpnya')
                 ->where('unit_id', $id)
-                ->where('end', '>', $tgl_sekarang)
+                ->whereDate('start', '<=', $tgl_sekarang)
+                ->whereDate('end', '>=', $tgl_sekarang)
                 ->where('tp', auth('api')->user()->tpid)
                 ->first();
 

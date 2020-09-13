@@ -16,6 +16,6 @@ class Pendidikan extends Model
 
     public static function nama($id)
     {
-       return static::where('id', '=', $id)->first()->name;
+        return static::where('id', '=', $id)->first()->name;
     }
 }

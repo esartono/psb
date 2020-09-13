@@ -18,6 +18,7 @@ class Calon extends Model
         'panggilan',
         'jk',
         'kelas_tujuan',
+        'jurusan',
         'photo',
         'tempat_lahir',
         'tgl_lahir',
@@ -54,6 +55,7 @@ class Calon extends Model
         'info',
         'status',
         'setuju',
+        'aktif',
         'user_id'
     ];
 
@@ -62,7 +64,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'hasil'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt'
     ];
 
     public function getKelaminAttribute()
@@ -79,14 +81,14 @@ class Calon extends Model
     public function getUsiaAttribute()
     {
         $age = Carbon::create($this->attributes['tgl_lahir']);
-        $patok = Carbon::create('2020', '7', '1');
+        $patok = Carbon::create('2021', '7', '1');
         return $age->diff($patok)->format('%y Tahun, %m Bulan dan %d Hari');
     }
 
     public function getLahirAttribute()
     {
         $age = Carbon::create($this->attributes['tgl_lahir']);
-        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->formatLocalized('%d %B %Y');
+        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->locale('id')->formatLocalized('%d %B %Y');
     }
 
     public function getUrutsAttribute()
@@ -105,6 +107,16 @@ class Calon extends Model
         }
     }
 
+    public function getWawancaraAttribute()
+    {
+        $jadwal = CalonJadwal::where('calon_id', $this->attributes['id'])->first();
+        if($jadwal) {
+            return $jadwal=['wawancara'=> $jadwal->wawancara, 'waktu'=>$jadwal->waktu];
+        } else {
+            return $jadwal=['wawancara'=> "Belum Ada", 'waktu'=>"-"];
+        }
+    }
+
     public function getHasilAttribute()
     {
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
@@ -119,6 +131,26 @@ class Calon extends Model
         }
 
         return compact('hasil', 'tagihan');
+    }
+
+    public function getBtAttribute()
+    {
+        $bt = CalonBiayaTes::where('calon_id', $this->attributes['id'])->first();
+        if($bt){
+            $biayates = $bt;
+            $bn = BiayaTes::where('id', $biayates->biaya_id)->first();
+        } else {
+            $biayates = "-";
+            $bn = "-";
+        }
+
+        if($bn !== "-"){
+            $biayanya = $bn;
+        } else {
+            $biayanya = "-";
+        }
+
+        return compact('biayates', 'biayanya');
     }
 
     public function gelnya()

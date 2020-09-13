@@ -19,13 +19,12 @@ class CpdTesExport implements FromView
     public function view() : view
     {
         if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
-            $calons = CalonJadwal::with('calonnya', 'jadwalnya')->where('jadwal_id', $this->data)->get();
+            $calons = CalonJadwal::with('calonsnya', 'jadwalnya')->where('jadwal_id', $this->data)->get();
         }
 
         // if(auth()->user()->isAdmin()) {
         //     $calons = CalonJadwal::with('calonnya', 'jadwalnya')->get();
         // }
-
         return view('exports.tes', [
             'calons' => $calons,
             'no' => 1,

@@ -48,7 +48,7 @@ Vue.use(VueDatePicker)
 
 const newLocal = '/psb';
 let routes = [
-    { path: '/home', component: require('./components/Home.vue').default},
+    { path: '/dashboard', component: require('./components/Home.vue').default},
     { path: '/siswa', component: require('./components/CPDSiswa.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
 
@@ -65,6 +65,8 @@ let routes = [
      * Konfigurasi
      */
     { path: '/config/tp', component: require('./components/config/TP.vue').default},
+    { path: '/config/jdokus', component: require('./components/config/JDoku.vue').default},
+    { path: '/config/kategori', component: require('./components/config/Kategori.vue').default},
     { path: '/config/gelombang', component: require('./components/config/Gelombang.vue').default},
     { path: '/config/jadwal', component: require('./components/config/Jadwal.vue').default},
     { path: '/config/biayates', component: require('./components/config/BiayaTes.vue').default},
@@ -75,6 +77,7 @@ let routes = [
      * Dashboard Ortu
      */
     { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
+    // { path: '/dokumen/:id', component: require('./components/psb/Dokumen.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
     { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},
     { path: '/editcalons/:id', component: require('./components/psb/EditCalon.vue').default},
@@ -151,7 +154,7 @@ Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)
 Vue.filter('Tanggal', function(tanggalnya){
-    if(tanggalnya) {
+    if (tanggalnya) {
         return moment(tanggalnya).format('DD MMMM YYYY');
     } else {
         return 'Tidak Ada';
@@ -164,6 +167,22 @@ Vue.filter('TanggalKecil', function(tanggalnya){
     } else {
         return 'Tidak Ada';
     }
+});
+
+Vue.filter('Usia', function(tanggalnya){
+    let th = parseInt(moment(tanggalnya).format('YYYY'));
+    let bl = parseInt(moment(tanggalnya).format('MM'));
+    let dt = parseInt(moment(tanggalnya).format('DD'));
+
+    var d1 = new Date(2021, 7, 1);
+    var d2 = new Date(th, bl, dt);
+
+    var diff = new Date(
+        d1.getFullYear()-d2.getFullYear(), 
+        d1.getMonth()-d2.getMonth(), 
+        d1.getDate()-d2.getDate()
+    );
+    return diff.getYear() + " Tahun, " + diff.getMonth() + " Bulan, " + diff.getDate() + " Hari";
 });
 
 Vue.filter('toCurrency', function (value) {
