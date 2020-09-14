@@ -58,16 +58,19 @@ class PSBDailyReport extends Command
                 '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL;
         }
 
-        Telegram::sendMessage([
-            'chat_id' => '643982879',
-            //'chat_id' => '-1001398300408',
-            'text' => $cek
-        ]);
-
-        Telegram::sendMessage([
-            //'chat_id' => '-1001194337341',
-            'chat_id' => '11095399',
-            'text' => $cek
-        ]);
+        Telegram::sendMessage(
+            [
+                'chat_id' => '643982879',
+                'text' => $cek
+            ],
+            [
+                'chat_id' => '11095399',
+                'text' => $cek
+            ],
+            [
+                'chat_id' => '330501661',
+                'text' => $cek
+            ]
+        );
     }
 }

@@ -10,7 +10,9 @@ use Telegram;
 use App\CalonBiayaTes;
 use App\Jadwal;
 use App\Calon;
+use App\Gelombang;
 use App\CalonJadwal;
+use App\TahunPelajaran;
 
 use App\Edupay\Facades\Edupay;
 
@@ -71,6 +73,34 @@ class UjicobaController extends Controller
     }
 
     public function cek2()
+    {
+        $tp = TahunPelajaran::where('status', 1)->first();
+
+        $gelombang = Gelombang::with('unitnya.catnya')->where('tp', $tp->id)
+                ->orderBy('unit_id', 'asc')->get()->toArray();
+
+        $cek = 'Update Pendaftaran PPDB SIT NF'.PHP_EOL.'Tanggal: '.date('d M Y').' ('.date('H:i').')'.PHP_EOL;
+        // foreach ($gelombang as $gel) {
+        //     $cek = $cek.PHP_EOL.$gel['unitnya']['catnya']['name'] . ' : ' . ($gel['jlhrekap']['laktif']+$gel['jlhrekap']['paktif']);
+        // }
+        foreach ($gelombang as $gel) {
+            $cek = $cek.PHP_EOL.$gel['unitnya']['name'] . ' : '.PHP_EOL.
+                '  Umum : '.$gel['jlhrekap']['umumaktif'].PHP_EOL.
+                '  Internal : '.$gel['jlhrekap']['nfaktif'].PHP_EOL.
+                '  Pegawai : '.$gel['jlhrekap']['pegaktif'].PHP_EOL.
+                '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL;
+        }
+
+        Telegram::sendMessage(
+            ['chat_id' => '643982879',
+            'text' => $cek],
+            ['chat_id' => '902836220',
+            'text' => $cek]
+        );
+
+    }
+
+    public function cek3()
     {
         $jadwal = CalonJadwal::get();
         foreach($jadwal as $j) {
