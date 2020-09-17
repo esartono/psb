@@ -198,6 +198,7 @@ class CalonController extends Controller
                 if ($id === '100') {
                     return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                         ->whereIn('gel_id', $gelombang)
+                        ->where('aktif', true)
                         ->get()->toArray();
                 } else {
                     return DB::table('calons')
@@ -209,6 +210,7 @@ class CalonController extends Controller
                         ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
                         ->whereIn('gel_id', $gelombang)
                         ->where('calons.status', $id)
+                        ->where('aktif', true)
                         ->get()->toArray();
                     // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                     //     ->whereIn('gel_id', $gelombang)

@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\TahunPelajaran;
 use App\Gelombang;
+use App\Jadwal;
+use App\CalonJadwal;
 use Telegram;
 
 
@@ -58,19 +60,48 @@ class PSBDailyReport extends Command
                 '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL;
         }
 
+        $q = PHP_EOL.'Update Jumlah Peserta Tes :'.PHP_EOL;
+
+        $unitnya = ['', 'TK', 'SD', 'SMP', 'SMA'];
+        $jadwal = Jadwal::get();
+        foreach($jadwal as $j) {
+            $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+            if($c > 0){
+                $q = '  '.$q.$unitnya[$j->gel_id].' - '.date_format(date_create($j->seleksi),"d/m/Y").' - '.$c.PHP_EOL;
+            }
+        }
+        // Telegram::sendMessage(
+        //     [
+        //         'chat_id' => '643982879',
+        //         'text' => $cek
+        //     ],
+        //     [
+        //         'chat_id' => '11095399',
+        //         'text' => $cek
+        //     ],
+        //     [
+        //         'chat_id' => '330501661',
+        //         'text' => $cek
+        //     ]
+        // );
+
+        Telegram::sendMessage(
+            [
+                'chat_id' => '11095399',
+                'text' => $cek . $q
+            ]);
+
+        Telegram::sendMessage(
+            [
+                'chat_id' => '330501661',
+                'text' => $cek . $q
+            ]);
+
         Telegram::sendMessage(
             [
                 'chat_id' => '643982879',
-                'text' => $cek
-            ],
-            [
-                'chat_id' => '11095399',
-                'text' => $cek
-            ],
-            [
-                'chat_id' => '330501661',
-                'text' => $cek
-            ]
-        );
+                'text' => $cek . $q
+            ]);
+
     }
 }

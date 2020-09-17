@@ -92,15 +92,42 @@ class UjicobaController extends Controller
         }
 
         Telegram::sendMessage(
-            ['chat_id' => '643982879',
-            'text' => $cek],
-            ['chat_id' => '902836220',
-            'text' => $cek]
-        );
+            [
+                'chat_id' => '902836220',
+                'text' => $cek
+            ]);
 
+        Telegram::sendMessage(
+            [
+                'chat_id' => '11095399',
+                'text' => $cek
+            ]);
+
+        Telegram::sendMessage(
+            [
+                'chat_id' => '330501661',
+                'text' => $cek
+            ]);
+
+        Telegram::sendMessage(
+            [
+                'chat_id' => '643982879',
+                'text' => $cek
+            ]);
     }
 
     public function cek3()
+    {
+        $jadwal = Jadwal::get();
+        foreach($jadwal as $j) {
+            $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+            $n[$j->id] = $c;
+            $j->update(['ikut' => $c]);
+        }
+        dd($n);
+    }
+
+    public function cek4()
     {
         $jadwal = CalonJadwal::get();
         foreach($jadwal as $j) {

@@ -115,6 +115,12 @@ class ViewCalonBiayaTes extends Command
                 ['calon_id' => $calon->id],
                 ['jadwal_id' => $jd]
             );
+
+            $jadwal = Jadwal::get();
+            foreach($jadwal as $j) {
+                $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+                $j->update(['ikut' => $c]);
+            }
         }
 
         // $lihat = CalonBiayaTes::with('calonnya')->where('lunas', 0)

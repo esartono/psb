@@ -115,12 +115,25 @@
                                     <div class="timeline-body">
                                         <p>
                                             Tahapan Tes terdiri dari :
-                                            <ul>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'TK' || calon.gelnya.unitnya.catnya.name == 'SD'">
                                                 <li>Tes Psikologi</li>
                                                 <li>Wawancara Orangtua</li>
-                                                <li>Wawancara Siswa (khusus calon siswa SMP dan SMA)</li>
-                                            </ul>
+                                                <li>Wawancara administrasi sekolah</li>
+                                            </ol>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'SMP'">
+                                                <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.15</li>
+                                                <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.30 - 12.00</li>
+                                                <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+                                            </ol>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'SMA'">
+                                                <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.30</li>
+                                                <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.45 - 12.00</li>
+                                                <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+                                            </ol>
                                         </p>
                                     </div>
                                     <!-- <hr class="mt--2 mb--2">

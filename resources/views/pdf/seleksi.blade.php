@@ -41,6 +41,26 @@
             </tr>
         </table>
     </div>
+    @if($calonsnya->gel_id == 3)
+    <p> Tes Terdiri dari :</p>
+    <ol>
+        <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.15</li>
+        <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.30 - 12.00</li>
+        <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+        <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+        <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+    </ol>
+    @endif
+    @if($calonsnya->gel_id == 4)
+    <p> Tes Terdiri dari :</p>
+    <ol>
+        <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.30</li>
+        <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.45 - 12.00</li>
+        <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+        <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+        <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+    </ol>
+    @endif
     <!-- <div class="page-break"></div>
     <div class="hal2">
         @include('pdf.teskesehatan')
