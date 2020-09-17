@@ -47,7 +47,12 @@
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
-                                    <td>{{ index+((currentPage-1) * 7)+1 }}</td>
+                                    <td class="text-center">
+                                        {{ index+((currentPage-1) * 7)+1 }}
+                                        <a @click="deleteData(row.id)" class="btn btn-sm btn-danger text-white" v-if='$route.params.id == 0'>
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
                                     <td class="text-center">{{ row.ck }}</td>
                                     <td class="text-center">{{ row.uruts }}</td>
                                     <td>{{ row.name }}</td>
@@ -127,7 +132,41 @@
                     .catch(() => {
                     this.$Progress.fail();
                     });
-            }
+            },
+
+            deleteData(id) {
+                Swal.fire({
+                    title: "Delete Data Calon Siswa Baru",
+                    html: "Apakah anda yakin ?<br>"+
+                        "Pastikan Data Calon memang harus di hapus.<br>"+
+                        "Kalau ada terjadi <b>kesalahan hapus</b>,<br>maka menjadi <b>tanggung jawab Anda</b>,<br>"+
+                        "siap-siap <b>IT Pusat</b> bakal ngamuk!!!<hr>#EkoGalak",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "red",
+                    cancelButtonColor: "green",
+                    confirmButtonText: "Hapus",
+                    cancelButtonText: "Batal"
+                }).then(result => {
+                    if (result.value) {
+                        axios
+                            .delete("../api/calons/" + id)
+                            .then(() => {
+                                Swal.fire("Berhasil!", "Data Calon Siswa Baru telah di hapus.", "success");
+                                Fire.$emit("listData");
+                            })
+                            .catch(() => {
+                                Swal.fire(
+                                    "gagal!",
+                                    "Ada yang salah, hubungi Developer",
+                                    "warning"
+                                );
+                            });
+                    } else {
+                        Swal.fire("Gak Jadi!", "Hubungi Admin Pusat jika ingin menghapus DATA Calon Siswa.", "warning");
+                    }
+                });
+            },
         },
 
         created() {

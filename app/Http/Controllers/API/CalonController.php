@@ -249,7 +249,8 @@ class CalonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $calon = Calon::findOrFail($id);
+        $calon->update(['aktif' => false]);
     }
 
     public function exportsiswabaru()
