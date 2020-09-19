@@ -35,7 +35,11 @@ class KelasnyaController extends Controller
     public function update(Request $request, $id)
     {
         $kelas = Kelasnya::findOrFail($id);
-        $kelas->update($request->all());
+        $kelas->update([
+            'name' => $request['name'],
+            'unit_id' => $request['unit_id'],
+            'status' => $request['status']
+        ]);
     }
 
     public function destroy($id)

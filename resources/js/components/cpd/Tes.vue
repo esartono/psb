@@ -14,7 +14,7 @@
                                 <div class="input-group-prepend" style="margin-right: -46px;">
                                     <span class="input-group-text">Pilih Jadwal Tes :</span>
                                 </div>
-                                <select class="ml-5" v-model="filters.jadwal.value">
+                                <select class="ml-5" v-model="filters.jadwal.value.jdl">
                                     <option v-for="jadwal in jadwals" :key="jadwal.id"
                                         v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.gelnya.unitnya.catnya.name }}</option>
                                 </select>
@@ -144,8 +144,8 @@
                         keys: ["calonnya.gelnya.unitnya.name", "calonnya.cknya.name", "calonnya.uruts", "calonnya.name", "calonnya.asal_sekolah"]
                     },
                     jadwal: {
-                        value: "",
-                        keys: ["jadwal_id"]
+                        value: { jdl: 0},
+                        custom: this.jadwalFilter
                     }
                 },
                 currentPage: 1,
@@ -169,6 +169,13 @@
                 axios.get("../api/jadwals")
                     .then(({ data }) => (this.jadwals = data));
                 this.$Progress.finish();
+            },
+
+            jadwalFilter(pj, row) {
+                if (pj.jdl == 0) {
+                    return row.jadwal_id > 0
+                }
+                return row.jadwal_id == pj.jdl
             },
 
             editModal(jadwal) {

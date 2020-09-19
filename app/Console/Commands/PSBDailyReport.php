@@ -57,7 +57,8 @@ class PSBDailyReport extends Command
                 '  Umum : '.$gel['jlhrekap']['umumaktif'].PHP_EOL.
                 '  Internal : '.$gel['jlhrekap']['nfaktif'].PHP_EOL.
                 '  Pegawai : '.$gel['jlhrekap']['pegaktif'].PHP_EOL.
-                '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL;
+                '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL.
+                '  TARGET : '.round(($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif'])*1000/($gel['kuota']*15), 3).' %'.PHP_EOL;
         }
 
         $q = PHP_EOL.'Update Jumlah Peserta Tes :'.PHP_EOL;
@@ -67,7 +68,8 @@ class PSBDailyReport extends Command
         foreach($jadwal as $j) {
             $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
             if($c > 0){
-                $q = '  '.$q.$unitnya[$j->gel_id].' - '.date_format(date_create($j->seleksi),"d/m/Y").' - '.$c.PHP_EOL;
+                $q = '  '.$q.$unitnya[$j->gel_id].' - '.date_format(date_create($j->seleksi),"d/m/Y").
+                ($j->internal === 0 ? '( Eksternal)' : '( Internal)').' - '.$c.PHP_EOL;
             }
         }
         // Telegram::sendMessage(
