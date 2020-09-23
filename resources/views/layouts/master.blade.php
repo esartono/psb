@@ -51,7 +51,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 d-flex">
         <div class="image">
           <img src="/img/user.svg" class="img-circle elevation-2" alt="User Image">
         </div>
@@ -59,6 +59,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
+      @if(Auth::user()->isAdministrator())
+      <div class="user-panel">
+        <a href="/login_as" class="btn btn-danger btn-block">
+          {{ __('Login As') }}
+        </a>
+      </div>
+      @endif
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -205,6 +212,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <router-link to="/config/biayates" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Biaya Tes</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/config/tagihanPSB" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Biaya PSB</p>
                 </router-link>
               </li>
               <li class="nav-item">

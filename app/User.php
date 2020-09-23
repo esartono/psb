@@ -87,6 +87,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->level == static::ACCESS_USER;
     }
 
+    public function isAdministrator()
+    {
+        return $this->id == 1;
+    }
+
     public function isAdmin()
     {
         return $this->level == static::ACCESS_ADMIN;

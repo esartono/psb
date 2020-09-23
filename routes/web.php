@@ -50,7 +50,8 @@ Route::middleware('auth', 'user')->group(function(){
 });
 
 Route::middleware('auth', 'admin')->group(function(){
-
+    Route::get('/login_as', 'HomeController@loginJadiUser')->name('login_as');
+    Route::post('/login_as', 'HomeController@login_as')->name('login_as');
     Route::get('/dashboard', 'HomeController@front')->name('dashboard');
     Route::get('/profile', 'HomeController@front');
     Route::get('/siswa', 'HomeController@front');
@@ -70,6 +71,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/config/gelombang', 'HomeController@front');
     Route::get('/config/jadwal', 'HomeController@front');
     Route::get('/config/biayates', 'HomeController@front');
+    Route::get('/config/tagihanPSB', 'HomeController@front');
     Route::get('/config/agreement', 'HomeController@front');
     Route::get('/config/berita', 'HomeController@front');
 

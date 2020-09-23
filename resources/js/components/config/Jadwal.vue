@@ -75,7 +75,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body" style="padding-top: 0 !important">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Gelombang</label>
                                     <div class="col-sm-8">
@@ -104,9 +104,7 @@
                                         </select>
                                         <has-error :form="form" field="internal"></has-error>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Kuota</label>
+                                    <label class="col-sm-2 col-form-label">Kuota</label>
                                     <div class="col-sm-3">
                                         <input v-model="form.kuota" type="number" name="kuota" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('kuota') }" id="kuota"
@@ -117,14 +115,71 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Keterangan</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" rows="3" v-model="form.keterangan"></textarea>
+                                        <input name="keterangan" class="form-control" type="text" v-model="form.keterangan">
                                         <has-error :form="form" field="keterangan"></has-error>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="col-3 btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="col-3 btn btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Link Zoom-->
+            <div class="modal fade" id="addZoom" tabindex="-1" role="dialog" aria-labelledby="addZoomLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form @submit.prevent="updateDataZoom()">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Form Edit Zoom Link</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row seleksiZoom">
+                                    <div class="col-md-12 mt--5">
+                                        <div class="form-group linkZoom">
+                                            <label class="col-form-label">Link Zoom</label>
+                                            <input name="link" class="form-control" type="text" v-model="form.link">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group linkZoom">
+                                            <label class="col-form-label">Tanggal</label>
+                                            <input name="tanggal" class="form-control" type="date" v-model="form.tanggal">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group linkZoom">
+                                            <label class="col-form-label">Meeting ID</label>
+                                            <input name="meetingID" class="form-control" type="text" v-model="form.meetingID">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group linkZoom">
+                                            <label class="col-form-label">Password</label>
+                                            <input name="password" class="form-control" type="text" v-model="form.assword">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group linkZoom">
+                                            <label class="col-form-label">TOKEN Ujian</label>
+                                            <input name="token" class="form-control" type="text" v-model="form.token">
+                                        </div>
+                                    </div>
+                                    <span class="col-12 text-right" style="padding: 10px; font-size: 14px; background-color: antiquewhite;">
+                                        Format Penulisan ( <b><code>Mata Pelajaran1: token1; Mata Pelajaran2: token2</code></b> )
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="offset-2 col-4 btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="submit" class="col-4 btn btn-primary">Simpan</button>
                             </div>
                         </form>
                     </div>
