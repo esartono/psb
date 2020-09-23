@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Login | PPDB SIT Nurul Fikri 2020-2021</title>
+  <title>{{ env('APP_NAME') }}</title>
 
   <link rel="stylesheet" href="/css/app.css">
 </head>

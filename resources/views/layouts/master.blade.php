@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>PPDB Online SIT Nurul Fikri | 2020-2021</title>
+  <title>{{ env('APP_NAME') }} | {{ auth()->user()->tpname }}</title>
 
   <link rel="stylesheet" href="/css/app.css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -350,14 +350,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           @if(Auth::user()->isAdmin()||Auth::user()->isAdminKeu())
-          <!-- <li class="nav-item">
-            <a href="/waw-keu" class="nav-link">
+          <li class="nav-item">
+            <a href="/wawancara_keu" class="nav-link">
               <i class="nav-icon fas fa-money-check-alt green"></i>
               <p>
                 Wawancara Keuangan
               </p>
             </a>
-          </li> -->
+          </li>
           @endif
           <li class="nav-item">
             <router-link to="/tagihan" class="nav-link">
