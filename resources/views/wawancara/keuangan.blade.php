@@ -1,17 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.keu')
 
 @section('content')
 <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12 mt-3">
+          <!-- <div class="offset-md-1 col-md-4 mt-3">
             <div class="callout callout-info">
-              <form method="POST" action="{{ route('getCalon') }}">
-                <div class="col-md-6 offset-md-3 input-group mt-3 mb-3">
+              <form method="POST" action="{ route('getCalon') }">
+                <div class="input-group mt-3 mb-3">
                   @csrf
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      <i class="fas fa-info"></i> &nbsp; &nbsp;Masukan No. Pendaftaran :
+                      <i class="fas fa-info"></i> &nbsp; No. Pendaftaran :
                     </span>
                   </div>
                   <input type="text" name="id"
@@ -22,8 +22,16 @@
                   </div>
                 </div>
               </form>
-            </div>
-          </div><!-- /.col -->
+              @if (\Session::has('error'))
+                <div class="alert alert-danger">
+                  <h4>{!! \Session::get('error') !!}</h4>
+                </div>
+              @endif
+            </div> -->
+          <!-- </div>/.col -->
+          <div class="offset-md-2 col-md-8 mt-3">
+            <router-view></router-view>
+          </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>

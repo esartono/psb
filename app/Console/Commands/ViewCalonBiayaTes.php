@@ -79,28 +79,28 @@ class ViewCalonBiayaTes extends Command
         foreach($calonbiayates as $c) {
             $calon = Calon::with('gelnya')->whereId($c->calon_id)->first();
 
-            if ($calon->asal_nf){
-                $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
-                        ->where('gel_id', $calon->gelnya->id)
-                        ->where('internal', 1)->first();
-                if($jadwal){
-                    $cek = $jadwal->id;
-                } else {
-                    $cek = "SALAH";
-                }
-                if($cek !== "SALAH"){
-                    $jd = $cek;
-                } else {
-                    $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
-                            ->where('gel_id', $calon->gelnya->id)
-                            ->where('internal', 0)->first();
-                    if($jadwal){
-                        $jd = $jadwal->id;
-                    } else {
-                        $jd = 0;
-                    }
-                }
-            } else {
+            // if ($calon->asal_nf){
+            //     $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+            //             ->where('gel_id', $calon->gelnya->id)
+            //             ->where('internal', 1)->first();
+            //     if($jadwal){
+            //         $cek = $jadwal->id;
+            //     } else {
+            //         $cek = "SALAH";
+            //     }
+            //     if($cek !== "SALAH"){
+            //         $jd = $cek;
+            //     } else {
+            //         $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+            //                 ->where('gel_id', $calon->gelnya->id)
+            //                 ->where('internal', 0)->first();
+            //         if($jadwal){
+            //             $jd = $jadwal->id;
+            //         } else {
+            //             $jd = 0;
+            //         }
+            //     }
+            // } else {
                 $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
                         ->where('gel_id', $calon->gelnya->id)
                         ->where('internal', 0)->first();
@@ -109,12 +109,15 @@ class ViewCalonBiayaTes extends Command
                 } else {
                     $jd = 0;
                 }
-            }
+            // }
 
-            CalonJadwal::updateOrCreate(
-                ['calon_id' => $calon->id],
-                ['jadwal_id' => $jd]
-            );
+            $cek = CalonJadwal::where('calon_id', $calon->id)->get()->count();
+            if ($cek == 0){
+                CalonJadwal::updateOrCreate(
+                    ['calon_id' => $calon->id],
+                    ['jadwal_id' => $jd]
+                );
+            }
 
             $jadwal = Jadwal::get();
             foreach($jadwal as $j) {

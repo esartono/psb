@@ -185,13 +185,31 @@ class CalonController extends Controller
 
     public function indexAdmin($id)
     {
-            if(auth('api')->user()->isAdmin()) {
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
                 $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             }
 
             if(auth('api')->user()->isAdminUnit()) {
                 $unit = auth('api')->user()->unit_id;
                 $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+            }
+
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
+                if ($id === '1000') {
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'jk', 'gelombangs.kode_va', 'users.name as ygwawancara', 'urut',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.id')
+                        ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('calons.status', 1)
+                        ->where('calons.aktif', true)
+                        ->orderBy('ygwawancara', 'asc')
+                        ->orderBy('calons.name', 'asc')
+                        ->get()
+                        ->toArray();
+                }
             }
 
             if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {

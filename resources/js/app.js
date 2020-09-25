@@ -107,6 +107,12 @@ let routes = [
     { path: '/suratseragam', component: require('./components/cpd/CPDSuratSeragam.vue').default},
 
     /**
+     * Wawancara
+     */
+    { path: '/wawancara-keu', component: require('./components/wawancara/Keuangan.vue').default},
+    { path: '/keuangan/:id', component: require('./components/wawancara/Invoice.vue').default},
+
+    /**
      * Data Tagihan
      */
     { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},

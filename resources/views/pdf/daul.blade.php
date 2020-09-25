@@ -4,7 +4,7 @@
     <div>
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
         Kami sampaikan terima kasih kepada bapak/ibu yang telah melakukan pembayaran biaya daftar ulang dalam proses
-        Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran 2020/2021, untuk data peserta didik adalah sebagai berikut :
+        Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran 2021/2022, untuk data peserta didik adalah sebagai berikut :
         </div>
         <table class="biodata">
             <tr>

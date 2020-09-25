@@ -351,7 +351,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @if(Auth::user()->isAdmin()||Auth::user()->isAdminKeu())
           <li class="nav-item">
-            <a href="/wawancara_keu" class="nav-link">
+            <a href="/wawancara-keu" class="nav-link">
               <i class="nav-icon fas fa-money-check-alt green"></i>
               <p>
                 Wawancara Keuangan

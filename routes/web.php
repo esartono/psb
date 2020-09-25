@@ -81,6 +81,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/EksportCpdBaru', 'API\CalonController@exportbaru');
     Route::get('/EksportCpdAktif', 'API\CalonController@exportaktif');
     Route::get('/EksportCpd/{id}', 'API\CalonJadwalController@exportTes');
+    Route::get('/EksportPsikotes/{id}', 'API\CalonJadwalController@exportPsikoTes');
 
     //Route untuk data siswa n Pegawai
     Route::get('/datasiswanf', 'HomeController@front');
@@ -98,9 +99,9 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/tagihan', 'HomeController@front');
     Route::get('/suratseragam', 'HomeController@front');
     Route::get('/tes', 'HomeController@front');
-    Route::get('/waw-keu', 'HomeController@wawancaraKeuangan');
-    Route::post('/keuangan', 'CalonPDFController@getCalon')->name('getCalon');
-    Route::post('/print-keuangan', 'HomeController@wawancaraKeuangan')->name('print-keuangan');
+    Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan');
+    Route::get('/keuangan/{id}', 'WawancaraController@getCalon')->name('getCalon');
+    Route::post('/print-keuangan', 'WawancaraController@wawancaraKeuangan')->name('print-keuangan');
 
     //Route::resource('calontagihans', 'CalonTagihanController');
 

@@ -37,7 +37,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit() || auth()->user()->isAdminKeu()){
             return redirect()->route('dashboard');
             // return view('home');
         }
@@ -89,16 +89,6 @@ class HomeController extends Controller
         $urt = intval(substr($id, 6));
         $gelombang = Gelombang::where('kode_va', $va)->get()->pluck('id');
         return Calon::where('gel_id',$gelombang)->where('urut',$urt)->where('status',1)->get()->toArray();
-    }
-
-    public function wawancaraKeuangan()
-    {
-        return view('wawancara.keuangan');
-    }
-
-    public function wawancaraKeuanganPrint()
-    {
-        return view('wawancara.invoiceprint');
     }
 
     public function profile()

@@ -44,7 +44,12 @@
                                     <td class="text-center">{{ row.seleksi | Tanggal }}</td>
                                     <td class="text-center">{{ row.internal | YaTidak}}</td>
                                     <td class="text-center">{{ row.kuota }}</td>
-                                    <td>{{ row.keterangan }}</td>
+                                    <td>
+                                        <a class="btn btn-info btn-sm" @click="editZoom(row.id)">
+                                            <i class="fas fa-edit blue"></i>
+                                            Link Zoom
+                                        </a>
+                                    </td>
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>

@@ -112,4 +112,8 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Calon::class, 'user_id');
     }
 
+    public static function email($id)
+    {
+        return static::where('id', $id)->first()->email;
+    }
 }

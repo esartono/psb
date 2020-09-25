@@ -6,9 +6,13 @@
                     <div class="card-header bg-info">
                         <h3 class="card-title">Daftar Peserta ALL</h3>
                         <div class="card-tools">
-                            <a :href="/EksportCpd/+filters.jadwal.value" class="btn btn-sm btn-warning mr-2 ml-2">
+                            <a :href="/EksportCpd/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-2 ml-2">
                                 <i class="fas fa-file-excel"></i>
                                 Export
+                            </a>
+                            <a :href="/EksportPsikotes/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-2 ml-2">
+                                <i class="fas fa-file-excel"></i>
+                                Export untuk Psikotes
                             </a>
                             <div class="input-group input-group-sm float-right ml-3" style="width: auto;">
                                 <div class="input-group-prepend" style="margin-right: -46px;">

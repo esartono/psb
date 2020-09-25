@@ -42,6 +42,7 @@ Route::apiResources([
     'calontagihans' => 'API\CalonTagihanController',
     'suratseragam' => 'API\SuratSeragamController',
     'tagihanpsbs' => 'API\TagihanPSBController',
+    'calontagihanpsbs' => 'API\CalonTagihanPSBController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
