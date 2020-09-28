@@ -59,6 +59,7 @@ class TagihanPSBController extends Controller
         $calon = Calon::findOrFail($id);
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
                 ->where('kelas', $calon->kelas_tujuan)
+                ->where('kelamin', $calon->jk)
                 ->first();
 
         $biaya3 = $biayas->biaya3;

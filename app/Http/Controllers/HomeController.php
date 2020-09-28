@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use App\Gelombang;
 use App\TahunPelajaran;
+use App\User;
 use App\Unit;
 use App\Berita;
 use App\Calon;
@@ -46,6 +47,11 @@ class HomeController extends Controller
             return redirect()->route('psb');
             // return view('psb');
         }
+
+        if(auth()->user()->isPsikotes()){
+            return redirect()->route('email');
+            // return view('psb');
+        }
     }
 
     public function loginJadiUser()
@@ -57,17 +63,22 @@ class HomeController extends Controller
     public function login_as(Request $request)
     {
         if(auth()->user()->isAdministrator()){
-            $gel = Gelombang::where('kode_va', substr($request->daftar,0,6))->first();
-            if($gel){
-                $id = $gel->id;
-                $urut = intval(substr($request->daftar,6));
-                $calon = DB::table('calons')
-                        ->select('user_id')
-                        ->where('urut', $urut)
-                        ->where('gel_id', $id)
-                        ->first()
-                        ->user_id;
-                Auth::loginUsingId($calon);
+            if (filter_var($request->daftar, FILTER_VALIDATE_EMAIL)) {
+                $user = User::where('email', $request->daftar)->first()->id;
+                Auth::loginUsingId($user);
+            } else {
+                $gel = Gelombang::where('kode_va', substr($request->daftar,0,6))->first();
+                if($gel){
+                    $id = $gel->id;
+                    $urut = intval(substr($request->daftar,6));
+                    $calon = DB::table('calons')
+                            ->select('user_id')
+                            ->where('urut', $urut)
+                            ->where('gel_id', $id)
+                            ->first()
+                            ->user_id;
+                    Auth::loginUsingId($calon);
+                }
             }
             return redirect()->route('home');
         }

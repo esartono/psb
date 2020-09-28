@@ -101,7 +101,7 @@ class ViewCalonBiayaTes extends Command
             //         }
             //     }
             // } else {
-                $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+                $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                         ->where('gel_id', $calon->gelnya->id)
                         ->where('internal', 0)->first();
                 if($jadwal){

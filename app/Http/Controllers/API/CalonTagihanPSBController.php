@@ -4,7 +4,9 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
+use App\Gelombang;
 use App\CalonTagihanPSB;
 
 class CalonTagihanPSBController extends Controller
@@ -16,21 +18,35 @@ class CalonTagihanPSBController extends Controller
      */
     public function index()
     {
-        //
+        if(auth('api')->user()->isHaveAccess([1,4])) {
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if(auth('api')->user()->isAdminUnit()) {
+            $unit = auth('api')->user()->unit_id;
+            $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if(auth('api')->user()->isHaveAccess([1,4]) || auth('api')->user()->isAdminUnit()) {
+            return CalonTagihanPSB::with('calonnya')->get()->toArray();
+        }
     }
 
     public function store(Request $request)
     {
-        CalonTagihanPSB::create([
-            'calon_id' => $request['calon_id'],
-            'tagihanpsb_id' => $request['tagihan_id'],
-            'infaq' => $request['infaq'],
-            'infaqnfpeduli' => $request['infaqnfpeduli'],
-            'potongan' => 0,
-            'daul' => 0,
-            'lunas' => false,
-            'pewawancara' => auth('api')->user()->id
-        ]);
+        CalonTagihanPSB::updateOrCreate(
+            [
+                'calon_id' => $request['calon_id'],
+                'pewawancara' => auth('api')->user()->id
+            ],[
+                'tagihanpsb_id' => $request['tagihan_id'],
+                'infaq' => $request['infaq'],
+                'infaqnfpeduli' => $request['infaqnfpeduli'],
+                'potongan' => 0,
+                'daul' => 0,
+                'lunas' => false,
+            ]
+        );
     }
 
     /**

@@ -185,7 +185,7 @@ class CalonController extends Controller
 
     public function indexAdmin($id)
     {
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes()) {
                 $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             }
 
@@ -200,7 +200,7 @@ class CalonController extends Controller
                         ->select('calons.id', 'calons.name', 'jk', 'gelombangs.kode_va', 'users.name as ygwawancara', 'urut',
                                 DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
                         ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.id')
+                        ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
                         ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
                         ->whereIn('gel_id', $gelombang)
                         ->where('calons.status', 1)
@@ -211,8 +211,24 @@ class CalonController extends Controller
                         ->toArray();
                 }
             }
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
+                if ($id === '101') {
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'units.name as unit', 'users.email as email',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                        ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('calons.status', 1)
+                        ->where('calons.aktif', true)
+                        ->orderBy('calons.name', 'asc')
+                        ->get()
+                        ->toArray();
+                }
+            }
 
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit() || auth('api')->user()->isAdminKeu()) {
                 if ($id === '100') {
                     return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                         ->whereIn('gel_id', $gelombang)

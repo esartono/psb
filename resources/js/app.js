@@ -93,6 +93,8 @@ let routes = [
      * Data Calon Peserta Didik
      */
     { path: '/cpdAll', component: require('./components/cpd/CPDAll.vue').default},
+    { path: '/email', component: require('./components/cpd/CPDEmail.vue').default},
+    { path: '/psikotes', component: require('./components/cpd/CPDEmail.vue').default},
     { path: '/cpd/:id', component: require('./components/cpd/CPD.vue').default},
     { path: '/cpdHasil/:id', component: require('./components/cpd/CPDHasil.vue').default},
 

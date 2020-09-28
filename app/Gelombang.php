@@ -48,4 +48,9 @@ class Gelombang extends Model
         return compact('lbaru', 'pbaru', 'laktif', 'paktif', 'umumbaru', 'nfbaru', 'pegbaru', 'umumaktif', 'nfaktif', 'pegaktif', 'umumdaul', 'nfdaul', 'pegdaul');
     }
 
+    public static function unit($id)
+    {
+        $unit = static::whereId($id)->first()->unit_id;
+        return Unit::where('id',$unit)->first()->name;
+    }
 }

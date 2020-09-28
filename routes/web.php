@@ -18,12 +18,12 @@ Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
-Route::get('/uji', 'UjicobaController@cek')->name('uji');
+// Route::get('/uji', 'UjicobaController@cek')->name('uji');
 Route::get('/uji1', 'UjicobaController@cek1')->name('uji1');
-Route::get('/uji2', 'UjicobaController@cek2')->name('uji2');
+// Route::get('/uji2', 'UjicobaController@cek2')->name('uji2');
 Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
-Route::get('api/waktu','DokuController@getWaktu');
+// Route::get('api/waktu','DokuController@getWaktu');
 
 Auth::routes(['verify' => true]);
 Route::get('logout', 'Auth\LoginController@logout');
@@ -47,6 +47,11 @@ Route::middleware('auth', 'user')->group(function(){
     // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
     Route::get('/tambahcalon', 'HomeController@psb')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'HomeController@psb')->name('editcalon');
+});
+
+Route::middleware('auth', 'psikotes')->group(function(){
+    Route::get('/psikotes', 'HomeController@front')->name('psikotes');
+    Route::get('/email', 'HomeController@front')->name('email');
 });
 
 Route::middleware('auth', 'admin')->group(function(){
@@ -101,7 +106,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/tes', 'HomeController@front');
     Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan');
     Route::get('/keuangan/{id}', 'WawancaraController@getCalon')->name('getCalon');
-    Route::post('/print-keuangan', 'WawancaraController@wawancaraKeuangan')->name('print-keuangan');
+    Route::get('/PDFkeuangan/{id}', 'WawancaraController@PDFKeuangan')->name('PDFkeuangan');
 
     //Route::resource('calontagihans', 'CalonTagihanController');
 

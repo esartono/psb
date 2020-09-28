@@ -39,6 +39,7 @@
             <td>{{ row.ygwawancara }}</td>
             <td class="text-center">
               <a v-if="!row.ygwawancara" class="btn btn-success" :href="'/keuangan/' + row.id">Wawancara</a>
+              <a v-if="row.ygwawancara" class="btn btn-danger" :href="'/PDFkeuangan/' + row.id">Print</a>
             </td>
           </tr>
         </tbody>

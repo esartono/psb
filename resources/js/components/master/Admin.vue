@@ -37,6 +37,7 @@
                 <v-th sortKey="name">Nama</v-th>
                 <v-th sortKey="name">Email</v-th>
                 <th>No. Ponsel</th>
+                <th>Reset Password</th>
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -45,6 +46,11 @@
                   <td>{{ row.name }}</td>
                   <td>{{ row.email }}</td>
                   <td>{{ row.phone }}</td>
+                  <td class="text-center">
+                    <a href="#" @click="resetPass(row.id)" class="btn btn-sm btn-warning">
+                      <i class="fas fa-key blue"> Reset</i>
+                    </a>
+                  </td>
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>
@@ -170,6 +176,23 @@ export default {
       this.$Progress.start();
       axios.get("../api/admins").then(({ data }) => (this.admins = data));
       this.$Progress.finish();
+    },
+
+    resetPass(id) {
+      axios
+        .post("../api/rpass/" + id)
+        .then(() => {
+          $("#addModal").modal("hide");
+          Fire.$emit("listData");
+          Toast.fire({
+            type: "success",
+            title: "Berhasil Update Data User"
+          });
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
     },
 
     addModal() {

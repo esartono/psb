@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
-      @if(Auth::user()->isAdministrator())
+      @if(Auth::user()->isHaveAccess([1]))
       <div class="user-panel">
         <a href="/login_as" class="btn btn-danger btn-block">
           {{ __('Login As') }}
@@ -70,6 +70,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        @if(Auth::user()->isHaveAccess([1,3,4]))
           <li class="nav-item">
             <a href="/home" class="nav-link">
               <i class="nav-icon fas fa-th cyan"></i>
@@ -86,7 +87,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          @if(Auth::user()->isAdmin())
+          @if(Auth::user()->isHaveAccess([1]))
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie orange"></i>
@@ -349,7 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-          @if(Auth::user()->isAdmin()||Auth::user()->isAdminKeu())
+          @if(Auth::user()->isHaveAccess([1,4]))
           <li class="nav-item">
             <a href="/wawancara-keu" class="nav-link">
               <i class="nav-icon fas fa-money-check-alt green"></i>
@@ -367,7 +368,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          @if(Auth::user()->isAdmin())
+          @if(Auth::user()->isHaveAccess([1]))
           <li class="nav-item">
             <router-link to="/suratseragam" class="nav-link">
               <i class="nav-icon fas fa-tshirt yellow"></i>
@@ -377,6 +378,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           @endif
+        @endif
+        @if(Auth::user()->isHaveAccess([1,4]))
+          <li class="nav-item">
+            <router-link to="/email" class="nav-link">
+              <i class="nav-icon fa fa-envelope teal"></i>
+              <p>
+                Data Email
+              </p>
+            </router-link>
+          </li>
+        @endif
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
               <i class="nav-icon fas fa-user green"></i>

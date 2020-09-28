@@ -13,6 +13,7 @@ use App\Calon;
 use App\Gelombang;
 use App\CalonJadwal;
 use App\TahunPelajaran;
+use App\CalonTagihanPSB;
 
 use App\Edupay\Facades\Edupay;
 
@@ -64,10 +65,14 @@ class UjicobaController extends Controller
                 $jd = $this->pilihjadwal($calon->gelnya->id);
             }
 
-            CalonJadwal::updateOrCreate(
-                ['calon_id' => $calon->id],
-                ['jadwal_id' => $jd]
-            );
+            $cj = CalonJadwal::where('calon_id', $calon->id)->get()->count();
+
+            if($cj > 0){
+                CalonJadwal::updateOrCreate(
+                    ['calon_id' => $calon->id],
+                    ['jadwal_id' => $jd]
+                );
+            }
         }
 
     }
@@ -116,7 +121,7 @@ class UjicobaController extends Controller
             ]);
     }
 
-    public function cek3()
+    public function cek31()
     {
         $jadwal = Jadwal::get();
         foreach($jadwal as $j) {
@@ -125,6 +130,12 @@ class UjicobaController extends Controller
             $j->update(['ikut' => $c]);
         }
         dd($n);
+    }
+
+    public function cek3()
+    {
+        return CalonTagihanPSB::with('calonnya')->whereId(10)->get()->toArray();
+        // return Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString();
     }
 
     public function cek4()
@@ -138,7 +149,7 @@ class UjicobaController extends Controller
 
     public function asalNF($gel)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 1)->first();
         if($jadwal){
@@ -150,7 +161,7 @@ class UjicobaController extends Controller
 
     public function pilihjadwal($gel)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 0)->first();
         if($jadwal){
