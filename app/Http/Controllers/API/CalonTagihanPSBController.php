@@ -39,7 +39,8 @@ class CalonTagihanPSBController extends Controller
                 'calon_id' => $request['calon_id'],
                 'pewawancara' => auth('api')->user()->id
             ],[
-                'tagihanpsb_id' => $request['tagihan_id'],
+                'va1' => '860001',
+                'va2' => '',
                 'infaq' => $request['infaq'],
                 'infaqnfpeduli' => $request['infaqnfpeduli'],
                 'potongan' => 0,

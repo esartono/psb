@@ -63,15 +63,15 @@ class PSBDailyReport extends Command
 
         $q = PHP_EOL.'Update Jumlah Peserta Tes :'.PHP_EOL;
 
-        $unitnya = ['', 'TK', 'SD', 'SMP', 'SMA'];
-        $jadwal = Jadwal::get();
-        foreach($jadwal as $j) {
-            $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
-            if($c > 0){
-                $q = '  '.$q.$unitnya[$j->gel_id].' - '.date_format(date_create($j->seleksi),"d/m/Y").
-                ($j->internal === 0 ? '( Eksternal)' : '( Internal)').' - '.$c.PHP_EOL;
-            }
-        }
+        // $unitnya = ['', 'TK', 'SD', 'SMP', 'SMA'];
+        // $jadwal = Jadwal::get();
+        // foreach($jadwal as $j) {
+        //     $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+        //     if($c > 0){
+        //         $q = '  '.$q.$unitnya[$j->gel_id].' - '.date_format(date_create($j->seleksi),"d/m/Y").
+        //         ($j->internal === 0 ? '( Eksternal)' : '( Internal)').' - '.$c.PHP_EOL;
+        //     }
+        // }
         // Telegram::sendMessage(
         //     [
         //         'chat_id' => '643982879',

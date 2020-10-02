@@ -48452,3 +48452,9 @@ a[id^=reguler]:hover {
   color: red !important;
 }
 
+.btn-muamalat {
+  color: yellow;
+  background-color: purple;
+  border-color: purple;
+}
+

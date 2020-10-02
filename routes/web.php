@@ -18,10 +18,12 @@ Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
-// Route::get('/uji', 'UjicobaController@cek')->name('uji');
+Route::get('/uji', 'UjicobaController@cek')->name('uji');
 Route::get('/uji1', 'UjicobaController@cek1')->name('uji1');
 // Route::get('/uji2', 'UjicobaController@cek2')->name('uji2');
-Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
+// Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
+//Route::get('/uji4', 'UjicobaController@cek4')->name('uji4');
+Route::get('/uji5', 'UjicobaController@cek5')->name('uji5');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
 
@@ -87,6 +89,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/EksportCpdAktif', 'API\CalonController@exportaktif');
     Route::get('/EksportCpd/{id}', 'API\CalonJadwalController@exportTes');
     Route::get('/EksportPsikotes/{id}', 'API\CalonJadwalController@exportPsikoTes');
+    Route::get('/EksportVABank/{id}', 'API\CalonController@exportBank');
 
     //Route untuk data siswa n Pegawai
     Route::get('/datasiswanf', 'HomeController@front');

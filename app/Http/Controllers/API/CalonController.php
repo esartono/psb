@@ -25,6 +25,7 @@ use App\Exports\SiswaBaruExport;
 use App\Exports\CpdBaruExport;
 use App\Exports\CpdAktifExport;
 use App\Exports\CpdJadwalTes;
+use App\Exports\CpdExportBank;
 
 class CalonController extends Controller
 {
@@ -36,7 +37,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru', 'updateJurusan');
+        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'updateJurusan');
     }
 
     public function index()
@@ -305,6 +306,16 @@ class CalonController extends Controller
     public function exportjadwal()
     {
         return Excel::download(new CpdJadwalTes, 'cpdTes.xlsx');
+    }
+
+    public function exportBank($id)
+    {
+        if($id === "1"){
+            return Excel::download(new CpdExportBank(1), 'Ajuan VA Bank Muamalat.xlsx');
+        }
+        if($id === "2"){
+            return Excel::download(new CpdExportBank(2), 'Ajuan VA Bank BJBS.xlsx');
+        }
     }
 
 }

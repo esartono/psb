@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ env('APP_NAME') }} | {{ auth()->user()->tpname }}</title>
+    <title>{{ env('APP_NAME') }}</title>
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
@@ -20,14 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
       <div class="row justify-content-center">
           @yield('content')
-      </div>
-      <div class="text-center">
-        @if (auth()->user()->isAdmin())
-          <a class="btn btn-primary btn-lg" href="{{ url('/home') }}">Home </a>
-        @endif
-        @if (auth()->user()->isUser())
-          <a class="btn btn-primary btn-lg" href="{{ url('/psb') }}">Home</a>
-        @endif
       </div>
   </div>
 
