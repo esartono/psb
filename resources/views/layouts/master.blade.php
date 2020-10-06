@@ -352,8 +352,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           @if(Auth::user()->isHaveAccess([1,4]))
           <li class="nav-item">
-            <!-- <router-link to="/bayartagihan" class="nav-link"> -->
-            <router-link to="" class="nav-link">
+            <router-link to="/bayartagihan" class="nav-link">
+            <!-- <router-link to="" class="nav-link"> -->
               <i class="nav-icon fas fa-money-check-alt orange"></i>
               <p>
                 Data Bayar Tagihan

@@ -45,16 +45,19 @@ class BayarTagihan extends Model
         $reg3 = new \DateTime('2021-02-1');
 
         if($reg3 > $now) {
+            $ket = 'Reguler 3';
             $total = $biayas->total[3];
         }
         if($reg2 > $now) {
+            $ket = 'Reguler 2';
             $total = $biayas->total[2];
         }
         if($reg1 > $now) {
+            $ket = 'Reguler 1';
             $total = $biayas->total[1];
         }
 
         $sisa = $total - $bayar;
-        return compact('total', 'sisa', 'bayar', 'akhir');
+        return compact('total', 'sisa', 'bayar', 'akhir', 'ket');
     }
 }

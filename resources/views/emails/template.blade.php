@@ -32,6 +32,15 @@
                 padding: 10px;
             }
 
+            .details {
+                border-collapse: collapse;
+            }
+
+            .details, .details th, .details td {
+                border: 1px solid grey;
+                padding: 5px;
+            }
+
             .qr {
                 margin: -20px 0px 10px 0px;
                 font-size: 20px !important;

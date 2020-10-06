@@ -15,12 +15,14 @@ use PDF;
 use App\CalonBiayaTes;
 use App\Jadwal;
 use App\Calon;
+use App\BiayaTes;
 use App\Gelombang;
 use App\CalonJadwal;
 use App\TahunPelajaran;
 use App\TagihanPSB;
 use App\Kelasnya;
 use App\CalonTagihanPSB;
+use App\BayarTagihan;
 
 use App\Edupay\Facades\Edupay;
 
@@ -289,6 +291,28 @@ class UjicobaController extends Controller
             $calon = Calon::where('gel_id', $gel)->where('urut', $urut)->first()->id;
             echo $calon.'<br>';
         }
+    }
+
+    public function cek6()
+    {
+        //Buat nambah data ke edupay
+        // $calon = Calon::where('id', 421)->first();
+        // $calonbiaya = CalonBiayaTes::where('calon_id', $calon->id)->first();
+        // $biaya = BiayaTes::where('id', $calonbiaya->biaya_id)->first();
+
+        // Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
+
+        // $pendaftaran = '212234001';
+        $gel = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first()->id;
+        $urut = intval(substr($pendaftaran,6));
+
+        $calon = Calon::with('gelnya.unitnya', 'kelasnya', 'usernya')
+                    ->where('urut', $urut)->where('gel_id', $gel)->first();
+
+        $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
+        $tagihan = $bayar->last();
+
+        return view('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'));
     }
 
     public function asalNF($gel)

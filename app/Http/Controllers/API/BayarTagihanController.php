@@ -24,15 +24,25 @@ class BayarTagihanController extends Controller
         $gel = Gelombang::where('kode_va', substr($request->pendaftaran,0,6))->first()->id;
         $urut = intval(substr($request->pendaftaran,6));
 
-        $calon = Calon::where('urut', $urut)->where('gel_id', $gel)->first()->id;
+        $calon = Calon::with('gelnya.unitnya', 'kelasnya', 'usernya')
+                    ->where('urut', $urut)->where('gel_id', $gel)->first();
 
         BayarTagihan::create([
-            'calon_id' => $calon,
+            'calon_id' => $calon->id,
             'tgl_bayar' => $request->tgl_bayar,
             'bayar' => $request->bayar,
             'keterangan' => $request->keterangan,
             'admin' => auth('api')->user()->id
         ]);
+
+        $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
+        $tagihan = $bayar->last();
+
+        Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
+            {
+                $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
+            }
+        );
     }
 
     public function show($id)
