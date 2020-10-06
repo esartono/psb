@@ -316,6 +316,9 @@ class CalonController extends Controller
         if($id === "2"){
             return Excel::download(new CpdExportBank(2), 'Ajuan VA Bank BJBS.xlsx');
         }
+        if($id === "3"){
+            return Excel::download(new CpdExportBank(3), 'Tagihan PSB '.str_replace("/","-",auth()->user()->tpname).'.xlsx');
+        }
     }
 
 }

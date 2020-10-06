@@ -64,4 +64,28 @@ class TagihanPSB extends Model
 
         return $total;
     }
+
+    public static function biayanya($id)
+    {
+        $calon = Calon::where('id', $id)->first();
+        $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
+                ->where('kelas', $calon->kelas_tujuan)
+                ->where('kelamin', $calon->jk)
+                ->first();
+
+        $now = new \DateTime();
+        $reg1 = new \DateTime('2020-11-1');
+        $reg2 = new \DateTime('2020-12-1');
+        $reg3 = new \DateTime('2021-02-1');
+
+        if($reg3 > $now) {
+            return $biayas->biaya1;
+        }
+        if($reg2 > $now) {
+            return $biayas->biaya2;
+        }
+        if($reg1 > $now) {
+            return $biayas->biaya1;
+        }
+    }
 }

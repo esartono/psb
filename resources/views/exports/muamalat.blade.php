@@ -4,16 +4,16 @@
         <th>No</th>
         <th>VA</th>
         <th>Nama</th>
-        <th>Reguler 1</th>
-        <th>Reguler 2</th>
-        <th>Reguler 3</th>
+        <th>TOTAL Reguler 1 (sudah dgn infaq NF dan NF Peduli)</th>
+        <th>TOTAL Reguler 2 (sudah dgn infaq NF dan NF Peduli)</th>
+        <th>TOTAL Reguler 3 (sudah dgn infaq NF dan NF Peduli)</th>
     </tr>
     </thead>
     <tbody>
     @foreach($calons as $calon)
         <tr>
             <td>{{ $no++ }}</td>
-            <td>{{ $calon->calonnya->uruts }}</td>
+            <td>{{ $calon->va1 }}{{ $calon->calonnya->gel_id }}{{ $calon->calonnya->uruts }}</td>
             <td>{{ $calon->calonnya->name }}</td>
             <td>{{ $calon->tagihan[1]+$calon->infaq+$calon->infaqnfpeduli }}</td>
             <td>{{ $calon->tagihan[2]+$calon->infaq+$calon->infaqnfpeduli }}</td>

@@ -79,7 +79,7 @@
 						<li><a href="biaya">Biaya Pendidikan</a></li>
 						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
 						<!-- <li class="menu-has-children"><a href="jadwal">Jadwal</a> -->
-						<li><a href="jadwal">Jadwal</a>
+						<li><a href="file/Jadwal PSB.pdf" target="_blank">Jadwal</a>
 							<!-- <ul>
 								<li><a href="jadwal">Proses PPDB</a></li>
 								<li><a href="jadwalkesehatan">Tes Kesehatan</a></li>
@@ -88,7 +88,7 @@
 						<li class="menu-has-children"><a href="">Tata Cara Pembayaran</a>
 							<ul>
 								<li><a href="file/Tata Cara Pembayaran Menggunakan Edupay BSM.pdf" target="_blank">Biaya Pendaftaran</a></li>
-								<li><a href="file/Tata cara Daftar Ulang BJBS.pdf" target="_blank">Daftar Ulang</a></li>
+								<li><a href="file/Panduan VA PPDB SIT NURUL FIKRI.pdf" target="_blank">Daftar Ulang</a></li>
 							</ul>
 						</li>
 						<li><a href="download">Download</a></li>

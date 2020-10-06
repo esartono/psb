@@ -66,10 +66,12 @@ class UjicobaController extends Controller
             $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                         ->where('gel_id', $calon->gel_id)
                         ->where('internal', 0)->first();
+            // dd($jadwal->id);
             if($jadwal){
                 $jd = $jadwal->id;
             } else {
                 $jd = 0;
+                dd($calon->uruts);
             }
 
             $cj = CalonJadwal::where('calon_id', $calon->id)->first();
@@ -150,8 +152,10 @@ class UjicobaController extends Controller
         // return CalonTagihanPSB::with('calonnya')->whereId(10)->get()->toArray();
         // return Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString();
         ini_set('max_execution_time', 500);
-        $ctgs = CalonTagihanPSB::offset(138)->limit(50)->get();
+        $ctgs = CalonTagihanPSB::offset(168)->limit(50)->get();
+        $hitung_urut = 0;
         foreach($ctgs as $ctg){
+        echo $hitung_urut++;
         $security = '80191007';
 
         $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'Iuran SPP Bulan Juli', 'Iuran Komite Sekolah / tahun', 'Seragam'];
@@ -283,7 +287,7 @@ class UjicobaController extends Controller
             $gel = Gelombang::where('kode_va', substr($s,0,6))->first()->id;
             $urut = intval(substr($s,6));
             $calon = Calon::where('gel_id', $gel)->where('urut', $urut)->first()->id;
-            dd($calon);
+            echo $calon.'<br>';
         }
     }
 

@@ -118,6 +118,7 @@ let routes = [
      * Data Tagihan
      */
     { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},
+    { path: '/bayartagihan', component: require('./components/cpd/CPDBayarTagihan.vue').default},
 
     /**
      * Component untuk page yang blank

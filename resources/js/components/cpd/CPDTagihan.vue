@@ -8,11 +8,15 @@
                         <div class="card-tools">
                             <a href="/EksportVABank/1" class="btn btn-sm btn-muamalat mr-2 ml-2">
                                 <i class="fas fa-file-excel"></i>
-                                Export Bank Muamalat
+                                Export Muamalat
                             </a>
                             <a href="/EksportVABank/2" class="btn btn-sm btn-danger mr-2 ml-2">
                                 <i class="fas fa-file-excel"></i>
-                                Export Bank BJBS
+                                Export BJBS
+                            </a>
+                            <a href="/EksportVABank/3" class="btn btn-sm btn-success mr-2 ml-2">
+                                <b><i class="fas fa-file-excel"></i>
+                                Tagihan PSB</b>
                             </a>
                             <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"

@@ -34,6 +34,32 @@ class CpdExportBank implements FromView
                     'no' => 1,
                 ]);
             }
+
+            if($this->data == 3) {
+                $calons = CalonTagihanPSB::with('calonnya')->get();
+                $now = new \DateTime();
+                $reg1 = new \DateTime('2020-11-1');
+                $reg2 = new \DateTime('2020-12-1');
+                $reg3 = new \DateTime('2021-02-1');
+
+                if($reg3 > $now) {
+                    $judul = 3;
+                }
+
+                if($reg2 > $now) {
+                    $judul = 2;
+                }
+
+                if($reg1 > $now) {
+                    $judul = 1;
+                }
+
+                return view('exports.tagihanPSB', [
+                    'calons' => $calons,
+                    'no' => 1,
+                    'judul' => $judul,
+                ]);
+            }
         }
     }
 }
