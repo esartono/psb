@@ -3,7 +3,7 @@
 @section('isi')
     <p>
     <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
-    <p>Penyerahan form wawancara administrasi sekolah sesuai jadwal.</p>
+    <p>Penyerahan dokumen keuangan dilakukan secara <i>drive-thru</i> dengan jadwal sebagai berikut.</p>
     <p>Untuk Calon siswa SMP IT Nurul Fikri dapat menyerahkan dokumennya pada hari :<strong>
     Selasa, 29 September 2020. Jam 09.30 - 11.30. </strong>dengan Drive Thrue di SDIT-SMPIT.<br>
     Dokumen yang harus diserahkan terdiri dari :</p>
