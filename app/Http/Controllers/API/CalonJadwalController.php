@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 
 use Excel;
 use App\Exports\CpdTesExport;
+use App\Exports\CpdPsikoTesExport;
 
 class CalonJadwalController extends Controller
 {
@@ -22,7 +23,7 @@ class CalonJadwalController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportTes');
+        $this->middleware('auth:api')->except('exportTes', 'exportPsikoTes');
     }
 
     public function index()
@@ -96,6 +97,11 @@ class CalonJadwalController extends Controller
     public function exportTes($id)
     {
         return Excel::download(new CpdTesExport($id), 'cpdTes.xlsx');
+    }
+
+    public function exportPsikoTes($id)
+    {
+        return Excel::download(new CpdPsikoTesExport($id), 'cpdPsikotes.xlsx');
     }
 
 }

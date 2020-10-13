@@ -41,6 +41,9 @@ Route::apiResources([
     'calonhasils' => 'API\CalonHasilController',
     'calontagihans' => 'API\CalonTagihanController',
     'suratseragam' => 'API\SuratSeragamController',
+    'tagihanpsbs' => 'API\TagihanPSBController',
+    'calontagihanpsbs' => 'API\CalonTagihanPSBController',
+    'bayartagihans' => 'API\BayarTagihanController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
@@ -62,5 +65,5 @@ Route::get('kategoris', 'API\CalonKategoriController@data');
 Route::get('agama', 'API\AgamaController@dataAgama');
 Route::get('indexadmin/{id}', 'API\CalonController@indexAdmin');
 Route::post('cekJurusan', 'API\CalonController@updateJurusan');
-//Route::get('getcalon/{id}', 'API\CalonController@getCalon');
+Route::post('cekCalon', 'API\CalonController@cekCalon');
 Route::get('/937a8ddfc66c29ec39ad5f75cdd44b8e/{id}', 'HomeController@apiCalon');

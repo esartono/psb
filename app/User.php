@@ -6,6 +6,8 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Arr;
+
 use App\Notifications\UserMail;
 use App\Notifications\MailResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_USER = 2;
     const ACCESS_ADMINUNIT = 3;
     const ACCESS_ADMINKEU = 4;
+    const ACCESS_PSIKOTES = 5;
 
     use HasApiTokens, Notifiable;
 
@@ -87,6 +90,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->level == static::ACCESS_USER;
     }
 
+    public function isAdministrator()
+    {
+        return $this->id == 1;
+    }
+
+    public function isHaveAccess($akses)
+    {
+        return in_array($this->level, $akses);
+    }
+
     public function isAdmin()
     {
         return $this->level == static::ACCESS_ADMIN;
@@ -102,9 +115,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->level == static::ACCESS_ADMINKEU;
     }
 
+    public function isPsikotes()
+    {
+        return $this->level == static::ACCESS_PSIKOTES;
+    }
+
     public function calons()
     {
         return $this->hasMany(Calon::class, 'user_id');
     }
 
+    public static function email($id)
+    {
+        return static::where('id', $id)->first()->email;
+    }
+
+    public static function namaUser($id)
+    {
+        return static::where('id', $id)->first()->name;
+    }
 }

@@ -9,7 +9,7 @@
 			<hr>
 			<p>{{ $hasils->catatan }}</p>
 			<hr>
-			<a href="psb" class="btn btn-primary">Rincian Pembiayaan</a>
+			<a href="psb" class="btn btn-primary">Detail</a>
 		</div>
 	</div>
 </div>

@@ -21,4 +21,9 @@ class Kelasnya extends Model
     {
         return $this->belongsTo(Unit::class, 'unit_id');
     }
+
+    public static function unit($id)
+    {
+        return static::whereId($id)->first()->name;
+    }
 }

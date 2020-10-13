@@ -101,7 +101,7 @@
                                             format="DD MMMM YYYY"
                                             format-output="YYYY/MM/DD"
                                             placeholder="Tgl/Bln/Tahun"
-                                            v-bind:end-date="minimum_age"
+                                            v-bind:max-date="minimum_age"
                                             :locale='{ lang: {
                                                 "name": "id",
                                                 "weekdays": ["Ahad","Senin","Selasa","Rabu","Kamis","Jum`at","Sabtu"],

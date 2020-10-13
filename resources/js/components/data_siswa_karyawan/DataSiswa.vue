@@ -56,7 +56,7 @@
                       <thead slot="head">
                         <th>No.</th>
                         <v-th sortKey="nis">NIS</v-th>
-                        <v-th sortKey="nama">Nama Lengkap</v-th>
+                        <v-th sortKey="name">Nama Lengkap</v-th>
                         <th>JK</th>
                         <th>Unit</th>
                         <th>Tahun Pelajaran</th>
@@ -300,13 +300,14 @@ export default {
       tps: {},
       siswanfs: [],
       filters: {
-        name: { value: "", keys: ["name", "nis"] }
+        name: { value: "", keys: ["name", "nis", "unitnya.name"] }
       },
       currentPage: 1,
       totalPages: 0,
       file: "",
       status_upload: "",
       form: new Form({
+        id: "",
         nis: "",
         name: "",
         jk: "",

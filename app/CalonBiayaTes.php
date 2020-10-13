@@ -39,21 +39,31 @@ class CalonBiayaTes extends Model
             }
         );
 
-        if ($calon->asal_nf){
-            $cek = $this->asalNF($calon->gelnya->id);
-            if($cek !== "SALAH"){
-                $jd = $cek;
-            } else {
-                $jd = $this->pilihjadwal($calon->id);
-            }
-        } else {
+        // if ($calon->asal_nf){
+        //     $cek = $this->asalNF($calon->gelnya->id);
+        //     if($cek !== "SALAH"){
+        //         $jd = $cek;
+        //     } else {
+        //         $jd = $this->pilihjadwal($calon->id);
+        //     }
+        // } else {
             $jd = $this->pilihjadwal($calon->id);
-        }
+        // }
 
-        CalonJadwal::updateOrCreate(
-            ['calon_id' => $calon->id],
-            ['jadwal_id' => $jd]
-        );
+        $cj = CalonJadwal::where('calon_id', $calon->id)->first();
+        if(!$cj){
+            CalonJadwal::updateOrCreate(
+                ['calon_id' => $calon->id],
+                ['jadwal_id' => $jd]
+            );
+        } else {
+            if($cj->jadwal_id == 0){
+                CalonJadwal::updateOrCreate(
+                    ['calon_id' => $calon->id],
+                    ['jadwal_id' => $jd]
+                );
+            }
+        }
 
         Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
             {
@@ -61,11 +71,17 @@ class CalonBiayaTes extends Model
             }
         );
 
+        $jadwal = Jadwal::get();
+        foreach($jadwal as $j) {
+            $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+            $j->update(['ikut' => $c]);
+        }
+
     }
 
     public function asalNF($gel)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 1)->first();
         if($jadwal){
@@ -77,13 +93,18 @@ class CalonBiayaTes extends Model
 
     public function pilihjadwal($gel)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
-                ->where('internal', 0)->first();
-        if($jadwal){
-            return $jadwal->id;
-        } else {
-            return 0;
+                ->where('internal', 0)
+                ->get();
+        if($jadwal->count() > 0){
+            foreach ($jadwal as $j) {
+                if($j->ikut < $j->kuota) {
+                    return $j->id;
+                    break;
+                }
+            }
         }
+        return 0;
     }
 }

@@ -5,7 +5,7 @@
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
         <center><h1>MOHON MAAF, SAAT INI SERAGAM ANANDA BELUM SIAP UNTUK DIDISTRIBUSIKAN</h1></center>
         <br>
-        Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran 2020/2021, untuk data peserta didik adalah sebagai berikut :
+        Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran 2021/2022, untuk data peserta didik adalah sebagai berikut :
         </div>
         <table class="biodata">
             <tr>

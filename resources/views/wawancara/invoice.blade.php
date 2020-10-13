@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.keu')
 <style>
 
 table.table-invoice {
@@ -33,7 +33,7 @@ table.table-invoice th, table.table-invoice td {
                         <div class="card col-5">
                             <div class="card-body" style="padding: 10px 0px 5px 0px">
                                 <p class="card-title">Biodata Calon Siswa</p>
-                                <table class="table table-striped">
+                                <table class="table table-sm table-striped">
                                     <tr>
                                         <td width="30%">Nama Lengkap</td>
                                         <td width="1%">:</td>
@@ -60,78 +60,27 @@ table.table-invoice th, table.table-invoice td {
                                         <td>{{ $calon->kelasnya->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td>No. Ponsel</td>
+                                        <td>Orang Tua</td>
                                         <td>:</td>
-                                        <td>Ayah : {{ $calon->ayah_hp }}<br>Ibu : {{ $calon->ibu_hp }}</td>
+                                        <td>
+                                            Ayah : {{ $calon->ayah_nama }} - ({{ $calon->ayah_hp }})<br>
+                                            Ibu : {{ $calon->ibu_nama }} - ({{ $calon->ibu_hp }})
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat Tempat Tinggal</td>
+                                        <td>:</td>
+                                        <td>
+                                            {{ $calon->alamat }} <br>
+                                            Kel. {{ App\Kelurahan::nama($calon->kelurahan) }}, Kec. {{ App\Kecamatan::nama($calon->kecamatan) }} <br>
+                                            {{ App\Kota::nama($calon->kota) }}, {{ App\Provinsi::nama($calon->provinsi) }}
+                                        </td>
                                     </tr>
                                 </table>
+                                <a href="/wawancara-keu" class="btn btn-success btn-block"> Dashboard Wawancara</a>
                             </div>
                         </div>
-                        <div class="card col-7">
-                            <form action="{{ route('calontagihans.store') }}" method="POST" class="keuangan">
-                            @csrf
-                            <div class="card-body" style="padding: 10px 0px 5px 0px">
-                                <h5 class="card-title">Detail Tagihan Calon Siswa</h5>
-                                <table class="table-invoice">
-                                    <tr>
-                                        <th style="width: 5%; vertical-align: middle">No</th>
-                                        <th style="width: 40%; vertical-align: middle">Jenis Pembayaran</th>
-                                        <th style="width: 55%; vertical-align: middle">Jumlah Pembayaran</th>
-                                    </tr>
-                                    @foreach ($tagihans as $tagihan)
-                                        <tr>
-                                            <td class="text-center">{{ $no++ }}</td>
-                                            <td>{{ $tagihan->keterangan }}</td>
-                                            <td class="text-right">Rp. {{ number_format($tagihan->biaya) }},-</td>
-                                        </tr>
-                                    @endforeach
-                                    <tr>
-                                        <td class="text-center">{{ $no++ }}</td>
-                                        <td>Biaya Seragam</td>
-                                        <td class="text-right">Rp. {{ number_format($tagihanseragam->biaya) }},-</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">SUBTOTAL</th>
-                                        <td class="text-right"><b>Rp. {{ number_format($totaltagihan) }},-</b></td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">Pilih Potongan</th>
-                                        <td class="text-right">
-                                            <select >
-                                                <option value="1">Saudara Kandung di NF</option>
-                                                <option value="2">Prestasi Sekolah di SIT NF atau NFBS Bogor</option>
-                                                <option value="3">Asal SIT NF atau NFBS Bogor</option>
-                                                <option value="4">Prestasi tingkat Nasional</option>
-                                                <option value="5">Hafalan min 15 Juz</option>
-                                                <option value="6">Tidak Perlu</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">Infaq</th>
-                                        <td class="text-right">
-                                            <input type="number" class="form-control keu">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">TOTAL</th>
-                                        <td class="text-right"><p id='TOTAL'></p></td>
-                                    </tr>
-                                    <!-- <tr>
-                                        <th colspan="2">Jumlah Terbilang</th>
-                                        <td class="text-right" style="font-weight:bold; font-size: 12px">
-                                            <i>Tiga Puluh Delapan Juta Lima Ratus Enam Puluh Ribu Rupiah</i>
-                                        </td>
-                                    </tr> -->
-                                    <tr>
-                                        <input type="hidden" name="calon_id" value={{ $calon->id }}>
-                                        <input type="hidden" name="tagihanseragam_id" value={{ $tagihanseragam->id }}>
-                                        <td colspan="3" class="text-right"><button type="submit" class="btn btn-primary">Simpan</button></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            </form>
-                        </div>
+                        <div class="card col-7"><router-view></router-view></div>
                         <!-- @include('wawancara.ketentuan') -->
                     </div>
                 </div>
@@ -140,16 +89,5 @@ table.table-invoice th, table.table-invoice td {
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
-<script>
-    $('.keuangan').on('input', 'keu', function(){
-        var totalSum = 0;
-        $('keu').each(function(){
-            var inputVal = $(this).val();
-            if($.isNumeric(inputVal)){
-                totalSum = parseFloat(inputVal);
-            }
-        });
-        alert(totalSum);
-    })
-</script>
+
 @endsection

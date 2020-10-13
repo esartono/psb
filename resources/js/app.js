@@ -70,6 +70,7 @@ let routes = [
     { path: '/config/gelombang', component: require('./components/config/Gelombang.vue').default},
     { path: '/config/jadwal', component: require('./components/config/Jadwal.vue').default},
     { path: '/config/biayates', component: require('./components/config/BiayaTes.vue').default},
+    { path: '/config/tagihanPSB', component: require('./components/config/tagihanPSB.vue').default},
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
     { path: '/config/berita', component: require('./components/config/Berita.vue').default},
 
@@ -92,6 +93,8 @@ let routes = [
      * Data Calon Peserta Didik
      */
     { path: '/cpdAll', component: require('./components/cpd/CPDAll.vue').default},
+    { path: '/email', component: require('./components/cpd/CPDEmail.vue').default},
+    { path: '/psikotes', component: require('./components/cpd/CPDEmail.vue').default},
     { path: '/cpd/:id', component: require('./components/cpd/CPD.vue').default},
     { path: '/cpdHasil/:id', component: require('./components/cpd/CPDHasil.vue').default},
 
@@ -106,9 +109,16 @@ let routes = [
     { path: '/suratseragam', component: require('./components/cpd/CPDSuratSeragam.vue').default},
 
     /**
+     * Wawancara
+     */
+    { path: '/wawancara-keu', component: require('./components/wawancara/Keuangan.vue').default},
+    { path: '/keuangan/:id', component: require('./components/wawancara/Invoice.vue').default},
+
+    /**
      * Data Tagihan
      */
     { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},
+    { path: '/bayartagihan', component: require('./components/cpd/CPDBayarTagihan.vue').default},
 
     /**
      * Component untuk page yang blank

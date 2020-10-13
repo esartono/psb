@@ -169,7 +169,7 @@ export default {
         id: "",
         name: "",
         unit_id: "",
-        status: 0
+        status: 1
       })
     };
   },

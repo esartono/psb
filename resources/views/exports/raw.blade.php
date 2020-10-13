@@ -12,6 +12,7 @@
         <th>JK</th>
         <th>Tempat, Tanggal Lahir</th>
         <th>Kelas Tujuan</th>
+        <th>Jurusan</th>
         <th>Nama Ayah</th>
         <th>Pendidikan Ayah</th>
         <th>Pekerjaan Ayah</th>
@@ -44,6 +45,7 @@
             <td>{{ $calon->kelamin }}</td>
             <td>{{ $calon->lahir }}</td>
             <td>Kelas {{ $calon->kelasnya->name }}</td>
+            <td>{{ $calon->Jurusan }}</td>
             <td>{{ $calon->ayah_nama }}</td>
             <td>{{ App\Pendidikan::nama($calon->ayah_pendidikan) }}</td>
             <td>{{ App\Pekerjaan::nama($calon->ayah_pekerjaan) }}</td>

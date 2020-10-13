@@ -48444,3 +48444,17 @@ table.table-mini th tr td {
   font-size: 6px !important;
 }
 
+.linkZoom {
+  margin-bottom: 0;
+}
+
+a[id^=reguler]:hover {
+  color: red !important;
+}
+
+.btn-muamalat {
+  color: yellow;
+  background-color: purple;
+  border-color: purple;
+}
+

@@ -10,7 +10,6 @@
         style="border-bottom: 2px solid grey"
         class="row justify-content-center mb-4"
     >
-    {{ cekJurusan(calon.id, calon.jurusan, calon.gelnya.unitnya.catnya.name)  }}
         <div class="col-md-5 mb-3">
             <div class="card h-100">
                 <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
@@ -115,12 +114,25 @@
                                     <div class="timeline-body">
                                         <p>
                                             Tahapan Tes terdiri dari :
-                                            <ul>
-                                                <li v-show="calon.gelnya.unitnya.catnya.name == 'SMP' || calon.gelnya.unitnya.catnya.name == 'SMA'">Tes Akademik Siswa</li>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'TK' || calon.gelnya.unitnya.catnya.name == 'SD'">
                                                 <li>Tes Psikologi</li>
                                                 <li>Wawancara Orangtua</li>
-                                                <li>Wawancara Siswa (khusus calon siswa SMP dan SMA)</li>
-                                            </ul>
+                                                <li>Wawancara administrasi sekolah</li>
+                                            </ol>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'SMP'">
+                                                <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.15</li>
+                                                <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.30 - 12.00</li>
+                                                <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+                                            </ol>
+                                            <ol v-show="calon.gelnya.unitnya.catnya.name == 'SMA'">
+                                                <li>Tes akademik siswa (<i>online</i>) pada pukul 07.00 - 08.30</li>
+                                                <li>Tes psikologi (<i>online, menggunakan aplikasi zoom dan aplikasi psikotes)</i> pada pukul 08.45 - 12.00</li>
+                                                <li>Wawancara orangtua calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara administrasi sekolah (<i>online, menggunakan aplikasi zoom</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
+                                                <li>Wawancara calon siswa (<i>online, menggunakan aplikasi zoom</i>) pada pukul 13.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
+                                            </ol>
                                         </p>
                                     </div>
                                     <!-- <hr class="mt--2 mb--2">
@@ -143,11 +155,11 @@
                             <h2 v-else><b>Tidak Diterima</b></h2>
                             <hr>
                             <p>{{ calon.hasil.hasil.catatan }}</p>
-                            <br>
+                            <!-- <br>
                             <a v-if="calon.hasil.hasil.lulus === 1"
                             :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
                             <a v-if="calon.hasil.hasil.lulus === 1"
-                            :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a>
+                            :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a> -->
 
                         </div>
                     </div>
@@ -156,65 +168,23 @@
                         :id="'daul'+calon.id">
                         <div class="clearfix">
                             <h3 class="text-center">Daftar Ulang</h3>
-                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            <!-- <a v-show="calon.hasil.hasil.lulus === 1"
                             :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
-                            <a v-if="calon.hasil.hasil.lulus === 1"
+                            <a v-show="calon.hasil.hasil.lulus === 1"
                             :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a>
-                            <hr>
+                            <hr> -->
                             <table width="100%" class="table-bordered">
                                 <tr>
-                                    <th width="37%">Keterangan</th>
-                                    <th width="23%">Biaya</th>
-                                    <td width="40%" rowspan="9">
+                                    <td width="100%">
                                         <ol>
                                             <li>Pembayaran dilakukan pada tanggal : <br><b>{{ calon.jadwal.keterangan }}</b></li>
                                             <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
-                                            <li>Pembayaran melalui Rekening Virtual Bank BJB Syariah :
-                                                <center><h3 class="mt-3 red"><u><b>{{ calon.hasil.hasil.va }}</b></u></h3>
-                                                <p>atas nama: {{ calon.name }}</p></center>
+                                            <li>Pembayaran melalui <strong>Rekening Virtual Bank Muamalat </strong>:
+                                                <center><h3 class="mt-3 red"><u><b>860001{{ calon.gel_id }}{{ calon.uruts }}</b></u></h3>
+                                                <p><strong>atas nama: {{ calon.name }}</strong></p></center>
                                             </li>
                                         </ol>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>Dana Pengembangan</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.pengembangan | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dana Pendidikan</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.pendidikan | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Iuran SPP bulan Juli</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.spp | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Iuran Komite Sekolah / tahun</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.komite | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dana Seragam</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.seragam | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Potongan</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">({{ calon.hasil.tagihan.diskon | toCurrency }})</td>
-                                </tr>
-                                <tr>
-                                    <td>Infaq</td>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{ calon.hasil.tagihan.infaq | toCurrency }}</td>
-                                </tr>
-                                <tr>
-                                    <th>TOTAL TAGIHAN</th>
-                                    <td v-if="calon.hasil.tagihan" class="text-right">{{
-                                        (calon.hasil.tagihan.pengembangan+
-                                        calon.hasil.tagihan.pendidikan+
-                                        calon.hasil.tagihan.spp+
-                                        calon.hasil.tagihan.komite+
-                                        calon.hasil.tagihan.seragam+
-                                        calon.hasil.tagihan.infaq)-
-                                        calon.hasil.tagihan.diskon
-                                        | toCurrency }}</td>
                                 </tr>
                             </table>
                         </div>

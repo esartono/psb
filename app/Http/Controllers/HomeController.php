@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Edupay\Facades\Edupay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use App\Gelombang;
 use App\TahunPelajaran;
+use App\User;
 use App\Unit;
 use App\Berita;
 use App\Calon;
@@ -36,7 +38,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit() || auth()->user()->isAdminKeu()){
             return redirect()->route('dashboard');
             // return view('home');
         }
@@ -44,6 +46,41 @@ class HomeController extends Controller
         if(auth()->user()->isUser()){
             return redirect()->route('psb');
             // return view('psb');
+        }
+
+        if(auth()->user()->isPsikotes()){
+            return redirect()->route('email');
+            // return view('psb');
+        }
+    }
+
+    public function loginJadiUser()
+    {
+        if(auth()->user()->isAdministrator()){
+            return view('auth.loginsebagai');
+        }
+    }
+    public function login_as(Request $request)
+    {
+        if(auth()->user()->isAdministrator()){
+            if (filter_var($request->daftar, FILTER_VALIDATE_EMAIL)) {
+                $user = User::where('email', $request->daftar)->first()->id;
+                Auth::loginUsingId($user);
+            } else {
+                $gel = Gelombang::where('kode_va', substr($request->daftar,0,6))->first();
+                if($gel){
+                    $id = $gel->id;
+                    $urut = intval(substr($request->daftar,6));
+                    $calon = DB::table('calons')
+                            ->select('user_id')
+                            ->where('urut', $urut)
+                            ->where('gel_id', $id)
+                            ->first()
+                            ->user_id;
+                    Auth::loginUsingId($calon);
+                }
+            }
+            return redirect()->route('home');
         }
     }
 
@@ -63,16 +100,6 @@ class HomeController extends Controller
         $urt = intval(substr($id, 6));
         $gelombang = Gelombang::where('kode_va', $va)->get()->pluck('id');
         return Calon::where('gel_id',$gelombang)->where('urut',$urt)->where('status',1)->get()->toArray();
-    }
-
-    public function wawancaraKeuangan()
-    {
-        return view('wawancara.keuangan');
-    }
-
-    public function wawancaraKeuanganPrint()
-    {
-        return view('wawancara.invoiceprint');
     }
 
     public function profile()

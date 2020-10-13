@@ -25,8 +25,6 @@ class ChangeColumnUnitIdToInteger extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->date('unit_id')->change();
-        });
+        //
     }
 }

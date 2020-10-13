@@ -25,6 +25,7 @@ use App\Exports\SiswaBaruExport;
 use App\Exports\CpdBaruExport;
 use App\Exports\CpdAktifExport;
 use App\Exports\CpdJadwalTes;
+use App\Exports\CpdExportBank;
 
 class CalonController extends Controller
 {
@@ -36,7 +37,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportbaru', 'exportaktif', 'exportsiswabaru', 'updateJurusan');
+        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'updateJurusan');
     }
 
     public function index()
@@ -185,7 +186,7 @@ class CalonController extends Controller
 
     public function indexAdmin($id)
     {
-            if(auth('api')->user()->isAdmin()) {
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes()) {
                 $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             }
 
@@ -194,10 +195,45 @@ class CalonController extends Controller
                 $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             }
 
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
+                if ($id === '1000') {
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'jk', 'gelombangs.kode_va', 'users.name as ygwawancara', 'urut',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
+                        ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('calons.status', 1)
+                        ->where('calons.aktif', true)
+                        ->orderBy('ygwawancara', 'asc')
+                        ->orderBy('calons.name', 'asc')
+                        ->get()
+                        ->toArray();
+                }
+            }
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
+                if ($id === '101') {
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'units.name as unit', 'users.email as email',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                        ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('calons.status', 1)
+                        ->where('calons.aktif', true)
+                        ->orderBy('calons.name', 'asc')
+                        ->get()
+                        ->toArray();
+                }
+            }
+
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit() || auth('api')->user()->isAdminKeu()) {
                 if ($id === '100') {
                     return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                         ->whereIn('gel_id', $gelombang)
+                        ->where('aktif', true)
                         ->get()->toArray();
                 } else {
                     return DB::table('calons')
@@ -209,6 +245,7 @@ class CalonController extends Controller
                         ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
                         ->whereIn('gel_id', $gelombang)
                         ->where('calons.status', $id)
+                        ->where('aktif', true)
                         ->get()->toArray();
                     // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                     //     ->whereIn('gel_id', $gelombang)
@@ -247,7 +284,8 @@ class CalonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $calon = Calon::findOrFail($id);
+        $calon->update(['aktif' => false]);
     }
 
     public function exportsiswabaru()
@@ -268,6 +306,19 @@ class CalonController extends Controller
     public function exportjadwal()
     {
         return Excel::download(new CpdJadwalTes, 'cpdTes.xlsx');
+    }
+
+    public function exportBank($id)
+    {
+        if($id === "1"){
+            return Excel::download(new CpdExportBank(1), 'Ajuan VA Bank Muamalat.xlsx');
+        }
+        if($id === "2"){
+            return Excel::download(new CpdExportBank(2), 'Ajuan VA Bank BJBS.xlsx');
+        }
+        if($id === "3"){
+            return Excel::download(new CpdExportBank(3), 'Tagihan PSB '.str_replace("/","-",auth()->user()->tpname).'.xlsx');
+        }
     }
 
 }

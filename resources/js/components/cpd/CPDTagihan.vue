@@ -4,9 +4,21 @@
             <div class="col-md-12">
                 <div class="card border-info">
                     <div class="card-header bg-info">
-                        <h3 class="card-title">Daftar Peserta Hasil Tes</h3>
+                        <h3 class="card-title">Daftar Tagihan Biaya PPDB SIT Nurul Fikri</h3>
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <a href="/EksportVABank/1" class="btn btn-sm btn-muamalat mr-2 ml-2">
+                                <i class="fas fa-file-excel"></i>
+                                Export Muamalat
+                            </a>
+                            <a href="/EksportVABank/2" class="btn btn-sm btn-danger mr-2 ml-2">
+                                <i class="fas fa-file-excel"></i>
+                                Export BJBS
+                            </a>
+                            <a href="/EksportVABank/3" class="btn btn-sm btn-success mr-2 ml-2">
+                                <b><i class="fas fa-file-excel"></i>
+                                Tagihan PSB</b>
+                            </a>
+                            <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -24,11 +36,15 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="unitnya.name">Unit</v-th>
-                                    <v-th sortKey="pendaftaran">No. ID</v-th>
-                                    <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
-                                    <v-th sortKey="calonnya.jk">JK</v-th>
-                                    <v-th sortKey="va">No. Rekening</v-th>
+                                    <v-th sortKey="unitnya.name">Pewawancara</v-th>
+                                    <v-th sortKey="uruts">No. ID</v-th>
+                                    <v-th sortKey="name">Nama Lengkap</v-th>
+                                    <v-th sortKey="jk">JK</v-th>
+                                    <v-th sortKey="uruts">VA Muamalat</v-th>
+                                    <v-th sortKey="va2">VA BJBS</v-th>
+                                    <v-th sortKey="infaq">Infaq</v-th>
+                                    <v-th sortKey="infaqnfpeduli">Infaq NF Peduli</v-th>
+                                    <v-th sortKey="reguler1">Reguler 1</v-th>
                                     <v-th sortKey="total">Total Tagihan</v-th>
                                     <th>Aksi</th>
                                 </tr>
@@ -36,17 +52,21 @@
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
-                                    <td class="text-center">{{ row.unitnya.name }}</td>
-                                    <td class="text-center">{{ row.pendaftaran }}</td>
+                                    <td>{{ row.wawancara }}</td>
+                                    <td class="text-center">{{ row.calonnya.uruts }}</td>
                                     <td>{{ row.calonnya.name }}</td>
                                     <td class="text-center">{{ (row.calonnya.jk == 1 ? 'L' : 'P') }}</td>
-                                    <td>{{ row.va }}</td>
-                                    <td>{{ row.total | toCurrency }}</td>
+                                    <td>{{ row.va1 }}{{ row.calonnya.gel_id }}{{ row.calonnya.uruts }}</td>
+                                    <td>{{ row.va2 }}</td>
+                                    <td>{{ row.infaq | toCurrency }}</td>
+                                    <td>{{ row.infaqnfpeduli | toCurrency }}</td>
+                                    <td>{{ row.tagihan[1] | toCurrency }}</td>
+                                    <td>{{ row.infaq + row.infaqnfpeduli + row.tagihan[1]| toCurrency }}</td>
                                     <th v-if="row.lunas === 1">
                                         <a><i class="fas fa-2x fa-check-circle green"></i></a>
                                     </th>
                                     <th v-else>
-                                        <a @click="updateData(row.id)" class="btn"><i class="fas fa-2x fa-times-circle red"></i></a>
+                                        <!-- <a @click="updateData(row.id)" class="btn"><i class="fas fa-2x fa-times-circle red"></i></a> -->
                                     </th>
                                 </tr>
                             </tbody>
@@ -69,7 +89,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["unitnya.name", "pendaftaran", "calonnya.name", "va"]
+                        keys: ["calonnya.uruts", "wawancara", "calonnya.name", "va2"]
                     },
                     nokosong: {
                         value: "kosong",
@@ -84,25 +104,25 @@
         methods: {
             listData() {
                 this.$Progress.start();
-                axios.get("../api/calontagihans")
+                axios.get("../api/calontagihanpsbs")
                     .then(({ data }) => (this.calons = data));
                 this.$Progress.finish();
             },
 
             updateData(id) {
-                axios
-                .put("../api/calontagihans/" + id)
-                .then(() => {
-                    Fire.$emit("listData");
-                    Toast.fire({
-                        type: "success",
-                        title: "Peserta Berhasil Daftar Ulang"
-                    });
-                    this.$Progress.finish();
-                    })
-                    .catch(() => {
-                    this.$Progress.fail();
-                    });
+                // axios
+                // .put("../api/calontagihans/" + id)
+                // .then(() => {
+                //     Fire.$emit("listData");
+                //     Toast.fire({
+                //         type: "success",
+                //         title: "Peserta Berhasil Daftar Ulang"
+                //     });
+                //     this.$Progress.finish();
+                //     })
+                //     .catch(() => {
+                //     this.$Progress.fail();
+                //     });
             },
 
             noKosong(filterNya, row) {
