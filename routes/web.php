@@ -21,7 +21,7 @@ Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 // Route::get('/uji', 'UjicobaController@cek')->name('uji');
 // Route::get('/uji1', 'UjicobaController@cek1')->name('uji1');
 // Route::get('/uji2', 'UjicobaController@cek2')->name('uji2');
-Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
+// Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
 // Route::get('/uji4', 'UjicobaController@cek4')->name('uji4');
 // Route::get('/uji5', 'UjicobaController@cek5')->name('uji5');
 // Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');

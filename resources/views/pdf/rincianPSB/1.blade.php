@@ -27,7 +27,7 @@ Lampiran 1 : <b>Pembiayaan Reguler 1</b>
 <tr>
 <td valign="top" width="47%">
 
-<h5>A. Pembiayaan Peserta Didik Baru TA 2021 - 2022</h5>
+<h5>A. Pembiayaan Peserta Didik Baru TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
     <table class="rincian">
         <tr>
             <th>No.</th>

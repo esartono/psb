@@ -54,15 +54,14 @@ class ViewCalonBiayaTes extends Command
             $bayar = Edupay::view($l->uruts);
             if(isset($bayar['status_bayar'])){
                 if($bayar['status_bayar'] == '1'){
-                    $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
-                    $cek->update(['lunas' => 1]);
-                    $cek->lunas($l->id);
-
                     Telegram::sendMessage([
                         'chat_id' => '643982879',
                         //'chat_id' => '-1001398300408',
                         'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
                     ]);
+                    $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
+                    $cek->update(['lunas' => 1]);
+                    $cek->lunas($l->id);
                 }
             } else {
                 Telegram::sendMessage([

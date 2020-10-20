@@ -179,8 +179,12 @@
                                         <ol>
                                             <li>Pembayaran dilakukan pada tanggal : <br><b>{{ calon.jadwal.keterangan }}</b></li>
                                             <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
-                                            <li>Pembayaran melalui <strong>Rekening Virtual Bank Muamalat </strong>:
-                                                <center><h3 class="mt-3 red"><u><b>860001{{ calon.gel_id }}{{ calon.uruts }}</b></u></h3>
+                                            <!-- <li>Pembayaran melalui <strong>Rekening Virtual Bank Muamalat </strong>:
+                                                <center><h3 class="mt-3 red"><u><b>860001 calon.gel_id  calon.uruts </b></u></h3>
+                                                <p><strong>atas nama: calon.name </strong></p></center>
+                                            </li> -->
+                                            <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:
+                                                <center><h3 class="mt-3 red"><u><b>888276{{ calon.uruts }}0</b></u></h3>
                                                 <p><strong>atas nama: {{ calon.name }}</strong></p></center>
                                             </li>
                                         </ol>

@@ -36,16 +36,16 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="unitnya.name">Pewawancara</v-th>
-                                    <v-th sortKey="uruts">No. ID</v-th>
-                                    <v-th sortKey="name">Nama Lengkap</v-th>
-                                    <v-th sortKey="jk">JK</v-th>
-                                    <v-th sortKey="uruts">VA Muamalat</v-th>
+                                    <v-th sortKey="wawancara">Pewawancara</v-th>
+                                    <v-th sortKey="calonnya.uruts">No. ID</v-th>
+                                    <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
+                                    <v-th sortKey="calonnya.jk">JK</v-th>
+                                    <v-th sortKey="calonnya.uruts">VA Muamalat</v-th>
                                     <v-th sortKey="va2">VA BJBS</v-th>
                                     <v-th sortKey="infaq">Infaq</v-th>
                                     <v-th sortKey="infaqnfpeduli">Infaq NF Peduli</v-th>
-                                    <v-th sortKey="reguler1">Reguler 1</v-th>
-                                    <v-th sortKey="total">Total Tagihan</v-th>
+                                    <th>Reguler 1</th>
+                                    <th>Total Tagihan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

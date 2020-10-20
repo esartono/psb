@@ -31,13 +31,13 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="uruts">VA Muamalat</v-th>
-                                    <v-th sortKey="name">Nama Lengkap</v-th>
-                                    <v-th sortKey="jk">JK</v-th>
-                                    <v-th sortKey="tgl_bayar">Tanggal Bayar</v-th>
-                                    <v-th sortKey="bayar">Bayar</v-th>
-                                    <v-th sortKey="total">Total Tagihan</v-th>
-                                    <v-th sortKey="total">Sisa Tagihan</v-th>
+                                    <v-th sortKey="calonnya.uruts">VA Muamalat</v-th>
+                                    <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
+                                    <v-th sortKey="calonnya.jk">JK</v-th>
+                                    <v-th sortKey="tagihan['akhir']">Tanggal Bayar</v-th>
+                                    <v-th sortKey="tagihan['bayar']">Bayar</v-th>
+                                    <v-th sortKey="tagihan['total']">Total Tagihan</v-th>
+                                    <v-th sortKey="tagihan['sisa']">Sisa Tagihan</v-th>
                                     <th>LUNAS DAUL</th>
                                     <th>LUNAS PPDB</th>
                                     <th>Aksi</th>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CalonTagihanPSB extends Model
 {
     protected $fillable = [
-        'calon_id', 'va1', 'va2', 'potongan', 'infaq', 'infaqnfpeduli', 'daul', 'lunas', 'pewawancara'
+        'calon_id', 'khusus', 'va1', 'va2', 'potongan', 'infaq', 'infaqnfpeduli', 'daul', 'lunas', 'pewawancara'
     ];
 
     protected $hidden = [
@@ -30,6 +30,10 @@ class CalonTagihanPSB extends Model
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
                 ->first();
+
+        if (TagihanPSB::where('gel_id', $calon->uruts)->exists()) {
+            $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
+        }
 
         return $biayas->total;
     }
