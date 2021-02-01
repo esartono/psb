@@ -43,10 +43,9 @@
                 <br>
                 <h4>II. KETENTUAN UMUM BIAYA PENDIDIKAN:</h4>
                 <ol>
-                    <li><strong>Pembiayaan Reguler 1</strong>, berlaku untuk pendaftar yang sudah melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 31 Oktober 2020.</strong></li>
                     <li><strong>Pembiayaan Reguler 2</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 30 November 2020.</strong></li>
                     <li><strong>Pembiayaan Reguler 3</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas setelah 30 November 2020.</strong></li>
-                    <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk regular 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li>
+                    <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk reguler 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li>
                     <li>Komponen <strong>Biaya Komite Sekolah</strong> dibayarkan pertahun bersamaan dengan SPP bulan Juli.</li>
                     <li>SPP yang dibayarkan <strong>tidak termasuk biaya catering.</strong></li>
                 </ol>
@@ -54,7 +53,7 @@
                 <h4>III. KETENTUAN POTONGAN BIAYA PENERIMAAN SISWA BARU:</h4>
                 <ol>
                     <li>Bagi siswa yang memiliki <strong>saudara kandung</strong> bersekolah di <strong>SIT Nurul Fikri</strong>, mendapatkan potongan biaya <b>5% dari Dana Pengembangan</b>.</li>
-                    <li>Bagi siswa yang <strong>berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor</strong> yang mendapatkan undangan khusus dari YPPU Nurul Fikri, maka mendapatkan benefit potongan biaya <b>25% dari Dana Pengembangan</b> dan bebas biaya pendaftaran, jika melakukan daftar ulang pada <b>periode regular 1</b>.</li>
+                    <li>Bagi siswa yang <strong>berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor</strong> yang mendapatkan undangan khusus dari YPPU Nurul Fikri, maka mendapatkan benefit potongan biaya <b>25% dari Dana Pengembangan</b> dan bebas biaya pendaftaran, jika melakukan daftar ulang pada <b>periode reguler 1</b>.</li>
                     <li>Bagi Siswa <strong>Pemenang Lomba tingkat Nasional (Bertingkat)</strong> Juara 1 dan 2 yang dibuktikan dengan sertifikat dan diverifikasi oleh panitia, mendapatkan potongan biaya <b>50 % dari Dana Pengembangan</b>.</li>
                     <li>Bagi siswa yang memiliki <strong>hafalan minimal 15 Juz</strong> dan sudah diverifikasi oleh SIT NF, mendapatkan potongan biaya <b>25% dari Dana Pengembangan</b>.</li>
                     <li><b>Ketentuan potongan biaya tidak berlaku akumulatif dan tidak dapat digabung dengan jenis potongan lainnya</b>.</li>

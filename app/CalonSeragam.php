@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CalonSeragam extends Model
 {
     protected $fillable = [
-        'calon_id', 'bahu', 'panjang_baju', 'lingkar', 'panjang_celana'
+        'calon_id', 'atas', 'bawah', 'lain', 'keterangan'
     ];
 
     protected $hidden = [

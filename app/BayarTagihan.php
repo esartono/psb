@@ -42,7 +42,7 @@ class BayarTagihan extends Model
                 ->first();
 
         $now = new \DateTime();
-        $reg1 = new \DateTime('2020-11-1');
+        $reg1 = new \DateTime('2020-11-4');
         $reg2 = new \DateTime('2020-12-1');
         $reg3 = new \DateTime('2021-02-1');
 

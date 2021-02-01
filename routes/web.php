@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
     Route::resource('doku', 'DokuController');
     Route::get('uploaddokumen/{calon}/{code?}', 'DokuController@upload')->name('doku.upload');
+    Route::resource('uniform', 'UniformController');
+    //Route::get('uniform/{calon}/{code?}', 'UniformController@upload')->name('uniform.isi');
     Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
 });
 

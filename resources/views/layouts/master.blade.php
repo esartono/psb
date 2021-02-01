@@ -162,12 +162,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Kelas</p>
                 </router-link>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <router-link to="/master/seragam" class="nav-link">
                 <i class="fas fa-caret-right nav-icon"></i>
                   <p>Seragam</p>
                 </router-link>
-              </li>
+              </li> -->
             </ul>
           </li>
           <li class="nav-item has-treeview">

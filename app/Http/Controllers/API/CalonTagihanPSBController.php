@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Gelombang;
 use App\CalonTagihanPSB;
+use App\Calon;
+use App\CalonHasil;
 
 class CalonTagihanPSBController extends Controller
 {
@@ -46,6 +48,17 @@ class CalonTagihanPSBController extends Controller
                 'potongan' => 0,
                 'daul' => 0,
                 'lunas' => false,
+            ]
+        );
+
+        $calon = Calon::whereId($request['calon_id'])->first();
+        CalonHasil::updateOrCreate(
+            [
+                'pendaftaran' => $calon->uruts
+            ],[
+                'lulus' => 0,
+                'catatan' => '',
+                'va' => ''
             ]
         );
     }

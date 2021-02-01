@@ -14,7 +14,7 @@
             <div class="card h-100">
                 <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
                     <h5>Data Calon Peserta - {{ calon.gelnya.unitnya.name }}</h5>
-                    <div class="card-tools">
+                    <div class="card-tools" style="position: absolute; right: 1rem; top: 0.5rem">
                         <router-link v-bind:to="'/editcalon/'+calon.id" class="btn btn-sm btn-warning"><i class="fas fa-user-edit"> </i><b> Edit </b></router-link>
                     </div>
                 </div>
@@ -147,6 +147,7 @@
                         v-bind:class="calon.hasil.hasil == 'Kosong' ? 'disabled' : 'active'"
                         :id="'pengumuman'+calon.id">
                         <div class="clearfix text-center">
+                            <center><a :href="'/uniform/'+calon.id" class="btn btn-primary btn-large mb-3"><i class="fas fa-tshirt"> </i><b> Pilih Ukuran Seragam </b></a></center>
                             <h3>Pengumuman</h3>
                             <hr>
                             <p>Berdasarkan keputusan panitia PPDB SIT Nurul Fikri menyatakan:</p>
@@ -167,6 +168,7 @@
                         v-bind:class="calon.hasil.tagihan == 'Kosong' ? 'disabled' : ''"
                         :id="'daul'+calon.id">
                         <div class="clearfix">
+                            <center><a :href="'/uniform/'+calon.id" class="btn btn-primary btn-large mb-3"><i class="fas fa-tshirt"> </i><b> Pilih Ukuran Seragam </b></a></center>
                             <h3 class="text-center">Daftar Ulang</h3>
                             <!-- <a v-show="calon.hasil.hasil.lulus === 1"
                             :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
