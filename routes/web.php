@@ -59,6 +59,11 @@ Route::middleware('auth', 'psikotes')->group(function(){
     Route::get('/email', 'HomeController@front')->name('email');
 });
 
+Route::middleware('auth', 'pengadaan')->group(function(){
+    Route::get('/seragam', 'HomeController@front')->name('seragam');
+    Route::get('/EksportSeragam', 'API\CalonController@exportSeragam');
+});
+
 Route::middleware('auth', 'admin')->group(function(){
     Route::get('/login_as', 'HomeController@loginJadiUser')->name('login_as');
     Route::post('/login_as', 'HomeController@login_as')->name('login_as');

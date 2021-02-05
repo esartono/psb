@@ -377,12 +377,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
-          @if(Auth::user()->isHaveAccess([1]))
+          @if(Auth::user()->isHaveAccess([1,6]))
           <li class="nav-item">
-            <router-link to="/suratseragam" class="nav-link">
+            <router-link to="/seragam" class="nav-link">
               <i class="nav-icon fas fa-tshirt yellow"></i>
               <p>
-                Data Surat Seragam
+                Data Seragam PSB
               </p>
             </router-link>
           </li>

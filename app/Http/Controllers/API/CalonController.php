@@ -26,6 +26,7 @@ use App\Exports\CpdBaruExport;
 use App\Exports\CpdAktifExport;
 use App\Exports\CpdJadwalTes;
 use App\Exports\CpdExportBank;
+use App\Exports\CpdExportSeragam;
 
 class CalonController extends Controller
 {
@@ -37,7 +38,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'updateJurusan');
+        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'exportSeragam', 'updateJurusan');
     }
 
     public function index()
@@ -212,6 +213,7 @@ class CalonController extends Controller
                         ->toArray();
                 }
             }
+
             if(auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
                 if ($id === '101') {
                     return DB::table('calons')
@@ -223,6 +225,22 @@ class CalonController extends Controller
                         ->whereIn('gel_id', $gelombang)
                         ->where('calons.status', 1)
                         ->where('calons.aktif', true)
+                        ->orderBy('calons.name', 'asc')
+                        ->get()
+                        ->toArray();
+                }
+            }
+
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isPengadaan()) {
+                if ($id === '102') {
+                    return DB::table('calon_seragams')
+                        ->select('calons.id', 'calons.name', 'units.name as unit', 'calon_seragams.atas as atas', 'calon_seragams.bawah as bawah',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                                DB::raw('IF(calons.jk=1, "L", "P") as kelamin'))
+                        ->leftJoin('calons', 'calon_seragams.calon_id', '=', 'calons.id')
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                        ->whereIn('gel_id', $gelombang)
                         ->orderBy('calons.name', 'asc')
                         ->get()
                         ->toArray();
@@ -306,6 +324,11 @@ class CalonController extends Controller
     public function exportjadwal()
     {
         return Excel::download(new CpdJadwalTes, 'cpdTes.xlsx');
+    }
+
+    public function exportSeragam()
+    {
+        return Excel::download(new CpdExportSeragam, 'Data Seragam.xlsx');
     }
 
     public function exportBank($id)

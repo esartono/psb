@@ -154,7 +154,7 @@ class UjicobaController extends Controller
         // return CalonTagihanPSB::with('calonnya')->whereId(10)->get()->toArray();
         // return Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString();
         ini_set('max_execution_time', 1200);
-        // $ctgs = CalonTagihanPSB::offset(389)->limit(100)->get();
+        $ctgs = CalonTagihanPSB::offset(488)->limit(100)->get();
         // $ctgs = CalonTagihanPSB::where('calon_id', 554)->get();
 
         $hitung_urut = 0;

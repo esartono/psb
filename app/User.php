@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_ADMINUNIT = 3;
     const ACCESS_ADMINKEU = 4;
     const ACCESS_PSIKOTES = 5;
+    const ACCESS_PENGADAAN = 6;
 
     use HasApiTokens, Notifiable;
 
@@ -118,6 +119,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isPsikotes()
     {
         return $this->level == static::ACCESS_PSIKOTES;
+    }
+
+    public function isPengadaan()
+    {
+        return $this->level == static::ACCESS_PENGADAAN;
     }
 
     public function calons()
