@@ -268,7 +268,25 @@ class UjicobaController extends Controller
                     $no = $no + 1;
                 }
             }
-            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
+
+            $tglbatas = "31 Mei 2021";
+            $reg1 = new \DateTime('2021-02-1');
+            $reg2 = new \DateTime('2021-03-1');
+            $reg3 = new \DateTime('2021-04-1');
+
+            if($reg3 > $ctg->created_at) {
+                $tglbatas = "31 April 2021";
+            }
+
+            if($reg2 > $ctg->created_at) {
+                $tglbatas = "31 Maret 2021";
+            }
+
+            if($reg1 > $ctg->created_at) {
+                $tglbatas = "31 Januari 2021";
+            }
+
+            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'tglbatas', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
             // return $pdf->stream('');
             $path = Storage::disk('my_upload')->put('/'.$calon->uruts.'/tagihanPSB-'.$calon->uruts.'.pdf', $pdf->output());
 
