@@ -19,6 +19,7 @@ use App\Kecamatan;
 use App\Kelurahan;
 use App\Kota;
 use App\CalonSeragam;
+use App\JDoku;
 
 use Excel;
 use App\Exports\SiswaBaruExport;
@@ -211,6 +212,46 @@ class CalonController extends Controller
                         ->orderBy('calons.name', 'asc')
                         ->get()
                         ->toArray();
+                }
+            }
+
+            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+                if ($id === '1001') {
+                    $calons = DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'units.name as unit',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                                DB::raw("GROUP_CONCAT(j_dokus.name ORDER BY j_dokus.name SEPARATOR ',') as sudah"))
+                        ->groupBy('calons.id')
+                        ->leftJoin('dokus', 'calons.id', '=', 'dokus.calon_id')
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                        ->leftJoin('j_dokus', 'dokus.jdoku', '=', 'j_dokus.code')
+                        ->whereIn('gel_id', $gelombang)
+                        ->where('calons.status', 1)
+                        ->where('calons.aktif', true)
+                        ->orderBy('calons.name', 'asc')
+                        ->get();
+
+                    return $calons->map(function ($arr) {
+                        $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
+                        $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
+                        $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
+                        $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
+
+                        $u = trim(str_replace('IT Nurul Fikri','',$arr->unit));
+                        $s = explode(',', $arr->sudah);
+                        $sdh = implode(', ', array_diff($jdoku[$u], $s));
+
+                        return [
+                            'id' => $arr->id,
+                            'name' => $arr->name,
+                            'unit' => $arr->unit,
+                            'uruts' => $arr->uruts,
+                            'sudah' => ($sdh == '') ? 'Lengkap' : $sdh
+                        ];
+                    });
+
+                    // return compact('calons');
                 }
             }
 

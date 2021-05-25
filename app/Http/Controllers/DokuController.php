@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -12,7 +13,9 @@ use App\Doku;
 use App\JDoku;
 use App\Calon;
 use App\User;
+use App\Unit;
 use App\Jadwal;
+use App\Gelombang;
 use App\CalonJadwal;
 
 class DokuController extends Controller
@@ -23,6 +26,47 @@ class DokuController extends Controller
             $doku = Doku::where('calon_id',$id)->where('user_id',auth()->user()->id)->pluck('file', 'jdoku');
             return view('doku.index', compact('calon', 'doku'));
         }
+    }
+
+    public function detail($id)
+    {
+        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            $calon = Calon::where('id',$id)->first()->gel_id;
+            $gelombang = Gelombang::where('id', $calon)->first()->unit_id;
+            $unitnya = Unit::where('id', $gelombang)->first()->name;
+            $unit = trim(str_replace('IT Nurul Fikri','',$unitnya));
+
+            $jd = JDoku::where('unit', 'like', '%'.$unit.'%')->get();
+            $oke = array();
+
+            foreach($jd as $j){
+                $doku = Doku::where('calon_id', $id)->where('jdoku', $j->code)->first();
+                if($doku) {
+                    $ids = $doku->id;
+                    $file = $doku->file;
+                } else {
+                    $ids = 0;
+                    $file = 'kosong';
+                }
+                $oke[] = [
+                    'id' => $ids,
+                    'name' => $j->name,
+                    'file' => $file
+                ];
+            }
+
+            return $oke;
+
+            // return DB::table('j_dokus')
+            //     ->select('j_dokus.code', 'j_dokus.name', 'dokus.id', 'dokus.file')
+            //     ->leftJoin('dokus', 'j_dokus.code', '=', 'dokus.jdoku')
+            //     ->where('dokus.calon_id', $id)
+            //     ->where('j_dokus.unit', 'like', '%'.$unit.'%')
+            //     ->orderBy('j_dokus.name', 'asc')
+            //     ->get()->toArray();
+        }
+
+        return 'EKO';
     }
 
     public function upload($calon, $code)

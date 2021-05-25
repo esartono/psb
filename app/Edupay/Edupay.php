@@ -6,6 +6,8 @@ use SimpleXMLElement;
 
 class Edupay
 {
+    private $url = 'https://bsi.edupay.id/index.php/apiprod/';
+
     public function view($idtagihan)
     {
         // if ($idtagihan === '202134292')
@@ -22,7 +24,7 @@ class Edupay
         );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,'https://bsm.edupay.co.id/legacy/index.php/apiprod/view/');
+        curl_setopt($ch, CURLOPT_URL, $this->url.'view/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -56,7 +58,7 @@ class Edupay
         );
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,'https://bsm.edupay.co.id/legacy/index.php/apiprod/create/');
+        curl_setopt($ch, CURLOPT_URL, $this->url.'create/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -92,7 +94,7 @@ class Edupay
             'inquiry_response_nama' => $nama,
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,'https://bsm.edupay.co.id/legacy/index.php/apiprod/update/');
+        curl_setopt($ch, CURLOPT_URL, $this->url.'update/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -118,7 +120,7 @@ class Edupay
             'checksum' => $checksum,
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,'https://bsm.edupay.co.id/index.php/apiprod/delete/');
+        curl_setopt($ch, CURLOPT_URL, $this->url.'delete/');
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

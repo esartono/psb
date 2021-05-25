@@ -43,9 +43,10 @@
                 <br>
                 <h4>II. KETENTUAN UMUM BIAYA PENDIDIKAN:</h4>
                 <ol>
-                    <li><strong>Pembiayaan Reguler 2</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 30 November 2020.</strong></li>
-                    <li><strong>Pembiayaan Reguler 3</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas setelah 30 November 2020.</strong></li>
-                    <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk reguler 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li>
+                    {{-- <li><strong>Pembiayaan Reguler 2</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 30 November 2020.</strong></li> --}}
+                    {{-- <li><strong>Pembiayaan Reguler 3</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas setelah 30 November 2020.</strong></li> --}}
+                    {{-- <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk reguler 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li> --}}
+                    <li><strong>Sumbangan Pokok Pendidikan (SPP) sesuai dengan ketentuan kenaikan SPP.</li>
                     <li>Komponen <strong>Biaya Komite Sekolah</strong> dibayarkan pertahun bersamaan dengan SPP bulan Juli.</li>
                     <li>SPP yang dibayarkan <strong>tidak termasuk biaya catering.</strong></li>
                 </ol>

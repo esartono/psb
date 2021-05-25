@@ -64,7 +64,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam'
     ];
 
     public function getKelaminAttribute()
@@ -131,6 +131,22 @@ class Calon extends Model
         }
 
         return compact('hasil', 'tagihan');
+    }
+
+    public function getSeragamAttribute()
+    {
+        $sudah = FALSE;
+        $atas = '-';
+        $bawah = '-';
+
+        $seragam = CalonSeragam::where('calon_id', $this->attributes['id'])->first();
+        if($seragam) {
+            $sudah = TRUE;
+            $atas = $seragam->atas;
+            $bawah = $seragam->bawah;
+        }
+
+        return compact('sudah', 'atas', 'bawah');
     }
 
     public function getBtAttribute()

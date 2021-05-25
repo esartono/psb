@@ -146,22 +146,39 @@
                     <div class="tab-pane"
                         v-bind:class="calon.hasil.hasil == 'Kosong' ? 'disabled' : 'active'"
                         :id="'pengumuman'+calon.id">
-                        <div class="clearfix text-center">
-                            <center><a :href="'/uniform/'+calon.id" class="btn btn-primary btn-large mb-3"><i class="fas fa-tshirt"> </i><b> Pilih Ukuran Seragam </b></a></center>
-                            <h3>Pengumuman</h3>
-                            <hr>
-                            <p>Berdasarkan keputusan panitia PPDB SIT Nurul Fikri menyatakan:</p>
-                            <h2 v-if="calon.hasil.hasil.lulus === 1"><b>Diterima</b></h2>
-                            <h2 v-else-if="calon.hasil.hasil.lulus === 2"><b>Cadangan</b></h2>
-                            <h2 v-else><b>Tidak Diterima</b></h2>
-                            <hr>
-                            <p>{{ calon.hasil.hasil.catatan }}</p>
-                            <!-- <br>
-                            <a v-if="calon.hasil.hasil.lulus === 1"
-                            :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
-                            <a v-if="calon.hasil.hasil.lulus === 1"
-                            :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a> -->
-
+                        <div class="clearfix text-center mt-4">
+                            <table>
+                                <tr>
+                                    <td class="col-7">
+                                        <h3>Pengumuman</h3>
+                                        <hr>
+                                        <p>Berdasarkan keputusan panitia PPDB SIT Nurul Fikri menyatakan:</p>
+                                        <h2 v-if="calon.hasil.hasil.lulus === 1"><b>Diterima</b></h2>
+                                        <h2 v-else-if="calon.hasil.hasil.lulus === 2"><b>Cadangan</b></h2>
+                                        <h2 v-else><b>Tidak Diterima</b></h2>
+                                        <hr>
+                                        <p>{{ calon.hasil.hasil.catatan }}</p>
+                                        <!-- <br>
+                                        <a v-if="calon.hasil.hasil.lulus === 1"
+                                        :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a>
+                                        <a v-if="calon.hasil.hasil.lulus === 1"
+                                        :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a> -->
+                                    </td>
+                                    <td class="col-5">
+                                        <center><a :href="'/uniform/'+calon.id" class="btn btn-primary btn-large mb-3"><i class="fas fa-tshirt"> </i><b> Pilih Ukuran Seragam </b></a></center>
+                                        <table v-show="calon.seragam.sudah" class="table table-sm table-bordered">
+                                            <tr>
+                                                <th class="col-6">Baju/Blouse</th>
+                                                <th class="col-6">Celana/Rok</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ calon.seragam.atas }}</td>
+                                                <td>{{ calon.seragam.bawah }}</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="tab-pane"

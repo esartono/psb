@@ -116,6 +116,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/tagihan', 'HomeController@front');
     Route::get('/suratseragam', 'HomeController@front');
     Route::get('/tes', 'HomeController@front');
+    Route::get('/berkas', 'HomeController@front');
     Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan');
     Route::get('/keuangan/{id}', 'WawancaraController@getCalon')->name('getCalon');
     Route::get('/PDFkeuangan/{id}', 'WawancaraController@PDFKeuangan')->name('PDFkeuangan');

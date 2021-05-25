@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::apiResources([
     'users' => 'API\UserController',
     'units' => 'API\UnitController',
@@ -47,8 +43,12 @@ Route::apiResources([
     //'telegrams' => 'API\TelegramController',
 ]);
 
+Route::middleware('auth:api')->get('/berkas', 'DokuController@index');
+Route::middleware('auth:api')->get('/berkas/{id}', 'DokuController@detail');
+Route::middleware('auth:api')->get('indexadmin/{id}', 'API\CalonController@indexAdmin');
+Route::middleware('auth:api')->get('admins', 'API\UserController@admin');
+
 Route::post('mundur', 'API\CalonHasilController@mundur');
-Route::get('admins', 'API\UserController@admin');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');
 Route::post('gpass/{id}', 'API\UserController@gantiPassword');
 Route::get('kelasnya/{unit}', 'API\KelasnyaController@dataKelas');
@@ -63,7 +63,6 @@ Route::get('penghasilan', 'API\PenghasilanController@index');
 Route::get('sumberinfo', 'API\SumberInfoController@index');
 Route::get('kategoris', 'API\CalonKategoriController@data');
 Route::get('agama', 'API\AgamaController@dataAgama');
-Route::get('indexadmin/{id}', 'API\CalonController@indexAdmin');
 Route::post('cekJurusan', 'API\CalonController@updateJurusan');
 Route::post('cekCalon', 'API\CalonController@cekCalon');
 Route::get('/937a8ddfc66c29ec39ad5f75cdd44b8e/{id}', 'HomeController@apiCalon');

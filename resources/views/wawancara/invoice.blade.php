@@ -80,7 +80,7 @@ table.table-invoice th, table.table-invoice td {
                                 <a href="/wawancara-keu" class="btn btn-success btn-block"> Dashboard Wawancara</a>
                             </div>
                         </div>
-                        <div class="card col-7"><router-view></router-view></div>
+                        <div class="card col-7"><router-view tglbatas="{{ $tglbatas }}"></router-view></div>
                         <!-- @include('wawancara.ketentuan') -->
                     </div>
                 </div>

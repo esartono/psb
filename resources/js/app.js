@@ -105,6 +105,11 @@ let routes = [
     { path: '/tes', component: require('./components/cpd/Tes.vue').default},
 
     /**
+     * Data Kelengkapan Berkas
+     */
+    { path: '/berkas', component: require('./components/cpd/Berkas.vue').default},
+
+    /**
      * Data Surat Seragam
      */
     { path: '/suratseragam', component: require('./components/cpd/CPDSuratSeragam.vue').default},

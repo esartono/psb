@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\JDoku;
+use App\Doku;
 
 class JDokuController extends Controller
 {

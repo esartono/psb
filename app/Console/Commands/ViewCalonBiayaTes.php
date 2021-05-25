@@ -49,6 +49,7 @@ class ViewCalonBiayaTes extends Command
     {
         $lihat = Calon::where('status', 0)->get();
         // $lihat = Calon::get();
+        $eko = "";
 
         foreach($lihat as $l){
             $bayar = Edupay::view($l->uruts);
@@ -64,13 +65,16 @@ class ViewCalonBiayaTes extends Command
                     $cek->lunas($l->id);
                 }
             } else {
-                Telegram::sendMessage([
-                    'chat_id' => '643982879',
-                    //'chat_id' => '-1001398300408',
-                    'text' => 'Id Tagihan : '.$l->uruts.' - '.$bayar['message']
-                ]);
-
+                $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
             }
+        }
+
+        if ($eko !== "") {
+            Telegram::sendMessage([
+                'chat_id' => '643982879',
+                //'chat_id' => '-1001398300408',
+                'text' => $eko
+            ]);
         }
 
         $jadwal = Jadwal::get();

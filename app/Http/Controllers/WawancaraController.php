@@ -169,7 +169,25 @@ class WawancaraController extends Controller
         $calon = Calon::with('gelnya.unitnya.catnya', 'kelasnya')
                 ->whereId($id)->first();
 
-        return view('wawancara.invoice', compact('calon'));
+        $now = new \DateTime();
+        $tglbatas = "31 Mei 2021";
+        $reg1 = new \DateTime('2021-02-1');
+        $reg2 = new \DateTime('2021-03-1');
+        $reg3 = new \DateTime('2021-04-1');
+
+        if($reg3 > $now) {
+            $tglbatas = "31 April 2021";
+        }
+
+        if($reg2 > $now) {
+            $tglbatas = "31 Maret 2021";
+        }
+
+        if($reg1 > $now) {
+            $tglbatas = "31 Januari 2021";
+        }
+
+        return view('wawancara.invoice', compact('calon', 'tglbatas'));
 
         // $id = $request->id;
         // $va = substr($id, 0, 6);
