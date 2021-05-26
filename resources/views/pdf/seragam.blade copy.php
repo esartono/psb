@@ -3,7 +3,7 @@
 @section('isi')
         <center>
             <b>
-                Ketentuan dan Prosedur Pengambilan Seragam Calon Siswa Baru <br>
+                Ketentuan Pengambilan Seragam Calon Siswa Baru <br>
                 SEKOLAH ISLAM TERPADU NURUL FIKRI <br>
                 Tahun Ajaran 2021/2022
             </b>
@@ -27,25 +27,88 @@
                     </ul>
                 </li>
                 <li>Pengambilan seragam dilaksanakan dengan teknis Drive Thru</li>
-                <li>Pengambilan seragam dijadwalkan 1 sesi dengan durasi 30 menit, untuk 10 orang (sesuai dengan jadwal yang telah ditentukan).</li>
+                <li>Pengambilan seragam dilaksanakan pada tanggal 18 - 30 Juni 2020, Jam 08.00 – 15.00 WIB, sebagai berikut:
+                    <table class="sehat">
+                        <tr>
+                            <th width="4%">No.</th>
+                            <th width="23%">Unit</th>
+                            <th width="23%">Tanggal</th>
+                            <th width="23%">Jam</th>
+                            <th width="23%">Istirahat</th>
+                        </tr>
+                        <tr>
+                            <th> 1 </th>
+                            <th> SD </th>
+                            <td> Kamis, 18 Juni 2020 </td>
+                            <td> 08.00 - 12.00 WIB </td>
+                            <td> - </td>
+                        </tr>
+                        <tr>
+                            <th> 2 </th>
+                            <th> SMP </th>
+                            <td> Kamis, 18 Juni 2020 </td>
+                            <td> 13.30 - 15.00 WIB </td>
+                            <td> - </td>
+                        </tr>
+                        <tr>
+                            <th> 3 </th>
+                            <th> SMP </th>
+                            <td> Jum'at, 19 Juni 2020 </td>
+                            <td> 08.00 - 14.30 WIB </td>
+                            <td> 11.00 - 13.30 WIB </td>
+                        </tr>
+                        <tr>
+                            <th> 4 </th>
+                            <th> SMA </th>
+                            <td> Senin, 22 Juni 2020 </td>
+                            <td> 08.00 - 14.30 WIB </td>
+                            <td> 11.00 - 13.30 WIB </td>
+                        </tr>
+                        <tr>
+                            <th> 5 </th>
+                            <th> SMA </th>
+                            <td> Selasa, 23 Juni 2020 </td>
+                            <td> 08.00 - 11.30 WIB </td>
+                            <td> - </td>
+                        </tr>
+                    </table>
+                </li>
+                <li>Pengambilan seragam dijadwalkan 1 sesi durasi 30 menit, untuk 10 orang.</li>
             </ol>
         </p>
-        <p><b>Prosedur</b></p>
+    </div>
+    <div class="page-break"></div>
+    <div class="hal2">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center>
+            <b>
+                PROSEDUR PENGAMBILAN SERAGAM <br>
+                SEKOLAH ISLAM TERPADU NURUL FIKRI
+            </b>
+        </center>
+        <br>
         <ol>
-            <b>Pos 1: Pintu Gerbang Utama (2 orang)</b>
+        <p><b>Pos 1: Pintu Gerbang Utama (2 orang)</b></p>
             <li>Petugas keamanan melakukan pengukuran suhu tubuh siswa atau orangtua yang akan mengambil seragam.</li>
             <li>Petugas keamanan yang bertugas pintu gerbang utama melalui HT menyampaikan nama kepada petugas pembagian seragam calon siswa yang akan mengambil seragam</li>
             <li>Petugas keamanan yang bertugas di areal parkir depan loby SDIT NF, menjaga antrian kendaraan atau orangtua yang akan mengambil seragam (2 orang).</li>
             <li>Antrian kendaraan dibatasi sampai dengan sisi pagar loby SDIT Nurul Fikri.</li>
         <br>
         <br>
-            <b>Pos 2: Kantin, pintu 1 (3 orang)</b>
+        <p><b>Pos 2: Kantin, pintu 1 (3 orang)</b></p>
             <li>Petugas pemeriksa bukti daftar ulang seragam memeriksa bukti daftar ulang dan memastikan bahwa calon siswa yang akan mengambil seragam sudah melunasi biaya daftar ulang</li>
             <li>Jika orangtua tidak membawa bukti daftar ulang, maka petugas pos 2 mencetak bukti daftar ulang dari laman psb.nurulfikri.sch.id</li>
             <li>Petugas memberikan paraf dan stempel pada form daftar ulang.</li>
         <br>
         <br>
-            <b>Pos 3: Pengambilan Seragam (4 orang)</b>
+        <p><b>Pos 3: Pengambilan Seragam (4 orang)</b></p>
             <li>Petugas pembagian seragam menyiapkan seragam sesuai nama yang akan mengambil seragam.</li>
             <li>Orangtua menyerahkan bukti daftar ulang yang sudah distempel dan tanda tangan oleh petugas pemeriksa.</li>
             <li>Petugas pembagian seragam memberikan seragam sesuai nama yang tertera pada bukti daftar ulang.</li>
@@ -100,6 +163,10 @@
                 </td>
             </tr>
             <tr>
+                <td>Status Pembayaran Daftar Ulang</td>
+                <td>{{ $seragam->lunas_daul }}</td>
+            </tr>
+            <tr>
                 <td>Ketersediaan Seragam</td>
                 <td>
                     @if($seragam->siap === 'SIAP') SIAP @endif
@@ -107,7 +174,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><b><br>Jadwal Pengambilan Seragam</b><br><br></td>
+                <td colspan="2"><b>Jadwal Pengambilan Seragam</b></td>
             </tr>
             <tr>
                 <td>Hari</td>

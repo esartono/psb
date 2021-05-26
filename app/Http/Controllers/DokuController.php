@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 use Carbon\Carbon;
 
@@ -38,6 +39,7 @@ class DokuController extends Controller
 
             $jd = JDoku::where('unit', 'like', '%'.$unit.'%')->get();
             $oke = array();
+            $idsnya = -1;
 
             foreach($jd as $j){
                 $doku = Doku::where('calon_id', $id)->where('jdoku', $j->code)->first();
@@ -45,7 +47,7 @@ class DokuController extends Controller
                     $ids = $doku->id;
                     $file = $doku->file;
                 } else {
-                    $ids = 0;
+                    $ids = $idsnya--;
                     $file = 'kosong';
                 }
                 $oke[] = [
@@ -73,6 +75,27 @@ class DokuController extends Controller
     {
         $jd = JDoku::where('code', $code)->first();
         return view('doku.create', compact('calon', 'jd'));
+    }
+
+    public function download($id)
+    {
+        $doku = Doku::whereId($id)->first();
+        $calon = Calon::whereId($doku->calon_id)->first()->uruts;
+        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $path = storage_path('dokumen/'.$calon.'/'.$doku->file);
+        }
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        return $response;
     }
 
     public function show($calon)

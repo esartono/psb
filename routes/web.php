@@ -126,4 +126,7 @@ Route::middleware('auth', 'admin')->group(function(){
 
     //Route untuk Edit Data Calon Peserta Didik
     Route::get('/editcalons/{id}', 'HomeController@front')->name('editcalons');
+
+    //Route untuk Download file
+    Route::get('file/{id}', 'DokuController@download')->name('downloadfile');
 });

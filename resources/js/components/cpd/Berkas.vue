@@ -110,16 +110,15 @@
                                     <tr v-for="(row, index) in displayData" :key="row.id">
                                         <th>{{ index+1 }}</th>
                                         <td>{{ row.name }}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-success white"><i class="fas fa-file"></i> Detail</a>
+                                        <td v-if="row.id < 0">
+                                            <a class="btn btn-danger white"> KOSONG</a>
+                                        </td>
+                                        <td v-else class="text-center">
+                                            <a :href="'file/' + row.id" target="_blank" download class="btn btn-success white"> Download</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </v-table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                         </form>
                     </div>
@@ -164,7 +163,6 @@ export default {
             $("#detailModal").modal("show");
                 axios.get("../api/berkas/"+detail.id)
                 .then(({ data }) => (this.berkas = data));
-
             this.form.fill(detail);
         },
     },

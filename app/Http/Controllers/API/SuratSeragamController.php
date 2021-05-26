@@ -48,7 +48,20 @@ class SuratSeragamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $seragam = AmbilSeragam::where('pendaftaran', $request->pendaftaran)->first();
+
+        if (!$seragam) {
+            AmbilSeragam::create([
+                'pendaftaran' => $request->pendaftaran,
+                'lunas_daul' => $request->lunas_daul,
+                'siap' => $request->siap,
+                'hari' => $request->hari,
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam,
+            ]);
+        } else {
+            return 'ERROR';
+        }
     }
 
     /**

@@ -4,9 +4,12 @@
             <div class="col-md-12">
                 <div class="card border-info">
                     <div class="card-header bg-info">
-                        <h3 class="card-title">Daftar Peserta Hasil Tes</h3>
+                        <h3 class="card-title">Daftar Surat Pengambilan Seragam</h3>
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <a class="btn btn-sm btn-danger" @click="addModal">
+                                <i class="fas fa-plus"></i> Tambah Data
+                            </a>
+                            <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -59,14 +62,22 @@
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form @submit.prevent="updateData()">
+                        <form @submit.prevent="editmode ? updateData() : createData()">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addModalLabel">Form Edit Surat Seragam</h5>
+                                <h5 class="modal-title" v-show="!editmode" id="addModalLabel">Form Tambah Surat Seragam</h5>
+                                <h5 class="modal-title" v-show="editmode" id="addModalLabel">Form Edit Surat Seragam</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
+                                <div class="form-group row">
+                                    <label class="col-md-4 col-form-label">No. Pendaftaran :</label>
+                                    <div class="col-md-8">
+                                        <input v-model="form.pendaftaran" type="text" name="pendaftaran" class="form-control" id="pendaftaran"
+                                            placeholder="Tulis No. Pendaftaran" :readonly="editmode"/>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-md-4 col-form-label">Lunas :</label>
                                     <div class="col-md-8">
@@ -122,6 +133,7 @@
     export default {
         data() {
             return {
+                editmode: false,
                 calons: [],
                 lunas: [
                         { id: "Lunas", name: "Lunas" },
@@ -149,6 +161,7 @@
                 totalPages: 0,
                 form: new Form({
                     id: "",
+                    pendaftaran: "",
                     lunas_daul: "",
                     siap: "",
                     hari: "",
@@ -164,6 +177,37 @@
                 axios.get("../api/suratseragam")
                     .then(({ data }) => (this.calons = data));
                 this.$Progress.finish();
+            },
+
+            addModal() {
+                this.editmode = false;
+                this.form.reset();
+                $("#addModal").modal("show");
+            },
+
+            createData() {
+                this.$Progress.start();
+                this.form
+                    .post("../api/suratseragam")
+                    .then(function (e) {
+                        $("#addModal").modal("hide");
+                        Fire.$emit("listData");
+                        if(e.data == 'ERROR'){
+                            Toast.fire({
+                                type: "error",
+                                title: "Data Sudah di Input, Gunakan Fasilitas EDIT"
+                            });
+                        } else {
+                            Toast.fire({
+                                type: "success",
+                                title: "Tambah Data Surat Seragam berhasil"
+                            });
+                        }
+                        this.$Progress.finish();
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    });
             },
 
             updateData() {

@@ -113,41 +113,52 @@ class CalonPDFController extends Controller
             {
                 $pend = $calons->first()->uruts;
 
-                $pd = CalonTagihan::where('pendaftaran', $pend)->first()->lunas;
-                if($pd == 0) {
-                    return redirect('psb');
-                }
+                // $pd = CalonTagihan::where('pendaftaran', $pend)->first()->lunas;
+                // if($pd == 0) {
+                //     return redirect('psb');
+                // }
             }
 
             if($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
-                $lunas = CalonTagihan::where('pendaftaran', $calonsnya->uruts)->first()->lunas;
+                // $lunas = CalonTagihan::where('pendaftaran', $calonsnya->uruts)->first()->lunas;
                 $seragam = AmbilSeragam::where('pendaftaran', $calonsnya->uruts)->first();
-                $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+
+                if(!$seragam){
+                    $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya'));
+                    return $pdf->stream('');
+                }
+                // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+                // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'seragam'));
 
                 if($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP')
                 {
-                    $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+                    // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+                    $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if($seragam->lunas_daul === 'Belum Lunas')
                 {
-                    $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'lunas', 'seragam'));
+                    // $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'lunas', 'seragam'));
+                    $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'seragam'));
                 }
 
                 if($seragam->siap === 'BELUM')
                 {
-                    $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
+                    // $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
+                    $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
 
                 if($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP')
                 {
-                    $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+                    // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
+                    $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM')
                 {
-                    $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
+                    // $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
+                    $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
 
                 return $pdf->stream('');

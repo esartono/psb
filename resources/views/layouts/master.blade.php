@@ -317,6 +317,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link to="/suratseragam" class="nav-link">
+              <i class="nav-icon fas fa-envelope-open-text orange"></i>
+              <p>
+                Surat Pengambilan Seragam
+              </p>
+            </router-link>
+          </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-graduate blue"></i>
@@ -476,7 +484,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       IT Team - SIT Nurul Fikri
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2019 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+    <strong>Copyright &copy; 2021 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
   </footer>
 </div>
 <!-- ./wrapper -->
