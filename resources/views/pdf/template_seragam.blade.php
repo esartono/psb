@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Biaya TES Calon Siswa - SIT Nurul Fikri</title>
+    <title>PSB SIT Nurul Fikri - Seragam</title>
     <style>
             /** Define the margins of your page **/
             @page {
@@ -35,13 +35,19 @@
             main {
                 margin-top: 135px;
                 margin-bottom: 40px;
-                font-size: 90% !important:
+                /* font-size: 90% !important: */
+            }
+
+            .hal1 {
+                margin-top: 135px;
+                margin-bottom: 40px;
+                /* font-size: 90% !important: */
             }
 
             .hal2 {
                 margin-top: 135px;
                 margin-bottom: 40px;
-                font-size: 90% !important:
+                /* font-size: 90% !important: */
             }
 
             .biodata {
@@ -121,6 +127,13 @@
 </head>
 
 <body>
+    <div style="background-color: white; z-index: 100; margin: 20px 0px -30px -40px !important">
+        <table>
+            <tr>
+                <td align="center" width="100%"><img src="img/surat seragam.png" width="770"></img></td>
+            </tr>
+        </table>
+    </div>
     <header>
         <table>
             <tr>

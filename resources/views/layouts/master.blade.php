@@ -286,7 +286,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>CPD Aktif</p>
                 </router-link>
               </li>
-
+              <li class="nav-item">
+                <router-link to="/berkas" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Kelengkapan Berkas
+                  </p>
+                </router-link>
+              </li>
               <!-- <li class="nav-item">
                 <router-link to="/cpdBaru" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
@@ -306,22 +313,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fas fa-calendar TK"></i>
               <p>
                 Jadwal Tes
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/berkas" class="nav-link">
-              <i class="nav-icon fas fa-file yellow"></i>
-              <p>
-                Data Kelengkapan Berkas
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/suratseragam" class="nav-link">
-              <i class="nav-icon fas fa-envelope-open-text orange"></i>
-              <p>
-                Surat Pengambilan Seragam
               </p>
             </router-link>
           </li>
@@ -367,42 +358,72 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           @if(Auth::user()->isHaveAccess([1,4]))
-          <li class="nav-item">
-            <router-link to="/bayartagihan" class="nav-link">
-            <!-- <router-link to="" class="nav-link"> -->
-              <i class="nav-icon fas fa-money-check-alt orange"></i>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-money-check-alt nav-icon green"></i>
               <p>
-                Data Bayar Tagihan
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <a href="/wawancara-keu" class="nav-link">
-              <i class="nav-icon fas fa-money-check-alt green"></i>
-              <p>
-                Wawancara Keuangan
+                Data Keuangan
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/bayartagihan" class="nav-link">
+                <!-- <router-link to="" class="nav-link"> -->
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Bayar Tagihan
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <a href="/wawancara-keu" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Wawancara Keuangan
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <router-link to="/tagihan" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Tagihan
+                  </p>
+                </router-link>
+              </li>
+            </ul>
           </li>
           @endif
-          <li class="nav-item">
-            <router-link to="/tagihan" class="nav-link">
-              <i class="nav-icon fas fa-wallet green"></i>
-              <p>
-                Data Tagihan
-              </p>
-            </router-link>
-          </li>
-          @if(Auth::user()->isHaveAccess([1,6]))
-          <li class="nav-item">
-            <router-link to="/seragam" class="nav-link">
-              <i class="nav-icon fas fa-tshirt yellow"></i>
+          {{-- @if(Auth::user()->isHaveAccess([1,6])) --}}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-tshirt nav-icon yellow"></i>
               <p>
                 Data Seragam PSB
+                <i class="right fas fa-angle-left"></i>
               </p>
-            </router-link>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/seragam" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Seragam Calon
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/suratseragam" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Surat Pengambilan Seragam
+                  </p>
+                </router-link>
+              </li>
+            </ul>
           </li>
-          @endif
+          {{-- @endif --}}
         @endif
         @if(Auth::user()->isHaveAccess([1,4]))
           <li class="nav-item">

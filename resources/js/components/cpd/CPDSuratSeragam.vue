@@ -35,6 +35,7 @@
                                     <th>Tanggal</th>
                                     <th>Jam</th>
                                     <th>Aksi</th>
+                                    <th>Print</th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
@@ -49,6 +50,9 @@
                                     <td>{{ (row.jam == '' ? '-' : row.jam) }}</td>
                                     <td>
                                         <a href="#" @click="editModal(row)"><i class="fas fa-edit blue"></i> Edit</a>
+                                    </td>
+                                    <td>
+                                        <a :href="'AmbilSeragamPDF/'+row.id" class="btn btn-success"><i class="fas fa-print"></i>Print</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -150,6 +154,7 @@
                         { id: "Kamis", name: "Kamis" },
                         { id: "Jumat", name: "Jumat" },
                         { id: "Sabtu", name: "Sabtu" },
+                        { id: "Minggu", name: "Minggu" },
                     ],
                 filters: {
                     name: {

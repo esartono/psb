@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Biaya TES Calon Siswa - SIT Nurul Fikri</title>
+    <title>Biaya PSB Calon Siswa - SIT Nurul Fikri</title>
     <style>
             /** Define the margins of your page **/
             @page {
