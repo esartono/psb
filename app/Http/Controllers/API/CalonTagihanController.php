@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Gelombang;
+use App\AmbilSeragam;
 use App\CalonTagihan;
 use App\CalonHasil;
 
@@ -70,8 +71,16 @@ class CalonTagihanController extends Controller
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
+        // if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            // return CalonTagihan::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
+                // ->Where(function ($query) use($gelombang) {
+                // for ($i = 0; $i < count($gelombang); $i++){
+                    // $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+                // }
+            // })->get()->toArray();
+        // }
         if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            return CalonTagihan::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
+            return AmbilSeragam::whereNotIn('pendaftaran', $undur)->where('lunas_daul', 'Lunas')
                 ->Where(function ($query) use($gelombang) {
                 for ($i = 0; $i < count($gelombang); $i++){
                     $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');

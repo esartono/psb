@@ -168,12 +168,18 @@ class CalonPDFController extends Controller
         }
 
         if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+            $seragam = AmbilSeragam::whereId($id)->first();
+
+            $gels = Gelombang::where('kode_va', substr($seragam->pendaftaran,0,6))->first();
+            $urut = intval(substr($seragam->pendaftaran,6));
+
+            $gel = $gels->id;
+
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1);
+                    ->where('urut', $urut)->where('gel_id', $gel);
             if($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 // $lunas = CalonTagihan::where('pendaftaran', $calonsnya->uruts)->first()->lunas;
-                $seragam = AmbilSeragam::where('pendaftaran', $calonsnya->uruts)->first();
                 // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
                 $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
 

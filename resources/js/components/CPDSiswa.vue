@@ -51,12 +51,12 @@
                                     <td class="text-center">{{ row.calonnya.asal_sekolah }}</td>
                                     <th>
                                         <a :href="'DaftarUlangPDF/'+row.calonnya.idc" target="_blank">
-                                            <i class="fas fa-file-pdf red"> Daftar Ulang</i>
+                                            <i class="fas fa-file-pdf red"> </i> Daftar Ulang
                                         </a>
                                     </th>
                                     <th>
                                         <a :href="'AmbilSeragamPDF/'+row.calonnya.idc" target="_blank">
-                                            <i class="fas fa-file-pdf green"> Seragam</i>
+                                            <i class="fas fa-file-pdf green"></i> Seragam
                                         </a>
                                     </th>
                                 </tr>
