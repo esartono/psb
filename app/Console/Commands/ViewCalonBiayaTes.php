@@ -65,7 +65,7 @@ class ViewCalonBiayaTes extends Command
                     $cek->lunas($l->id);
                 }
             } else {
-                $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
+                // $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
             }
         }
 

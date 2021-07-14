@@ -9,6 +9,7 @@ use App\Gelombang;
 use App\AmbilSeragam;
 use App\CalonTagihan;
 use App\CalonHasil;
+use App\CalonDaul;
 
 class CalonTagihanController extends Controller
 {
@@ -79,8 +80,16 @@ class CalonTagihanController extends Controller
                 // }
             // })->get()->toArray();
         // }
+        // if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+        //     return AmbilSeragam::whereNotIn('pendaftaran', $undur)->where('lunas_daul', 'Lunas')
+        //         ->Where(function ($query) use($gelombang) {
+        //         for ($i = 0; $i < count($gelombang); $i++){
+        //             $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+        //         }
+        //     })->get()->toArray();
+        // }
         if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            return AmbilSeragam::whereNotIn('pendaftaran', $undur)->where('lunas_daul', 'Lunas')
+            return CalonDaul::whereNotIn('pendaftaran', $undur)
                 ->Where(function ($query) use($gelombang) {
                 for ($i = 0; $i < count($gelombang); $i++){
                     $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');

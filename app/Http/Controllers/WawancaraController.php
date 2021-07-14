@@ -11,6 +11,8 @@ use App\TagihanPSB;
 use App\TahunPelajaran;
 use App\CalonTagihanPSB;
 use App\Kelasnya;
+use App\Jadwal;
+use App\CalonJadwal;
 
 class WawancaraController extends Controller
 {
@@ -137,6 +139,8 @@ class WawancaraController extends Controller
         }
 
         $tglbatas = "31 Mei 2021";
+        $batasannya = new \DateTime('2021-05-31');
+
         $reg1 = new \DateTime('2021-02-1');
         $reg2 = new \DateTime('2021-03-1');
         $reg3 = new \DateTime('2021-04-1');
@@ -151,6 +155,12 @@ class WawancaraController extends Controller
 
         if($reg1 > $ctg->created_at) {
             $tglbatas = "31 Januari 2021";
+        }
+
+        if($batasannya < $ctg->created_at) {
+            $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first()->jadwal_id;
+            $jadwal = explode('-', Jadwal::whereId($cjadwal)->first()->keterangan);
+            $tglbatas = $jadwal[1];
         }
 
         if ($ctg->khusus == 0) {

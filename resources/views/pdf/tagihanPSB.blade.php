@@ -97,9 +97,10 @@
             </li>
             <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> adalah biaya yang dibayarkan <strong>setiap bulan</strong> selama peserta didik menempuh pendidikan di SIT Nurul Fikri.</li>
             <li><strong>Dana Tahunan</strong> adalah biaya yang dibayarkan <strong>setiap tahun</strong> (termasuk biaya buku paket pada tahun berjalan) selama peserta didik menempuh pendidikan di SIT Nurul Fikri.</li>
-            <div class="page-break"></div>
             <li><strong>Iuran Komite Sekolah</strong> adalah biaya yang dikelola oleh komite sekolah (perwakilan orangtua peserta didik), yang dibayarkan <strong>setiap tahun</strong> selama peserta didik menempuh pendidikan di SIT Nurul Fikri</li>
         </ol>
+        <div class="page-break"></div>
+        <br>
         <br>
         <strong>B. Ketentuan Pembayaran Biaya Daftar Ulang PPDB tahun Pelajaran 2021/2022</strong>
         <ol type="1">
@@ -132,8 +133,8 @@
                     <li>Dana Tahunan</li>
                 </ol>
             </li>
-            <div class="page-break"></div>
             <li>Syarat pengambilan rapor, ijazah, SKHUN, dokumen kelulusan dan atau permohonan surat pindah (mutasi) adalah melunasi seluruh kewajiban administrasi sekolah.</li>
+            <div class="page-break"></div>
             <li>
                 Apabila SPP dan atau tagihan lainnya belum dibayarkan tepat pada waktunya , maka akan diberikan teguran dan pemberlakuan konsekuensi sebagai berikut :
                 <ol type="a">

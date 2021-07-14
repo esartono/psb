@@ -179,8 +179,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <center><a :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-block mb-3"><i class="fas fa-tshirt fa-2x"> </i><h4> Cetak Bukti Pengambilan Seragam </h4></a></center>
+                                    <td>
+                                        <center>
+                                            <a :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-block mb-3 p-3"><h5><i class="fas fa-tshirt"> </i> Cetak Bukti Pengambilan Seragam </h5></a>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <a :href="'DaftarUlangPDF/'+calon.id" class="btn btn-danger btn-block mb-3"><h5><i class="fas fa-envelope"> </i> Cetak Bukti Daftar Ulang </h5></a>
+                                        </center>
                                     </td>
                                 </tr>
                             </table>
@@ -192,10 +199,10 @@
                         <div class="clearfix">
                             <center><a :href="'/uniform/'+calon.id" class="btn btn-primary btn-large mb-3"><i class="fas fa-tshirt"> </i><b> Pilih Ukuran Seragam </b></a></center>
                             <h3 class="text-center">Daftar Ulang</h3>
-                            <!-- <a v-show="calon.hasil.hasil.lulus === 1"
-                            :href="'DaftarUlangPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Daftar Ulang</a> -->
                             <a v-show="calon.hasil.hasil.lulus === 1"
                             :href="'AmbilSeragamPDF/'+calon.id" class="btn btn-success btn-lg">Cetak Bukti Pengambilan Seragam</a>
+                            <a v-show="calon.hasil.hasil.lulus === 1"
+                            :href="'DaftarUlangPDF/'+calon.id" class="btn btn-danger btn-lg">Cetak Bukti Daftar Ulang</a>
                             <hr>
                             <table width="100%" class="table-bordered">
                                 <tr>

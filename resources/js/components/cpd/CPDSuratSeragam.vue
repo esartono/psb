@@ -52,7 +52,7 @@
                                         <a href="#" @click="editModal(row)"><i class="fas fa-edit blue"></i> Edit</a>
                                     </td>
                                     <td>
-                                        <a :href="'AmbilSeragamPDF/'+row.id" class="btn btn-success"><i class="fas fa-print"></i>Print</a>
+                                        <a :href="'AmbilSeragamPDF/'+row.calonnya.idc" class="btn btn-success"><i class="fas fa-print"></i>Print</a>
                                     </td>
                                 </tr>
                             </tbody>
