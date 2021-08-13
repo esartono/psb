@@ -41,7 +41,7 @@
 				</div>
 				<div class="col-md-5">
 					<div class="card wow fadeIn border-info" data-wow-duration="4s">
-						<div class="card-header bg-info text-white">Informasi Penerimaan Peserta Didik Baru</div>
+						<div class="card-header bg-info text-white">Informasi Penerimaan Peserta Didik Baru - NF</div>
 						<div class="card-body">
 							@foreach($berita as $b)
 								<h5>{{ $b->judul }}</h5>
