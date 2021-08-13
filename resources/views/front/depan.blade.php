@@ -7,7 +7,7 @@
 		<div class="container">
 			<div class="row fullscreen d-flex align-items-center justify-content-center">
 				<div class="banner-content col-md-7">
-					<h1 class="wow fadeIn" data-wow-duration="4s">PPDB Online<br> SIT Nurul Fikri - Depok</h1>
+					<h1 class="wow fadeIn" data-wow-duration="4s">PPDB Online<br> SIT Nurul Fikri - TESTING - V.4.0</h1>
 					<hr>
 					<p class="wow fadeIn text-white">
 						Selamat Datang di Sistem PPDB Online SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
@@ -41,7 +41,7 @@
 				</div>
 				<div class="col-md-5">
 					<div class="card wow fadeIn border-info" data-wow-duration="4s">
-						<div class="card-header bg-info text-white">Informasi Penerimaan Peserta Didik Baru - NF</div>
+						<div class="card-header bg-info text-white">Informasi PPDB Online</div>
 						<div class="card-body">
 							@foreach($berita as $b)
 								<h5>{{ $b->judul }}</h5>
