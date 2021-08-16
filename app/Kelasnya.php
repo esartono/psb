@@ -10,7 +10,7 @@ class Kelasnya extends Model
     use HasApiTokens;
 
     protected $fillable = [
-        'name', 'unit_id', 'status'
+        'name', 'unit_id', 'status', 'kelamin', 'jurusan'
     ];
 
     protected $hidden = [

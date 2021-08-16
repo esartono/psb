@@ -116,6 +116,24 @@
                                         <has-error :form="form" field="bayar"></has-error>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-5 col-form-label">Tambahan Infaq</label>
+                                    <div class="col-sm-7">
+                                        <input v-model="form.infaq" type="number" name="infaq" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('infaq') }" id="infaq"
+                                        />
+                                        <has-error :form="form" field="infaq"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-5 col-form-label">Diskon Pembayaran</label>
+                                    <div class="col-sm-7">
+                                        <input v-model="form.diskon" type="number" name="diskon" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('diskon') }" id="diskon"
+                                        />
+                                        <has-error :form="form" field="diskon"></has-error>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Keterangan</label>
                                     <textarea class="form-control" rows="3" v-model="form.keterangan"></textarea>

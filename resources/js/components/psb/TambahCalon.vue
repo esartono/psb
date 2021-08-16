@@ -42,6 +42,19 @@
                                 <i class="fas fa-address-card"></i>
                                 {{ unit.name }}</a>
                         </tab-content>
+                        <tab-content title="Baru/Pindahan" icon="fas fa-school" class="text-center">
+                            <h5>Siswa Baru atau Pindahan</h5>
+                            <a class="btn btn-app btn-lg white bg-green"
+                                v-on:click="pilihPindahan(1)">
+                                <i class="fas fa-building"></i>
+                                SISWA BARU
+                            </a>
+                            <a class="btn btn-app btn-lg white bg-blue"
+                                v-on:click="pilihPindahan(2)">
+                                <i class="fas fa-address-card"></i>
+                                SISWA PINDAHAN
+                            </a>
+                        </tab-content>
                         <tab-content title="Orang Tua" icon="fas fa-users" class="text-center">
                             <h5>Data Calon Siswa</h5>
                             <a
@@ -777,7 +790,7 @@ import { constants } from 'crypto';
                 var aI = this.$refs.wizard.activeTabIndex
                 this.salahs = []
                 switch(aI) {
-                    case 2:
+                    case 3:
                         if(this.form.kelas_tujuan == ""){this.salahs.push('Kelas Tujuan harus diisi')}
                         if(this.form.name == ""){this.salahs.push('Nama Lengkap Calon Siswa harus diisi')}
                         if(this.form.panggilan == ""){this.salahs.push('Nama Panggilan Calon Siswa harus diisi')}
@@ -793,7 +806,7 @@ import { constants } from 'crypto';
                         }
                         break
 
-                    case 3:
+                    case 4:
                         if(this.form.alamat == ""){this.salahs.push('Alamat Tempat Tinggal Calon Siswa harus diisi')}
                         if(this.form.provinsi == ""){this.salahs.push('Provinsi harus dipilih')}
                         if(this.form.kota == ""){this.salahs.push('Kota atau Kabupaten harus dipilih')}
@@ -809,7 +822,7 @@ import { constants } from 'crypto';
                         }
                         break
 
-                    case 4:
+                    case 5:
                         if(this.form.ayah_nama == ""){this.salahs.push('Nama Ayah Calon Siswa harus diisi')}
                         if(this.form.ayah_pendidikan == ""){this.salahs.push('Pendidikan Ayah harus dipilih')}
                         if(this.form.ayah_pekerjaan == ""){this.salahs.push('Pekerjaan Ayah harus dipilih')}
@@ -834,7 +847,7 @@ import { constants } from 'crypto';
             },
 
             cekback_aktif() {
-                if (this.$refs.wizard.activeTabIndex == 1 || this.$refs.wizard.activeTabIndex == 2) {
+                if (this.$refs.wizard.activeTabIndex == 1 || this.$refs.wizard.activeTabIndex == 2 || this.$refs.wizard.activeTabIndex == 3) {
                     this.ygaktif = false
                 } else {
                     this.ygaktif = true
@@ -851,13 +864,30 @@ import { constants } from 'crypto';
                 }
             },
 
+            pilihPindahan($baru) {
+                if($baru === 2){
+                    Swal.fire({
+                        title: 'Masukan No. Induk Siswa',
+                        input: 'select',
+                        inputOptions: {
+                            'skrg': '2021-2022',
+                            'kmrn': '2022-2023',
+                        },
+                        inputPlaceholder: 'Pilih Tahun Ajaran',
+                        showCancelButton: true,
+                    })
+                }
+
+                this.$refs.wizard.changeTab(0,2)
+            },
+
             pilihAsal($asal) {
                 if($asal === 1)
                 {
                     this.form.ck_id = $asal
                     this.form.asal_nf = 0
                     this.ygaktif = true
-                    this.$refs.wizard.changeTab(0,2)
+                    this.$refs.wizard.changeTab(0,3)
                 }
 
                 if($asal === 2)
@@ -886,7 +916,7 @@ import { constants } from 'crypto';
                                             this.form.asal_kota_sekolah = 3276
                                             this.form.asal_kecamatan_sekolah = 3276040
                                             this.form.asal_kelurahan_sekolah = 3276040012
-                                            this.$refs.wizard.changeTab(0,2)
+                                            this.$refs.wizard.changeTab(0,3)
                                             this.ygaktif = true
                                             switch(this.cekasalnf.unit) {
                                                 case 1:
@@ -939,7 +969,7 @@ import { constants } from 'crypto';
                                             this.form.ck_id = $asal
                                             this.form.asal_nf = 0
                                             this.ygaktif = true
-                                            this.$refs.wizard.changeTab(0,2)
+                                            this.$refs.wizard.changeTab(0,3)
                                         } else {
                                             Toast.fire({
                                                 type: "error",

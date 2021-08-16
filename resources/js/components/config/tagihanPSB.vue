@@ -72,15 +72,15 @@
                     <div class="modal-content">
                         <form @submit.prevent="editmode ? updateData() : createData()">
                             <div class="modal-header">
-                                <h5 class="modal-title" v-show="!editmode" id="addModalLabel">Form Tambah Data Gelombang</h5>
-                                <h5 class="modal-title" v-show="editmode" id="addModalLabel">Form Edit Data Gelombang</h5>
+                                <h5 class="modal-title" v-show="!editmode" id="addModalLabel">Form Tambah Data Biaya Pendidikan</h5>
+                                <h5 class="modal-title" v-show="editmode" id="addModalLabel">Form Edit Data Biaya Pendidikan</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label class="col-md-2 col-form-label">Gelombang</label>
+                                    <label class="col-md-2 col-form-label">Biaya Pendidikan</label>
                                     <div class="col-md-3">
                                         <select v-model="form.gel_id" @change="pilihUnit($event)" name="gel_id" class="form-control" id="gel_id" required>
                                             <option v-for="gel in gelombangs" :key="gel.id" v-bind:value="gel.id">{{ gel.unitnya.name }}</option>

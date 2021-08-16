@@ -120,9 +120,22 @@ class HomeController extends Controller
         // return view('psb');
     }
 
-    public function psb()
+    public function psb_old()
     {
-        return view('psb');
+        return view('psb_old');
+    }
+
+    public function psb_new()
+    {
+        $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+        $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('user_id', auth()->user()->id)
+                ->where('aktif', true)
+                ->whereIn('gel_id', $gelombang)->get();
+
+        // return view('user.dashboard', compact('calons'));
+        // dd($calons);
+        return view('psb_new', compact('calons'));
     }
 
     public function edupay()

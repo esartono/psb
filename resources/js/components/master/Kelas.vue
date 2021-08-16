@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-10">
         <div class="card border-info">
           <div class="card-header bg-info">
             <h3 class="card-title">Daftar Kelas</h3>
@@ -14,7 +14,7 @@
                 <i class="fas fa-file-excel"></i>
                 Ekspor
               </a>
-              <div class="input-group input-group-sm" style="width: 150px;">
+              <div class="input-group input-group-sm mt-1" style="width: 150px;">
                 <input
                   v-model="filters.name.value"
                   type="text"
@@ -35,7 +35,7 @@
               :data="kelasnyas"
               :filters="filters"
               :currentPage.sync="currentPage"
-              :pageSize="7"
+              :pageSize="8"
               @totalPagesChanged="totalPages = $event"
               class="table table-bordered table-hover table-head-fixed"
             >
@@ -43,6 +43,9 @@
                 <th>No.</th>
                 <v-th sortKey="name">Nama Kelas</v-th>
                 <th>Unit</th>
+                <th>Siswa Baru</th>
+                <th>Kelas Putra/Putri</th>
+                <th>Jurusan</th>
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -51,6 +54,8 @@
                   <td class="text-center">{{ row.name }}</td>
                   <td class="text-center">{{ row.unitnya.name }}</td>
                   <td class="text-center">{{ statusnya.data[row.status].name }}</td>
+                  <td class="text-center">{{ kelasnya.data[row.kelamin].name }}</td>
+                  <td class="text-center">{{ row.jurusan }}</td>
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>
@@ -130,6 +135,26 @@
                     <has-error :form="form" field="status"></has-error>
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Kelas Putra/Putri</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.kelamin" name="kelamin" class="form-control" id="kelamin">
+                      <option v-for="kelamin in kelasnya.data" :key="kelamin.id"
+                              v-bind:value="kelamin.id">{{ kelamin.name }}</option>
+                    </select>
+                    <has-error :form="form" field="kelamin"></has-error>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Jurusan</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.jurusan" name="jurusan" class="form-control" id="jurusan">
+                      <option v-for="jurusan in jurusannya.data" :key="jurusan.id"
+                              v-bind:value="jurusan.id">{{ jurusan.name }}</option>
+                    </select>
+                    <has-error :form="form" field="jurusan"></has-error>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -158,6 +183,34 @@ export default {
             'name': 'Tersedia'
           }
         ]},
+      kelasnya: {
+        data: [{
+            'id': 0,
+            'name': 'Putra dan Putri'
+          },
+          {
+            'id': 1,
+            'name': 'Putra'
+          },
+          {
+            'id': 2,
+            'name': 'Putri'
+          }
+        ]},
+      jurusannya: {
+        data: [{
+            'id': 'TIDAK',
+            'name': 'Tidak Ada/Semua Jurusan'
+          },
+          {
+            'id': 'MIPA',
+            'name': 'MIPA'
+          },
+          {
+            'id': 'IPS',
+            'name': 'IPS'
+          }
+        ]},
       units: {},
       kelasnyas: [],
       filters: {
@@ -169,7 +222,9 @@ export default {
         id: "",
         name: "",
         unit_id: "",
-        status: 1
+        status: 1,
+        kelamin: 0,
+        jurusan: 'TIDAK'
       })
     };
   },

@@ -28,7 +28,9 @@ class KelasnyaController extends Controller
         Kelasnya::create([
             'name' => $request['name'],
             'unit_id' => $request['unit_id'],
-            'status' => $request['status']
+            'status' => $request['status'],
+            'kelamin' => $request['kelamin'],
+            'jurusan' => $request['jurusan']
         ]);
     }
 
