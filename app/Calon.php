@@ -59,13 +59,34 @@ class Calon extends Model
         'user_id'
     ];
 
+    protected $dates = [
+        'tgl_lahir', 'tgl_daftar'
+    ];
+
     protected $hidden = [
         'created_at', 'updated_at'
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam', 'tahap'
     ];
+
+    public function getTahapAttribute() {
+        $tahap = 1;
+
+        if($this->attributes['status'] === 1) {
+            $tahap = 2;
+        }
+
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+
+        $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
+        if($hasil) {
+            $tahap = 3;
+        }
+        return $tahap;
+    }
 
     public function getKelaminAttribute()
     {
@@ -127,7 +148,6 @@ class Calon extends Model
         if(!$hasil) {
             $hasil = 'Kosong';
             $tagihan = 'Kosong';
-            return compact('hasil', 'tagihan');
         }
 
         return compact('hasil', 'tagihan');

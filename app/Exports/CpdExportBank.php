@@ -41,11 +41,11 @@ class CpdExportBank implements FromView
                 $reg1 = new \DateTime('2020-11-4');
                 $reg2 = new \DateTime('2020-12-1');
                 $reg3 = new \DateTime('2021-02-1');
-                $reg4 = new \DateTime('2021-07-30');
+                // $reg4 = new \DateTime('2021-07-30');
 
-                if($reg4 > $now) {
-                    $judul = 3;
-                }
+                // if($reg4 > $now) {
+                $judul = 3;
+                // }
 
                 if($reg3 > $now) {
                     $judul = 3;

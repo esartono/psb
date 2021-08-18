@@ -43,8 +43,9 @@
         </div>
         <div class="col-md-7 mb-3">
             <div class="card h-100">
-            <div class="card-header p-2" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
-                <ul class="nav nav-pills">
+            <div class="card-header white" v-bind:class="'bg-'+calon.gelnya.unitnya.catnya.name+' card-'+calon.gelnya.unitnya.catnya.name+'-outline'">
+                <h5>STATUS : {{ calon.status == 0 ? 'Belum Aktif' : 'Aktif' }}</h5>
+                <!-- <ul class="nav nav-pills">
                     <li class="nav-item">
                         <a class="nav-link dashboard"
                             :href="'#daftar'+calon.id" data-toggle="tab">
@@ -76,7 +77,7 @@
                     <li class="nav-item">
                         <a :href="'/dokumen/'+calon.id" class="btn btn-warning"><i class="fas fa-book"> </i><b> Upload Dokumen </b></a>
                     </li>
-                </ul>
+                </ul> -->
             </div><!-- /.card-header -->
             <div class="card-body">
                 <div class="tab-content">

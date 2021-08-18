@@ -25,7 +25,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/psb';
+    protected $redirectTo = '/ppdb';
 
     /**
      * Create a new controller instance.

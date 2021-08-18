@@ -78,14 +78,39 @@ class TagihanPSB extends Model
         $reg2 = new \DateTime('2020-12-1');
         $reg3 = new \DateTime('2021-02-1');
 
-        if($reg3 > $now) {
-            return $biayas->biaya1;
+        $biaya = $biayas->biaya3;
+        $total = 0;
+        foreach($biaya as $k => $v){
+            $total = $total + $v;
         }
-        if($reg2 > $now) {
-            return $biayas->biaya2;
+        $reguler = 3;
+        $totalnya = $total;
+        $biayanya = $biaya;
+
+        $biaya = $biayas->biaya2;
+        $total = 0;
+        foreach($biaya as $k => $v){
+            $total = $total + $v;
         }
-        if($reg1 > $now) {
-            return $biayas->biaya1;
+        $bayar = BayarTagihan::where('calon_id', $id)->where('tgl_bayar','<', $reg2)->sum('bayar');
+        if($bayar >= $total) {
+            $reguler = 2;
+            $totalnya = $total;
+            $biayanya = $biaya;
         }
+
+        $biaya = $biayas->biaya1;
+        $total = 0;
+        foreach($biaya as $k => $v){
+            $total = $total + $v;
+        }
+        $bayar = BayarTagihan::where('calon_id', $id)->where('tgl_bayar','<', $reg1)->sum('bayar');
+        if($bayar >= $total) {
+            $reguler = 1;
+            $totalnya = $total;
+            $biayanya = $biaya;
+        }
+
+        return array_merge($biayanya, ['reguler'=>$reguler, 'tagihan'=>$totalnya]);
     }
 }

@@ -9,7 +9,7 @@
                         Form Pendaftaran
                     </h3>
                     <div class="card-tools">
-                        <a href="psb" type="button" class="btn bg-danger btn-sm">
+                        <a href="ppdb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -867,7 +867,7 @@ import { constants } from 'crypto';
             pilihPindahan($baru) {
                 if($baru === 2){
                     Swal.fire({
-                        title: 'Masukan No. Induk Siswa',
+                        title: 'Masuk sekolah di Tahun Ajaran ?',
                         input: 'select',
                         inputOptions: {
                             'skrg': '2021-2022',
@@ -1110,7 +1110,7 @@ import { constants } from 'crypto';
                             timer: 1000,
                             showConfirmButton: false
                         })
-                        this.$router.push('psb')
+                        this.$router.push('ppdb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {

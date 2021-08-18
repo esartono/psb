@@ -358,42 +358,12 @@ class UjicobaController extends Controller
 
     public function cek6()
     {
-        //Buat nambah data ke edupay
-        // $calon = Calon::where('id', 426)->first();
-        // $calonbiaya = CalonBiayaTes::where('calon_id', $calon->id)->first();
-        // $biaya = BiayaTes::where('id', $calonbiaya->biaya_id)->first();
-
-        // Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
-
-        // $pendaftaran = '212234001';
-        // $gel = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first()->id;
-        // $urut = intval(substr($pendaftaran,6));
-
-        // $calon = Calon::with('gelnya.unitnya', 'kelasnya', 'usernya')
-        //             ->where('urut', $urut)->where('gel_id', $gel)->first();
-
-        // $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
-        // $tagihan = $bayar->last();
-
-        // return view('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'));
-        // $gel = 4;
-        // $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-        //         ->where('gel_id', $gel)
-        //         ->where('internal', 0)
-        //         ->get();
-
-        // if($jadwal->count() > 0){
-        //     foreach ($jadwal as $j) {
-        //         if($j->ikut < $j->kuota) {
-        //             $hasil = $j->id;
-        //             break;
-        //         }
-        //     }
-        // } else {
-        //     $hasil = 0;
-        // }
-
-        // dd($hasil);
+        $calons = CalonTagihanPSB::with('calonnya')->get();
+        return view('exports.tagihanPSB', [
+            'calons' => $calons,
+            'no' => 1,
+            'judul' => 'Eksport Tagihan',
+        ]);
     }
 
     public function asalNF($gel)

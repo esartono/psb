@@ -60,10 +60,12 @@
             }
 
             .qr {
-                margin: -20px 0px 10px 0px;
-                font-size: 20px !important;
+                margin-top: -40px;
+                font-size: 22px !important;
             }
-
+            .qrcode {
+                margin: 8px;
+            }
             .cardTest {
                 font-size: 13px !important;
                 width: 55%;

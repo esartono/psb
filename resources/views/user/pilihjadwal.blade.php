@@ -11,7 +11,7 @@
                         Form Pilih Jadwal Tes
                     </h3>
                     <div class="card-tools">
-                        <a href="/psb" type="button" class="btn bg-danger btn-sm">
+                        <a href="/ppdb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-4">
-                            <a href="/psb" type="button" class="btn bg-danger">
+                            <a href="/ppdb" type="button" class="btn bg-danger">
                                 <i class="fas fa-times"></i> Cancel
                             </a>
                         </div>

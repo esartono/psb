@@ -12,6 +12,10 @@ class CalonBiayaTes extends Model
         'calon_id', 'biaya_id', 'lunas', 'expired'
     ];
 
+    protected $dates = [
+        'expired'
+    ];
+
     protected $hidden = [
         'created_at', 'updated_at'
     ];

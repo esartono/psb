@@ -218,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <router-link to="/config/tagihanPSB" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Biaya PSB</p>
+                  <p>Biaya PPDB</p>
                 </router-link>
               </li>
               <li class="nav-item">

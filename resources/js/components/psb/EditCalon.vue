@@ -9,7 +9,7 @@
                         Form Pendaftaran
                     </h3>
                     <div class="card-tools">
-                        <a v-if="level === false" href="psb" type="button" class="btn bg-danger btn-sm">
+                        <a v-if="level === false" href="../ppdb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
                         </a>
                         <a v-else @click="$router.go(-1)" type="button" class="btn bg-danger btn-sm">
@@ -796,7 +796,7 @@ import { constants } from 'crypto';
                             type: "success",
                             title: "Edit Data Calon Siswa Berhasil"
                         });
-                        this.$router.push('../psb')
+                        this.$router.push('../ppdb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {

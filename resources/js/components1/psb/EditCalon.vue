@@ -886,7 +886,7 @@ import { constants } from 'crypto';
                             type: "success",
                             title: "Edit Data Calon Siswa Berhasil"
                         });
-                        this.$router.push('../psb')
+                        this.$router.push('../ppdb')
                         this.$Progress.finish()
                     })
                     .catch((error) => {

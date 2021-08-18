@@ -11,7 +11,7 @@
                         Form Upload Dokumen
                     </h3>
                     <div class="card-tools">
-                        <a href="/psb" type="button" class="btn bg-danger btn-sm">
+                        <a href="/ppdb" type="button" class="btn bg-danger btn-sm">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>

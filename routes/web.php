@@ -24,7 +24,7 @@ Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 // Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
 // Route::get('/uji4', 'UjicobaController@cek4')->name('uji4');
 // Route::get('/uji5', 'UjicobaController@cek5')->name('uji5');
-// Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
+Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
 
@@ -48,10 +48,13 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('auth', 'user')->group(function(){
     // Route::get('/psb', 'HomeController@dashboardUser')->name('psb');
-    Route::get('/psb', 'HomeController@psb_old')->name('psb');
+    // Route::get('/psb', 'HomeController@psb_old')->name('psb');
+    Route::get('/ppdb', 'HomeController@psb_new')->name('ppdb');
     // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
     Route::get('/tambahcalon', 'HomeController@psb_old')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'HomeController@psb_old')->name('editcalon');
+    // Route::get('/tambahcalon', 'HomeController@psb_new')->name('tambahcalon');
+    // Route::get('/editcalon/{id}', 'HomeController@psb_new')->name('editcalon');
 });
 
 Route::middleware('auth', 'psikotes')->group(function(){

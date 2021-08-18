@@ -46,7 +46,7 @@ import VueProgressBar from 'vue-progressbar'
 import VueDatePicker from '@mathieustan/vue-datepicker';
 Vue.use(VueDatePicker)
 
-const newLocal = '/psb';
+const newLocal = '/ppdb';
 let routes = [
     { path: '/dashboard', component: require('./components/Home.vue').default},
     { path: '/siswa', component: require('./components/CPDSiswa.vue').default},
@@ -77,7 +77,7 @@ let routes = [
     /**
      * Dashboard Ortu
      */
-    { path: '/psb', component: require('./components/psb/Dashboard.vue').default},
+    { path: '/ppdb', component: require('./components/psb/Dashboard.vue').default},
     // { path: '/dokumen/:id', component: require('./components/psb/Dokumen.vue').default},
     { path: '/tambahcalon', component: require('./components/psb/TambahCalon.vue').default},
     { path: '/editcalon/:id', component: require('./components/psb/EditCalon.vue').default},

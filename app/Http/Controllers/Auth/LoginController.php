@@ -41,7 +41,7 @@ class LoginController extends Controller
                 return '/home';
                 break;
             case '2':
-                return '/psb';
+                return '/ppdb';
                 break;
             default:
                 return '/login';

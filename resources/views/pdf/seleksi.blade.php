@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th colspan="2" align="center">
-                    <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(150)->generate($calonsnya->uruts)) !!} ">
+                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(150)->generate($calonsnya->uruts)) !!} ">
                     <div class="qr">{{ $calonsnya->uruts }} </div>
                 </th>
             </tr>

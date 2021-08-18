@@ -30,6 +30,7 @@
                                 <v-th sortKey="gel_id">Gelombang</v-th>
                                 <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
                                 <v-th sortKey="seleksi">Tes Seleksi</v-th>
+                                <v-th sortKey="seleksi">Pengumuman</v-th>
                                 <v-th sortKey="internal">Internal</v-th>
                                 <th>Kuota</th>
                                 <th>Keterangan</th>
@@ -42,6 +43,7 @@
                                     <td class="text-center">{{ row.gelnya.name }}</td>
                                     <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
                                     <td class="text-center">{{ row.seleksi | Tanggal }}</td>
+                                    <td class="text-center">{{ row.pengumuman | Tanggal }}</td>
                                     <td class="text-center">{{ row.internal | YaTidak}}</td>
                                     <td class="text-center">{{ row.kuota }}</td>
                                     <td>
@@ -98,6 +100,15 @@
                                             :class="{ 'is-invalid':form.errors.has('seleksi') }" id="seleksi"
                                             />
                                         <has-error :form="form" field="seleksi"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Pengumuman</label>
+                                    <div class="col-sm-8">
+                                        <input v-model="form.pengumuman" type="date" name="pengumuman" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('pengumuman') }" id="pengumuman"
+                                            />
+                                        <has-error :form="form" field="pengumuman"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -204,7 +215,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["gel_id", "gelnya.unitnya.name", "seleksi", "internal"]
+                        keys: ["gel_id", "gelnya.unitnya.name", "seleksi", "pengumuman", "internal"]
                     }
                 },
                 currentPage: 1,
@@ -213,6 +224,7 @@
                     id: "",
                     gel_id: 0,
                     seleksi: "",
+                    pengumuman: "",
                     internal: 0,
                     kuota: 0,
                     keterangan: "",

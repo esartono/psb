@@ -25,7 +25,7 @@ class CalonPDFController extends Controller
                 $pdf = PDF::loadView('pdf.biayates', compact('calonsnya'));
                 return $pdf->stream('');
             } else {
-                return redirect('psb');
+                return redirect('ppdb');
             }
         }
 
@@ -51,7 +51,7 @@ class CalonPDFController extends Controller
                 $pdf = PDF::loadView('pdf.seleksi', compact('calonsnya'));
                 return $pdf->stream('');
             } else {
-                return redirect('psb');
+                return redirect('ppdb');
             }
         }
 
@@ -79,10 +79,10 @@ class CalonPDFController extends Controller
 
                 $pd = CalonDaul::where('pendaftaran', $pend)->first();
                 if(!$pd) {
-                    return redirect('psb');
+                    return redirect('ppdb');
                 }
                 if($pd->lunas == 0) {
-                    return redirect('psb');
+                    return redirect('ppdb');
                 }
             }
 
@@ -91,7 +91,7 @@ class CalonPDFController extends Controller
                 $pdf = PDF::loadView('pdf.daul', compact('calonsnya'));
                 return $pdf->stream('');
             } else {
-                return redirect('psb');
+                return redirect('ppdb');
             }
         }
 
@@ -119,7 +119,7 @@ class CalonPDFController extends Controller
 
                 // $pd = CalonTagihan::where('pendaftaran', $pend)->first()->lunas;
                 // if($pd == 0) {
-                //     return redirect('psb');
+                //     return redirect('ppdb');
                 // }
             }
 
@@ -167,7 +167,7 @@ class CalonPDFController extends Controller
 
                 return $pdf->stream('');
             } else {
-                return redirect('psb');
+                return redirect('ppdb');
             }
         }
 

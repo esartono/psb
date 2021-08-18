@@ -44,7 +44,7 @@ class HomeController extends Controller
         }
 
         if(auth()->user()->isUser()){
-            return redirect()->route('psb');
+            return redirect()->route('ppdb');
             // return view('psb');
         }
 
@@ -133,9 +133,7 @@ class HomeController extends Controller
                 ->where('aktif', true)
                 ->whereIn('gel_id', $gelombang)->get();
 
-        // return view('user.dashboard', compact('calons'));
-        // dd($calons);
-        return view('psb_new', compact('calons'));
+        return view('user.dashboard', compact('calons'));
     }
 
     public function edupay()

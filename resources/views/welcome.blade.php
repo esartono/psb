@@ -39,7 +39,7 @@
                                 <a class="btn btn-primary btn-sm" href="{{ url('/home') }}">Dashboard Admin </a>
                             @endif
                             @if (auth()->user()->isUser())
-                                <a class="btn btn-primary btn-sm" href="{{ url('/psb') }}">Home</a>
+                                <a class="btn btn-primary btn-sm" href="{{ url('/ppdb') }}">Home</a>
                             @endif
                         @endauth
                     @endif
