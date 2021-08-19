@@ -46,6 +46,7 @@ class Calon extends Model
         'ibu_email',
         'asal_nf',
         'pindahan',
+        'tahun_sekarang',
         'asal_sekolah',
         'asal_alamat_sekolah',
         'asal_propinsi_sekolah',
