@@ -51,10 +51,11 @@ Route::middleware('auth', 'user')->group(function(){
     // Route::get('/psb', 'HomeController@psb_old')->name('psb');
     Route::get('/ppdb', 'HomeController@psb_new')->name('ppdb');
     // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
-    Route::get('/tambahcalon', 'HomeController@psb_old')->name('tambahcalon');
+    // Route::get('/tambahcalon', 'HomeController@psb_old')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'HomeController@psb_old')->name('editcalon');
-    // Route::get('/tambahcalon', 'HomeController@psb_new')->name('tambahcalon');
-    // Route::get('/editcalon/{id}', 'HomeController@psb_new')->name('editcalon');
+    Route::get('/tambahcalon', 'DraftCalonController@create')->name('tambahcalon');
+    Route::get('/tambahcalon/{step}', 'DraftCalonController@create')->name('tambahcalon');
+    Route::get('/editcalon/{id}', 'DraftCalonController@edit')->name('editcalon');
 });
 
 Route::middleware('auth', 'psikotes')->group(function(){
