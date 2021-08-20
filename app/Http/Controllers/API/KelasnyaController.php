@@ -25,19 +25,44 @@ class KelasnyaController extends Controller
 
     public function store(Request $request)
     {
+        $status = $request['status'];
+        $ta = $request['tahun_ajaran'];
+
+        if($status == 0 || $ta == 3){
+            $status = false;
+            $ta = 3;
+        }
+
         Kelasnya::create([
             'name' => $request['name'],
             'unit_id' => $request['unit_id'],
-            'status' => $request['status'],
+            'status' => $status,
             'kelamin' => $request['kelamin'],
-            'jurusan' => $request['jurusan']
+            'jurusan' => $request['jurusan'],
+            'tahun_ajaran' => $ta,
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $kelas = Kelasnya::findOrFail($id);
-        $kelas->update($request->all());
+
+        $status = $request['status'];
+        $ta = $request['tahun_ajaran'];
+
+        if($status == 0 || $ta == 3){
+            $status = false;
+            $ta = 3;
+        }
+
+        $kelas->update([
+            'name' => $request['name'],
+            'unit_id' => $request['unit_id'],
+            'status' => $status,
+            'kelamin' => $request['kelamin'],
+            'jurusan' => $request['jurusan'],
+            'tahun_ajaran' => $ta
+        ]);
     }
 
     public function destroy($id)

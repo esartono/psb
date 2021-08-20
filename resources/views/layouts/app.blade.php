@@ -16,7 +16,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body class="hold-transition layout-top-nav">
-<div class="wrapper" id="app">
+<div class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light bg-teal">
@@ -63,12 +63,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             IT Team - SIT Nurul Fikri
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2019 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+        <strong>Copyright &copy; 2021 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
     </footer>
 </div>
 <!-- ./wrapper -->
-
-<script src="/js/app.js?v=1.1"></script>
+<script type="application/javascript" src="/js/app.js"></script>
 @stack('js')
 </body>
 </html>

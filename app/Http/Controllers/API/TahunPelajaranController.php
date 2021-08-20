@@ -10,6 +10,34 @@ use App\TahunPelajaran;
 
 class TahunPelajaranController extends Controller
 {
+
+    public function ta()
+    {
+        $ta = TahunPelajaran::where('status', true)->first();
+
+        $ta_skrg = intval(substr($ta->name, 0, 4));
+        $tanya = ($ta_skrg - 1).'/'.$ta_skrg;
+        $tas = array(
+            [
+                'id' => 0,
+                'name' => $tanya .' dan '. $ta->name,
+            ],
+            [
+                'id' => 1,
+                'name' => $ta->name,
+            ],
+            [
+                'id' => 2,
+                'name' => $tanya,
+            ],
+            [
+                'id' => 3,
+                'name' => 'Tidak Tersedia',
+            ],
+        );
+        return $tas;
+    }
+
     public function index()
     {
         return TahunPelajaran::orderBy('name', 'asc')->get()->toArray();

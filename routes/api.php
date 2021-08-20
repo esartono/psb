@@ -63,6 +63,7 @@ Route::get('penghasilan', 'API\PenghasilanController@index');
 Route::get('sumberinfo', 'API\SumberInfoController@index');
 Route::get('kategoris', 'API\CalonKategoriController@data');
 Route::get('agama', 'API\AgamaController@dataAgama');
+Route::get('tas', 'API\TahunPelajaranController@ta');
 Route::post('cekJurusan', 'API\CalonController@updateJurusan');
 Route::post('cekCalon', 'API\CalonController@cekCalon');
 Route::get('/937a8ddfc66c29ec39ad5f75cdd44b8e/{id}', 'HomeController@apiCalon');

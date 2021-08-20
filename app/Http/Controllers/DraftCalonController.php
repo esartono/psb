@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Unit;
+use App\Gelombang;
 use App\DraftCalon;
+
 use Illuminate\Http\Request;
 
 class DraftCalonController extends Controller
@@ -28,6 +31,10 @@ class DraftCalonController extends Controller
         if($l) {
             $step = $l;
         }
+        $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+        if($calon) {
+            $step = $calon->step;
+        }
         return view('user.create', compact('step'));
     }
 
@@ -39,7 +46,45 @@ class DraftCalonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->step == 1) {
+            if($request->pindahan == 'ya') {
+                $ok = true;
+            }
+
+            if($request->pindahan == 'tidak') {
+                $ok = false;
+            }
+
+            $calon = DraftCalon::updateOrCreate(
+                [
+                    'user_id' => auth()->user()->id,
+                ],
+                [
+                    'tgl_daftar' => date('Y-m-d'),
+                    'pindahan' => $ok,
+                    'step' => 1,
+                    'user_id' => auth()->user()->id,
+                    ]
+                );
+
+            $step = 2;
+            $units = Unit::with('catnya')->orderBy('id', 'asc')->get();
+            return view('user.create', compact('step', 'units'));
+        }
+
+        if($request->step == 2) {
+            $gelombang = Gelombang::where('unit_id', $request->unit)->first()->id;
+            
+            DraftCalon::updateOrCreate(
+                [
+                    'user_id' => auth()->user()->id,
+                ],
+                [
+                    'gel_id' => $gelombang,
+                    'user_id' => auth()->user()->id,
+                    ]
+                );
+        }
     }
 
     /**

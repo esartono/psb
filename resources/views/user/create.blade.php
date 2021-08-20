@@ -18,10 +18,6 @@
                 </div>
                 <div class="card-body">
                     <div class="vue-form-wizard xs">
-                        <div class="wizard-header">
-                            <h4 class="wizard-title"></h4>
-                            <p class="category"></p>
-                        </div>
                         <div class="wizard-navigation">
                             <div class="wizard-progress-with-circle">
                                 <div class="wizard-progress-bar green bg-green" style="width: 6.25%;">
@@ -49,7 +45,8 @@
                                     </a>
                                 </li>
                             </ul>
-                            <div class="wizard-tab-content">
+                            <hr>
+                            <div>
                                 @include('user.form.'.($step))
                             </div>
                         </div>

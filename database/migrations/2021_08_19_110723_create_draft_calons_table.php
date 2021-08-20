@@ -15,8 +15,8 @@ class CreateDraftCalonsTable extends Migration
     {
         Schema::create('draft_calons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('gel_id')->unsigned();
-            $table->integer('ck_id')->unsigned();
+            $table->integer('gel_id')->nullable()->unsigned();
+            $table->integer('ck_id')->nullable()->unsigned();
             $table->date('tgl_daftar');
             $table->string('nisn')->nullable();
             $table->string('nik')->default('-');
@@ -25,8 +25,8 @@ class CreateDraftCalonsTable extends Migration
             $table->boolean('jk')->default(1);
             $table->integer('kelas_tujuan')->default(0)->unsigned();
             $table->string('jurusan')->default('-');
-            $table->string('tempat_lahir');
-            $table->date('tgl_lahir');
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tgl_lahir')->nullable();
             $table->integer('agama')->default(1);
             $table->string('alamat')->nullable();
             $table->string('rt')->nullable();

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div class="card border-info">
           <div class="card-header bg-info">
             <h3 class="card-title">Daftar Kelas</h3>
@@ -46,6 +46,7 @@
                 <th>Siswa Baru</th>
                 <th>Kelas Putra/Putri</th>
                 <th>Jurusan</th>
+                <th>Tahun Ajaran tersedia</th>
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -56,6 +57,7 @@
                   <td class="text-center">{{ statusnya.data[row.status].name }}</td>
                   <td class="text-center">{{ kelasnya.data[row.kelamin].name }}</td>
                   <td class="text-center">{{ row.jurusan }}</td>
+                  <td class="text-center">{{ tas[row.tahun_ajaran].name }}</td>
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>
@@ -155,6 +157,19 @@
                     <has-error :form="form" field="jurusan"></has-error>
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Tahun Ajaran</label>
+                  <div class="col-sm-8">
+                    <select v-model="form.tahun_ajaran" name="tahun_ajaran" class="form-control" id="tahun_ajaran">
+                      <option
+                        v-for="tahun_ajaran in tas"
+                        :key="tahun_ajaran.id"
+                        v-bind:value="tahun_ajaran.id"
+                      >{{ tahun_ajaran.name }}</option>
+                    </select>
+                    <has-error :form="form" field="tahun_ajaran"></has-error>
+                  </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -211,6 +226,7 @@ export default {
             'name': 'IPS'
           }
         ]},
+      tas: {},
       units: {},
       kelasnyas: [],
       filters: {
@@ -224,7 +240,8 @@ export default {
         unit_id: "",
         status: 1,
         kelamin: 0,
-        jurusan: 'TIDAK'
+        jurusan: 'TIDAK',
+        tahun_ajaran: ""
       })
     };
   },
@@ -330,6 +347,9 @@ export default {
     axios
       .get("../api/units")
       .then(({ data }) => (this.units = data));
+    axios
+      .get("../api/tas")
+      .then(({ data }) => (this.tas = data));
     $("#addModal").on("hidden.bs.modal", this.modalOnHidden);
   }
 };
