@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ env('APP_NAME') }} | {{ auth()->user()->tpname }}</title>
+    <title>{{ config('app.name') }} | {{ auth()->user()->tpname }}</title>
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
