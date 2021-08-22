@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Pegawai;
+use App\DraftCalon;
 
 class PegawaiController extends Controller
 {
@@ -48,7 +49,17 @@ class PegawaiController extends Controller
     {
         $pegawai = Pegawai::where('nip', $id)->get();
         $cek = $pegawai->count();
-        return compact('pegawai', 'cek');
+        // return compact('pegawai', 'cek');
+
+        if($cek > 0){
+            $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            $calon->update([
+                'ck_id' => 3,
+                'step' => 4,
+            ]);
+        }
+
+        return compact('cek');
     }
 
     /**

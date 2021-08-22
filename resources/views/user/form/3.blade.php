@@ -11,7 +11,7 @@
             <i class="fas fa-address-card"></i>
             Siswa SIT Nurul Fikri
         </a>
-        <a class="btn btn-app btn-lg white bg-teal">
+        <a class="btn btn-app btn-lg white bg-teal" onclick="ceknip()">
             <img src="/img/logo.png" alt="Logo" width="60%" height="70%">
             Pegawai <br>SIT Nurul Fikri
         </a>
@@ -33,22 +33,56 @@ function ceknis() {
             }
             return { nis: nis}
         }
-    }).then((result) => {
-            axios
-                .get("../api/siswanfs/"+result.value.nis)
-                .then((data) => {
-                    if(data.data.cek == 1){
-                        window.location.replace("{{URL::to('/tambahcalon/4')}}");
-                    }
-                    if(data.data.cek == 0){
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Data tidak ditemukan!',
-                            showConfirmButton: false,
-                            timer: 3000
-                        })
-                    }
+    })
+    .then((result) => {
+        axios
+        .get("../api/siswanfs/"+result.value.nis)
+        .then((data) => {
+            if(data.data.cek == 1){
+                window.location.replace("{{URL::to('/tambahcalon/4')}}");
+            }
+            if(data.data.cek == 0){
+                Swal.fire({
+                    type: 'error',
+                    title: 'Data tidak ditemukan!',
+                    showConfirmButton: false,
+                    timer: 3000
                 })
+            }
         })
+    })
+}
+
+function ceknip() {
+    Swal.fire({
+        title: 'Cek Data Pegawai',
+        html: `<input type="text" id="nip" class="swal2-input" placeholder="NIP">`,
+        confirmButtonText: 'Cek Data',
+        focusConfirm: false,
+        preConfirm: () => {
+            const nip = Swal.getPopup().querySelector('#nip').value
+            if (!nip) {
+                Swal.showValidationMessage(`Masukan Nomor Induk Pegawai`)
+            }
+            return { nip: nip}
+        }
+    })
+    .then((result) => {
+        axios
+        .get("../api/pegawais/"+result.value.nip)
+        .then((data) => {
+            if(data.data.cek == 1){
+                window.location.replace("{{URL::to('/tambahcalon/4')}}");
+            }
+            if(data.data.cek == 0){
+                Swal.fire({
+                    type: 'error',
+                    title: 'Data tidak ditemukan!',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
+        })
+    })
 }
 </script>
