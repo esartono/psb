@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\SiswaNF;
+use App\DraftCalon;
 
 class SiswaNFController extends Controller
 {
@@ -50,9 +51,51 @@ class SiswaNFController extends Controller
      */
     public function show($id)
     {
-        $siswa = SiswaNF::with('tpnya', 'kelasnya')->where('nis', $id)->get();
-        $cek = $siswa->count();
-        return compact('siswa', 'cek');
+        $siswas = SiswaNF::with('tpnya', 'kelasnya')->where('nis', $id)->get();
+        $siswa = $siswas[0];
+        $cek = $siswas->count();
+        // return compact('siswa', 'cek');
+        if($cek > 0){
+            if($siswa->unit === 1 || $siswa->unit === 2 || $siswa->unit === 3) {
+                $alamat = 'Jl. Tugu Raya No. 61 Kelapa Dua';
+                $propinsi = 32;
+                $kota = 3276;
+                $kecamatan = 3276040;
+                $kelurahan = 3276040012;
+                if($siswa->unit === 1) {
+                    $sekolah = 'TKIT Nurul Fikri';
+                    $alamat = 'Jalan Haji Rijin No. 100';
+                }
+                if($siswa->unit === 2) {
+                    $sekolah = 'SDIT Nurul Fikri';
+                }
+                if($siswa->unit === 3) {
+                    $sekolah = 'SMPIT Nurul Fikri';
+                }
+            }
+            if($siswa->unit === 5) {
+                $sekolah = 'NFBS Bogor';
+                $alamat = 'Jl. Jami RT002/008';
+                $propinsi = 32;
+                $kota = 3201;
+                $kecamatan = 3201071;
+                $kelurahan = 3201071002;
+            }
+            $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            $calon->update([
+                'ck_id' => 2,
+                'step' => 4,
+                'name' => $siswa->name,
+                'jk' => $siswa->jk,
+                'asal_sekolah' => $sekolah,
+                'asal_alamat_sekolah' => $alamat,
+                'asal_propinsi_sekolah' => $propinsi,
+                'asal_kota_sekolah' => $kota,
+                'asal_kecamatan_sekolah' => $kecamatan,
+                'asal_kelurahan_sekolah' => $kelurahan,
+            ]);
+        }
+        return compact('cek');
     }
 
     /**
