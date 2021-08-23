@@ -19,4 +19,10 @@ class KelurahanController extends Controller
         return Kelurahan::where('camat_id', $camat)->orderBy('id', 'asc')->get()->toArray();
     }
 
+    public function kelurahan($camat)
+    {
+        $lurah = Kelurahan::where('camat_id', $camat)->orderBy('id', 'asc')->get()->pluck("name","id");
+        return response()->json($lurah);
+    }
+
 }

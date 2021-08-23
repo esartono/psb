@@ -53,18 +53,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a class="btn bg-yellow">
-                        <i class="fa fa-chevron-circle-left"></i>
-                        Kembali
-                    </a>
-                    <a class="btn bg-blue float-right">
-                        Selanjutnya
-                        <i class="fa fa-chevron-circle-right"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
+<script type="text/javascript">
+    $.fn.datepicker.dates['id'] = {
+        days: ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jum`at", "Sabtu"],
+        daysShort: ["Ahd", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
+        daysMin: ["Ah", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
+        months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"],
+        today: "Hari Ini",
+        clear: "Clear",
+        format: "dd MM yyyy",
+        titleFormat: "MM yyyy",
+        weekStart: 0
+    };
+
+    $('#datepicker').datepicker({
+        autoclose: true,
+        disableTouchKeyboard: false,
+        language: 'id',
+        setDate: new Date('{{ $age }}'),
+        endDate: new Date('{{ $min_age }}')
+    });
+</script>
+@endpush

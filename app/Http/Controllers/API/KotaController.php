@@ -19,4 +19,10 @@ class KotaController extends Controller
         return Kota::where('prov_id', $prov)->orderBy('id', 'asc')->get()->toArray();
     }
 
+    public function kota($prov)
+    {
+        $kota = Kota::where('prov_id', $prov)->orderBy('id', 'asc')->get()->pluck("name","id");
+        return response()->json($kota);
+    }
+
 }

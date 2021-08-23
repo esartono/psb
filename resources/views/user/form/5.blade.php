@@ -1,0 +1,79 @@
+<style>
+    .datepicker tr td-:last-of-type {
+        width: 20px !important;
+    }
+</style>
+
+<div class="text-center">
+    <h4 class="mb-3">Data Calon Siswa</h4>
+    <form role="form" method="POST" action="{{ route('add.calon') }}">
+        @csrf
+        <input type="hidden" name="step" value=5>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Alamat Tempat Tinggal</label>
+            <div class="col-md-9">
+                <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat Tempat Tinggal" required>
+                <has-error :form="form" field="alamat"></has-error>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Provinsi</label>
+            <div class="col-md-3">
+                <select onchange="listKota(this)" name="provinsi" class="form-control" id="provinsi" required>
+                    <option selected='true' disabled='disabled'>Pilih Provinsi</option>
+                    @foreach ($provinsi as $prov)
+                        <option value="{{ $prov->id }}">{{ $prov->name }}</option>
+                    @endforeach
+                </select>
+                <has-error :form="form" field="provinsi"></has-error>
+            </div>
+            <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
+            <div class="col-md-3">
+                <select onchange="listCamat(this)" name="kota" class="form-control" id="kota" required></select>
+                <has-error :form="form" field="kota"></has-error>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Kecamatan</label>
+            <div class="col-md-3">
+                <select onchange="listLurah(this)" name="kecamatan" class="form-control" id="kecamatan" required></select>
+                <has-error :form="form" field="kecamatan"></has-error>
+            </div>
+            <label class="col-md-2 offset-md-1 col-form-label">Kelurahan</label>
+            <div class="col-md-3">
+                <select name="kelurahan" class="form-control" id="kelurahan" required></select>
+                <has-error :form="form" field="kelurahan"></has-error>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">RT</label>
+            <div class="col-md-2">
+                <input type="text" name="rt" class="form-control" id="rt" required
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                <has-error :form="form" field="rt"></has-error>
+            </div>
+            <label class="offset-md-3 col-md-1 col-form-label">RW</label>
+            <div class="col-md-2">
+                <input type="text" name="rw" class="form-control" id="rw" required
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                <has-error :form="form" field="rw"></has-error>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Kodepos</label>
+            <div class="col-md-3">
+                <input type="text" name="kodepos" class="form-control" id="kodepos"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="5" minlength="5">
+                <has-error :form="form" field="kodepos"></has-error>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn bg-blue float-right">
+            Selanjutnya
+            <i class="fa fa-chevron-circle-right"></i>
+        </button>
+    </form>
+</div>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+<script type="application/javascript" src="/js/daerah.js"></script>
