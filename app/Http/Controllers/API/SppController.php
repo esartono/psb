@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class SppController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +20,7 @@ class SppController extends Controller
      */
     public function index()
     {
-        //
+        return Spp::with('tpnya', 'unitnya')->orderBy('id', 'asc')->get()->toArray();
     }
 
     /**
@@ -26,7 +31,11 @@ class SppController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Spp::create([
+            'tp' => $request['tp'],
+            'unit_id' => $request['unit_id'],
+            'spp' => $request['spp']
+        ]);
     }
 
     /**
@@ -47,19 +56,15 @@ class SppController extends Controller
      * @param  \App\Spp  $spp
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Spp $spp)
+    public function update(Request $request, $id)
     {
-        //
+        $spp = Spp::findOrFail($id);
+        $spp->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Spp  $spp
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Spp $spp)
+    public function destroy($id)
     {
-        //
+        $spp = Spp::findOrFail($id);
+        $spp->delete();
     }
 }

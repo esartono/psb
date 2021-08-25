@@ -10,7 +10,7 @@
                             <a class="btn btn-sm btn-danger" @click="addModal">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -37,7 +37,7 @@
                                     <th>{{ index+((currentPage-1) * 7)+1 }}</th>
                                     <td class="text-center">{{ row.tpnya.name }}</td>
                                     <td class="text-center" width="150px">{{ row.unitnya.name }}</td>
-                                    <td class="text-center">{{ row.spp }}</td>
+                                    <td class="text-center">{{ row.spp | toCurrency }}</td>
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -118,7 +118,7 @@
                 editmode: false,
                 tps: {},
                 units: {},
-                gelombangs: [],
+                spps: [],
                 filters: {
                     name: {
                         value: "",
@@ -129,16 +129,9 @@
                 totalPages: 0,
                 form: new Form({
                     id: "",
-                    name: "",
                     tp: 1,
                     unit_id: 1,
-                    minimum_age: "",
-                    kuota: 0,
-                    kuota_inklusi: 0,
-                    kode_va: "",
-                    kode_unit: "",
-                    start: "",
-                    end: ""
+                    spp: 0
                 })
             };
         },
@@ -146,9 +139,9 @@
         methods: {
             listData() {
                 this.$Progress.start();
-                axios.get("../api/gelombangs").then(({
+                axios.get("../api/spps").then(({
                     data
-                }) => (this.gelombangs = data));
+                }) => (this.spps = data));
                 this.$Progress.finish();
             },
 
@@ -161,13 +154,13 @@
             createData() {
                 this.$Progress.start();
                 this.form
-                    .post("../api/gelombangs")
+                    .post("../api/spps")
                     .then(() => {
                         $("#addModal").modal("hide");
                         Fire.$emit("listData");
                         Toast.fire({
                             type: "success",
-                            title: "Tambah Data Gelombang Berhasil"
+                            title: "Tambah Data Biaya SPP Berhasil"
                         });
                         this.$Progress.finish();
                     })
@@ -176,23 +169,23 @@
                     });
             },
 
-            editModal(gelombang) {
+            editModal(spp) {
                 this.editmode = true;
                 this.form.reset();
                 $("#addModal").modal("show");
-                this.form.fill(gelombang);
+                this.form.fill(spp);
             },
 
             updateData() {
                 this.$Progress.start();
                 this.form
-                    .put("../api/gelombangs/" + this.form.id)
+                    .put("../api/spps/" + this.form.id)
                     .then(() => {
                         $("#addModal").modal("hide");
                         Fire.$emit("listData");
                         Toast.fire({
                             type: "success",
-                            title: "Berhasil Update Data Gelombang"
+                            title: "Berhasil Update Data Biaya SPP"
                         });
                         this.$Progress.finish();
                     })
@@ -203,7 +196,7 @@
 
             deleteData(id) {
                 Swal.fire({
-                    title: "Delete Data Gelombang",
+                    title: "Delete Data Biaya SPP",
                     text: "Apakah anda yakin ?",
                     type: "warning",
                     showCancelButton: true,
@@ -214,9 +207,9 @@
                 }).then(result => {
                     if (result.value) {
                         this.form
-                            .delete("../api/gelombangs/" + id)
+                            .delete("../api/spps/" + id)
                             .then(() => {
-                                Swal.fire("Berhasil!", "Data Gelombang telah di hapus.", "success");
+                                Swal.fire("Berhasil!", "Data Biaya SPP telah di hapus.", "success");
                                 Fire.$emit("listData");
                             })
                             .catch(() => {

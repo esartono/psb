@@ -92,6 +92,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/config/jadwal', 'HomeController@front');
     Route::get('/config/biayates', 'HomeController@front');
     Route::get('/config/tagihanPSB', 'HomeController@front');
+    Route::get('/config/biayaSPP', 'HomeController@front');
     Route::get('/config/agreement', 'HomeController@front');
     Route::get('/config/berita', 'HomeController@front');
 

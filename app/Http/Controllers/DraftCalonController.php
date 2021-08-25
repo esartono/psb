@@ -51,6 +51,7 @@ class DraftCalonController extends Controller
         $provinsi = Provinsi::orderBy('name', 'asc')->get();
         $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
         $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
+        $min_age = $age = date('Y-m-d');
 
         $pilihan = [
             ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
@@ -63,7 +64,7 @@ class DraftCalonController extends Controller
         ];
 
         if(!$calon) {
-            return view('user.create', compact('step', 'pilihan', 'age'));
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age'));
         }
 
         if($l) {
@@ -72,7 +73,12 @@ class DraftCalonController extends Controller
                 if($calon->tgl_lahir){
                     $age = $calon->tgl_lahir;
                 } else {
-                    $age = Gelombang::where('id', $calon->gel_id)->first()->minimum_age;
+                    $ages = Gelombang::where('id', $calon->gel_id)->first();
+                    if($ages) {
+                        $age = $ages->minimum_age;
+                    } else {
+                        $age = date('Y-m-d');
+                    }
                 }
                 if(intval($l) <= $calon->step) {
                     $step = $l;
@@ -108,7 +114,14 @@ class DraftCalonController extends Controller
         }
 
         $units = Unit::with('catnya')->whereIn('id', $cekkelas)->orderBy('id', 'asc')->get();
-        $min_age = Gelombang::where('id', $calon->gel_id)->first()->minimum_age;
+        $min_ages = Gelombang::where('id', $calon->gel_id)->first();
+        $unit = Unit::with('catnya')->where('id', $calon->gel_id)->first();
+
+        if($min_ages) {
+            $min_age = $min_ages->minimum_age;
+        } else {
+            $min_age = date('Y-m-d');
+        }
 
         return view('user.create', compact(
             'agama',
@@ -124,6 +137,7 @@ class DraftCalonController extends Controller
             'pekerjaan',
             'step',
             'units',
+            'unit'
         ));
     }
 
@@ -196,7 +210,7 @@ class DraftCalonController extends Controller
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $calon->update([
                 'ck_id' => $request->ck_id,
-                'asal_nf' => $request->asal_nf,
+                'asal_nf' => ($request->asal_nf) ? true : false,
                 'step' => 4,
             ]);
 

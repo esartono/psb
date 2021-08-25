@@ -71,6 +71,7 @@ let routes = [
     { path: '/config/jadwal', component: require('./components/config/Jadwal.vue').default},
     { path: '/config/biayates', component: require('./components/config/BiayaTes.vue').default},
     { path: '/config/tagihanPSB', component: require('./components/config/tagihanPSB.vue').default},
+    { path: '/config/biayaSPP', component: require('./components/config/SPP.vue').default},
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
     { path: '/config/berita', component: require('./components/config/Berita.vue').default},
 

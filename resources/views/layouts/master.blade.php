@@ -222,6 +222,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
+                <router-link to="/config/biayaSPP" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Biaya SPP</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <router-link to="/config/agreement" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Persetujuan</p>
