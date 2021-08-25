@@ -55,7 +55,6 @@ class PegawaiController extends Controller
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $calon->update([
                 'ck_id' => 3,
-                'step' => 4,
             ]);
         }
 

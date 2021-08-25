@@ -5,7 +5,6 @@
 </style>
 
 <div class="text-center">
-    <h4 class="mb-3">Data Calon Siswa</h4>
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
         <input type="hidden" name="step" value=8>
@@ -49,11 +48,9 @@ function ceksetujusemua() {
     const ok = document.getElementsByName('ok1').length
     const ch = document.querySelectorAll('input[type="checkbox"]:checked').length
     if(ok == ch) {
-        console.log('Udah Semua')
         document.getElementById("finish").disabled = false;
     } else {
         document.getElementById("finish").disabled = true;
-        console.log('Belum Semua')
     }
 }
 </script>

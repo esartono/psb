@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Unit;
+use App\Kota;
 use App\Calon;
 use App\Agama;
 use App\BiayaTes;
 use App\Kelasnya;
 use App\Provinsi;
+use App\Kecamatan;
+use App\Kelurahan;
 use App\Pekerjaan;
 use App\Gelombang;
 use App\Agreement;
 use App\Pendidikan;
 use App\DraftCalon;
 use App\SumberInfo;
+use App\Penghasilan;
 use App\CalonBiayaTes;
 use App\CalonKategori;
 use App\SchoolCategory;
@@ -42,16 +46,9 @@ class DraftCalonController extends Controller
      */
     public function create($l = null)
     {
-        $step = 1;
-        $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
-        $kategories = CalonKategori::orderBy('id', 'asc')->get();
-        $agreement = Agreement::orderBy('id','asc')->get();
-        $infos = SumberInfo::orderBy('id', 'asc')->get();
-        $agama = Agama::orderBy('id', 'asc')->get();
-        $provinsi = Provinsi::orderBy('name', 'asc')->get();
-        $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
-        $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
-        $min_age = $age = date('Y-m-d');
+        $ages = $min_age = date('Y-m-d');
+        $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
 
         $pilihan = [
             ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
@@ -63,82 +60,104 @@ class DraftCalonController extends Controller
             ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
 
-        if(!$calon) {
+        if(is_null($l)){
+            $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            if($calon){
+                $step = $calon->step;
+            } else {
+                $step = 1;
+            }
+        } else {
+            $step = 1;
+            $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            if($calon){
+                $step = $calon->step;
+            }
+            if($l <= $step && $step > 3){
+                if($l < 4){
+                    $step = 4;
+                } else {
+                    $step = $l;
+                }
+            }
+        }
+
+        if($step == 1){
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age'));
         }
 
-        if($l) {
-            if($calon) {
-                $ok = $calon->pindahan;
-                if($calon->tgl_lahir){
-                    $age = $calon->tgl_lahir;
-                } else {
-                    $ages = Gelombang::where('id', $calon->gel_id)->first();
-                    if($ages) {
-                        $age = $ages->minimum_age;
-                    } else {
-                        $age = date('Y-m-d');
+        if($step == 2){
+            $ok = $calon->pindahan;
+            if($ok === 1){
+                $cekkelas = Kelasnya::where('status', 1)
+                    ->whereIn('tahun_ajaran', [0,2])
+                    ->get()
+                    ->groupBy('unit_id')->keys()->toArray();
+            } else {
+                $cekkelas = Kelasnya::where('status', 1)
+                    ->whereIn('tahun_ajaran', [0,1])
+                    ->get()
+                    ->groupBy('unit_id')->keys()->toArray();
+            }
+
+            $units = Unit::with('catnya')->whereIn('id', $cekkelas)->orderBy('id', 'asc')->get();
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon'));
+        }
+
+        if($step == 3){
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age'));
+        }
+
+        if($step == 4){
+            $infos = SumberInfo::orderBy('id', 'asc')->get();
+            $agama = Agama::orderBy('id', 'asc')->get();
+            $ages = $min_age = Gelombang::where('id', $calon->gel_id)->first()->minimum_age;
+            $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
+
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agama', 'infos'));
+        }
+
+        if($step == 5){
+            $provinsi = Provinsi::orderBy('name', 'asc')->get();
+            $kota = $kecamatan = $kelurahan = "";
+            if($calon->provinsi){
+                $kota = Kota::where('prov_id', $calon->provinsi)->get();
+                if($calon->kota){
+                    $kecamatan = Kecamatan::where('kota_id', $calon->kota)->get();
+                    if($calon->kecamatan){
+                        $kelurahan = Kelurahan::where('camat_id', $calon->kecamatan)->get();
                     }
                 }
-                if(intval($l) <= $calon->step) {
-                    $step = $l;
-                } else {
-                    $step = $calon->step;
+            }
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
+        }
+
+        if($step == 6){
+            $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
+            $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
+            $penghasilan = Penghasilan::orderBy('id', 'asc')->get();
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'pendidikan', 'pekerjaan', 'penghasilan'));
+        }
+
+        if($step == 7){
+            $provinsi = Provinsi::orderBy('name', 'asc')->get();
+            $kota = $kecamatan = $kelurahan = "";
+            if($calon->asal_propinsi_sekolah){
+                $kota = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
+                if($calon->asal_kota_sekolah){
+                    $kecamatan = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
+                    if($calon->asal_kecamatan_sekolah){
+                        $kelurahan = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
+                    }
                 }
             }
-
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
         }
 
-        if(!$l) {
-            if($calon) {
-                $ok = $calon->pindahan;
-                $step = $calon->step;
-                if($calon->tgl_lahir){
-                    $age = $calon->tgl_lahir;
-                } else {
-                    $age = Gelombang::where('id', $calon->gel_id)->first()->minimum_age;
-                }
-            }
+        if($step == 8){
+            $agreement = Agreement::orderBy('id','asc')->get();
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agreement'));
         }
-
-        if($ok === true || $ok === 1){
-            $cekkelas = Kelasnya::where('status', 1)
-                ->whereIn('tahun_ajaran', [0,2])
-                ->get()
-                ->groupBy('unit_id')->keys()->toArray();
-        } else {
-            $cekkelas = Kelasnya::where('status', 1)
-                ->whereIn('tahun_ajaran', [0,1])
-                ->get()
-                ->groupBy('unit_id')->keys()->toArray();
-        }
-
-        $units = Unit::with('catnya')->whereIn('id', $cekkelas)->orderBy('id', 'asc')->get();
-        $min_ages = Gelombang::where('id', $calon->gel_id)->first();
-        $unit = Unit::with('catnya')->where('id', $calon->gel_id)->first();
-
-        if($min_ages) {
-            $min_age = $min_ages->minimum_age;
-        } else {
-            $min_age = date('Y-m-d');
-        }
-
-        return view('user.create', compact(
-            'agama',
-            'age',
-            'agreement',
-            'calon',
-            'infos',
-            'kategories',
-            'min_age',
-            'pilihan',
-            'provinsi',
-            'pendidikan',
-            'pekerjaan',
-            'step',
-            'units',
-            'unit'
-        ));
     }
 
     /**
@@ -208,8 +227,17 @@ class DraftCalonController extends Controller
 
         if($request->step == 3) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            $cek = 1;
+            if($calon) {
+                if($calon->ck_id === 2){
+                    $cek = 2;
+                }
+                if($calon->ck_id === 3){
+                    $cek = 3;
+                }
+            }
             $calon->update([
-                'ck_id' => $request->ck_id,
+                'ck_id' => $cek,
                 'asal_nf' => ($request->asal_nf) ? true : false,
                 'step' => 4,
             ]);
@@ -278,88 +306,87 @@ class DraftCalonController extends Controller
 
         if($request->step == 8) {
             $draft = DraftCalon::where('user_id', auth()->user()->id)->first();
-            $draft->update(['step'=>8]);
-
             $urut = Calon::where('gel_id', $draft['gel_id'])->get()->count();
 
-        if ($request['jurusan']) {
-            $jurusan = $request['jurusan'];
-        } else {
-            $jurusan = "-";
-        }
+            if ($request['jurusan']) {
+                $jurusan = $request['jurusan'];
+            } else {
+                $jurusan = "-";
+            }
 
-        $calon = Calon::create([
-            'gel_id' => $draft['gel_id'],
-            'ck_id' => $draft['ck_id'],
-            'tgl_daftar' => date('Y-m-d'),
-            'urut' => $urut+1,
-            'nisn' => $draft['nisn'],
-            'nik' => $draft['nik'],
-            'name' => $draft['name'],
-            'panggilan' => $draft['panggilan'],
-            'jk' => $draft['jk'],
-            'kelas_tujuan' => $draft['kelas_tujuan'],
-            'jurusan' => $jurusan,
-            'photo' => 'Belum Ada',
-            'tempat_lahir' => $draft['tempat_lahir'],
-            'tgl_lahir' => $draft['tgl_lahir'],
-            'agama' => $draft['agama'],
-            'info' => $draft['info'],
-            'status' => false,
-            'setuju' => $draft['setuju'],
-            'user_id' => auth()->user()->id,
-            'alamat' => $draft['alamat'],
-            'rt' => $draft['rt'],
-            'rw' => $draft['rw'],
-            'kodepos' => $draft['kodepos'],
-            'provinsi' => $draft['provinsi'],
-            'kota' => $draft['kota'],
-            'kecamatan' => $draft['kecamatan'],
-            'kelurahan' => $draft['kelurahan'],
-            'phone' => $draft['phone'],
-            'ayah_nama' => $draft['ayah_nama'],
-            'ayah_pendidikan' => $draft['ayah_pendidikan'],
-            'ayah_pekerjaan' => $draft['ayah_pekerjaan'],
-            'ayah_penghasilan' => $draft['ayah_penghasilan'],
-            'ayah_hp' => $draft['ayah_hp'],
-            'ayah_email' => $draft['ayah_email'],
-            'ibu_nama' => $draft['ibu_nama'],
-            'ibu_pendidikan' => $draft['ibu_pendidikan'],
-            'ibu_pekerjaan' => $draft['ibu_pekerjaan'],
-            'ibu_penghasilan' => $draft['ibu_penghasilan'],
-            'ibu_hp' => $draft['ibu_hp'],
-            'ibu_email' => $draft['ibu_email'],
-            'asal_nf' => $draft['asal_nf'],
-            'pindahan' => $draft['pindahan'],
-            'tahun_sekarang' => $draft['tahun_sekarang'],
-            'asal_sekolah' => $draft['asal_sekolah'],
-            'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
-            'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
-            'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
-            'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
-            'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
-        ]);
-
-        $biaya = BiayaTes::where('gel_id', $draft['gel_id'])
-                    ->where('ck_id', $draft['ck_id'])
-                    ->get()->first();
-        if($biaya) {
-            $calonbiaya = CalonBiayaTes::create([
-                'calon_id' => $calon->id,
-                'biaya_id' => $biaya->id,
-                'expired' => date("Y-m-d", strtotime("+3 days"))
+            $calon = Calon::create([
+                'gel_id' => $draft['gel_id'],
+                'ck_id' => $draft['ck_id'],
+                'tgl_daftar' => date('Y-m-d'),
+                'urut' => $urut+1,
+                'nisn' => $draft['nisn'],
+                'nik' => $draft['nik'],
+                'name' => $draft['name'],
+                'panggilan' => $draft['panggilan'],
+                'jk' => $draft['jk'],
+                'kelas_tujuan' => $draft['kelas_tujuan'],
+                'jurusan' => $jurusan,
+                'photo' => 'Belum Ada',
+                'tempat_lahir' => $draft['tempat_lahir'],
+                'tgl_lahir' => $draft['tgl_lahir'],
+                'agama' => $draft['agama'],
+                'info' => $draft['info'],
+                'status' => false,
+                'setuju' => $draft['setuju'],
+                'user_id' => auth()->user()->id,
+                'alamat' => $draft['alamat'],
+                'rt' => $draft['rt'],
+                'rw' => $draft['rw'],
+                'kodepos' => $draft['kodepos'],
+                'provinsi' => $draft['provinsi'],
+                'kota' => $draft['kota'],
+                'kecamatan' => $draft['kecamatan'],
+                'kelurahan' => $draft['kelurahan'],
+                'phone' => $draft['phone'],
+                'ayah_nama' => $draft['ayah_nama'],
+                'ayah_pendidikan' => $draft['ayah_pendidikan'],
+                'ayah_pekerjaan' => $draft['ayah_pekerjaan'],
+                'ayah_penghasilan' => $draft['ayah_penghasilan'],
+                'ayah_hp' => $draft['ayah_hp'],
+                'ayah_email' => $draft['ayah_email'],
+                'ibu_nama' => $draft['ibu_nama'],
+                'ibu_pendidikan' => $draft['ibu_pendidikan'],
+                'ibu_pekerjaan' => $draft['ibu_pekerjaan'],
+                'ibu_penghasilan' => $draft['ibu_penghasilan'],
+                'ibu_hp' => $draft['ibu_hp'],
+                'ibu_email' => $draft['ibu_email'],
+                'asal_nf' => $draft['asal_nf'],
+                'pindahan' => $draft['pindahan'],
+                'tahun_sekarang' => $draft['tahun_sekarang'],
+                'asal_sekolah' => $draft['asal_sekolah'],
+                'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
+                'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
+                'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
+                'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
+                'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
             ]);
 
-            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
-            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-            Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-                {
-                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-                }
-            );
-        }
-        dd('EKO');
-        // return redirect('tambahcalon/'.$step);
+            $biaya = BiayaTes::where('gel_id', $draft['gel_id'])
+                        ->where('ck_id', $draft['ck_id'])
+                        ->get()->first();
+            if($biaya) {
+                $calonbiaya = CalonBiayaTes::create([
+                    'calon_id' => $calon->id,
+                    'biaya_id' => $biaya->id,
+                    'expired' => date("Y-m-d", strtotime("+3 days"))
+                ]);
+
+                Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
+                $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+                Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+                    {
+                        $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                    }
+                );
+            }
+
+            $draft->delete();
+            return redirect()->route('ppdb');
         }
         return redirect('tambahcalon/'.$step);
     }

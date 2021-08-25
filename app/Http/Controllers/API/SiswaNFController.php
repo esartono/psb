@@ -51,8 +51,8 @@ class SiswaNFController extends Controller
      */
     public function show($id)
     {
-        $siswas = SiswaNF::with('tpnya', 'kelasnya')->where('nis', $id)->get();
-        $siswa = $siswas[0];
+        $siswas = SiswaNF::where('nis', $id)->get();
+        $siswa = $siswas->first();
         $cek = $siswas->count();
         // return compact('siswa', 'cek');
         if($cek > 0){
@@ -82,9 +82,14 @@ class SiswaNFController extends Controller
                 $kelurahan = 3201071002;
             }
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            $cek = 2;
+            if($calon->ck_id === 3){
+                $cek = 3;
+            }
             $calon->update([
-                'ck_id' => 2,
+                'ck_id' => $cek,
                 'step' => 4,
+                'asal_nf' => 1,
                 'name' => $siswa->name,
                 'jk' => $siswa->jk,
                 'asal_sekolah' => $sekolah,

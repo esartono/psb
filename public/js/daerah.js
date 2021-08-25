@@ -6,12 +6,16 @@ function listKota(e) {
         .then((data) => {
             if(data){
                 $("#kota").empty();
+                $("#kecamatan").empty();
+                $("#kelurahan").empty();
                 $("#kota").append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
                 $.each(data.data,function(key,value){
                     $("#kota").append('<option value="'+key+'">'+value+'</option>');
                 });
             } else {
                 $("#kota").empty();
+                $("#kecamatan").empty();
+                $("#kelurahan").empty();
             }
         });
     }
@@ -25,12 +29,14 @@ function listCamat(e) {
         .then((data) => {
             if(data){
                 $("#kecamatan").empty();
+                $("#kelurahan").empty();
                 $("#kecamatan").append('<option selected="true" disabled="disabled">Pilih Kecamatan</option>');
                 $.each(data.data,function(key,value){
                     $("#kecamatan").append('<option value="'+key+'">'+value+'</option>');
                 });
             } else {
                 $("#kecamatan").empty();
+                $("#kelurahan").empty();
             }
         });
     }

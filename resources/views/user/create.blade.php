@@ -35,7 +35,7 @@
                                 </li>
                                 @foreach ($pilihan as $k => $p)
                                     <li>
-                                        <a href="tambahcalon/{{ $step }}" class="{{ $step > $k+1 ? '' : 'disabled' }}">
+                                        <a href="/tambahcalon/{{ $k+2 }}" class="{{ $step > $k+1 ? '' : 'disabled' }}">
                                             <div role="tab" class="wizard-icon-circle md {{ $step > $k+1 ? 'bg-green' : 'bg-grey' }}">
                                                 <div class="wizard-icon-container {{ $step > $k+1 ? 'bg-green' : 'bg-grey' }}">
                                                     <i class="wizard-icon {{ $p['icon'] }}"></i>
