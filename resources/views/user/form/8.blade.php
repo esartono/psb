@@ -1,25 +1,25 @@
-<style>
-    .datepicker tr td-:last-of-type {
-        width: 20px !important;
-    }
-</style>
-
 <div class="text-center">
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
         <input type="hidden" name="step" value=8>
-        <table class="table table-bordered table-hover table-responsive">
+        {{-- <h3>LEMBAR PERSETUJUAN</h3> --}}
+        <table class="table table-hover table-responsive">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Pernyataan Persetujuan</th>
                     <th></th>
+                    <th colspan="2">Pernyataan Persetujuan</th>
+                    {{-- <th></th> --}}
                 </tr>
             </thead>
             <tbody>
                 @php
                     $no = 1;
                 @endphp
+                <tr>
+                    <td colspan="2" style="text-align: left">
+                        <p style="text-align: left">Dengan ini saya menyatakan :</p>
+                    </td>
+                </tr>
                 @foreach ($agreement as $a)
                     <tr>
                         <th>{{ $no++ }}</th>
@@ -42,7 +42,6 @@
     </form>
 </div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script type="application/javascript">
 function ceksetujusemua() {
     const ok = document.getElementsByName('ok1').length

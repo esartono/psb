@@ -1,9 +1,3 @@
-<style>
-    .datepicker tr td-:last-of-type {
-        width: 20px !important;
-    }
-</style>
-
 <div class="text-center">
     <h4 class="mb-3">Data Alamat Calon Siswa</h4>
     <form role="form" method="POST" action="{{ route('add.calon') }}">
@@ -100,5 +94,4 @@
     </form>
 </div>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
 <script type="application/javascript" src="/js/daerah.js"></script>

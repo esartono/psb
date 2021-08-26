@@ -1,9 +1,3 @@
-<style>
-    .datepicker tr td-:last-of-type {
-        width: 20px !important;
-    }
-</style>
-
 <div class="text-center">
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
@@ -158,6 +152,3 @@
         </button>
     </form>
 </div>
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-<script type="application/javascript" src="/js/daerah.js"></script>
