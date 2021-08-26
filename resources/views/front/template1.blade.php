@@ -34,6 +34,7 @@
 	<link rel="stylesheet" href="/front/css/animate.min.css">
 	<link rel="stylesheet" href="/front/css/owl.carousel.css">
 	<link rel="stylesheet" href="/front/css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
 	<style>
 	li {
 		display: inline-block;
@@ -76,6 +77,11 @@
 					<ul class="nav-menu">
 						<li class="menu-active"><a href="/">Depan</a></li>
 						<li><a href="file/Alur PPDB NF.jpg" target="_blank">Alur Pendaftaran</a></li>
+						<li>
+							<a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox"> OKE
+								<img src="https://unsplash.it/600.jpg?image=251" class="img-fluid">
+							</a>
+						</li>
 						<li><a href="biaya">Biaya Pendidikan</a></li>
 						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
 						<!-- <li class="menu-has-children"><a href="jadwal">Jadwal</a> -->
@@ -121,6 +127,7 @@
 	<script src="/front/js/jquery.counterup.min.js"></script>
 	<script src="/front/js/mail-script.js"></script>
 	<script src="/front/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
 </body>
 
 </html>

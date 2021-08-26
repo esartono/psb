@@ -28,8 +28,8 @@ Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
 
-Auth::routes(['verify' => true]);
 Route::get('logout', 'Auth\LoginController@logout');
+Auth::routes(['verify' => true]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
