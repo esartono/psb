@@ -43,11 +43,7 @@
                                     <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
                                     <td class="text-center">{{ row.kelasnya.name }}</td>
                                     <td class="text-center">{{ (row.kelamin == 1 ? 'Laki-laki' : 'Perempuan') }}</td>
-                                    <td class="text-center">
-                                        Reguler 1 : {{ row.total[1] | toCurrency }}<br>
-                                        Reguler 2 : {{ row.total[2] | toCurrency }}<br>
-                                        Reguler 3 : {{ row.total[3] | toCurrency }}
-                                    </td>
+                                    <td class="text-center">{{ row.total | toCurrency }}</td>
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -102,17 +98,9 @@
                                 </div>
                                 <hr>
                                 <table width="100%">
-                                    <tr>
-                                        <th width="34%"></th>
-                                        <th width="22%">Reguler 1</th>
-                                        <th width="22%">Reguler 2</th>
-                                        <th width="22%">Reguler 3</th>
-                                    </tr>
                                     <tr v-for="b in biaya" :key="b.id">
                                         <td><label class="col-form-label">{{ b.name }}</label></td>
                                         <td><input v-model="form.biaya1[b.name]" type="number" name="biaya1[b.name]" class="form-control" id="biaya" min=0/ step="500" required></td>
-                                        <td><input v-model="form.biaya2[b.name]" type="number" name="biaya2[b.name]" class="form-control" id="biaya" min=0/ step="500" required></td>
-                                        <td><input v-model="form.biaya3[b.name]" type="number" name="biaya3[b.name]" class="form-control" id="biaya" min=0/ step="500" required></td>
                                     </tr>
                                 </table>
                             </div>

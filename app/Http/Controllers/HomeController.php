@@ -220,8 +220,12 @@ class HomeController extends Controller
         $tp = TahunPelajaran::where('status', 1)->first();
 
         $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
+        if($gelombang){
+            $start = date('M d, Y H:i:s', strtotime($gelombang->start));
+        } else {
+            $start = date('M d, Y H:i:s', strtotime(date('Y').'-09-01'));
+        }
 
-        $start = date('M d, Y H:i:s', strtotime($gelombang->start));
         $units = Unit::with('catnya')->orderBy('id', 'asc')->get();
         $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
 

@@ -7,7 +7,7 @@
 		<div class="container">
 			<div class="row fullscreen d-flex align-items-center justify-content-center">
 				<div class="banner-content col-md-7">
-					<h1 class="wow fadeIn" data-wow-duration="4s">PPDB Online<br> SIT Nurul Fikri - TESTING - V.4.0</h1>
+					<h1 class="wow fadeIn" data-wow-duration="4s">PPDB Online<br> SIT Nurul Fikri</h1>
 					<hr>
 					<p class="wow fadeIn text-white">
 						Selamat Datang di Sistem PPDB Online SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
