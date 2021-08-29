@@ -76,15 +76,9 @@
 					<ul class="nav-menu">
 						<li class="menu-active"><a href="/">Depan</a></li>
 						<li><a href="file/Alur PPDB NF.jpg" target="_blank">Alur Pendaftaran</a></li>
-						<li><a href="biaya">Biaya Pendidikan</a></li>
+						<li><a href="/biaya">Biaya Pendidikan</a></li>
 						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
-						<!-- <li class="menu-has-children"><a href="jadwal">Jadwal</a> -->
-						<li><a href="file/Jadwal PSB.pdf" target="_blank">Jadwal</a>
-							<!-- <ul>
-								<li><a href="jadwal">Proses PPDB</a></li>
-								<li><a href="jadwalkesehatan">Tes Kesehatan</a></li>
-							</ul> -->
-						</li>
+						<li><a href="/jadwal">Jadwal</a></li>
 						<li class="menu-has-children"><a href="">Tata Cara Pembayaran</a>
 							<ul>
 								<li><a href="file/Tata Cara Pembayaran Menggunakan Edupay BSM.pdf" target="_blank">Biaya Pendaftaran</a></li>

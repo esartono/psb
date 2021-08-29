@@ -5,6 +5,9 @@
     body {
         color: black
     }
+    table, th, td {
+        border: 1px solid black !important;
+    }
     th {
         background-color: aquamarine;
         font-weight: 800;
@@ -21,7 +24,11 @@
     .khusus td{
         text-align: left;
     }
+    .spesial {
+        border: 0px !important;
+    }
     .spesial td{
+        border: 0px !important;
         text-align: left;
         padding: 0 5px;
     }

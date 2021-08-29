@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@depan')->name('depan');
 Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
-Route::get('/jadwal1', 'HomeController@jadwal')->name('jadwal');
+Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');

@@ -1,242 +1,196 @@
-@extends('front.template')
+@extends('front.template1')
 
 @section('isi')
-        <div class="container">
-            <img src="" alt="">
-            <h1 style="text-align:center;">
-                Jadwal Proses Penerimaan Peserta Didik Baru <br>
-                Sekolah Islam Terpadu Nurul Fikri
-            </h1>
-        </div>
-        <hr>
-        <div class="container">
-            <div class="card col-md-5">
-                <div class="card-header">
-                    <h3>TKIT Nurul Fikri</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
+<style>
+    body, b {
+        color: black
+    }
+    table, th, td {
+        border: 1px solid black !important;
+    }
+    th {
+        background-color: aquamarine;
+        font-weight: 800;
+        color: black;
+        text-align: center;
+    }
+    td:first-child {
+        text-align: center;
+    }
+    td:nth-child(2){
+        width: 200px !important;
+    }
+    .tebal {
+        font-weight: 800;
+    }
+</style>
+<section class="banner-area relative">
+    <div class="container">
+        <div class="section-top-border justify-content-center">
+            <h3 class="mt-30 mb-2 text-white">Jadwal PPDB SIT Nurul Fikri</h3>
+            <h4 class="mb-20 text-white">Tahun Ajaran 2022/2023</h4>
+            <div class="progress-table-wrap">
+                <div class="progress-table" style="padding: 25px">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Kegiatan</th>
-                                <th>Tanggal</th>
+                                <th>TK</th>
+                                <th>SD</th>
+                                <th>SMP</th>
+                                <th>SMA</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Pendaftaran <b><i>ONLINE</i></b></td>
-                                <td>3 September</td>
+                                <td>1.</td>
+                                <td class="tebal">Pendaftaran Online</td>
+                                <td>1 September 2021</td>
+                                <td>1 September 2021</td>
+                                <td>1 September 2021</td>
+                                <td>1 September 2021</td>
                             </tr>
                             <tr>
+                                <td>2.</td>
+                                <td class="tebal" colspan="5">Calon siswa asal Sekolah Islam Terpadu Nurul Fikri (Internal)</td>
+                            </tr>
+                            <tr>
+                                <td></td>
                                 <td>Seleksi</td>
-                                <td>5 Oktober 2019 dan<br> 9 November 2019<br> 18 Januari 2020<br>14 Maret 2020</td>
+                                <td></td>
+                                <td>2 Oktober 2021</td>
+                                <td>25 September 2021</td>
+                                <td>26 September 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Pengumuman</td>
-                                <td>10 Oktober 2019 dan<br> 14 November 2019<br> 24 Januari 2020<br>27 Maret 2020</td>
+                                <td></td>
+                                <td>12 Oktober 2021</td>
+                                <td>5 Oktober 2021</td>
+                                <td>6 Oktober 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Daftar Ulang</td>
-                                <td>11 - 17 Oktober 2019 dan<br> 15 - 21 November 2019<br>  27 - 30 Januari 2020<<br>30 Maret - 3 April 2020</td>
+                                <td></td>
+                                <td>12 - 16 Oktober 2021</td>
+                                <td>5 - 9 Oktober 2021</td>
+                                <td>6 - 9 Oktober 2021</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Seragam</td>
-                                <td>Mulai 13 April 2020</td>
+                                <td>3.</td>
+                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - I (Eksternal)</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Buku</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Awal Masuk TP. 2020/2021</td>
-                                <td>14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Orientasi Siswa Baru</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card col-md-6 col-md-offset-1">
-                <div class="card-header">
-                    <h3>SDIT Nurul Fikri</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Kegiatan</th>
-                                <th colspan="2">Tanggal</th>
-                            </tr>
-                            <tr>
-                                <th>Asal SIT Nurul Fikri - Depok</th>
-                                <th>Umum</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pendaftaran</td>
-                                <td style="background-color: beige">3 - 26 September 2019</td>
-                                <td>3 September - 10 Oktober 2019</td>
-                            </tr>
-                            <tr>
+                                <td></td>
                                 <td>Seleksi</td>
-                                <td style="background-color: beige">28 September 2019</td>
-                                <td>12 Oktober 2019 dan<br> 9 November 2019</td>
+                                <td>16 Oktober 2021</td>
+                                <td>16 Oktober 2021</td>
+                                <td>9 dan 10 Oktober 2021</td>
+                                <td>9, 10 dan 17 Oktober 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Pengumuman</td>
-                                <td style="background-color: beige">3 Oktober 2019</td>
-                                <td>17 Oktober 2019 dan<br> 14 November 2019</td>
+                                <td>26 Oktober 2021</td>
+                                <td>26 Oktober 2021</td>
+                                <td>19 Oktober 2021</td>
+                                <td>26 Oktober 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Daftar Ulang</td>
-                                <td style="background-color: beige">4 - 10 Oktober 2019</td>
-                                <td>18 - 24 Oktober 2019 dan<br> 15 - 21 November 2019</td>
+                                <td>26 - 30 Oktober 2021</td>
+                                <td>26 - 30 Oktober 2021</td>
+                                <td>19 - 23 Oktober 2021</td>
+                                <td>26 - 30 Oktober 2021</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Seragam</td>
-                                <td style="background-color: beige">Mulai 13 April 2020</td>
-                                <td>Mulai 13 April 2020</td>
+                                <td>4.</td>
+                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - II (Eksternal)</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Buku</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Awal Masuk TP. 2020/2021</td>
-                                <td style="background-color: beige">14 Juli 2020</td>
-                                <td>14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Orientasi Siswa Baru</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card col-md-6">
-                <div class="card-header">
-                    <h3>SMPIT Nurul Fikri</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Kegiatan</th>
-                                <th colspan="2">Tanggal</th>
-                            </tr>
-                            <tr>
-                                <th>Asal SIT Nurul Fikri - Depok</th>
-                                <th>Umum</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pendaftaran</td>
-                                <td style="background-color: beige">3 - 26 September 2019</td>
-                                <td>3 September - 17 Oktober 2019</td>
-                            </tr>
-                            <tr>
+                                <td></td>
                                 <td>Seleksi</td>
-                                <td style="background-color: beige">28 September 2019</td>
-                                <td>19 dan 20 Oktober 2019<br>9 November 2019</td>
+                                <td>13 November 2021</td>
+                                <td>13 November 2021</td>
+                                <td>14 November 2021</td>
+                                <td>14 November 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Pengumuman</td>
-                                <td style="background-color: beige">2 Oktober 2019</td>
-                                <td>24 Oktober 2019 dan <br>14 November 2019</td>
+                                <td>23 November 2021</td>
+                                <td>23 November 2021</td>
+                                <td>23 November 2021</td>
+                                <td>23 November 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Daftar Ulang</td>
-                                <td style="background-color: beige">3 - 9 Oktober 2019</td>
-                                <td>25 - 31 Oktober 2019 dan <br>15 - 21 November 2019</td>
+                                <td>23 - 27 November 2021</td>
+                                <td>23 - 27 November 2021</td>
+                                <td>23 - 27 November 2021</td>
+                                <td>23 - 27 November 2021</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Seragam</td>
-                                <td style="background-color: beige">Mulai 13 April 2020</td>
-                                <td>Mulai 13 April 2020</td>
+                                <td>5.</td>
+                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - III (Eksternal)</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Buku</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Awal Masuk TP. 2020/2021</td>
-                                <td style="background-color: beige">14 Juli 2020</td>
-                                <td>14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Orientasi Siswa Baru</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card col-md-6">
-                <div class="card-header">
-                    <h3>SMAIT Nurul Fikri</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">Kegiatan</th>
-                                <th colspan="2">Tanggal</th>
-                            </tr>
-                            <tr>
-                                <th>Asal SIT Nurul Fikri - Depok</th>
-                                <th>Umum</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Pendaftaran</td>
-                                <td style="background-color: beige">3 - 27 September 2019</td>
-                                <td>3 September - 24 Oktober 2019</td>
-                            </tr>
-                            <tr>
+                                <td></td>
                                 <td>Seleksi</td>
-                                <td style="background-color: beige">29 September 2019</td>
-                                <td>26 dan 27 Oktober 2019</td>
+                                <td>18 Desember 2021</td>
+                                <td>18 Desember 2021</td>
+                                <td>11 Desember 2021</td>
+                                <td>11 Desember 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Pengumuman</td>
-                                <td style="background-color: beige">3 Oktober 2019</td>
-                                <td>1 November 2019</td>
+                                <td>28 Desember 2021</td>
+                                <td>28 Desember 2021</td>
+                                <td>21 Desember 2021</td>
+                                <td>21 Desember 2021</td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td>Daftar Ulang</td>
-                                <td style="background-color: beige">4 - 10 Oktober 2019</td>
-                                <td>4 - 8 November 2019</td>
+                                <td>28 - 31 Desember 2021</td>
+                                <td>28 - 31 Desember 2021</td>
+                                <td>21 - 28 Desember 2021</td>
+                                <td>21 - 28 Desember 2021</td>
                             </tr>
                             <tr>
-                                <td>Pembagian Seragam</td>
-                                <td style="background-color: beige">Mulai 13 April 2020</td>
-                                <td>Mulai 13 April 2020</td>
+                                <td>6.</td>
+                                <td class="tebal">Pengukuran Seragam</td>
+                                <td colspan="4">
+                                    Pengukuran Seragam secara ONLINE bagi calon siswa yang diterima dan sudah melakukan daftar ulang mulai 10 Janauri 2021 di laman web ppdb.nurulfikri.sch.id
+                                </td>
                             </tr>
                             <tr>
-                                <td>Pembagian Buku</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
+                                <td>7.</td>
+                                <td class="tebal">Pengambilan Seragam</td>
+                                <td colspan="4">
+                                    16 – 31 Mei 2022 untuk masing-masing unit akan dijadwalkan kemudian <br>
+                                    1 – 30 Juni 2022 Masa Komplain Seragam
+                                </td>
+                            <tr>
+                                <td>8.</td>
+                                <td class="tebal">Pembagian Buku</td>
+                                <td colspan="4">
+                                    21 – 30 Juni 2022, jadwal masing-masing unit akan diinfokan kemudian
+                                </td>
                             </tr>
                             <tr>
-                                <td>Prediksi Awal Masuk TP. 2020/2021</td>
-                                <td style="background-color: beige">14 Juli 2020</td>
-                                <td>14 Juli 2020</td>
-                            </tr>
-                            <tr>
-                                <td>Prediksi Orientasi Siswa Baru</td>
-                                <td style="background-color: beige">8 - 14 Juli 2020</td>
-                                <td>8 - 14 Juli 2020</td>
+                                <td>9.</td>
+                                <td class="tebal">Prediksi Awal Masuk</td>
+                                <td>11 – 15 Juli 2022</td>
+                                <td>11 – 15 Juli 2022</td>
+                                <td>11 – 15 Juli 2022</td>
+                                <td>11 – 15 Juli 2022</td>
                             </tr>
                         </tbody>
                     </table>
@@ -244,4 +198,5 @@
             </div>
         </div>
     </div>
+</section>
 @endsection
