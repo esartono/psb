@@ -1,66 +1,198 @@
-@extends('front.template')
+@extends('front.template1')
 
 @section('isi')
-        <div class="container">
-            <img src="" alt="">
-            <h1 style="text-align:center;">Biaya Pendidikan SIT Nurul Fikri</h1>
-        </div>
-        <div id="exTab1" class="container">
-            <ul class="nav nav-pills">
-                <li class="active"><a href="#0a" data-toggle="tab">CCEC</a></li>
-                <li><a href="#1a" data-toggle="tab">TKIT</a></li>
-                <li><a href="#2a" data-toggle="tab">SDIT NF</a></li>
-                <li><a href="#3a" data-toggle="tab">SMPIT NF</a></li>
-                <li><a href="#4a" data-toggle="tab">SMAIT NF</a></li>
-            </ul>
+<style>
+    body {
+        color: black
+    }
+    th {
+        background-color: aquamarine;
+        font-weight: 800;
+        color: black;
+        text-align: center;
+    }
+    td:first-child {
+        text-align: center;
+    }
+    td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7) {
+        text-align: right;
+    }
 
-            <div class="tab-content clearfix">
-                <div class="tab-pane active" id="0a">
-                    @include('front.biaya.ccec')
+    .khusus td{
+        text-align: left;
+    }
+    .spesial td{
+        text-align: left;
+        padding: 0 5px;
+    }
+    .khusus td:nth-child(3){
+        text-align: right;
+    }
+
+</style>
+<section class="banner-area relative">
+    <div class="container">
+        <div class="section-top-border justify-content-center">
+            <h3 class="mt-30 mb-2 text-white">Biaya PPDB SIT Nurul Fikri</h3>
+            <h4 class="mb-20 text-white">Tahun Ajaran 2022/2023</h4>
+            <div class="progress-table-wrap">
+                <div class="progress-table" style="padding: 25px">
+                    <p>A. Biaya Pendaftaran dan Seleksi</p>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Jenis Pendaftar</th>
+                                <th>TK</th>
+                                <th>SD</th>
+                                <th>SMP</th>
+                                <th>SMA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td>Asal Non SIT Nurul Fikri</td>
+                                <td>Rp. 400,000</td>
+                                <td>Rp. 525,000</td>
+                                <td>Rp. 550,000</td>
+                                <td>Rp. 600,000</td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td>Asal SIT Nurul Fikri</td>
+                                <td style="background-color: grey">-</td>
+                                <td>Rp. 400,000</td>
+                                <td>Rp. 400,000</td>
+                                <td>Rp. 400,000</td>
+                            </tr>
+                            <tr>
+                                <td>3.</td>
+                                <td>Anak Pegawai SIT Nurul Fikri</td>
+                                <td>Rp. 300,000</td>
+                                <td>Rp. 300,000</td>
+                                <td>Rp. 300,000</td>
+                                <td>Rp. 300,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="mt-40">B. Biaya Pendidikan (Daftar Ulang)</p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Komponen PPDB</th>
+                                <th>PG / TK A</th>
+                                <th>TK B</th>
+                                <th>SD</th>
+                                <th>SMP</th>
+                                <th>SMA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($biaya as $k=>$b)
+                            <tr>
+                                <td>{{ $k+1 }}</td>
+                                <td>{{ $b['komponen'] }}</td>
+                                <td>{{ number_format($b['tka']) }}</td>
+                                <td>{{ number_format($b['tkb']) }}</td>
+                                <td>{{ number_format($b['sd']) }}</td>
+                                <td>{{ number_format($b['smp']) }}</td>
+                                <td>{{ number_format($b['sma']) }}</td>
+                            </tr>
+                            @endforeach
+                            @foreach ($seragam as $k=>$b)
+                            <tr>
+                                <td>{{ $k+5 }}</td>
+                                <td>{{ $b['komponen'] }}</td>
+                                <td>{{ number_format($b['tka']) }}</td>
+                                <td>{{ number_format($b['tkb']) }}</td>
+                                <td>{{ number_format($b['sd']) }}</td>
+                                <td>{{ number_format($b['smp']) }}</td>
+                                <td>{{ number_format($b['sma']) }}</td>
+                            </tr>
+                            @endforeach
+                            <tr><td colspan="8"></td></tr>
+                            <tr style="background-color: greenyellow">
+                                <td colspan="2">TOTAL PUTRA</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'tka'))+$seragam[0]['tka']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'tkb'))+$seragam[0]['tkb']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'sd'))+$seragam[0]['sd']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'smp'))+$seragam[0]['smp']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'sma'))+$seragam[0]['sma']) }}</td>
+                            </tr>
+                            <tr style="background-color: royalblue">
+                                <td colspan="2">TOTAL PUTRI</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'tka'))+$seragam[1]['tka']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'tkb'))+$seragam[1]['tkb']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'sd'))+$seragam[1]['sd']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'smp'))+$seragam[1]['smp']) }}</td>
+                                <td style="color: black; text-align: right; font-weight: 800;">{{ number_format(array_sum(array_column($biaya, 'sma'))+$seragam[1]['sma']) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="mt-40">C. Tambahan Biaya Untuk Siswa dengan Penanganan Lanjutan</p>
+                    <table class="table table-bordered table-striped khusus">
+                        <thead>
+                            <tr>
+                                <th>Komponen Biaya</th>
+                                <th>Kategori</th>
+                                <th>Biaya</th>
+                                <th>Include</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pendaftaran</td>
+                                <td>Semua Kategori</td>
+                                <td>Rp. 500,000</td>
+                                <td>Assessment Lanjutan</td>
+                            </tr>
+                            <tr>
+                                <td>SPP Bulanan</td>
+                                <td>Kategori A</td>
+                                <td>Rp. 200,000</td>
+                                <td>PPI</td>
+                            </tr>
+                            <tr>
+                                <td>SPP Bulanan</td>
+                                <td>Kategori B</td>
+                                <td>Rp. 700,000</td>
+                                <td>PPI dan Terapi</td>
+                            </tr>
+                            <tr>
+                                <td>Biaya tambahan perbulan</td>
+                                <td>Terapi Khusus</td>
+                                <td>Rp. 150,000</td>
+                                <td>per pertemuan per Terapi</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="spesial">
+                        **Keterangan : <br>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
+                            <td>Kategori A</td>
+                            <td>:</td>
+                            <td>Anak dengan hambatan belajar ringan</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Kategori B</td>
+                            <td>:</td>
+                            <td>Anak dengan hambatan belajar sedang (<i>Slow Learner</i>)</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>PPI</td>
+                            <td>:</td>
+                            <td>Program Pembelajaran Individual</td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="tab-pane" id="1a">
-                    @include('front.biaya.tk')
-                </div>
-                <div class="tab-pane" id="2a">
-                    @include('front.biaya.sd')
-                    </div>
-                <div class="tab-pane" id="3a">
-                    @include('front.biaya.smp')
-                </div>
-                <div class="tab-pane" id="4a">
-                    @include('front.biaya.sma')
-                </div>
-            </div>
-            <div>
-                <h4>I. BIAYA PENDAFTARAN DAN SELEKSI </h4>
-                <ol>
-                    <li>CCEC : Rp. 550.000,-</li>
-                    <li>TK : Rp. 550.000,-</li>
-                    <li>SD : Rp. 700.000,-</li>
-                    <li>SMP : Rp. 700.000,-</li>
-                    <li>SMA : Rp. 700.000,-</li>
-                </ol>
-                <br>
-                <h4>II. KETENTUAN UMUM BIAYA PENDIDIKAN:</h4>
-                <ol>
-                    {{-- <li><strong>Pembiayaan Reguler 2</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas selambat-lambatnya 30 November 2020.</strong></li> --}}
-                    {{-- <li><strong>Pembiayaan Reguler 3</strong>, berlaku untuk pendaftar yang melakukan <strong>daftar ulang dengan lunas setelah 30 November 2020.</strong></li> --}}
-                    {{-- <li><strong>Sumbangan Pokok Pendidikan (SPP)</strong> untuk reguler 1 berlaku untuk <strong>1 tahun pertama</strong>, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP.</li> --}}
-                    <li><strong>Sumbangan Pokok Pendidikan (SPP) sesuai dengan ketentuan kenaikan SPP.</li>
-                    <li>Komponen <strong>Biaya Komite Sekolah</strong> dibayarkan pertahun bersamaan dengan SPP bulan Juli.</li>
-                    <li>SPP yang dibayarkan <strong>tidak termasuk biaya catering.</strong></li>
-                </ol>
-                <br>
-                <h4>III. KETENTUAN POTONGAN BIAYA PENERIMAAN SISWA BARU:</h4>
-                <ol>
-                    <li>Bagi siswa yang memiliki <strong>saudara kandung</strong> bersekolah di <strong>SIT Nurul Fikri</strong>, mendapatkan potongan biaya <b>5% dari Dana Pengembangan</b>.</li>
-                    <li>Bagi siswa yang <strong>berasal dari sekolah SIT Nurul Fikri dan NFBS Bogor</strong> yang mendapatkan undangan khusus dari YPPU Nurul Fikri, maka mendapatkan benefit potongan biaya <b>25% dari Dana Pengembangan</b> dan bebas biaya pendaftaran, jika melakukan daftar ulang pada <b>periode reguler 1</b>.</li>
-                    <li>Bagi Siswa <strong>Pemenang Lomba tingkat Nasional (Bertingkat)</strong> Juara 1 dan 2 yang dibuktikan dengan sertifikat dan diverifikasi oleh panitia, mendapatkan potongan biaya <b>50 % dari Dana Pengembangan</b>.</li>
-                    <li>Bagi siswa yang memiliki <strong>hafalan minimal 15 Juz</strong> dan sudah diverifikasi oleh SIT NF, mendapatkan potongan biaya <b>25% dari Dana Pengembangan</b>.</li>
-                    <li><b>Ketentuan potongan biaya tidak berlaku akumulatif dan tidak dapat digabung dengan jenis potongan lainnya</b>.</li>
-                </ol>
-                <br>
             </div>
         </div>
     </div>
+</section>
+@include('front.ketentuan')
 @endsection

@@ -161,7 +161,17 @@ class HomeController extends Controller
 
     public function biaya()
     {
-        return view('front.biaya');
+        $biaya = [
+            ['komponen' => 'Dana Pengembangan', 'tka'=>8000000, 'tkb'=>5000000, 'sd'=>22500000, 'smp'=>21500000, 'sma'=>21500000],
+            ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>12500000, 'smp'=>14000000, 'sma'=>14000000],
+            ['komponen' => 'SPP bulan Juli', 'tka'=>1250000, 'tkb'=>1250000, 'sd'=>1900000, 'smp'=>2000000, 'sma'=>2000000],
+            ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
+        ];
+        $seragam = [
+            ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
+            ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
+        ];
+        return view('front.biaya', compact('biaya', 'seragam'));
     }
 
     public function hasil()
