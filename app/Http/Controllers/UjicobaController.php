@@ -62,36 +62,32 @@ class UjicobaController extends Controller
     public function cek1()
     {
 
-        $calonbiayates = CalonBiayaTes::where('lunas', 1)->get();
-        foreach($calonbiayates as $c) {
-            $calon = Calon::with('gelnya')->whereId($c->calon_id)->first();
-            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-                        ->where('gel_id', $calon->gel_id)
-                        ->where('internal', 0)->first();
-            // dd($jadwal->id);
-            if($jadwal){
-                $jd = $jadwal->id;
-            } else {
-                $jd = 0;
-                dd($calon->uruts);
-            }
+        $calonbiayates = CalonBiayaTes::where('lunas', 1)->first();
+        $calon = Calon::whereId($calonbiayates->calon_id)->first();
+        $gel = $calon->gel_id;
+        $asal = $calon->asal_nf;
 
-            $cj = CalonJadwal::where('calon_id', $calon->id)->first();
-            if(!$cj){
-                CalonJadwal::updateOrCreate(
-                    ['calon_id' => $calon->id],
-                    ['jadwal_id' => $jd]
-                );
-            } else {
-                if($cj->jadwal_id == 0){
-                    CalonJadwal::updateOrCreate(
-                        ['calon_id' => $calon->id],
-                        ['jadwal_id' => $jd]
-                    );
-                }
+        if($asal == 1) {
+            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+                    ->where('gel_id', $gel)
+                    ->where('internal', 1)
+                    ->whereColumn('kuota', '>=', 'ikut')
+                    ->first();
+            if($jadwal) {
+                return $jadwal->id;
             }
         }
 
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+                ->where('gel_id', $gel)
+                ->where('internal', 0)
+                ->whereColumn('kuota', '>=', 'ikut')
+                ->first();
+
+        if($jadwal) {
+            return $jadwal->id;
+        }
+        return 0;
     }
 
     public function cek2()
