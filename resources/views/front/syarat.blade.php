@@ -72,11 +72,11 @@
                             </ol>
                         </li>
                         <li>Jenis Seleksi<div class="jarak"></div>
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped" width="70%">
                                 <thead>
                                     <tr>
                                         <th>Unit</th>
-                                        <th>Ekternal</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
