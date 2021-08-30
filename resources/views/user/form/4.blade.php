@@ -93,6 +93,7 @@
             </div>
         </div>
         <hr>
+        @include('user.form.batal')
         <button type="submit" class="btn bg-blue float-right">
             Selanjutnya
             <i class="fa fa-chevron-circle-right"></i>

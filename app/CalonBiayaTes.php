@@ -43,31 +43,13 @@ class CalonBiayaTes extends Model
             }
         );
 
-        // if ($calon->asal_nf){
-        //     $cek = $this->asalNF($calon->gelnya->id);
-        //     if($cek !== "SALAH"){
-        //         $jd = $cek;
-        //     } else {
-        //         $jd = $this->pilihjadwal($calon->id);
-        //     }
-        // } else {
-            $jd = $this->pilihjadwal($calon->id);
-        // }
+        $jd = $this->pilihjadwal($calon->id, $calon->asal_nf);
 
-        $cj = CalonJadwal::where('calon_id', $calon->id)->first();
-        if(!$cj){
-            CalonJadwal::updateOrCreate(
-                ['calon_id' => $calon->id],
-                ['jadwal_id' => $jd]
-            );
-        } else {
-            if($cj->jadwal_id == 0){
-                CalonJadwal::updateOrCreate(
-                    ['calon_id' => $calon->id],
-                    ['jadwal_id' => $jd]
-                );
-            }
-        }
+        // $cj = CalonJadwal::where('calon_id', $calon->id)->first();
+        CalonJadwal::updateOrCreate(
+            ['calon_id' => $calon->id],
+            ['jadwal_id' => $jd]
+        );
 
         Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
             {
@@ -83,31 +65,28 @@ class CalonBiayaTes extends Model
 
     }
 
-    public function asalNF($gel)
+    public function pilihjadwal($gel, $asal)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-                ->where('gel_id', $gel)
-                ->where('internal', 1)->first();
-        if($jadwal){
-            return $jadwal->id;
-        } else {
-            return "SALAH";
-        }
-    }
 
-    public function pilihjadwal($gel)
-    {
+        if($asal == 1) {
+            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+                    ->where('gel_id', $gel)
+                    ->where('internal', 1)
+                    ->whereColumn('kuota', '<=', 'ikut')
+                    ->first();
+            if($jadwal) {
+                return $jadwal->id;
+            }
+        }
+
         $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 0)
-                ->get();
-        if($jadwal->count() > 0){
-            foreach ($jadwal as $j) {
-                if($j->ikut < $j->kuota) {
-                    return $j->id;
-                    break;
-                }
-            }
+                ->whereColumn('kuota', '<=', 'ikut')
+                ->first();
+
+        if($jadwal) {
+            return $jadwal->id;
         }
         return 0;
     }

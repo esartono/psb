@@ -57,6 +57,7 @@ Route::middleware('auth', 'user')->group(function(){
     Route::post('/tambahcalon', 'DraftCalonController@store')->name('add.calon');
     Route::get('/tambahcalon/{step}', 'DraftCalonController@create')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'DraftCalonController@edit')->name('editcalon');
+    Route::delete('/bataldaftar', 'DraftCalonController@destroy')->name('bataldaftar');
 });
 
 Route::middleware('auth', 'psikotes')->group(function(){

@@ -433,6 +433,9 @@ class DraftCalonController extends Controller
      */
     public function destroy(DraftCalon $draftCalon)
     {
-        //
+        $draft = DraftCalon::where('user_id', auth()->user()->id)->first();
+        $draft->delete();
+
+        return redirect()->route('ppdb');
     }
 }

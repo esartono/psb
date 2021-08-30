@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="mt-2 col-md-10">
+        <div class="mt-2 col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
@@ -57,6 +57,12 @@
         </div>
     </div>
 </div>
+
+<form id="batal" action="{{ route('bataldaftar') }}" method="POST" style="display: none;">
+    @method('DELETE')
+    @csrf
+</form>
+
 @endsection
 
 @push('js')
