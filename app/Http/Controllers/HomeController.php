@@ -28,7 +28,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except('depan', 'biaya', 'jadwal', 'edupay', 'download', 'hasil', 'gethasil', 'jadwalkesehatan');
+        $this->middleware(['auth', 'verified'])->except(
+            'depan', 'biaya', 'jadwal', 'edupay', 'download', 'hasil', 'gethasil', 'jadwalkesehatan', 'syarat'
+        );
     }
 
     /**
@@ -201,6 +203,11 @@ class HomeController extends Controller
     public function jadwal()
     {
         return view('front.jadwal');
+    }
+
+    public function syarat()
+    {
+        return view('front.syarat');
     }
 
     public function jadwalkesehatan()

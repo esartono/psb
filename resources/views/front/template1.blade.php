@@ -77,7 +77,8 @@
 						<li class="menu-active"><a href="/">Depan</a></li>
 						<li><a href="file/Alur PPDB NF.jpg" target="_blank">Alur Pendaftaran</a></li>
 						<li><a href="/biaya">Biaya Pendidikan</a></li>
-						<li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li>
+						{{-- <li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li> --}}
+						<li><a href="/syarat">Syarat dan Ketentuan</a></li>
 						<li><a href="/jadwal">Jadwal</a></li>
 						<li class="menu-has-children"><a href="">Tata Cara Pembayaran</a>
 							<ul>
