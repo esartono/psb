@@ -138,7 +138,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p class="mt-40">C. Tambahan Biaya Untuk Siswa dengan Penanganan Lanjutan</p>
+                    <p class="mt-40">C. Tambahan Biaya Untuk Siswa dengan Penanganan Lanjutan (Khusus Pendaftar SD)</p>
                     <table class="table table-bordered table-striped khusus">
                         <thead>
                             <tr>
