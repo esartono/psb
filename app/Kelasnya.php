@@ -33,13 +33,34 @@ class Kelasnya extends Model
         $unit = Unit::where('cat_id', $cat)->first()->id;
 
         if($baru === true || $baru === 1) {
-            $ta = [0, 1];
-        } else {
             $ta = [0, 2];
+        } else {
+            $ta = [0, 1];
         }
 
-        $kls = static::where('unit_id', $unit)
-            ->whereIn('tahun_ajaran', $ta)->pluck('name', 'id');
+        $kls = static::select('id', 'name', 'jurusan')->where('unit_id', $unit)->whereIn('tahun_ajaran', $ta)->get();
         return $kls;
+    }
+
+    public static function cjk($cari)
+    {
+        $cek = static::whereId($cari)->first();
+        if($cek) {
+            $cjk = $cek->kelamin;
+        }
+
+        if($cari === 'TK' || $cari === 'SD') {
+            $cjk = 0;
+        }
+
+        if($cari === 'SMP') {
+            $cjk = static::where('name', '7')->first()->kelamin;
+        }
+
+        if($cari === 'SMA') {
+            $cjk = static::where('name', '10')->first()->kelamin;
+        }
+
+        return $cjk;
     }
 }

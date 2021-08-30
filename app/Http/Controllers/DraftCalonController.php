@@ -88,6 +88,7 @@ class DraftCalonController extends Controller
 
         if($step == 2){
             $ok = $calon->pindahan;
+            $csma = '';
             if($ok === 1){
                 $cekkelas = Kelasnya::where('status', 1)
                     ->whereIn('tahun_ajaran', [0,2])
@@ -98,10 +99,15 @@ class DraftCalonController extends Controller
                     ->whereIn('tahun_ajaran', [0,1])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
+
+                $ceksma = Kelasnya::where('status', 1)->where('name', '10')->first();
+                if($ceksma){
+                    $csma = $ceksma->jurusan;
+                }
             }
 
             $units = Unit::with('catnya')->whereIn('id', $cekkelas)->orderBy('id', 'asc')->get();
-            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon'));
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon', 'csma'));
         }
 
         if($step == 3){
@@ -195,12 +201,23 @@ class DraftCalonController extends Controller
         if($request->step == 2) {
             $gelombang = Gelombang::where('unit_id', $request->unit)->latest()->first()->id;
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
+            $jurusan = '-';
 
             if($calon->pindahan){
-                $kelas = $request->kelas_tujuan;
+                $ceksma = substr($request->kelas_tujuan, -4);
+                if( $ceksma == 'MIPA' || $ceksma == 'IPS'){
+                    $k = explode('-', $request->kelas_tujuan);
+                    $kelas = $k[0];
+                } else {
+                    $kelas = $request->kelas_tujuan;
+                }
             }
 
             if(!$calon->pindahan){
+                $ceksma = substr($request->unit, -4);
+                if( $ceksma == 'MIPA' || $ceksma == 'IPS'){
+                    $jurusan = $ceksma;
+                }
                 $unit = Unit::where('id', $request->unit)->first()->cat_id;
                 $cat = SchoolCategory::where('id', $unit)->first()->name;
                 if($cat === 'TK'){
@@ -220,6 +237,7 @@ class DraftCalonController extends Controller
                 'gel_id' => $gelombang,
                 'kelas_tujuan' => $kelas,
                 'step' => 3,
+                'jurusan' => $jurusan
             ]);
 
             $step = 3;
