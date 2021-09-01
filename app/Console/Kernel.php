@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
                 ->weekdays()
                 ->everyMinutes()
                 ->timzone('Asia/Jakarta')
-                ->between('7:00', '17:00');
+                ->between('6:30', '17:30');
         $schedule->command('daily:report')->dailyAt('07:10');
         // $schedule->command('daily:report')->dailyAt('12:01');
         $schedule->command('daily:report')->dailyAt('17:08');
