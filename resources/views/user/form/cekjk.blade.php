@@ -1,6 +1,9 @@
+@if(\App\Kelasnya::cjk($cek) === 0)
+    &nbsp;
+@endif
 @if(\App\Kelasnya::cjk($cek) === 1)
-    <h3>Kelas Putra</h3>
+    KHUSUS PUTRA
 @endif
 @if(\App\Kelasnya::cjk($cek) === 2)
-    <h3>Kelas Putri</h3>
+    KHUSUS PUTRI
 @endif

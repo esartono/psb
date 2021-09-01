@@ -25,7 +25,7 @@ Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 // Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
 // Route::get('/uji4', 'UjicobaController@cek4')->name('uji4');
 // Route::get('/uji5', 'UjicobaController@cek5')->name('uji5');
-Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
+// Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
 

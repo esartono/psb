@@ -69,9 +69,6 @@ function ceknis(cek) {
         axios
         .get("../api/siswanfs/"+result.value.nis)
         .then((data) => {
-            if(data.data.cek == 1){
-                window.location.replace("{{URL::to('/tambahcalon/4')}}");
-            }
             if(data.data.cek == 0){
                 Swal.fire({
                     type: 'error',
@@ -79,6 +76,8 @@ function ceknis(cek) {
                     showConfirmButton: false,
                     timer: 3000
                 })
+            } else {
+                window.location.replace("{{URL::to('/tambahcalon/4')}}");
             }
         })
     })

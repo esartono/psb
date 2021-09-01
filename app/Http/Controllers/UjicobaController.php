@@ -64,30 +64,11 @@ class UjicobaController extends Controller
 
         $calonbiayates = CalonBiayaTes::where('lunas', 1)->first();
         $calon = Calon::whereId($calonbiayates->calon_id)->first();
-        $gel = $calon->gel_id;
-        $asal = $calon->asal_nf;
 
-        if($asal == 1) {
-            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-                    ->where('gel_id', $gel)
-                    ->where('internal', 1)
-                    ->whereColumn('kuota', '>=', 'ikut')
-                    ->first();
-            if($jadwal) {
-                return $jadwal->id;
-            }
-        }
+        $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
 
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-                ->where('gel_id', $gel)
-                ->where('internal', 0)
-                ->whereColumn('kuota', '>=', 'ikut')
-                ->first();
+        dd($jd);
 
-        if($jadwal) {
-            return $jadwal->id;
-        }
-        return 0;
     }
 
     public function cek2()
@@ -362,28 +343,29 @@ class UjicobaController extends Controller
         ]);
     }
 
-    public function asalNF($gel)
+    public function pilihjadwal($gel, $asal)
     {
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
-                ->where('gel_id', $gel)
-                ->where('internal', 1)->first();
-        if($jadwal){
-            return $jadwal->id;
-        } else {
-            return "SALAH";
+        if($asal == 1) {
+            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+                    ->where('gel_id', $gel)
+                    ->where('internal', 1)
+                    // ->whereColumn('kuota', '<=', 'ikut')
+                    ->first();
+            if($jadwal) {
+                return $jadwal->id;
+            }
         }
-    }
 
-    public function pilihjadwal($gel)
-    {
         $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
-                ->where('internal', 0)->first();
-        if($jadwal){
+                ->where('internal', 0)
+                // ->whereColumn('kuota', '<=', 'ikut')
+                ->first();
+
+        if($jadwal) {
             return $jadwal->id;
-        } else {
-            return 0;
         }
+        return 0;
     }
 
 }

@@ -43,7 +43,7 @@ class CalonBiayaTes extends Model
             }
         );
 
-        $jd = $this->pilihjadwal($calon->id, $calon->asal_nf);
+        $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
 
         // $cj = CalonJadwal::where('calon_id', $calon->id)->first();
         CalonJadwal::updateOrCreate(

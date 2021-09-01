@@ -49,7 +49,6 @@ class PegawaiController extends Controller
     {
         $pegawai = Pegawai::where('nip', $id)->get();
         $cek = $pegawai->count();
-        // return compact('pegawai', 'cek');
 
         if($cek > 0){
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();

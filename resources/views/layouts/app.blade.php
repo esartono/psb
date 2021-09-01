@@ -21,7 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light bg-teal">
     <div class="container">
-      <a href="#" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU </a>
+      <a href="/home" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU &nbsp;&nbsp;| </a>
+      <a href="https://bit.ly/Kesehatan-PPDB" class="btn bg-yellow"> Health Screening Form - PPDB SIT Nurul Fikri </a>
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">

@@ -39,12 +39,13 @@ class JDokuController extends Controller
 
     public function show($id)
     {
-        $jd = JDoku::findOrFail($id);
-        $jd->delete();
+        // $jd = JDoku::findOrFail($id);
+        // $jd->delete();
     }
 
     public function destroy($id)
     {
-        //
+        $jd = JDoku::findOrFail($id);
+        $jd->delete();
     }
 }

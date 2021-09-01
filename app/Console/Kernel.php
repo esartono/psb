@@ -24,7 +24,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('view:calon_biaya_tes')->everyMinute();
+        $schedule->command('view:calon_biaya_tes')
+                ->weekdays()
+                ->everyMinutes()
+                ->timzone('Asia/Jakarta')
+                ->between('7:00', '17:00');
         $schedule->command('daily:report')->dailyAt('07:10');
         // $schedule->command('daily:report')->dailyAt('12:01');
         $schedule->command('daily:report')->dailyAt('17:08');

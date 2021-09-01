@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 class Calon extends Model
@@ -122,11 +123,10 @@ class Calon extends Model
     public function getJadwalAttribute()
     {
         $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
-        if($jadwal) {
+        if($jadwal->jadwal_id > 0) {
             return $jadwal->jadwalnya;
-        } else {
-            return $jadwal=['seleksi'=> "Belum Ada"];
         }
+        return $jadwal;
     }
 
     public function getWawancaraAttribute()
