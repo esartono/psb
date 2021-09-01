@@ -16,11 +16,11 @@
         <p><b>Alternatif cara pembayaran</b></p>
         <ol>
             <li>
-                <b>Melalui Teller Bank Syariah Mandiri (BSM)</b>
+                <b>Melalui Teller Bank Syariah Indonesia (BSI)</b>
                 <p>Melakukan Pembayaran jenis Edupay dengan Nama Lembaga Yayasan Pendidikan dan Pemberdayaan Umat Nurul Fikri dengan nomor pembayaran menggunakan nomor pendaftaran <b>{{ $calonsnya->uruts }}</b> (Sesuai nomor pendaftaran)</p>
             </li>
             <li>
-                <b>ATM Bank Syariah Mandiri (BSM)</b>
+                <b>ATM Bank Syariah Indonesia (BSI)</b>
                 <ol>
                     <li>Masuk ke Menu Utama</li>
                     <li>Pilih Menu Pembayaran/Pembelian</li>
@@ -31,7 +31,7 @@
                 <br>
             </li>
             <li>
-                <b>Mobile Banking Bank Syariah Mandiri (BSM)</b>
+                <b>Mobile Banking Bank Syariah Indonesia (BSI)</b>
                 <ol>
                     <li>Pilih Menu Pembayaran</li>
                     <li>Pilih Nomor Rekening</li>
@@ -51,7 +51,7 @@
             <br>
             <br>
             <li>
-                <b>Melalui Internet Banking Bank Syariah Mandiri (BSM)</b>
+                <b>Melalui Internet Banking Bank Syariah Indonesia (BSI)</b>
                 <ol>
                     <li>Pilih Menu Pembayaran</li>
                     <li>Pilih jenis pembayaran Institusi</li>

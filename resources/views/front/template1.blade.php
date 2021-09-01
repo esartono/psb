@@ -82,7 +82,7 @@
 						<li><a href="/jadwal">Jadwal</a></li>
 						<li class="menu-has-children"><a href="">Tata Cara Pembayaran</a>
 							<ul>
-								<li><a href="file/Tata Cara Pembayaran Menggunakan Edupay BSM.pdf" target="_blank">Biaya Pendaftaran</a></li>
+								<li><a href="file/Tata Cara Pembayaran Menggunakan Edupay BSI.pdf" target="_blank">Biaya Pendaftaran</a></li>
 								<li><a href="file/Panduan VA PPDB SIT NURUL FIKRI.pdf" target="_blank">Daftar Ulang</a></li>
 							</ul>
 						</li>
