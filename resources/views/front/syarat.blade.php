@@ -130,6 +130,7 @@
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
+                                                <li>Tes Kemampuan Bahasa Inggris</li>
                                             </ol>
                                         </td>
                                     </tr>
@@ -143,6 +144,7 @@
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
+                                                <li>Tes Kemampuan Bahasa Inggris</li>
                                             </ol>
                                         </td>
                                     </tr>

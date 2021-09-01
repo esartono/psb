@@ -25,7 +25,7 @@
                     <li>Masuk ke Menu Utama</li>
                     <li>Pilih Menu Pembayaran/Pembelian</li>
                     <li>Pilih Menu Akademik</li>
-                    <li>Masukkan kode institusi, YPPU Nurul Fikri - <b>3292</b> dan nomor pendaftar <b>{{ $calonsnya->uruts }}</b> (sesuai nomor pendaftaran).</li>
+                    <li>Masukkan kode institusi, Yayasan Pendidikan dan Pemberdayaan Nurul Fikri - <b>3292</b> dan nomor pendaftar <b>{{ $calonsnya->uruts }}</b> (sesuai nomor pendaftaran).</li>
                     <li>Tampilan konfirmasi pembayaran, pilih <b>Benar</b></li>
                 </ol>
                 <br>
@@ -34,8 +34,8 @@
                 <b>Mobile Banking Bank Syariah Indonesia (BSI)</b>
                 <ol>
                     <li>Pilih Menu Pembayaran</li>
-                    <li>Pilih Nomor Rekening</li>
-                    <li>Pilih Nama Institusi</li>
+                    <li>Pilih Akademik</li>
+                    <li>Pilih Nama Institusi, Yayasan Pendidikan dan Pemberdayaan Nurul Fikri - <b>3292</b></li>
                     <li>Masukkan nomor pendaftar <b>{{ $calonsnya->uruts }}</b> (sesuai nomor pendaftaran).</li>
                     <li>Masukan PIN</li>
                     <li>Tampilan konfirmasi, pilih Selanjutnya</li>
