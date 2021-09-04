@@ -15,7 +15,7 @@
             <label class="col-md-3 col-form-label">Provinsi</label>
             <div class="col-md-3">
                 <select onchange="listKota(this)" name="provinsi" class="form-control" id="provinsi" required>
-                    <option selected='true' disabled='disabled'>Pilih Provinsi</option>
+                    <option selected='true' disabled='disabled' value="">Pilih Provinsi</option>
                     @foreach ($provinsi as $prov)
                         <option value="{{ $prov->id }}" {{ $calon->provinsi == $prov->id ? 'selected="true"' : '' }}>{{ $prov->name }}</option>
                     @endforeach
@@ -25,7 +25,7 @@
             <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
             <div class="col-md-3">
                 <select onchange="listCamat(this)" name="kota" class="form-control" id="kota" required>
-                    <option selected='true' disabled='disabled'>Pilih Kota/Kabupaten</option>
+                    <option selected='true' disabled='disabled' value="">Pilih Kota/Kabupaten</option>
                     @if($kota != '')
                         @foreach ($kota as $prov)
                             <option value="{{ $prov->id }}" {{ $calon->kota == $prov->id ? 'selected="true"' : '' }}>{{ $prov->name }}</option>

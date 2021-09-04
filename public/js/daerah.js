@@ -8,7 +8,7 @@ function listKota(e) {
                 $("#kota").empty();
                 $("#kecamatan").empty();
                 $("#kelurahan").empty();
-                $("#kota").append('<option selected="true" disabled="disabled">Pilih Kota/Kabupaten</option>');
+                $("#kota").append('<option selected="true" disabled="disabled" value="">Pilih Kota/Kabupaten</option>');
                 $.each(data.data,function(key,value){
                     $("#kota").append('<option value="'+key+'">'+value+'</option>');
                 });
@@ -30,7 +30,7 @@ function listCamat(e) {
             if(data){
                 $("#kecamatan").empty();
                 $("#kelurahan").empty();
-                $("#kecamatan").append('<option selected="true" disabled="disabled">Pilih Kecamatan</option>');
+                $("#kecamatan").append('<option selected="true" disabled="disabled" value="">Pilih Kecamatan</option>');
                 $.each(data.data,function(key,value){
                     $("#kecamatan").append('<option value="'+key+'">'+value+'</option>');
                 });
@@ -50,7 +50,7 @@ function listLurah(e) {
         .then((data) => {
             if(data){
                 $("#kelurahan").empty();
-                $("#kelurahan").append('<option selected="true" disabled="disabled">Pilih Kelurahan</option>');
+                $("#kelurahan").append('<option selected="true" disabled="disabled" value="">Pilih Kelurahan</option>');
                 $.each(data.data,function(key,value){
                     $("#kelurahan").append('<option value="'+key+'">'+value+'</option>');
                 });
