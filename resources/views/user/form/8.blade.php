@@ -35,6 +35,10 @@
             </tbody>
         </table>
         <hr>
+        <a href="/tambahcalon/7" class="btn bg-TK float-left white">
+            <i class="fa fa-chevron-circle-left"></i>
+            Sebelumnya
+        </a>
         <button id="finish" type="submit" class="btn bg-blue float-right" disabled>
             Simpan
             <i class="fa fa-chevron-circle-right"></i>

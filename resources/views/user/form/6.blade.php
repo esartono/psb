@@ -146,6 +146,10 @@
             </div>
         </div>
         <hr>
+        <a href="/tambahcalon/5" class="btn bg-TK float-left white">
+            <i class="fa fa-chevron-circle-left"></i>
+            Sebelumnya
+        </a>
         <button type="submit" class="btn bg-blue float-right">
             Selanjutnya
             <i class="fa fa-chevron-circle-right"></i>
