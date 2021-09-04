@@ -77,8 +77,17 @@ class PSBDailyReport extends Command
 
         Telegram::sendMessage(
             [
+                'chat_id' => '330501661',
+                'text' => $cek . $q
+            ],
+            [
+                'chat_id' => '11095399',
+                'text' => $cek . $q
+            ],
+            [
                 'chat_id' => '643982879',
                 'text' => $cek . $q
-            ]);
+            ]
+            );
     }
 }
