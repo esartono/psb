@@ -53,11 +53,13 @@ Route::middleware('auth', 'user')->group(function(){
     Route::get('/ppdb', 'HomeController@psb_new')->name('ppdb');
     // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
     // Route::get('/tambahcalon', 'HomeController@psb_old')->name('tambahcalon');
-    Route::get('/editcalon/{id}', 'HomeController@psb_old')->name('editcalon');
+    // Route::get('/editcalon/{id}', 'HomeController@psb_old')->name('editcalon');
     Route::get('/tambahcalon', 'DraftCalonController@create')->name('tambahcalon');
     Route::post('/tambahcalon', 'DraftCalonController@store')->name('add.calon');
     Route::get('/tambahcalon/{step}', 'DraftCalonController@create')->name('tambahcalon');
     Route::get('/editcalon/{id}', 'DraftCalonController@edit')->name('editcalon');
+    Route::get('/editcalon/{id}/{step}', 'DraftCalonController@edit')->name('editcalon');
+    Route::put('/editcalon', 'DraftCalonController@update')->name('edit.calon');
     Route::delete('/bataldaftar', 'DraftCalonController@destroy')->name('bataldaftar');
 });
 

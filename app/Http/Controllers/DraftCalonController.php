@@ -426,9 +426,79 @@ class DraftCalonController extends Controller
      * @param  \App\DraftCalon  $draftCalon
      * @return \Illuminate\Http\Response
      */
-    public function edit(DraftCalon $draftCalon)
+    public function edit($id, $step = 4)
     {
-        //
+        $calon = Calon::whereId($id)->first();
+        $ages = $calon->tgl_lahir;
+        $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
+        $gel = Gelombang::whereId($calon->gel_id)->first();
+        $min_age = $gel->minimum_age;
+
+        $pilihan = [
+            ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
+            ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
+            ['name' => 'Data Pribadi', 'icon' => 'fas fa-user'],
+            ['name' => 'Data Alamat', 'icon' => 'fas fa-home'],
+            ['name' => 'Data Orang Tua', 'icon'=> 'fas fa-users'],
+            ['name' => 'Data Asal Sekolah', 'icon'=> 'fas fa-school'],
+            ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
+        ];
+
+        if(!$calon) {
+            return redirect()->route('home');
+        }
+
+        if($step == 4) {
+            $infos = SumberInfo::orderBy('id', 'asc')->get();
+            $agama = Agama::orderBy('id', 'asc')->get();
+
+            return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'infos', 'agama'));
+        }
+
+        if($step == 5) {
+            $provinsi = Provinsi::orderBy('name', 'asc')->get();
+            $kota = $kecamatan = $kelurahan = "";
+            if($calon->provinsi){
+                $kota = Kota::where('prov_id', $calon->provinsi)->get();
+                if($calon->kota){
+                    $kecamatan = Kecamatan::where('kota_id', $calon->kota)->get();
+                    if($calon->kecamatan){
+                        $kelurahan = Kelurahan::where('camat_id', $calon->kecamatan)->get();
+                    }
+                }
+            }
+            return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
+        }
+
+        if($step == 6) {
+            $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
+            $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
+            $penghasilan = Penghasilan::orderBy('id', 'asc')->get();
+
+            return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'pendidikan', 'pekerjaan', 'penghasilan'));
+        }
+
+        if($step == 7) {
+            $provinsi = Provinsi::orderBy('name', 'asc')->get();
+            $kota = $kecamatan = $kelurahan = "";
+            if($calon->asal_propinsi_sekolah){
+                $kota = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
+                if($calon->asal_kota_sekolah){
+                    $kecamatan = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
+                    if($calon->asal_kecamatan_sekolah){
+                        $kelurahan = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
+                    }
+                }
+            }
+            $edited = '';
+            if($calon->asal_nf == 1) {
+                $edited = 'disabled';
+            }
+            return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'edited'));
+        }
+
+        // return redirect()->route('home');
     }
 
     /**
@@ -438,9 +508,46 @@ class DraftCalonController extends Controller
      * @param  \App\DraftCalon  $draftCalon
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DraftCalon $draftCalon)
+    public function update(Request $request)
     {
-        //
+        $calon = Calon::whereId($request->id)->where('user_id', auth()->user()->id)->first();
+        if($request->step == 4) {
+            $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            $pecah_tgl = explode(' ', $request->tgl_lahir);
+            $m = (array_search($pecah_tgl[1], $bulan))+1;
+
+            $data = $request->only('name', 'panggilan', 'tempat_lahir', 'jk', 'agama', 'nik', 'nisn', 'info')+['tgl_lahir' => $pecah_tgl[2].'-'.$m.'-'.$pecah_tgl[0],];
+            $step = 5;
+        }
+
+        if($request->step == 5) {
+            $data = $request->only('alamat', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'rt', 'rw', 'kodepos');
+            $step = 6;
+        }
+
+        if($request->step == 6) {
+            $data = $request->only('ayah_nama', 'ayah_pendidikan', 'ayah_pekerjaan', 'ayah_penghasilan', 'ayah_hp', 'ayah_email', 'ibu_nama', 'ibu_pendidikan', 'ibu_pekerjaan', 'ibu_penghasilan', 'ibu_hp', 'ibu_email');
+            $step = 7;
+        }
+
+        if($request->step == 7) {
+            $data = $request->only('asal_sekolah', 'asal_alamat_sekolah') + [
+                'asal_propinsi_sekolah' => $request->provinsi,
+                'asal_kota_sekolah' => $request->kota,
+                'asal_kecamatan_sekolah' => $request->kecamatan,
+                'asal_kelurahan_sekolah' => $request->kelurahan,
+            ];
+            $step = 'done';
+        }
+
+        if($calon) {
+            $calon->update($data);
+            if ($step !== 'done') {
+                return redirect('editcalon/'.$request->id.'/'.$step);
+            }
+        }
+
+        return redirect()->route('home');
     }
 
     /**
