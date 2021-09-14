@@ -135,7 +135,10 @@ class HomeController extends Controller
                 ->where('aktif', true)
                 ->whereIn('gel_id', $gelombang)->get();
 
-        return view('user.dashboard', compact('calons'));
+        if($calons->count() > 0) {
+            return view('user.dashboard', compact('calons'));
+        }
+        return view('user.awal');
     }
 
     public function edupay()
