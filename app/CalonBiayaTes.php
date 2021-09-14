@@ -45,7 +45,6 @@ class CalonBiayaTes extends Model
 
         $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
 
-        // $cj = CalonJadwal::where('calon_id', $calon->id)->first();
         CalonJadwal::updateOrCreate(
             ['calon_id' => $calon->id],
             ['jadwal_id' => $jd]
@@ -67,7 +66,6 @@ class CalonBiayaTes extends Model
 
     public function pilihjadwal($gel, $asal)
     {
-
         if($asal == 1) {
             $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
                     ->where('gel_id', $gel)

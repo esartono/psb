@@ -326,12 +326,6 @@ class DraftCalonController extends Controller
             $draft = DraftCalon::where('user_id', auth()->user()->id)->first();
             $urut = Calon::where('gel_id', $draft['gel_id'])->get()->count();
 
-            if ($request['jurusan']) {
-                $jurusan = $request['jurusan'];
-            } else {
-                $jurusan = "-";
-            }
-
             $calon = Calon::create([
                 'gel_id' => $draft['gel_id'],
                 'ck_id' => $draft['ck_id'],
@@ -343,7 +337,7 @@ class DraftCalonController extends Controller
                 'panggilan' => $draft['panggilan'],
                 'jk' => $draft['jk'],
                 'kelas_tujuan' => $draft['kelas_tujuan'],
-                'jurusan' => $jurusan,
+                'jurusan' => $draft['jurusan'],
                 'photo' => 'Belum Ada',
                 'tempat_lahir' => $draft['tempat_lahir'],
                 'tgl_lahir' => $draft['tgl_lahir'],
@@ -562,5 +556,18 @@ class DraftCalonController extends Controller
         $draft->delete();
 
         return redirect()->route('ppdb');
+    }
+
+    public function jurusan(Request $request)
+    {
+        try {
+            $calon = Calon::whereId($request->id)->first();
+            $calon->update([
+                'jurusan' => $request->jurusan
+            ]);
+            return 'OKE';
+        } catch (\Illuminate\Database\QueryException $e) {
+            return 'EKO';
+        }
     }
 }

@@ -53,3 +53,45 @@
     @endforeach
 </div>
 @endsection
+
+@push('js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var id = "{{$calon->id}}"
+        var unit = "{{$calon->gelnya->unitnya->catnya->name}}"
+        var jurusan = "{{$calon->jurusan}}"
+        if (unit == 'SMA' && jurusan == '-'){
+            (async function(){
+                const { value: jur } = await Swal.fire({
+                    title: 'Pilih Jurusan',
+                    input: 'select',
+                    inputOptions: {
+                        'MIPA': 'MIPA',
+                        'IPS': 'IPS'
+                    },
+                    inputPlaceholder: 'Pilih Jurusan',
+                    showCancelButton: false,
+                })
+                if (jur) {
+                    axios({
+                        method: "post",
+                        url: "/editjurusan",
+                        data: {
+                            id: id,
+                            jurusan: jur
+                        }
+                    }).then(function (response) {
+                        if (response.data == 'OKE') {
+                            location.reload(true);
+                        }
+                    }).catch(function (response) {
+                        alert(response);
+                    });
+                }
+            })()
+        }
+    });
+</script>
+@endpush

@@ -60,6 +60,7 @@ Route::middleware('auth', 'user')->group(function(){
     Route::get('/editcalon/{id}', 'DraftCalonController@edit')->name('editcalon');
     Route::get('/editcalon/{id}/{step}', 'DraftCalonController@edit')->name('editcalon');
     Route::put('/editcalon', 'DraftCalonController@update')->name('edit.calon');
+    Route::post('/editjurusan', 'DraftCalonController@jurusan');
     Route::delete('/bataldaftar', 'DraftCalonController@destroy')->name('bataldaftar');
 });
 
