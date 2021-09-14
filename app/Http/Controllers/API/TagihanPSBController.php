@@ -65,9 +65,9 @@ class TagihanPSBController extends Controller
                         $selisih = 13 - $t;
                     }
 
-                    $dp1['Dana Pengembangan'] = ($selisih / 6) * $d1;
-                    $dp2['Dana Pengembangan'] = ($selisih / 3) * $d2;
-                    $dp3['Dana Pengembangan'] = ($selisih / 3) * $d3;
+                    $dp1['Dana Pengembangan'] = floor(($selisih / 6) * $d1/1000)*1000;
+                    $dp2['Dana Pengembangan'] = floor(($selisih / 3) * $d2/1000)*1000;
+                    $dp3['Dana Pengembangan'] = floor(($selisih / 3) * $d3/1000)*1000;
 
                     TagihanPSB::updateOrCreate([
                         'gel_id' => $request['gel_id'],
