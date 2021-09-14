@@ -10,7 +10,7 @@
                             <a class="btn btn-sm btn-danger" @click="addModal">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="input-group input-group-sm mt-1 mr-3" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <v-table :data="tagihanpsbs" :filters="filters" :currentPage.sync="currentPage" :pageSize="4"
+                        <v-table :data="tagihanpsbs" :filters="filters" :currentPage.sync="currentPage" :pageSize="7"
                             @totalPagesChanged="totalPages = $event"
                             class="table table-bordered table-hover table-head-fixed">
                             <thead slot="head">
@@ -43,7 +43,7 @@
                                     <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
                                     <td class="text-center">{{ row.kelasnya.name }}</td>
                                     <td class="text-center">{{ (row.kelamin == 1 ? 'Laki-laki' : 'Perempuan') }}</td>
-                                    <td class="text-center">{{ row.total | toCurrency }}</td>
+                                    <td class="text-center">{{ row.total[1] | toCurrency }}</td>
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -75,34 +75,47 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group row">
-                                    <label class="col-md-2 col-form-label">Biaya Pendidikan</label>
-                                    <div class="col-md-3">
-                                        <select v-model="form.gel_id" @change="pilihUnit($event)" name="gel_id" class="form-control" id="gel_id" required>
-                                            <option v-for="gel in gelombangs" :key="gel.id" v-bind:value="gel.id">{{ gel.unitnya.name }}</option>
-                                        </select>
+                                <div class="card-group">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-form-label">Biaya Pendidikan</label>
+                                                <div class="col-md-7">
+                                                    <select v-model="form.gel_id" @change="pilihUnit($event)" name="gel_id" class="form-control" id="gel_id" required>
+                                                        <option v-for="gel in gelombangs" :key="gel.id" v-bind:value="gel.id">{{ gel.unitnya.name }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-form-label">Kelas</label>
+                                                <div class="col-md-7">
+                                                    <select v-model="form.kelas" @change="pilihKelas($event)" name="kelas" class="form-control" id="kelas" required>
+                                                        <option v-for="k in kelass" :key="k.id" v-bind:value="k.id">{{ k.name }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-5 col-form-label">Kelamin</label>
+                                                <div class="col-md-7">
+                                                    <select v-model="form.kelamin" name="kelamin" class="form-control" id="kelamin" required>
+                                                        <option value=1>Laki-Laki</option>
+                                                        <option value=2>Perempuan</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <label class="col-md-1 col-form-label">Kelas</label>
-                                    <div class="col-md-2">
-                                        <select v-model="form.kelas" name="kelas" class="form-control" id="kelas" required>
-                                            <option v-for="k in kelass" :key="k.id" v-bind:value="k.id">{{ k.name }}</option>
-                                        </select>
-                                    </div>
-                                    <label class="col-md-2 col-form-label">Kelamin</label>
-                                    <div class="col-md-2">
-                                        <select v-model="form.kelamin" name="kelamin" class="form-control" id="kelamin" required>
-                                            <option value=1>Laki-Laki</option>
-                                            <option value=2>Perempuan</option>
-                                        </select>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <table width="100%">
+                                                <tr v-for="b in biaya" :key="b.id">
+                                                    <td width="60%"><label class="col-form-label">{{ b.name }}</label></td>
+                                                    <td><input v-model="form.biaya1[b.name]" type="number" name="biaya1[b.name]" class="form-control" style="text-align: right" id="biaya" min=0/ step="500" required></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <table width="100%">
-                                    <tr v-for="b in biaya" :key="b.id">
-                                        <td><label class="col-form-label">{{ b.name }}</label></td>
-                                        <td><input v-model="form.biaya1[b.name]" type="number" name="biaya1[b.name]" class="form-control" id="biaya" min=0/ step="500" required></td>
-                                    </tr>
-                                </table>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -135,14 +148,10 @@
                     },
                     {
                         'id': 2,
-                        'name': 'Iuran SPP Bulan Juli',
-                    },
-                    {
-                        'id': 3,
                         'name': 'Iuran Komite Sekolah / tahun',
                     },
                     {
-                        'id': 4,
+                        'id': 3,
                         'name': 'Seragam'
                     },
                 ],
@@ -160,8 +169,6 @@
                     kelas: 0,
                     kelamin: "",
                     biaya1: {},
-                    biaya2: {},
-                    biaya3: {}
                 })
             };
         },
@@ -206,6 +213,10 @@
             },
 
             editModal(tagihanpsb) {
+                axios
+                    .get("../api/kelasnya/" + tagihanpsb.gel_id)
+                    .then(({ data }) => (this.kelass = data))
+
                 this.editmode = true;
                 this.form.reset();
                 $("#addModal").modal("show");
