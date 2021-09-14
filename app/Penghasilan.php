@@ -14,9 +14,18 @@ class Penghasilan extends Model
         'created_at', 'updated_at'
     ];
 
+    // public static function nama($id)
+    // {
+    //     $namanya = static::where('id', $id)->first();
+    //     return $namanya['name'];
+    // }
     public static function nama($id)
     {
-        $namanya = static::where('id', $id)->first();
-        return $namanya['name'];
+        $p = static::where('id', '=', $id)->first();
+        if ($p) {
+            return $p->name;
+        }
+        return '-';
     }
+
 }
