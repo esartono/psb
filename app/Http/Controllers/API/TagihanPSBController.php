@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 use App\Calon;
 use App\Kelasnya;
+use App\Gelombang;
 use App\TagihanPSB;
 use App\TahunPelajaran;
 
@@ -30,14 +32,67 @@ class TagihanPSBController extends Controller
 
     public function store(Request $request)
     {
-        TagihanPSB::create([
-            'gel_id' => $request['gel_id'],
-            'kelas' => $request['kelas'],
-            'kelamin' => $request['kelamin'],
-            'biaya1' => $request['biaya1'],
-            'biaya2' => $request['biaya2'],
-            'biaya3' => $request['biaya3'],
-        ]);
+        $gel = DB::table('gelombangs')
+                ->select('gelombangs.id', 'school_categories.name as nama' , 'units.id as unit')
+                ->leftJoin('units','gelombangs.unit_id','=','units.id')
+                ->leftJoin('school_categories','units.cat_id','=','school_categories.id')
+                ->where('gelombangs.id', $request->gel_id)
+                ->first();
+        $kelas = Kelasnya::whereId($request['kelas'])->first()->name;
+
+        if($gel->nama !== 'TK') {
+            if($kelas === '1' || $kelas === '7' || $kelas === '10') {
+                $kls = Kelasnya::where('unit_id', $gel->unit)->get();
+                $dp1 = $request['biaya1'];
+                $dp2 = $request['biaya2'];
+                $dp3 = $request['biaya3'];
+
+                $d1 = intval($dp1['Dana Pengembangan']);
+                $d2 = intval($dp2['Dana Pengembangan']);
+                $d3 = intval($dp3['Dana Pengembangan']);
+
+                foreach ($kls as $k) {
+                    $t = intval($k->name);
+                    if($kelas === '1'){
+                        $selisih = 7 - $t;
+                    }
+
+                    if($kelas === '7'){
+                        $selisih = 10 - $t;
+                    }
+
+                    if($kelas === '10'){
+                        $selisih = 13 - $t;
+                    }
+
+                    $dp1['Dana Pengembangan'] = ($selisih / 6) * $d1;
+                    $dp2['Dana Pengembangan'] = ($selisih / 3) * $d2;
+                    $dp3['Dana Pengembangan'] = ($selisih / 3) * $d3;
+
+                    TagihanPSB::updateOrCreate([
+                        'gel_id' => $request['gel_id'],
+                        'kelas' => $k->id,
+                        'kelamin' => $request['kelamin']
+                    ],[
+                        'biaya1' => $dp1,
+                        'biaya2' => $dp2,
+                        'biaya3' => $dp3,
+                    ]);
+                }
+            }
+        }
+
+        if($gel->nama === 'TK') {
+            TagihanPSB::updateOrCreate([
+                'gel_id' => $request['gel_id'],
+                'kelas' => $request['kelas'],
+                'kelamin' => $request['kelamin']
+            ],[
+                'biaya1' => $request['biaya1'],
+                'biaya2' => $request['biaya2'],
+                'biaya3' => $request['biaya3'],
+            ]);
+        }
     }
 
     public function update(Request $request, $id)
