@@ -28,7 +28,17 @@
                             <b>Jenis Kelamin</b> <a class="float-right">{{ $calon->kelamin }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ $calon->kelasnya->name }} {{ $calon->gelnya->unitnya->catnya->name === 'SMA' ? '( Jurusan '.$calon->jurusan.' )' : '' }}</a>
+                            <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ $calon->kelasnya->name }}
+                                @if($calon->gelnya->unitnya->catnya->name === 'SMA')
+                                    ( Jurusan
+                                    @if($calon->jurusan === '-')
+                                        <button class="btn btn-danger btn-sm" onclick="jurusan()">Pilih Jurusan</button>
+                                    @else
+                                        {{ $calon->jurusan }}
+                                    @endif
+                                    )
+                                @endif
+                                </a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ $calon->tgl_daftar->isoFormat('D MMMM Y') }}</a>
@@ -59,6 +69,10 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        jurusan()
+    })
+
+    function jurusan() {
         var id = "{{$calon->id}}"
         var unit = "{{$calon->gelnya->unitnya->catnya->name}}"
         var jurusan = "{{$calon->jurusan}}"
@@ -92,6 +106,6 @@
                 }
             })()
         }
-    });
+    }
 </script>
 @endpush
