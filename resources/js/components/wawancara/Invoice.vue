@@ -1,23 +1,16 @@
 <template>
-<div class="justify-content-center align-items-center" style="padding: 50px">
-  <a
-      class="btn btn-app btn-lg white"
-      v-for="r in reguler" :key="r.id"
-      v-on:click="pilihBiaya(r.id)"
-      v-bind:class="backgroundnya[r.id]">
-      <i v-if="r.id == 1" class="fa fa-tags"></i>
-      <i v-else-if="r.id == 2" class="fa fa-shopping-bag"></i>
-      <i v-else-if="r.id == 3" class="fas fa-address-card"></i>
-      {{ r.name }}
-  </a>
-  <a
-      class="btn btn-app btn-lg white"
-      style="width: 560px !important"
-      v-on:click="ketentuan()"
-      v-bind:class="backgroundnya[4]">
-      <i class="fa fa-info"></i>
-      Ketentuan Pembayaran
-  </a>
+<div>
+  <center>
+    <a class="btn btn-app btn-lg white bg-red" v-on:click="pilihBiaya(1)">
+        <i class="fa fa-tags"></i>
+        Pembiayaan
+    </a>
+    <br>
+    <a class="btn btn-app btn-lg white bg-teal" v-on:click="ketentuan()">
+        <i class="fa fa-info"></i>
+        Ketentuan Pembayaran
+    </a>
+  </center>
   <!-- Modal -->
   <div
     class="modal fade"
@@ -69,7 +62,7 @@
                   <button type="button" class="btn btn-secondary col-md-4 offset-md-2" data-dismiss="modal">Batal</button>
                   <button type="submit" class="btn btn-primary col-md-4">Simpan</button>
                 </td>
-                <td style="background-color: lightgrey">
+                <td style="background-color: lightblue">
                   <center><b>Pembiayaan selama bersekolah di<br>Sekolah Islam Terpadu Nurul Fikri</b></center><br>
                   <table class="table table-sm table-bordered">
                     <tr v-for="(k, index) in kelas" :key="index">
@@ -205,20 +198,6 @@ export default {
       total: 0,
       totalTahunan: 0,
       modelBayar: "",
-      reguler: [
-        {
-          'id': 1,
-          'name': 'Reguler 1',
-        },
-        {
-          'id': 2,
-          'name': 'Reguler 2',
-        },
-        {
-          'id': 3,
-          'name': 'Reguler 3',
-        },
-      ],
       pots: [
         {
           'id': 0,
@@ -262,24 +241,12 @@ export default {
         },
         {
           'id': 2,
-          'name': 'Iuran SPP Bulan Juli',
-        },
-        {
-          'id': 3,
           'name': 'Iuran Komite Sekolah / tahun',
         },
         {
-          'id': 4,
+          'id': 3,
           'name': 'Seragam'
         },
-      ],
-      backgroundnya: [
-        '',
-        'bg-red',
-        'bg-blue',
-        'bg-orange',
-        'bg-teal',
-        'bg-green',
       ],
       form: new Form({
         calon_id: "",
@@ -302,7 +269,8 @@ export default {
             this.kelas = data.data.kelas;
             this.form.calon_id = this.$route.params.id;
             this.form.tagihan_id = tgh;
-            this.modelBayar = this.reguler[tgh-1].name;
+            // this.modelBayar = this.reguler[tgh-1].name;
+            this.modelBayar = "PPDB SIT Nurul Fikri";
             $("#addModal").modal({backdrop: 'static', keyboard: false});
             $("#addModal").modal("show");
             this.$Progress.finish();

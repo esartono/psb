@@ -192,8 +192,8 @@
         </table>
         <div class="page-break"></div>
         @include('pdf.rincianPSB.1')
-        @include('pdf.rincianPSB.2')
-        @include('pdf.rincianPSB.3')
+        {{-- @include('pdf.rincianPSB.2')
+        @include('pdf.rincianPSB.3') --}}
         @include('pdf.rincianPSB.refund')
     </div>
 @endsection

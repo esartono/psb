@@ -31,7 +31,7 @@ class TagihanPSB extends Model
     }
 
     protected $appends = [
-        'total'
+        'total', 'spp'
     ];
 
     public function getTotalAttribute()
@@ -40,12 +40,23 @@ class TagihanPSB extends Model
         $total[1] = 0;
         $total[2] = 0;
         $total[3] = 0;
+        $sppnya = 0;
+
+        $tp = TahunPelajaran::where('status', 1)->first();
+        $unit = Gelombang::whereId($this->attributes['gel_id'])->first()->unit_id;
+        if($tp){
+            $spp = Spp::where('tp', $tp->id)->where('unit_id', $unit)->first();
+            if($spp){
+                $sppnya = $spp->spp;
+            }
+        }
 
         if($this->attributes['biaya1']){
             $biaya = json_decode($this->attributes['biaya1']);
             foreach($biaya as $k => $v){
                 $total[1] = $total[1] + $v;
             }
+            $total[1] = $total[1] + $sppnya;
         }
 
         if($this->attributes['biaya2']){
@@ -53,6 +64,7 @@ class TagihanPSB extends Model
             foreach($biaya as $k => $v){
                 $total[2] = $total[2] + $v;
             }
+            $total[2] = $total[2] + $sppnya;
         }
 
         if($this->attributes['biaya3']){
@@ -60,6 +72,7 @@ class TagihanPSB extends Model
             foreach($biaya as $k => $v){
                 $total[3] = $total[3] + $v;
             }
+            $total[3] = $total[3] + $sppnya;
         }
 
         return $total;
@@ -80,6 +93,7 @@ class TagihanPSB extends Model
 
         $biaya = $biayas->biaya3;
         $total = 0;
+        $sppnya = 0;
         foreach($biaya as $k => $v){
             $total = $total + $v;
         }
@@ -112,5 +126,18 @@ class TagihanPSB extends Model
         }
 
         return array_merge($biayanya, ['reguler'=>$reguler, 'tagihan'=>$totalnya]);
+    }
+
+    public function getSppAttribute()
+    {
+        $tp = TahunPelajaran::where('status', 1)->first();
+        $unit = Gelombang::whereId($this->attributes['gel_id'])->first()->unit_id;
+        if($tp){
+            $spp = Spp::where('tp', $tp->id)->where('unit_id', $unit)->first();
+            if($spp){
+                return $spp->spp;
+            }
+        }
+        return 0;
     }
 }

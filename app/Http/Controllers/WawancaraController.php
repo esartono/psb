@@ -29,7 +29,7 @@ class WawancaraController extends Controller
     public function PDFKeuangan($id)
     {
         $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
-        $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'Iuran SPP Bulan Juli', 'Iuran Komite Sekolah / tahun', 'Seragam'];
+        $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'Iuran Komite Sekolah / tahun', 'Seragam'];
 
         $security = $ctg->created_at;
 
@@ -54,12 +54,12 @@ class WawancaraController extends Controller
         }
 
         $biaya1 = $biayas->biaya1;
-        $biaya2 = $biayas->biaya2;
-        $biaya3 = $biayas->biaya3;
+        // $biaya2 = $biayas->biaya2;
+        // $biaya3 = $biayas->biaya3;
 
         $total1 = $biayas->total[1];
-        $total2 = $biayas->total[2];
-        $total3 = $biayas->total[3];
+        // $total2 = $biayas->total[2];
+        // $total3 = $biayas->total[3];
 
         $kls = Kelasnya::where('id', $calon->kelas_tujuan)->first();
         $kelass = Kelasnya::where('unit_id', $kls->unit_id)->where('id', '>=', $kls->id)->get();
@@ -88,13 +88,13 @@ class WawancaraController extends Controller
             foreach($kelass as $k) {
                 if ($no === 1){
                     if($tgh_id == 1){
-                        $sppnya = $biaya1['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                        $sppnya = $biayas->spp + $spp_naik[$no];
                     }
                     if($tgh_id == 2){
-                        $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                        $sppnya = $biayas->spp + $spp_naik[$no];
                     }
                     if($tgh_id == 3){
-                        $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                        $sppnya = $biayas->spp + $spp_naik[$no];
                     }
                     if ($ctg->khusus == 0) {
                         $kelas[$k->name]['ket'.$tgh_id] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
@@ -114,19 +114,19 @@ class WawancaraController extends Controller
                     $totalth = $totalth + $dauls;
                 }
                 if ($no === 2 && $tgh_id < 3) {
-                    $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                    $sppnya = $biayas->spp + $spp_naik[$no];
                     $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                     $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
                     $totalth = $totalth + $sppnya*12;
                 }
                 if ($no === 2 && $tgh_id >= 3) {
-                    $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                    $sppnya = $biayas->spp + $spp_naik[$no];
                     $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                     $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
                     $totalth = $totalth + $sppnya*12;
                 }
                 if ($no > 2) {
-                    $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+                    $sppnya = $biayas->spp + $spp_naik[$no];
                     $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                     $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
                     $totalth = $totalth + $sppnya*12;
@@ -164,7 +164,7 @@ class WawancaraController extends Controller
         }
 
         if ($ctg->khusus == 0) {
-            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'tglbatas', 'security', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
+            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'tglbatas', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
         }
 
         if ($ctg->khusus == 1) {

@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="card-body p-0">
-                        <v-table :data="spps" :filters="filters" :currentPage.sync="currentPage" :pageSize="7"
+                        <v-table :data="spps" :filters="filters" :currentPage.sync="currentPage" :pageSize="8"
                             @totalPagesChanged="totalPages = $event"
                             class="table table-bordered table-hover table-head-fixed">
                             <thead slot="head">
@@ -73,7 +73,7 @@
                                     <label class="col-sm-4 col-form-label">Tahun Pelajaran</label>
                                     <div class="col-sm-8">
                                         <select v-model="form.tp" name="tp" class="form-control" id="tp">
-                                            <option v-for="tp in tps" :key="tp.id"
+                                            <option v-for="tp in tps.slice().reverse()" :key="tp.id"
                                                 v-bind:value="tp.id">{{ tp.name }}</option>
                                         </select>
                                         <has-error :form="form" field="tp"></has-error>
@@ -129,8 +129,8 @@
                 totalPages: 0,
                 form: new Form({
                     id: "",
-                    tp: 1,
-                    unit_id: 1,
+                    tp: 0,
+                    unit_id: 0,
                     spp: 0
                 })
             };

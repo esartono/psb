@@ -21,7 +21,7 @@
     padding: 5px;
 }
 </style>
-Lampiran 1 : <b>Pembiayaan Reguler 1</b>
+Lampiran 1
 <h3>Daftar Pembiayaan SIT Nurul Fikri</h3>
 <table width="100%">
 <tr>

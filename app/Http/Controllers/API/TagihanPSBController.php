@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+use App\Spp;
 use App\Calon;
 use App\Kelasnya;
 use App\Gelombang;
@@ -55,19 +56,22 @@ class TagihanPSBController extends Controller
                     $t = intval($k->name);
                     if($kelas === '1'){
                         $selisih = 7 - $t;
+                        $bagi = 6;
                     }
 
                     if($kelas === '7'){
                         $selisih = 10 - $t;
+                        $bagi = 3;
                     }
 
                     if($kelas === '10'){
                         $selisih = 13 - $t;
+                        $bagi = 3;
                     }
 
-                    $dp1['Dana Pengembangan'] = floor(($selisih / 6) * $d1/1000)*1000;
-                    $dp2['Dana Pengembangan'] = floor(($selisih / 3) * $d2/1000)*1000;
-                    $dp3['Dana Pengembangan'] = floor(($selisih / 3) * $d3/1000)*1000;
+                    $dp1['Dana Pengembangan'] = floor(($selisih / $bagi) * $d1/1000)*1000;
+                    $dp2['Dana Pengembangan'] = floor(($selisih / $bagi) * $d2/1000)*1000;
+                    $dp3['Dana Pengembangan'] = floor(($selisih / $bagi) * $d3/1000)*1000;
 
                     TagihanPSB::updateOrCreate([
                         'gel_id' => $request['gel_id'],
@@ -117,12 +121,12 @@ class TagihanPSBController extends Controller
                 ->where('kelamin', $calon->jk)
                 ->first();
 
-        $biaya3 = $biayas->biaya3;
-        $biaya2 = $biayas->biaya2;
+        // $biaya3 = $biayas->biaya3;
+        // $biaya2 = $biayas->biaya2;
 
         if($tgh_id == 1){$biaya = $biayas->biaya1; $total = $biayas->total[1];}
-        if($tgh_id == 2){$biaya = $biayas->biaya2; $total = $biayas->total[2];}
-        if($tgh_id == 3){$biaya = $biayas->biaya3; $total = $biayas->total[3];}
+        // if($tgh_id == 2){$biaya = $biayas->biaya2; $total = $biayas->total[2];}
+        // if($tgh_id == 3){$biaya = $biayas->biaya3; $total = $biayas->total[3];}
 
         $kls = Kelasnya::where('id', $calon->kelas_tujuan)->first();
         $kelass = Kelasnya::where('unit_id', $kls->unit_id)->where('id', '>=', $kls->id)->get();
@@ -145,35 +149,36 @@ class TagihanPSBController extends Controller
             '11' => 4500000,
             '12' => 5000000,
         ];
+
         foreach($kelass as $k) {
-            if ($no === 1){
-                $sppnya = $biaya['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+            // if ($no === 1){
+                $sppnya = $biayas->spp + $spp_naik[$no];
                 $kelas[$no]['ket'] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
                 $kelas[$no]['total'] = 'Rp. '.number_format($sppnya*11);
-                $totalTahunan = $totalTahunan + $biaya['Iuran SPP Bulan Juli']*11;
-            }
+                $totalTahunan = $totalTahunan + ($biayas->spp*11);
+            // }
             if ($no > 1){
                 $dauls = (isset($daul[$k->name]) ? $daul[$k->name] : 0);
                 $kelas[$no]['daul'] = (isset($daul[$k->name]) ? 'Dana Tahunan : Rp. '.number_format($daul[$k->name]) : 0);
             }
-            if ($no === 2 && $tgh_id < 3) {
-                $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
-                $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
-                $totalTahunan = $totalTahunan + $dauls + $biaya2['Iuran SPP Bulan Juli']*12;
-            }
-            if ($no === 2 && $tgh_id >= 3) {
-                $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
-                $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
-                $totalTahunan = $totalTahunan + $dauls + $biaya3['Iuran SPP Bulan Juli']*12;
-            }
-            if ($no > 2) {
-                $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
-                $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
-                $totalTahunan = $totalTahunan + $dauls + $biaya3['Iuran SPP Bulan Juli']*12;
-            }
+            // if ($no === 2 && $tgh_id < 3) {
+            //     $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+            //     $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+            //     $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
+            //     $totalTahunan = $totalTahunan + $dauls + $biaya2['Iuran SPP Bulan Juli']*12;
+            // }
+            // if ($no === 2 && $tgh_id >= 3) {
+            //     $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+            //     $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+            //     $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
+            //     $totalTahunan = $totalTahunan + $dauls + $biaya3['Iuran SPP Bulan Juli']*12;
+            // }
+            // if ($no > 2) {
+            //     $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
+            //     $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+            //     $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12) + $dauls);
+            //     $totalTahunan = $totalTahunan + $dauls + $biaya3['Iuran SPP Bulan Juli']*12;
+            // }
             // $totalTahunan = $totalTahunan +;
             $kelas[$no]['spp'] = ' @ Rp. '.number_format($sppnya);
             $kelas[$no]['kelas'] = $k->name;

@@ -30,7 +30,7 @@ table.table-invoice th, table.table-invoice td {
                     </div>
                     <!-- info row -->
                     <div class="row mt-3">
-                        <div class="card col-5">
+                        <div class="card col-8">
                             <div class="card-body" style="padding: 10px 0px 5px 0px">
                                 <p class="card-title">Biodata Calon Siswa</p>
                                 <table class="table table-sm table-striped">
@@ -60,12 +60,14 @@ table.table-invoice th, table.table-invoice td {
                                         <td>{{ $calon->kelasnya->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Orang Tua</td>
+                                        <td>Nama Ayah</td>
                                         <td>:</td>
-                                        <td>
-                                            Ayah : {{ $calon->ayah_nama }} - ({{ $calon->ayah_hp }})<br>
-                                            Ibu : {{ $calon->ibu_nama }} - ({{ $calon->ibu_hp }})
-                                        </td>
+                                        <td>{{ $calon->ayah_nama }} - ({{ $calon->ayah_hp }})</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama Ibu</td>
+                                        <td>:</td>
+                                        <td>Ibu : {{ $calon->ibu_nama }} - ({{ $calon->ibu_hp }})</td>
                                     </tr>
                                     <tr>
                                         <td>Alamat Tempat Tinggal</td>
@@ -80,7 +82,7 @@ table.table-invoice th, table.table-invoice td {
                                 <a href="/wawancara-keu" class="btn btn-success btn-block"> Dashboard Wawancara</a>
                             </div>
                         </div>
-                        <div class="card col-7"><router-view tglbatas="{{ $tglbatas }}"></router-view></div>
+                        <div class="card col-4 justify-content-center"><router-view tglbatas="{{ $tglbatas }}"></router-view></div>
                         <!-- @include('wawancara.ketentuan') -->
                     </div>
                 </div>
