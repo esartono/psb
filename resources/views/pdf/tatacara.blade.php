@@ -69,7 +69,7 @@
                     <li>
                         Masukan Nomor Rekening Tujuan
                         <ul>
-                            <li>Kode Bank Syariah Mandiri : <b>451</b></li>
+                            <li>Kode Bank Syariah Indonesia : <b>451</b></li>
                             <li>Kode Pembayaran Pendidikan : <b>900</b></li>
                             <li>Kode YPPU Nurul Fikri : <b>3292</b></li>
                             <li>Kode Pendaftaran : <b>{{ $calonsnya->uruts }} (sesuai nomor pendaftaran).</b></li>
@@ -89,7 +89,7 @@
                     <li>
                         Masukan Nomor Rekening Tujuan
                         <ul>
-                            <li>Kode Bank Syariah Mandiri : <b>451</b></li>
+                            <li>Kode Bank Syariah Indonesia : <b>451</b></li>
                             <li>Kode Pembayaran Pendidikan : <b>900</b></li>
                             <li>Kode YPPU Nurul Fikri : <b>3292</b></li>
                             <li>Kode Pendaftaran : <b>{{ $calonsnya->uruts }} (sesuai nomor pendaftaran).</b></li>
