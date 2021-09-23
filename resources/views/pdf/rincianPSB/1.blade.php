@@ -68,17 +68,18 @@ Lampiran 1
 <h5>B. Pembiayaan selama bersekolah di SIT Nurul Fikri</h5>
 <table class="global">
 @foreach($kelass as $k=>$b)
+        @php $no=1; @endphp
         <tr>
           <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>
         </tr>
         <tr>
-          <td width="75%">{{ $kelas[$b->name]['ket1'] }} @ Rp. {{ number_format($kelas[$b->name]['spp1']) }} <br></td>
-          <td align="right">Rp. {{ number_format($kelas[$b->name]['total1']) }}</td>
+          <td width="75%">{{ $kelas[$b->name]['ket'.$no] }} @ Rp. {{ number_format($kelas[$b->name]['spp'.$no]) }} <br></td>
+          <td align="right">Rp. {{ number_format($kelas[$b->name]['total'.$no]) }}</td>
         </tr>
-        @if(isset($kelas[$b->name]['daul1']))
+        @if(isset($kelas[$b->name]['daul'.$no]))
         <tr>
           <td> Dana Tahunan</td>
-          <td align="right">Rp. {{ number_format($kelas[$b->name]['daul1']) }}</td>
+          <td align="right">Rp. {{ number_format($kelas[$b->name]['daul'.$no]) }}</td>
         </tr>
         @endif
 @endforeach

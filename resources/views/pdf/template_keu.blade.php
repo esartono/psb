@@ -83,7 +83,7 @@
                     <h1 style="margin-bottom: -15px">Sekolah Islam Terpadu Nurul Fikri</h1>
                     <h2>TKIT - SDIT - SMPIT - SMAIT Nurul Fikri</h2>
                 </td>
-                <div class="security"><img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(85)->generate(strtotime($security))) !!} "></div>
+                <div class="security"></div>
             </tr>
         </table>
     </header>
