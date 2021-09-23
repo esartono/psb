@@ -86,34 +86,32 @@ table.table-invoice th, table.table-invoice td {
                         <!-- @include('wawancara.ketentuan') -->
                     </div>
                 </div>
+                <!-- Modal Ketentuan-->
+                <div
+                class="modal fade"
+                id="ketentuanModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="ketentuanModalLabel"
+                aria-hidden="true"
+                >
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ketentuanModalLabel">Form Wawancara Keuangan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @include('front.ketentuan')
+                        </div>
+                    </div>
+                </div>
+                </div>
                 <!-- /.invoice -->
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </section>
-
-<!-- Modal Ketentuan-->
-<div
-    class="modal fade"
-    id="ketentuanModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="ketentuanModalLabel"
-    aria-hidden="true"
->
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="ketentuanModalLabel">Form Wawancara Keuangan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @include('front.ketentuan')
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection

@@ -45,6 +45,8 @@
                         <select v-model="form.potongan" @change="cekNotif($event)" name="potongan" class="form-control" id="potongan">
                           <option v-for="p in pots" :key="p.id" v-bind:value="p.id">( {{ p.potongan  }}% ) -  {{ p.keterangan  }}</option>
                         </select>
+                        <label v-if="!tampil" class="col-form-label">Masukan nama saudara di NF</label>
+                        <input v-if="!tampil" v-model="form.saudara" type="text" name="saudara" class="form-control"/>
                       </td>
                     </tr>
                     <tr>
@@ -100,6 +102,7 @@ export default {
       tagihanpsb: {},
       kelas: {},
       total: 0,
+      tampil: true,
       totalTahunan: 0,
       modelBayar: "",
       pots: [
@@ -107,43 +110,43 @@ export default {
           'id': 0,
           'potongan': 0,
           'keterangan': 'Tidak ada potongan',
-          'notif': false
+          'notif': 0
         },
         {
           'id': 1,
           'potongan': 10,
           'keterangan': 'Asal dari NF (Depok/Bogor)',
-          'notif': false
+          'notif': 0
         },
         {
           'id': 2,
           'potongan': 5,
           'keterangan': 'Memiliki Saudara kandung PERTAMA di NF',
-          'notif': true
+          'notif': 1
         },
         {
           'id': 3,
           'potongan': 5,
           'keterangan': 'Memiliki Saudara kandung KEDUA di NF',
-          'notif': true
+          'notif': 1
         },
         {
           'id': 4,
           'potongan': 25,
           'keterangan': 'Undangan Khusus asal NF (Depok/Bogor)',
-          'notif': false
+          'notif': 0
         },
         {
           'id': 5,
           'potongan': 50,
           'keterangan': 'Pemenang Lomba tingkat Nasional (Bertingkat)',
-          'notif': false
+          'notif': 0
         },
         {
           'id': 6,
           'potongan': 25,
           'keterangan': 'Hafal minimal 15 Juz',
-          'notif': false
+          'notif': 0
         },
       ],
       biaya: [
@@ -172,6 +175,7 @@ export default {
         calon_id: "",
         tagihan_id: "",
         potongan: 0,
+        saudara: "",
         infaq: 0,
         infaqnfpeduli: 0,
       })
@@ -222,7 +226,10 @@ export default {
     },
 
     cekNotif($e) {
-      console.log($e.target.value)
+      var cek = this.pots[$e.target.value].notif
+      if(cek == 1) {
+        tampil = false
+      }
     },
 
     ketentuan() {
