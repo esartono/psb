@@ -47,7 +47,7 @@
       <smart-pagination
         :currentPage.sync="currentPage"
         :totalPages="totalPages"
-        :maxPageLinks="3"
+        :maxPageLinks="5"
         :boundaryLinks="true"
         class="float-right"
       />

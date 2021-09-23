@@ -138,7 +138,7 @@ export default {
         },
         {
           'id': 3,
-          'potongan': 5,
+          'potongan': 10,
           'keterangan': 'Memiliki Saudara kandung KEDUA di NF',
           'notif': 1
         },

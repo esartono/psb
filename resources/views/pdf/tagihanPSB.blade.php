@@ -1,9 +1,95 @@
 @extends('pdf.template_keu')
 
 @section('isi')
+<style>
+    .roman li {
+        list-style: upper-roman;
+        display: list-item;
+        font-weight: 800;
+        color: #000;
+        margin-bottom: 20px;
+    }
+
+    .biasa li {
+        list-style: decimal;
+        font-weight: 400;
+        text-transform: none;
+        padding: 0 0 0 10px;
+        margin: 0 0 0 -30px;
+    }
+
+    .step1 {
+        text-indent: 60px;
+        padding-left: 20px;
+        margin: 0 0 0 0px;
+    }
+
+    .step1 li {
+        list-style: none;
+    }
+
+    .step2 {
+        text-indent: -30px;
+        padding-left: 70px;
+        counter-reset: elementcounter;
+    }
+
+    .step2 li{
+        list-style-type: none;
+    }
+
+    .step2>li:before {
+        content: "(" counter(elementcounter) "). ";
+        counter-increment: elementcounter;
+    }
+
+    .step3 {
+        text-indent: 0px;
+        padding-left: 50px;
+    }
+    .step3 li {
+        list-style: lower-roman;
+    }
+
+    .table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #000;
+        margin: 10px 0px;
+    }
+
+    .table th {
+        font-size: 14px;
+        border: 1px solid #000;
+
+    }
+
+    .table td {
+        font-size: 14px;
+        padding: 8px;
+        border: 1px solid #000;
+        text-align: right;
+        width: 18% !important;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    .table td:nth-child(1) {
+        text-align: center;
+        width: 3% !important;
+    }
+    .table td:nth-child(2) {
+        width: 11% !important;
+        text-align: left
+    }
+</style>
     <div class="main">
+        <br>
         <center><h3>SURAT PERNYATAAN</h3></center>
         <p>Yang bertanda tangan di bawah ini :</p>
+        <br>
         <table>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -81,7 +167,7 @@
         </table>
         <p>Dengan ini menyatakan dengan sebenarnya <strong>memahami dan menyetujui</strong> ketentuan administrasi Sekolah Islam Terpadu Nurul Fikri sebagai berikut:</p>
         <br>
-        @include('front.ketentuan')
+        @include('wawancara.ketentuan')
         <p>Demikian pernyataan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
         <br>
         <br>
@@ -113,8 +199,5 @@
         </table>
         <div class="page-break"></div>
         @include('pdf.rincianPSB.1')
-        {{-- @include('pdf.rincianPSB.2')
-        @include('pdf.rincianPSB.3') --}}
-        {{-- @include('pdf.rincianPSB.refund') --}}
     </div>
 @endsection

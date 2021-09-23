@@ -29,14 +29,15 @@ class WawancaraController extends Controller
     public function PDFKeuangan($id)
     {
         $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
-        $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'Iuran Komite Sekolah / tahun', 'Seragam'];
-
-        $security = $ctg->created_at;
 
         $tp_now = TahunPelajaran::where('status', 1)->first()->name;
         $tp = explode("/", $tp_now);
         $tp_awal = intval($tp[0]);
         $tp_akhir = intval($tp[1]);
+
+        $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'SPP bulan Juli', 'Iuran Komite Sekolah / tahun', 'Seragam'];
+
+        $security = $ctg->created_at;
 
         $id = $ctg->calon_id;
         // $tgh_id = $ctg->tagihanpsb_id;
@@ -53,7 +54,7 @@ class WawancaraController extends Controller
             $khusus = 1;
         }
 
-        $biaya1 = $biayas->biaya1;
+        $biaya1 = $biayas->biaya1 + ['SPP bulan Juli' => $biayas->spp];
         // $biaya2 = $biayas->biaya2;
         // $biaya3 = $biayas->biaya3;
 
@@ -89,23 +90,24 @@ class WawancaraController extends Controller
             if ($no === 1){
                 $sppnya = $biayas->spp;
                 if ($ctg->khusus == 0) {
-                    $kelas[$k->name]['ket1'] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
-                    $kelas[$k->name]['total1'] = $sppnya*11;
+                    $kelas[$k->name]['ket'][0] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+                    $kelas[$k->name]['total'][0] = $sppnya*11;
                     $totalth = $totalth + $sppnya*11;
                 }
                 if ($ctg->khusus == 1) {
-                    $kelas[$k->name]['ket'.$no] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                    $kelas[$k->name]['total'.$no] = $sppnya*5;
+                    $kelas[$k->name]['ket'][0] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
+                    $kelas[$k->name]['total'][0] = $sppnya*5;
                     $totalth = $totalth + $sppnya*5;
                 }
             }
             if ($no > 1) {
-                $sppnya = $biayas->spp + $spp_naik;
-                $kelas[$k->name]['ket'.$no] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                $kelas[$k->name]['total'.$no] = $sppnya*12;
-                $totalth = $totalth + $sppnya*12;
+                $sppnya = $biayas->spp + ($spp_naik*($no-1));
+                $kelas[$k->name]['ket'][$no-1] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
+                $kelas[$k->name]['total'][$no-1] = $sppnya*12;
+                $kelas[$k->name]['daul'][$no-1] = $daul[$k->name];
+                $totalth = $totalth + $sppnya*12 + $daul[$k->name];
             }
-            $kelas[$k->name]['spp'.$no] = $sppnya;
+            $kelas[$k->name]['spp'][$no-1] = $sppnya;
             $totalAll[$tgh_id] = $totalth;
             $kelas[$k->name]['kelas'] = $k->name;
             $no = $no + 1;

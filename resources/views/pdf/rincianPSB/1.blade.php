@@ -68,20 +68,19 @@ Lampiran 1
 <h5>B. Pembiayaan selama bersekolah di SIT Nurul Fikri</h5>
 <table class="global">
 @foreach($kelass as $k=>$b)
-        {{-- @php $no=1; @endphp
-        <tr>
-          <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>
-        </tr>
-        <tr>
-          <td width="75%">{{ $kelas[$b->name]['ket'.$no] }} @ Rp. {{ number_format($kelas[$b->name]['spp'.$no]) }} <br></td>
-          <td align="right">Rp. {{ number_format($kelas[$b->name]['total'.$no]) }}</td>
-        </tr>
-        @if(isset($kelas[$b->name]['daul'.$no]))
-        <tr>
-          <td> Dana Tahunan</td>
-          <td align="right">Rp. {{ number_format($kelas[$b->name]['daul'.$no]) }}</td>
-        </tr>
-        @endif --}}
+  <tr>
+    <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>
+  </tr>
+  <tr>
+    <td width="75%">{{ $kelas[$b->name]['ket'][$k] }} @ Rp. {{ number_format($kelas[$b->name]['spp'][$k]) }} <br></td>
+    <td align="right">Rp. {{ number_format(intval($kelas[$b->name]['total'][$k])) }}</td>
+  </tr>
+  @if(isset($kelas[$b->name]['daul'][$k]))
+  <tr>
+    <td> Dana Tahunan</td>
+    <td align="right">Rp. {{ number_format(intval($kelas[$b->name]['daul'][$k])) }}</td>
+  </tr>
+  @endif
 @endforeach
 </table>
 </td>
@@ -114,4 +113,3 @@ Lampiran 1
                 <td align="center">{{ Str::title(App\User::namaUser($ctg->pewawancara))}}</td>
             </tr>
         </table>
-        <div class="page-break"></div>
