@@ -5,10 +5,18 @@
         <i class="fa fa-tags"></i>
         Pembiayaan
     </a>
+    <a class="btn btn-app btn-lg black bg-yellow" v-on:click="potongan()">
+        <i class="fas fa-percent"></i>
+        Potongan Pembayaran
+    </a>
     <br>
-    <a class="btn btn-app btn-lg white bg-teal" v-on:click="ketentuan()">
+    <a class="btn btn-app btn-lg bg-teal" v-on:click="ketentuan()">
         <i class="fa fa-info"></i>
         Ketentuan Pembayaran
+    </a>
+    <a class="btn btn-app btn-lg white bg-green" v-on:click="print()">
+        <i class="fas fa-file-pdf"></i>
+        Print Tagihan PPDB
     </a>
   </center>
   <!-- Modal -->
@@ -38,7 +46,7 @@
                       <td width="55%"><label class="col-form-label">{{ b.name }}</label></td>
                       <td align="right"><label class="col-form-label">{{ tagihanpsb[b.name] | toCurrency }}</label></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td><label class="col-form-label"> Potongan </label></td>
                       <td align="right">
                         <label class="col-form-label" style="color: red">({{ ((pots[form.potongan].potongan)*tagihanpsb['Dana Pengembangan'])/100 | toCurrency }})</label>
@@ -48,7 +56,7 @@
                         <label v-if="!tampil" class="col-form-label">Masukan nama saudara di NF</label>
                         <input v-if="!tampil" v-model="form.saudara" type="text" name="saudara" class="form-control"/>
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td><label class="col-form-label"> Infaq SIT Nurul Fikri</label></td>
                       <td><input v-model="form.infaq" type="number" name="infaq" class="form-control" min="0"/></td>
@@ -68,6 +76,10 @@
                 <td style="background-color: lightblue">
                   <center><b>Pembiayaan selama bersekolah di<br>Sekolah Islam Terpadu Nurul Fikri</b></center><br>
                   <table class="table table-sm table-bordered">
+                    <tr>
+                      <td colspan="2">TOTAL Biaya PPDB SIT Nurul Fikri</td>
+                      <td>{{ totalBayar | toCurrency }}</td>
+                    </tr>
                     <tr v-for="(k, index) in kelas" :key="index">
                       <td>{{ index }}</td>
                       <td>

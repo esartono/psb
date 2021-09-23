@@ -68,7 +68,7 @@ Lampiran 1
 <h5>B. Pembiayaan selama bersekolah di SIT Nurul Fikri</h5>
 <table class="global">
 @foreach($kelass as $k=>$b)
-        @php $no=1; @endphp
+        {{-- @php $no=1; @endphp
         <tr>
           <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>
         </tr>
@@ -81,7 +81,7 @@ Lampiran 1
           <td> Dana Tahunan</td>
           <td align="right">Rp. {{ number_format($kelas[$b->name]['daul'.$no]) }}</td>
         </tr>
-        @endif
+        @endif --}}
 @endforeach
 </table>
 </td>
