@@ -1,11 +1,9 @@
 /app/Http/UjicobaController.php
 /node_modules
-/public/hot
-/public/storage
+/public
 /storage/*.key
 /vendor
 /catatan
-/public/file
 /storage/dokumen
 /.vscode
 .env
