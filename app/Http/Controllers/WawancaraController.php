@@ -113,33 +113,36 @@ class WawancaraController extends Controller
             $no = $no + 1;
         }
 
-        $tglbatas = "31 Mei 2021";
-        $batasannya = new \DateTime('2021-05-31');
+        $now = new \DateTime();
+        $diskon = [
+            1 => [
+                'tgl' => new \DateTime('2021-11-1'),
+                'tanggal' => "31 Oktober 2021",
+                'diskon' => 5000000
+            ],
+            2 => [
+            'tgl' => new \DateTime('2021-12-1'),
+            'tanggal' => "30 November 2021",
+            'diskon' => 2500000
+            ]
+        ];
 
-        $reg1 = new \DateTime('2021-02-1');
-        $reg2 = new \DateTime('2021-03-1');
-        $reg3 = new \DateTime('2021-04-1');
-
-        if($reg3 > $ctg->created_at) {
-            $tglbatas = "31 April 2021";
+        $batas = 0;
+        if($diskon[2]['tgl'] > $now) {
+            $batas = 1;
         }
 
-        if($reg2 > $ctg->created_at) {
-            $tglbatas = "31 Maret 2021";
+        if($diskon[1]['tgl'] > $now) {
+            $batas = 2;
         }
 
-        if($reg1 > $ctg->created_at) {
-            $tglbatas = "31 Januari 2021";
-        }
-
-        if($batasannya < $ctg->created_at) {
-            $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first()->jadwal_id;
-            $jadwal = explode('-', Jadwal::whereId($cjadwal)->first()->keterangan);
-            $tglbatas = $jadwal[1];
+        $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first()->jadwal_id;
+        if($cjadwal) {
+            $pengumuman = Jadwal::whereId($cjadwal)->first()->pengumuman->addDays(30);
         }
 
         if ($ctg->khusus == 0) {
-            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'tglbatas', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
+            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas'));
         }
 
         if ($ctg->khusus == 1) {

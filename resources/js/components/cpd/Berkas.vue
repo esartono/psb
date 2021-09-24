@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card border-info">
                     <div class="card-header bg-info">
-                        <h3 class="card-title">Data Kelengkapan Berkas PSB</h3>
+                        <h3 class="card-title">Data Kelengkapan Berkas PPDB</h3>
                         <div class="input-group input-group-sm float-right" style="width: 350px;">
                             <input v-model="filters.name.value" type="text" name="search"
                                 class="form-control" placeholder="Cari data ..." />
@@ -68,7 +68,7 @@
                     <div class="modal-content">
                         <form @submit.prevent="updateData()">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="detailModalLabel">Berkas Kelengkapan PSB</h5>
+                            <h5 class="modal-title" id="detailModalLabel">Berkas Kelengkapan PPDB</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>

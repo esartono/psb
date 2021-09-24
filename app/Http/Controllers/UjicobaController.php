@@ -278,7 +278,7 @@ class UjicobaController extends Controller
             Mail::send('emails.tagihanPSB', compact('calonsnya'), function ($m) use ($calonsnya)
                 {
                     $m->to($calonsnya->usernya->email, $calonsnya->name)
-                        ->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')
+                        ->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')
                         ->attach(storage_path('dokumen').'/'.$calonsnya->uruts.'/tagihanPSB-'.$calonsnya->uruts.'.pdf', [
                             'mime' => 'application/pdf',
                         ])

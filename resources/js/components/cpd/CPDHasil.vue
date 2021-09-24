@@ -90,7 +90,7 @@
                                     <h5
                                     class="modal-title"
                                     id="addModalLabel"
-                                    >Form Pengunduran Diri Peserta PSB</h5>
+                                    >Form Pengunduran Diri Peserta PPDB</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

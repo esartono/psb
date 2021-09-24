@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-md-3 col-form-label">Sumber Informasi PSB</label>
+            <label class="col-md-3 col-form-label">Sumber Informasi PPDB</label>
             <div class="col-md-4">
                 <select name="info" class="form-control" id="info">
                     @foreach($infos as $a)

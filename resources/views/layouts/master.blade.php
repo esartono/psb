@@ -406,7 +406,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="fas fa-tshirt nav-icon yellow"></i>
               <p>
-                Data Seragam PSB
+                Data Seragam PPDB
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>

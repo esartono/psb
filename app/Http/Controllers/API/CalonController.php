@@ -136,7 +136,7 @@ class CalonController extends Controller
             $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
             Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
                 {
-                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                    $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
                 }
             );
         }
@@ -350,7 +350,7 @@ class CalonController extends Controller
 
     public function exportsiswabaru()
     {
-        return Excel::download(new SiswaBaruExport, 'Siswa Baru - PSB.xlsx');
+        return Excel::download(new SiswaBaruExport, 'Siswa Baru - PPDB.xlsx');
     }
 
     public function exportbaru()
@@ -382,7 +382,7 @@ class CalonController extends Controller
             return Excel::download(new CpdExportBank(2), 'Ajuan VA Bank BJBS.xlsx');
         }
         if($id === "3"){
-            return Excel::download(new CpdExportBank(3), 'Tagihan PSB '.str_replace("/","-",auth()->user()->tpname).'.xlsx');
+            return Excel::download(new CpdExportBank(3), 'Tagihan PPDB '.str_replace("/","-",auth()->user()->tpname).'.xlsx');
         }
     }
 

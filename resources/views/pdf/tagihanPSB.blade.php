@@ -199,5 +199,7 @@
         </table>
         <div class="page-break"></div>
         @include('pdf.rincianPSB.1')
+        <div class="page-break"></div>
+        @include('pdf.rincianPSB.potongan')
     </div>
 @endsection

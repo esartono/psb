@@ -39,7 +39,7 @@ class CalonBiayaTes extends Model
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
         Mail::send('emails.bayartes', compact('calonsnya'), function ($m) use ($calonsnya)
             {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Terima Kasih');
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Terima Kasih');
             }
         );
 
@@ -52,7 +52,7 @@ class CalonBiayaTes extends Model
 
         Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
             {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Kartu Seleksi');
+                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Kartu Seleksi');
             }
         );
 

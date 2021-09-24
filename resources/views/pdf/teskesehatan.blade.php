@@ -87,7 +87,7 @@
         </table>
         <b>Prosedur:</b>
         <ol>
-            <li>Peserta tes kesehatan PPDB SIT NF membawa bukti pendaftaran PPDB SIT NF yang diprint out dari pendaftaran online psb.nurulfikri.sch.id ke Klinik Nurul Fikri.</li>
+            <li>Peserta tes kesehatan PPDB SIT NF membawa bukti pendaftaran PPDB SIT NF yang diprint out dari pendaftaran online ppdb.nurulfikri.sch.id ke Klinik Nurul Fikri.</li>
             <li>Setelah selesai mengikuti tes kesehatan, bukti pendaftaran distempel dan tanda tangan oleh petugas Klinik Nurul Fikri.</li>
             <li>Bukti pendaftaran PPDB SIT NF yang sudah distempel dan ditandatangan oleh petugas Klinik Nurul Fikri disimpan oleh pendaftar sebagai bukti telah mengikuti tahapan tes kesehatan PPDB SIT NF</li>
         </ol>

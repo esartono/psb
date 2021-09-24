@@ -11,7 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Aplikasi PSB | 2020-2021</title>
+  <title>Aplikasi PPDB | 2022-2023</title>
 
   <link rel="stylesheet" href="/css/app.css">
 
@@ -35,7 +35,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="/img/logo.svg" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Aplikasi PSB</span>
+      <span class="brand-text font-weight-light">Aplikasi PPDB</span>
     </a>
 
     <!-- Sidebar -->

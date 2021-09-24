@@ -117,10 +117,10 @@
         </table>
     </header>
     <footer>
-        <b>Panitia Penerimaan Siswa Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
+        <b>Panitia Penerimaan Peserta Didik Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
         informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)<br>
         Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070<br>
-        Website: psb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
+        Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
     </footer>
     <main>
         @yield('isi')

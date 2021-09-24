@@ -53,7 +53,7 @@
                                 <i v-if="ck.name == 'Umum'" class="fas fa-users"></i>
                                 <!-- <i v-else-if="ck.name == 'Siswa SIT NF'" class="fas fa-address-card"></i> -->
                                 <img v-else-if="ck.name == 'Pegawai SIT NF'" src="/img/logo.png" alt="Logo" height="70%" width="60%" class="mb-1">
-                                <br v-else-if="ck.name == 'Pegawai SIT NF'">
+                                <br>
                                 {{ ck.name }}
                             </a>
                         </tab-content>
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 col-form-label">Sumber Informasi PSB</label>
+                                    <label class="col-md-3 col-form-label">Sumber Informasi PPDB</label>
                                     <div class="col-md-4">
                                         <select v-model="form.info" name="info" class="form-control" id="info">
                                             <option

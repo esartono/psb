@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card border-info">
           <div class="card-header bg-info">
-            <h3 class="card-title">Daftar Transaksi Pembayaran Biaya PSB</h3>
+            <h3 class="card-title">Daftar Transaksi Pembayaran Biaya PPDB</h3>
 
             <div class="card-tools">
               <a class="btn btn-sm btn-danger" @click="addModal">

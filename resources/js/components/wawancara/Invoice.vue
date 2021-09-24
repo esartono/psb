@@ -5,16 +5,18 @@
         <i class="fa fa-tags"></i>
         Pembiayaan
     </a>
-    <a class="btn btn-app btn-lg black bg-yellow" v-on:click="potongan()">
+    <!-- <a class="btn btn-app btn-lg black bg-yellow" v-on:click="potongan()">
         <i class="fas fa-percent"></i>
         Potongan Pembayaran
-    </a>
-    <br>
+    </a> -->
     <a class="btn btn-app btn-lg bg-teal" v-on:click="ketentuan()">
         <i class="fa fa-info"></i>
         Ketentuan Pembayaran
     </a>
-    <a class="btn btn-app btn-lg white bg-green" v-on:click="print()">
+    <br>
+    <hr>
+    <code>Tombol di bawah ini hanya boleh diklik,<br> ketika sudah menyimpan data</code><br>
+    <a class="btn btn-app btn-lg white bg-green" :href="'/PDFkeuangan/' + this.$route.params.id">
         <i class="fas fa-file-pdf"></i>
         Print Tagihan PPDB
     </a>
@@ -114,7 +116,7 @@ export default {
       tagihanpsb: {},
       kelas: {},
       total: 0,
-      tampil: true,
+      tampil: false,
       totalTahunan: 0,
       modelBayar: "",
       pots: [
@@ -230,6 +232,7 @@ export default {
               title: "Data telah berhasil di Simpan"
             });
             this.$Progress.finish();
+            tampil = true;
             // window.location = "/wawancara-keu"
           })
           .catch(() => {
@@ -246,6 +249,10 @@ export default {
 
     ketentuan() {
       $("#ketentuanModal").modal("show");
+    },
+
+    potongan() {
+      $("#potonganModal").modal("show");
     }
   },
 

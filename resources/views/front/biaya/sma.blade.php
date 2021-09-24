@@ -8,7 +8,7 @@
                         <th colspan="4" class="text-center">Sekolah Menengah Atas</th>
                     </tr>
                     <tr>
-                        <th class="text-center">Komponen Biaya PSB</th>
+                        <th class="text-center">Komponen Biaya PPDB</th>
                         {{-- <th class="text-center">Reguler 2</th> --}}
                         {{-- <th class="text-center">Reguler 3</th> --}}
                         <th class="text-center">Nominal</th>

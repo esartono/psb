@@ -9,7 +9,7 @@
                         <th colspan="3" class="text-center">Play Group</th>
                     </tr>
                     <tr>
-                        <th class="text-center">Komponen Biaya PSB</th>
+                        <th class="text-center">Komponen Biaya PPDB</th>
                         {{-- <th class="text-center">Reguler 2</th>
                         <th class="text-center">Reguler 3</th> --}}
                         <th class="text-center">Nominal</th>

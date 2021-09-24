@@ -1,4 +1,4 @@
-<h3>Rekap Pembayaran Tagihan PSB - {{ date('d-m-Y', strtotime(now())) }}</h3>
+<h3>Rekap Pembayaran Tagihan PPDB - {{ date('d-m-Y', strtotime(now())) }}</h3>
 <table>
     <thead>
     <tr>

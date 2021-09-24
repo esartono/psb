@@ -13,7 +13,7 @@
             <b>Ketentuan umum</b>
             <ol>
                 <li>Calon siswa baru yang bisa mengambil seragam adalah yang sudah melunasi biaya pendidikan.</li>
-                <li>Pengambilan seragam dapat diwakilkan dengan membawa Lembar Pengambilan Seragam yang dicetak dari laman nurulfikri.sch.id menu PSB SIT NF kemudian login menggunakan username dan password masing-masing</li>
+                <li>Pengambilan seragam dapat diwakilkan dengan membawa Lembar Pengambilan Seragam yang dicetak dari laman nurulfikri.sch.id menu PPDB SIT NF kemudian login menggunakan username dan password masing-masing</li>
                 <li>Pengambilan seragam dilakukan di SD-SMP Nurul Fikri sesuai dengan jadwal yang ditentukan oleh panitia.</li>
                 <li>Proses pengambilan seragam tetap memperhatikan ketentuan protocol kesehatan pencegahan penularan covid-19</li>
                 <li>Petugas yang terlibat dalam pembagian seragam, melaksanakan standar sebagai berikut:
@@ -41,7 +41,7 @@
         <br>
             <b>Pos 2: Kantin, pintu 1 (3 orang)</b>
             <li>Petugas pemeriksa bukti daftar ulang seragam memeriksa bukti daftar ulang dan memastikan bahwa calon siswa yang akan mengambil seragam sudah melunasi biaya daftar ulang</li>
-            <li>Jika orangtua tidak membawa bukti daftar ulang, maka petugas pos 2 mencetak bukti daftar ulang dari laman psb.nurulfikri.sch.id</li>
+            <li>Jika orangtua tidak membawa bukti daftar ulang, maka petugas pos 2 mencetak bukti daftar ulang dari laman ppdb.nurulfikri.sch.id</li>
             <li>Petugas memberikan paraf dan stempel pada form daftar ulang.</li>
         <br>
         <br>

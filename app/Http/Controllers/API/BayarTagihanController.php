@@ -53,7 +53,7 @@ class BayarTagihanController extends Controller
 
                 Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
                     {
-                        $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
+                        $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
                     }
                 );
             }
@@ -79,7 +79,7 @@ class BayarTagihanController extends Controller
 
     public function export()
     {
-        return Excel::download(new ExportBayar, 'Data Pembayaran Tagihan PSB.xlsx');
+        return Excel::download(new ExportBayar, 'Data Pembayaran Tagihan PPDB.xlsx');
     }
 
 }

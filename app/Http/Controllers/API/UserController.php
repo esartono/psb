@@ -124,7 +124,7 @@ class UserController extends Controller
 
         $mail = Mail::send('emails.resetPassword', compact('user', 'newPass'), function ($m) use ($user)
             {
-                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id', 'Panitia PSB SIT Nurul Fikri')->subject('Reset Password');
+                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Reset Password');
             }
         );
     }

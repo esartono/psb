@@ -88,12 +88,12 @@ table.table-invoice th, table.table-invoice td {
                 </div>
                 <!-- Modal Ketentuan-->
                 <div
-                class="modal fade"
-                id="ketentuanModal"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="ketentuanModalLabel"
-                aria-hidden="true"
+                    class="modal fade"
+                    id="ketentuanModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="ketentuanModalLabel"
+                    aria-hidden="true"
                 >
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">

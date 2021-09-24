@@ -85,11 +85,11 @@
                         v-bind:class="calon.status == 0 ? 'active' : ''"
                         :id="'daftar'+calon.id">
                         <div v-if="calon.bt.biayanya !== '-'" class="clearfix text-center">
-                            <h3>Biaya Pendaftaran PSB</h3>
+                            <h3>Biaya Pendaftaran PPDB</h3>
                             <hr>
                             <h1>{{ calon.bt.biayanya.biaya | toCurrency }}</h1>
                             <hr>
-                            <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Mandiri (BSM):</p>
+                            <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Indonesia (BSI):</p>
                             <h3><b>{{ calon.uruts }}</b></h3>
                             Paling lambat pembayaran dilakukan pada tanggal : <b>{{ calon.bt.biayates.expired | Tanggal }}</b>
                             <a v-bind:href="'biayatesPDF/'+ calon.id " class="btn btn-success mt-3">Cetak Tata Cara Pembayaran</a>

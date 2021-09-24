@@ -16,11 +16,11 @@ class CalonHasilController extends Controller
     {
         if (auth()->user()->isAdmin()){
             if($id === 'mentah'){
-                return Excel::download(new Raw, 'Data Mentah PSB.xlsx');
+                return Excel::download(new Raw, 'Data Mentah PPDB.xlsx');
             }
 
             if($id === 'mentah_terima'){
-                return Excel::download(new RawTerima, 'Data Mentah PSB Diterima.xlsx');
+                return Excel::download(new RawTerima, 'Data Mentah PPDB Diterima.xlsx');
             }
 
             if($id === 'all' || $id === 'aktif'){

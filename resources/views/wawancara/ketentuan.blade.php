@@ -5,7 +5,7 @@
             <li>Sumbangan Pokok Pendidikan (SPP) berlaku untuk 1 tahun pertama, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP (Lampiran 2)</li>
             <li>SPP yang dibayarkan tidak termasuk biaya catering</li>
             <li>SPP SD, SMP dan SMA dibayarkan sudah termasuk program UKS</li>
-            <li>Biaya Komite Sekolah dibayarkan pertahun bersamaan dengan SPP bulan Juli</li>
+            <li>Biaya Komite Sekolah dibayarkan pertahun</li>
             <li>Biaya pendaftaran dan biaya daftar ulang yang sudah dibayarkan tidak dapat dikembalikan</li>
             <li>Pembayaran biaya daftar ulang minimal 50% dari total biaya daftar ulang, selambat-lambatnya 5 hari setelah dinyatakan diterima, dan bagi yang tidak melakukan pembayaran pada rentang waktu tersebut dianggap mengundurkan diri</li>
             <li>Pelunasan biaya daftar ulang selambat-lambatnya 30 hari terhitung dari tanggal pengumuman hasil seleksi, dan bagi yang tidak melakukan pelunasan pada rentang waktu tersebut dianggap mengundurkan diri</li>
@@ -17,7 +17,7 @@
     </li>
     <li>Ketentuan Khusus Potongan Biaya PPDB
         <ol class="biasa">
-            <li>Ketentuan potongan khusus hanya berlaku jika pembayaran dilakukan lunas di rentang waktu pelunasan biaya daftar ulang</li>
+            <li>Ketentuan potongan khusus hanya berlaku jika pembayaran dilakukan lunas di rentang waktu pelunasan biaya daftar ulang (<b>30 hari setelah pengumuman</b>)</li>
             <li>Ketentuan potongan khusus yang satu tidak dapat digabung dengan jenis potongan khusus lainnya</li>
             <li>Jenis Potongan Khusus sebagai berikut:
                 <ol class="step1">

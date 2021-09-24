@@ -19,7 +19,7 @@
         <li>Form Pengembalian Dana</li>
     </ol>
 
-    <p>Pengumuman insya Allah tanggal <strong>2 Oktober 2021, jam 19.00 di laman psb.nurulfikri.sch.id</strong></p>
+    <p>Pengumuman insya Allah tanggal <strong>2 Oktober 2021, jam 19.00 di laman ppdb.nurulfikri.sch.id</strong></p>
     <p>Bagi yang ingin menyerahkan form melalui kurir mhn menginformasikan terlebih dahulu ke nomor admin keuangan</p>
     <ul>
         <li>admin SD 6285710688325</li>

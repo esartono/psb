@@ -12,7 +12,7 @@
             <b>Ketentuan umum</b>
             <ol>
                 <li>Calon siswa baru yang bisa mengambil seragam adalah yang <b>sudah melunasi biaya pendidikan</b> Penerimaan Siswa Baru.</li>
-                <li>Pengambilan seragam dapat diwakilkan dengan membawa <b>Lembar Pengambilan Seragam</b> yang dicetak dari laman nurulfikri.sch.id menu PSB SIT NF kemudian login menggunakan username dan password masing-masing</li>
+                <li>Pengambilan seragam dapat diwakilkan dengan membawa <b>Lembar Pengambilan Seragam</b> yang dicetak dari laman nurulfikri.sch.id menu PPDB SIT NF kemudian login menggunakan username dan password masing-masing</li>
                 <li>Pengambilan seragam dilakukan di <b>SD-SMP Nurul Fikri</b> sesuai dengan jadwal yang ditentukan oleh panitia.</li>
                 <li>Proses pengambilan seragam tetap memperhatikan ketentuan <b>protokol kesehatan pencegahan penularan covid-19.</b></li>
                 <li>Petugas yang terlibat dalam pembagian seragam, melaksanakan standar sebagai berikut:
@@ -27,7 +27,7 @@
                 <li>Pengambilan seragam dilaksanakan dengan teknis <b><i>Drive Thru</i>, dan tidak diperkenankan turun dari kendaraan</b></li>
                 <li>Pengambilan seragam dilaksanakan pada hari, tanggal dan jam yang telah ditentukan</li>
                 <li>Pengambilan seragam dijadwalkan <b>1 sesi durasi 30 menit, untuk 10 orang</b>.</li>
-                <li><b>Jadwal pengambilan</b> seragam dapat dilihat pada <b>Lembar Pengambilan Seragam</b> yang dapat dicetak dari laman <b>nurulfikri.sch.id</b> pada menu PSB SIT NF (login menggunakan username dan password masing-masing) mulai tanggal <b>28 Mei 2021</b>.</li>
+                <li><b>Jadwal pengambilan</b> seragam dapat dilihat pada <b>Lembar Pengambilan Seragam</b> yang dapat dicetak dari laman <b>nurulfikri.sch.id</b> pada menu PPDB SIT NF (login menggunakan username dan password masing-masing) mulai tanggal <b>28 Mei 2021</b>.</li>
                 <li>Bagi ananda yang belum menerima jadwal pembagian, akan dijadwalkan kemudian.</li>
                 <li>Komplain seragam dapat dilakukan selambat-lambatnya <b>7 hari kerja</b> setelah pengambilan seragam, dengan mengkonfirmasi melalui nomor <b>+62 813-8809-6733</b></li>0
             </ol>
@@ -59,7 +59,7 @@
         <br>
         <p><b>Pos 2: Samping Gedung Penunjang (2 orang)</b></p>
             <li>Petugas pemeriksa bukti daftar ulang seragam <b>memeriksa bukti daftar ulang</b> dan memastikan bahwa calon siswa yang akan mengambil seragam sudah melunasi biaya daftar ulang</li>
-            <li>Jika orangtua tidak membawa lembar pengambilan seragam, maka petugas pos 2 <b>mencetak lembar pengambilan seragam</b> dari laman <b>nurulfikri.sch.id</b> pada menu PSB SIT NF</li>
+            <li>Jika orangtua tidak membawa lembar pengambilan seragam, maka petugas pos 2 <b>mencetak lembar pengambilan seragam</b> dari laman <b>nurulfikri.sch.id</b> pada menu PPDB SIT NF</li>
             <li>Petugas memberikan paraf dan stempel pada form daftar ulang.</li>
         <br>
         <br>

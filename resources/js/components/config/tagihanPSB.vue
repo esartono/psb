@@ -32,7 +32,7 @@
                                 <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
                                 <v-th sortKey="kelasnya.name">Kelas</v-th>
                                 <v-th sortKey="kelamin">Kelamin</v-th>
-                                <th>Biaya PSB</th>
+                                <th>Biaya PPDB</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
@@ -203,7 +203,7 @@
                         Fire.$emit("listData");
                         Toast.fire({
                             type: "success",
-                            title: "Tambah Data Biaya PSB Berhasil"
+                            title: "Tambah Data Biaya PPDB Berhasil"
                         });
                         this.$Progress.finish();
                     })
@@ -232,7 +232,7 @@
                         Fire.$emit("listData");
                         Toast.fire({
                             type: "success",
-                            title: "Berhasil Update Data Biaya PSB"
+                            title: "Berhasil Update Data Biaya PPDB"
                         });
                         this.$Progress.finish();
                     })
@@ -243,7 +243,7 @@
 
             deleteData(id) {
                 Swal.fire({
-                    title: "Delete Data Biaya PSB",
+                    title: "Delete Data Biaya PPDB",
                     text: "Apakah anda yakin ?",
                     type: "warning",
                     showCancelButton: true,

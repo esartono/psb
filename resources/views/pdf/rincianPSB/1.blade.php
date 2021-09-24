@@ -27,7 +27,7 @@ Lampiran 1
 <tr>
 <td valign="top" width="47%">
 
-<h5>A. Pembiayaan Peserta Didik Baru TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
+<h5 style="margin-top: -5px">A. Pembiayaan Peserta Didik Baru TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
     <table class="rincian">
         <tr>
             <th>No.</th>
@@ -42,12 +42,12 @@ Lampiran 1
         </tr>
         @endforeach
         <tr>
-          <td width="5%"> 5 </td>
+          <td width="5%"> 6 </td>
           <td>  Infaq SIT Nurul Fikri </td>
           <td align="right"> {{ number_format($ctg->infaq) }} </td>
         </tr>
         <tr>
-          <td width="5%"> 6 </td>
+          <td width="5%"> 7 </td>
           <td>  Infaq NF Peduli </td>
           <td align="right"> {{ number_format($ctg->infaqnfpeduli) }} </td>
         </tr>
@@ -59,14 +59,21 @@ Lampiran 1
       <br>
       <table>
         <tr>
-          <td>Total pembiayaan selama di<br>
-          SIT Nurul Fikri<br><h3><strong>Rp. {{ number_format($totalAll[1]+$total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong></h3></td>
+
         </tr>
       </table>
 </td>
 <td valign="top" >
-<h5>B. Pembiayaan selama bersekolah di SIT Nurul Fikri</h5>
+<h5  style="margin-top: -5px">B. Pembiayaan selama bersekolah di SIT Nurul Fikri </h5>
+  <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Total pembiayaan selama di SIT Nurul Fikri
+    <strong>Rp. {{ number_format($totalAll[1]+$total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong><br>
+    &nbsp;&nbsp;&nbsp;dengan rincian sebagai berikut :
+  </p>
 <table class="global">
+  <tr>
+    <td><b>Total biaya PPDB SIT Nurul Fikri</b></td>
+    <td align="right"> <strong>Rp. {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong> </td>
+  </tr>
 @foreach($kelass as $k=>$b)
   <tr>
     <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>

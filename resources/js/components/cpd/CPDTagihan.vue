@@ -16,7 +16,7 @@
                             </a>
                             <a href="/EksportVABank/3" class="btn btn-sm btn-success mr-2 ml-2">
                                 <b><i class="fas fa-file-excel"></i>
-                                Tagihan PSB</b>
+                                Tagihan PPDB</b>
                             </a>
                             <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"

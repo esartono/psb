@@ -1,4 +1,4 @@
-# Aplikasi PSB Sekolah
+# Aplikasi PPDB Sekolah
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
@@ -9,7 +9,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-Aplikasi Penerimaan Siswa Baru dibuat untuk Sekolah Islam Terpadu Nurul Fikri - Depok.
+Aplikasi Penerimaan Siswa Baru (atau yang sekarang disebut Peneriman Peserta Didik Baru) dibuat untuk Sekolah Islam Terpadu Nurul Fikri - Depok.
 
 Aplikasi ini dirancang dan dikembangkan berdasarkan aplikasi Penerimaan Siswa Baru yang sebelumnya menggunakan PHP Maker yang dibuat oleh Bapak Tomi Antonius, fitur-fitur yang ada disesuaikan dengan kebutuhan Sekolah Islam Terpadu Nurul Fikri - Depok
 

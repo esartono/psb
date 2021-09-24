@@ -24,7 +24,7 @@ class PSBDailyReport extends Command
      *
      * @var string
      */
-    protected $description = 'Laporan Pendaftar Aktif PSB Harian setiap Jam 7.00 dan 17.00';
+    protected $description = 'Laporan Pendaftar Aktif PPDB Harian setiap Jam 7.00 dan 17.00';
 
     /**
      * Create a new command instance.

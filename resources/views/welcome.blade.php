@@ -6,7 +6,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Aplikasi PSB | 2020-2021</title>
+        <title>Aplikasi PPDB | 2022-2023</title>
         <link rel="stylesheet" href="/css/app.css">
 
     </head>
@@ -21,7 +21,7 @@
                 width="50"
                 height="50"
                 style="opacity: .8">
-                <span class="brand-text mr-3">Aplikasi PSB | 2020-2021</span>
+                <span class="brand-text mr-3">Aplikasi PPDB | 2022-2023</span>
             </a>
             <ul class="nav">
                 <li class="nav-item d-none d-sm-inline-block">
