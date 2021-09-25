@@ -207,7 +207,7 @@ export default {
             this.kelas = data.data.kelas;
             this.form.calon_id = this.$route.params.id;
             this.form.tagihan_id = tgh;
-            this.form.potongan = data.data.asalNF;
+            // this.form.potongan = data.data.asalNF;
             // this.modelBayar = this.reguler[tgh-1].name;
             this.modelBayar = "PPDB SIT Nurul Fikri";
             $("#addModal").modal({backdrop: 'static', keyboard: false});
