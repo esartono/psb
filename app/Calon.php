@@ -80,12 +80,17 @@ class Calon extends Model
             $tahap = 2;
         }
 
+        $cek_wawancara_keu = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
+        if($cek_wawancara_keu){
+            $tahap = 3;
+        }
+
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
         $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
 
         $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
         if($hasil) {
-            $tahap = 3;
+            $tahap = 4;
         }
         return $tahap;
     }

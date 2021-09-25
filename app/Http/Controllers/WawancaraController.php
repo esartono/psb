@@ -28,8 +28,19 @@ class WawancaraController extends Controller
 
     public function PDFKeuangan($id)
     {
-        $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
-        $calon = Calon::findOrFail($id);
+        if(auth()->user()->level == 2) {
+            $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
+            $calon = Calon::findOrFail($id);
+            if(auth()->user()->id !== $calon->user_id) {
+                return redirect()->route('home');
+            }
+        }
+
+        if(auth()->user()->level == 1) {
+            $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
+            $calon = Calon::findOrFail($id);
+        }
+
         if ($calon->asal_nf == 1) {
             if ($ctg->potongan == 0){
                 $ctg->update(['potongan' => 10]);

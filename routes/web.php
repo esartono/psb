@@ -62,6 +62,7 @@ Route::middleware('auth', 'user')->group(function(){
     Route::put('/editcalon', 'DraftCalonController@update')->name('edit.calon');
     Route::post('/editjurusan', 'DraftCalonController@jurusan');
     Route::delete('/bataldaftar', 'DraftCalonController@destroy')->name('bataldaftar');
+    Route::get('/printTagihanPPDB/{id}', 'WawancaraController@PDFKeuangan')->name('print.tagihan');
 });
 
 Route::middleware('auth', 'psikotes')->group(function(){
