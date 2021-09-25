@@ -29,6 +29,12 @@ class WawancaraController extends Controller
     public function PDFKeuangan($id)
     {
         $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
+        $calon = Calon::findOrFail($id);
+        if ($calon->asal_nf == 1) {
+            if ($ctg->potongan == 0){
+                $ctg->update(['potongan' => 10]);
+            }
+        }
 
         $tp_now = TahunPelajaran::where('status', 1)->first()->name;
         $tp = explode("/", $tp_now);
@@ -42,7 +48,6 @@ class WawancaraController extends Controller
         $id = $ctg->calon_id;
         // $tgh_id = $ctg->tagihanpsb_id;
         //Kalo ini ada yg di edit, maka di TagihanPSBController.show juga mulai dari baris ini
-        $calon = Calon::findOrFail($id);
         $khusus = 0;
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
                 ->where('kelas', $calon->kelas_tujuan)

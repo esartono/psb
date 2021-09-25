@@ -46,8 +46,8 @@
                 $d2 = 0;
                 $n = $biaya1[$b];
                 if($ctg->potongan > 0) {
-                  $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*(5/100);
-                  $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*(5/100);
+                  $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
+                  $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
                 }
               @endphp
               <td> {{ number_format($biaya1[$b]-$diskon[1]['diskon']-$d1) }} </td>
