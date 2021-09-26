@@ -107,7 +107,7 @@
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td> Alamat </td>
                 <td> : </td>
-                <td> {{ $calon->alamat }} </td>
+                <td> {{ $calon->alamat }} RT. {{ $calon->rt }} / RW. {{ $calon->rw }}</td>
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

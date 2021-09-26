@@ -73,7 +73,7 @@ table.table-invoice th, table.table-invoice td {
                                         <td>Alamat Tempat Tinggal</td>
                                         <td>:</td>
                                         <td>
-                                            {{ $calon->alamat }} <br>
+                                            {{ $calon->alamat }} RT: {{ $calon->rt }} / RW: {{ $calon->rw }}<br>
                                             Kel. {{ App\Kelurahan::nama($calon->kelurahan) }}, Kec. {{ App\Kecamatan::nama($calon->kecamatan) }} <br>
                                             {{ App\Kota::nama($calon->kota) }}, {{ App\Provinsi::nama($calon->provinsi) }}
                                         </td>
