@@ -86,44 +86,15 @@ class TagihanPSB extends Model
                 ->where('kelamin', $calon->jk)
                 ->first();
 
-        $now = new \DateTime();
-        $reg1 = new \DateTime('2020-11-4');
-        $reg2 = new \DateTime('2020-12-1');
-        $reg3 = new \DateTime('2021-02-1');
-
-        $biaya = $biayas->biaya3;
-        $total = 0;
-        $sppnya = 0;
-        foreach($biaya as $k => $v){
-            $total = $total + $v;
-        }
-        $reguler = 3;
-        $totalnya = $total;
-        $biayanya = $biaya;
-
-        $biaya = $biayas->biaya2;
-        $total = 0;
-        foreach($biaya as $k => $v){
-            $total = $total + $v;
-        }
-        $bayar = BayarTagihan::where('calon_id', $id)->where('tgl_bayar','<', $reg2)->sum('bayar');
-        if($bayar >= $total) {
-            $reguler = 2;
-            $totalnya = $total;
-            $biayanya = $biaya;
-        }
-
         $biaya = $biayas->biaya1;
         $total = 0;
         foreach($biaya as $k => $v){
             $total = $total + $v;
         }
-        $bayar = BayarTagihan::where('calon_id', $id)->where('tgl_bayar','<', $reg1)->sum('bayar');
-        if($bayar >= $total) {
-            $reguler = 1;
-            $totalnya = $total;
-            $biayanya = $biaya;
-        }
+
+        $reguler = 1;
+        $totalnya = $total;
+        $biayanya = $biaya;
 
         return array_merge($biayanya, ['reguler'=>$reguler, 'tagihan'=>$totalnya]);
     }
@@ -140,4 +111,19 @@ class TagihanPSB extends Model
         }
         return 0;
     }
+
+    public static function sppnya($id)
+    {
+        $calon = Calon::where('id', $id)->first();
+        $tp = TahunPelajaran::where('status', 1)->first();
+        $unit = Gelombang::whereId($calon->gel_id)->first()->unit_id;
+        if($tp){
+            $spp = Spp::where('tp', $tp->id)->where('unit_id', $unit)->first();
+            if($spp){
+                return $spp->spp;
+            }
+        }
+        return 0;
+    }
+
 }

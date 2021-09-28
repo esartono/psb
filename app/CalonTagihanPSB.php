@@ -35,6 +35,10 @@ class CalonTagihanPSB extends Model
             $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
         }
 
+        // if (Spp::where('gel_id', $calon->uruts)->exists()) {
+        //     $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
+        // }
+
         return $biayas->total;
     }
 

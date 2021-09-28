@@ -1,5 +1,5 @@
 <h3>Rekap Wawancara Keuangan - {{ date('d-m-Y', strtotime(now())) }}</h3>
-<h3>REKAP TAGIHAN</h3>
+<h3>REKAP TAGIHAN - Belum dihitung diskon</h3>
 <table>
     <thead>
     <tr>
@@ -8,7 +8,7 @@
         <th>No. Pendaftaran</th>
         <th>Nama</th>
         <th>Asal Sekolah</th>
-        <th>Reguler</th>
+        <th>Diskon</th>
         <th>Dana Pengembangan</th>
         <th>Dana Pendidikan</th>
         <th>SPP</th>
@@ -33,10 +33,10 @@
             <td>{{ $calon->calonnya->uruts }}</td>
             <td>{{ $calon->calonnya->name }}</td>
             <td>{{ $calon->calonnya->asal_sekolah }}</td>
-            <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['reguler'] }}</td>
+            <td>{{ $calon->potongan }} %</td>
             <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['Dana Pengembangan'] }}</td>
             <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['Dana Pendidikan'] }}</td>
-            <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['Iuran SPP Bulan Juli'] }}</td>
+            <td>{{ App\TagihanPSB::sppnya($calon->calon_id) }}</td>
             <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['Iuran Komite Sekolah / tahun'] }}</td>
             <td>{{ App\TagihanPSB::biayanya($calon->calon_id)['Seragam'] }}</td>
             <td>{{ $calon->infaq }}</td>

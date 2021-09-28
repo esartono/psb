@@ -40,11 +40,9 @@
                                     <v-th sortKey="calonnya.uruts">No. ID</v-th>
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
                                     <v-th sortKey="calonnya.jk">JK</v-th>
-                                    <v-th sortKey="calonnya.uruts">VA Muamalat</v-th>
-                                    <v-th sortKey="va2">VA BJBS</v-th>
                                     <v-th sortKey="infaq">Infaq</v-th>
                                     <v-th sortKey="infaqnfpeduli">Infaq NF Peduli</v-th>
-                                    <th>Reguler 1</th>
+                                    <th>Tagihan</th>
                                     <th>Total Tagihan</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -56,8 +54,6 @@
                                     <td class="text-center">{{ row.calonnya.uruts }}</td>
                                     <td>{{ row.calonnya.name }}</td>
                                     <td class="text-center">{{ (row.calonnya.jk == 1 ? 'L' : 'P') }}</td>
-                                    <td>{{ row.va1 }}{{ row.calonnya.gel_id }}{{ row.calonnya.uruts }}</td>
-                                    <td>{{ row.va2 }}</td>
                                     <td>{{ row.infaq | toCurrency }}</td>
                                     <td>{{ row.infaqnfpeduli | toCurrency }}</td>
                                     <td>{{ row.tagihan[1] | toCurrency }}</td>
