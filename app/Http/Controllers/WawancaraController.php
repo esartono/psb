@@ -36,7 +36,7 @@ class WawancaraController extends Controller
             }
         }
 
-        if(auth()->user()->level == 1) {
+        if(auth()->user()->level == 1 || auth()->user()->level == 4) {
             $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
             $calon = Calon::findOrFail($id);
         }

@@ -102,7 +102,7 @@
           <br>
           <table align="center" width="100%" style="font-size: 14px;">
               <tr>
-                  <td colspan="2" align="center"><u> Depok, {{ date("d F Y", strtotime($ctg->created_at)) }} </u></td>
+                <td colspan="2" align="center"><u> Depok, {{ $ctg->created_at->isoFormat('D MMMM Y') }} </u></td>
                   <td></td>
                   <td></td>
               </tr>
