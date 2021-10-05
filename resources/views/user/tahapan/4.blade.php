@@ -16,6 +16,16 @@
         </b></h3>
         <hr>
         {{-- <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-success mt-3" target="_blank">Cetak Tata Cara Pembayaran</a> --}}
+        @if($calon->hasil['hasil']->lulus == 1)
+            <ul class="text-left">
+                <li>Pembayaran dilakukan pada tanggal : <b>{{ $calon->jadwal->keterangan }}</b></li>
+                <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
+                <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:
+                    <center><h3 class="mt-3 red"><u><b>888276{{ $calon->uruts }}0</b></u></h3>
+                    <p><strong>atas nama: {{ $calon->name }}</strong></p></center>
+                </li>
+            </ul>
+        @endif
     </div>
 @endisset
 
