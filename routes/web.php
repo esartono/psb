@@ -138,6 +138,8 @@ Route::middleware('auth', 'admin')->group(function(){
 
     //Route untuk Edit Data Calon Peserta Didik
     Route::get('/editcalons/{id}', 'HomeController@front')->name('editcalons');
+    Route::get('/editbio/{id}', 'WawancaraController@editbio')->name('editbio');
+    Route::post('/updatebio', 'WawancaraController@updatebio')->name('updatebio');
 
     //Route untuk Download file
     Route::get('file/{id}', 'DokuController@download')->name('downloadfile');

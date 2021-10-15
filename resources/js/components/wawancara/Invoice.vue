@@ -297,6 +297,7 @@ export default {
           .post("../api/calontagihanpsbs")
           .then(() => {
             $("#addModal").modal("hide");
+            $("#modalPotongan").modal("hide");
             Fire.$emit("listData");
             Toast.fire({
               type: "success",

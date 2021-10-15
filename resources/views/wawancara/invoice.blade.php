@@ -33,6 +33,7 @@ table.table-invoice th, table.table-invoice td {
                         <div class="card col-8">
                             <div class="card-body" style="padding: 10px 0px 5px 0px">
                                 <p class="card-title">Biodata Calon Siswa</p>
+                                <a href="/editbio/{{ $calon->id }}" class="btn btn-danger float-right white"><i class="fas fa-user-edit"> </i><b> Edit Biodata </b></a>
                                 <table class="table table-sm table-striped">
                                     <tr>
                                         <td width="30%">Nama Lengkap</td>

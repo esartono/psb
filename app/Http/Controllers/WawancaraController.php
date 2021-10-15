@@ -13,6 +13,10 @@ use App\CalonTagihanPSB;
 use App\Kelasnya;
 use App\Jadwal;
 use App\CalonJadwal;
+use App\Provinsi;
+use App\Kota;
+use App\Kecamatan;
+use App\Kelurahan;
 
 class WawancaraController extends Controller
 {
@@ -209,5 +213,28 @@ class WawancaraController extends Controller
         //     }
         //     return redirect()->back()->with('error', 'Maaf, No. Pendaftaran : '. $id .' tidak ditemukan');
         // }
+    }
+
+    public function editbio($id) {
+        $calon = Calon::whereId($id)->first();
+        $provinsi = Provinsi::orderBy('name', 'asc')->get();
+        $kota = $kecamatan = $kelurahan = "";
+        if($calon->provinsi){
+            $kota = Kota::where('prov_id', $calon->provinsi)->get();
+            if($calon->kota){
+                $kecamatan = Kecamatan::where('kota_id', $calon->kota)->get();
+                if($calon->kecamatan){
+                    $kelurahan = Kelurahan::where('camat_id', $calon->kecamatan)->get();
+                }
+            }
+        }
+        return view('wawancara.editbio', compact('calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
+    }
+
+    public function updatebio(Request $request) {
+        $calon = Calon::whereId($request->id)->first();
+        $calon->update($request->all());
+
+        return redirect()->route('getCalon', $request->id);
     }
 }
