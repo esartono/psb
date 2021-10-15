@@ -1,6 +1,6 @@
 <template>
 <div class="justify-content-center d-flex align-items-center">
-  <div class="card col-12 p-2">
+  <div class="card col-md-12 p-2">
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <h3 class="card-title">Data Calon Siswa</h3>
@@ -27,6 +27,7 @@
         <thead slot="head">
           <th>No.</th>
           <v-th sortKey="uruts">No. Pendaftaran</v-th>
+          <th sortKey="uruts">No. VA BJB Syariah</th>
           <v-th sortKey="name">Nama</v-th>
           <v-th sortKey="name">Pewawancara</v-th>
           <th>Aksi</th>
@@ -34,7 +35,8 @@
         <tbody slot="body" slot-scope="{displayData}">
           <tr v-for="(row, index) in displayData" :key="row.id">
             <th>{{ index+((currentPage-1) * 7)+1 }}</th>
-            <td>{{ row.uruts }}</td>
+            <td class="text-center">{{ row.uruts }}</td>
+            <td class="text-center">888 276 {{ row.uruts }} 0</td>
             <td>{{ row.name }}</td>
             <td>{{ row.ygwawancara }}</td>
             <td class="text-center">

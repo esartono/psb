@@ -19,9 +19,10 @@
         @if($calon->hasil['hasil']->lulus == 1)
             <ul class="text-left">
                 <li>Pembayaran dilakukan pada tanggal : <b>{{ $calon->jadwal->keterangan }}</b></li>
+                <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
                 <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
                 <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:
-                    <center><h3 class="mt-3 red"><u><b>888276{{ $calon->uruts }}0</b></u></h3>
+                    <center><h3 class="mt-3 red"><u><b>888 276 {{ $calon->uruts }} 0</b></u></h3>
                     <p><strong>atas nama: {{ $calon->name }}</strong></p></center>
                 </li>
             </ul>

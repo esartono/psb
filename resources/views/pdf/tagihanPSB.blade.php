@@ -156,7 +156,11 @@
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td> Saudara Kandung di SIT Nurul Fikri </td>
                 <td> : </td>
-                <td> _________________________ </td>
+                @if($ctg->saudara)
+                    <td>{{ $ctg->saudara }}</td>
+                @else
+                    <td> _________________________ </td>
+                @endif
             </tr>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

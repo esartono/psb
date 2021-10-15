@@ -67,7 +67,6 @@
                                     </th>
                                     <th>
                                         <a class="btn btn-sm btn-info" @click="detailModal(row.calon_id)">Details</a>
-                                        <a class="btn btn-sm btn-info" @click="detailModal(row.calon_id)">Details</a>
                                     </th>
                                 </tr>
                             </tbody>

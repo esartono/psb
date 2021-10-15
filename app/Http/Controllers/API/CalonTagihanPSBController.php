@@ -36,6 +36,43 @@ class CalonTagihanPSBController extends Controller
 
     public function store(Request $request)
     {
+        $pots = [
+            [
+                'potongan' => 0,
+                'keterangan' => 'Tidak ada potongan',
+                'notif' => 0
+            ],[
+                'potongan' => 10,
+                'keterangan' => 'Asal dari NF (Depok/Bogor)',
+                'notif' => 0
+            ],[
+                'potongan' => 5,
+                'keterangan' => 'Memiliki Saudara kandung PERTAMA di NF',
+                'notif' => 1
+            ],[
+                'potongan' => 10,
+                'keterangan' => 'Memiliki Saudara kandung KEDUA di NF',
+                'notif' => 1
+            ],[
+                'potongan' => 25,
+                'keterangan' => 'Undangan Khusus asal NF (Depok/Bogor)',
+                'notif' => 0
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Pemenang Lomba tingkat Nasional (Bertingkat)',
+                'notif' => 0
+            ],[
+                'potongan' => 25,
+                'keterangan' => 'Hafal minimal 15 Juz',
+                'notif' => 0
+            ]
+        ];
+        $potongan = 0;
+        $keterangan = $pots[0]['keterangan'];
+        if($request->potongan) {
+            $potongan = $pots[$request->potongan]['potongan'];
+            $keterangan = $pots[$request->potongan]['keterangan'];
+        }
         CalonTagihanPSB::updateOrCreate(
             [
                 'calon_id' => $request['calon_id'],
@@ -45,7 +82,9 @@ class CalonTagihanPSBController extends Controller
                 'va2' => '',
                 'infaq' => $request['infaq'],
                 'infaqnfpeduli' => $request['infaqnfpeduli'],
-                'potongan' => 0,
+                'potongan' => $potongan,
+                'keterangan' => $keterangan,
+                'saudara' => $request['saudara'],
                 'daul' => 0,
                 'lunas' => false,
             ]

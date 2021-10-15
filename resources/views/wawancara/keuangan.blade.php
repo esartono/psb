@@ -29,7 +29,7 @@
               @endif
             </div> -->
           <!-- </div>/.col -->
-          <div class="offset-md-2 col-md-8 mt-3">
+          <div class="offset-md-1 col-md-10 mt-3">
             <router-view></router-view>
           </div>
         </div><!-- /.row -->

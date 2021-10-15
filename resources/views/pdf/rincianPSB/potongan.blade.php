@@ -50,7 +50,8 @@
                   $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
 
                   if(App\Kelasnya::unit($calon->kelas_tujuan) == "1") {
-                    $d1 = $d2 = 5000000;
+                    $d1 = 5000000;
+                    $d2 = 5000000;
                   }
                 }
               @endphp
