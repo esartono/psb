@@ -128,10 +128,12 @@ class Calon extends Model
     public function getJadwalAttribute()
     {
         $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
-        if($jadwal->jadwal_id > 0) {
-            return $jadwal->jadwalnya;
+        if($jadwal) {
+            if($jadwal->jadwal_id > 0) {
+                return $jadwal->jadwalnya;
+            }
         }
-        return $jadwal;
+        return '-';
     }
 
     public function getWawancaraAttribute()

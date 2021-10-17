@@ -31,7 +31,7 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="calonnya.uruts">VA Muamalat</v-th>
+                                    <v-th sortKey="calonnya.uruts">No. ID</v-th>
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
                                     <v-th sortKey="calonnya.jk">JK</v-th>
                                     <v-th sortKey="tagihan['akhir']">Tanggal Bayar</v-th>

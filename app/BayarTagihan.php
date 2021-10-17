@@ -41,29 +41,7 @@ class BayarTagihan extends Model
                 ->where('kelamin', $calon->jk)
                 ->first();
 
-        // $now = new \DateTime();
-        // $reg1 = new \DateTime('2020-11-4');
-        // $reg2 = new \DateTime('2020-12-1');
-        // $reg3 = new \DateTime('2021-02-1');
-        // // $reg4 = new \DateTime('2021-07-30');
-
-        // // if($reg4 > $now) {
-        //     $ket = 'Reguler 3';
-        //     $total = $biayas->total[3];
-        // // }
-
-        // if($reg3 > $now) {
-        //     $ket = 'Reguler 3';
-        //     $total = $biayas->total[3];
-        // }
-        // if($reg2 > $now) {
-        //     $ket = 'Reguler 2';
-        //     $total = $biayas->total[2];
-        // }
-        // if($reg1 > $now) {
-            // $ket = 'Reguler 1';
-            $total = $biayas->total[1] + $infaq;
-        // }
+        $total = $biayas->total[1] + $infaq;
 
         $sisa = $total - $bayar;
         return compact('total', 'sisa', 'bayar', 'akhir');
