@@ -48,6 +48,7 @@ Route::middleware('auth:api')->get('/berkas', 'DokuController@index');
 Route::middleware('auth:api')->get('/berkas/{id}', 'DokuController@detail');
 Route::middleware('auth:api')->get('indexadmin/{id}', 'API\CalonController@indexAdmin');
 Route::middleware('auth:api')->get('admins', 'API\UserController@admin');
+Route::middleware('auth:api')->get('registrasi', 'API\CalonTagihanPSBController@registrasi');
 
 Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');

@@ -41,7 +41,7 @@
     "vue-numeric": "^2.3.0",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.4.6",
-    "vue-select": "^3.10.8",
+    "vue-select": "^3.16.0",
     "vuejs-datepicker": "^1.6.2",
     "vuejs-smart-table": "0.0.5"
   }

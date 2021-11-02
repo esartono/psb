@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Calon;
 use App\Gelombang;
 use App\BayarTagihan;
+use App\CalonTagihanPSB;
 
 use Excel;
 use App\Exports\ExportBayar;
@@ -48,14 +49,16 @@ class BayarTagihanController extends Controller
                     'admin' => auth('api')->user()->id
                 ]);
 
+                $cpsb = CalonTagihanPSB::where('calon_id', $calon->id)->first();
+                $cpsb->update(['daul' => 1 ]);
                 $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
                 $tagihan = $bayar->last();
 
-                Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
-                    {
-                        $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
-                    }
-                );
+                // Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
+                //     {
+                //         $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
+                //     }
+                // );
             }
         }
     }

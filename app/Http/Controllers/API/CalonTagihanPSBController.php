@@ -135,4 +135,14 @@ class CalonTagihanPSBController extends Controller
     {
         //
     }
+
+    public function registrasi()
+    {
+        $regis = array();
+        $cta = CalonTagihanPSB::get()->pluck('calon_id');
+        $calon = Calon::whereIn('id', $cta)->orderBy('name')->get()->pluck('registrasi');
+
+        return $calon;
+    }
+
 }

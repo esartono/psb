@@ -166,7 +166,6 @@ Vue.use(SmartTable)
 
 //Plugins Select2
 import vSelect from 'vue-select'
-
 Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)

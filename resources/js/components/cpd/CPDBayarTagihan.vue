@@ -34,12 +34,11 @@
                                     <v-th sortKey="calonnya.uruts">No. ID</v-th>
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
                                     <v-th sortKey="calonnya.jk">JK</v-th>
-                                    <v-th sortKey="tagihan['akhir']">Tanggal Bayar</v-th>
                                     <v-th sortKey="tagihan['bayar']">Bayar</v-th>
                                     <v-th sortKey="tagihan['total']">Total Tagihan</v-th>
+                                    <v-th sortKey="tagihan['diskon']">Diskon</v-th>
                                     <v-th sortKey="tagihan['sisa']">Sisa Tagihan</v-th>
-                                    <th>LUNAS DAUL</th>
-                                    <th>LUNAS PPDB</th>
+                                    <th>Lunas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -49,21 +48,15 @@
                                     <td class="text-center">{{ row.calonnya.uruts }}</td>
                                     <td>{{ row.calonnya.name }}</td>
                                     <td class="text-center">{{ (row.calonnya.jk == 1 ? 'L' : 'P') }}</td>
-                                    <td>{{ row.tagihan['akhir'] | Tanggal }}</td>
                                     <td>{{ row.tagihan['bayar'] | toCurrency }}</td>
                                     <td>{{ row.tagihan['total'] | toCurrency }}</td>
+                                    <td>{{ row.tagihan['diskon'] | toCurrency }}</td>
                                     <td>{{ row.tagihan['sisa'] | toCurrency }}</td>
-                                    <th v-if="row.tagihan['bayar'] >= row.tagihan['sisa']">
-                                        <a><i class="fas fa-2x fa-check-circle green"></i></a>
+                                    <th v-if="row.tagihan['lunas'] != 0">
+                                        <a><i class="fas fa-check-circle green"></i></a>
                                     </th>
                                     <th v-else>
-                                        <a><i class="fas fa-2x fa-times-circle red"></i></a>
-                                    </th>
-                                    <th v-if="row.tagihan['sisa'] == 0">
-                                        <a><i class="fas fa-2x fa-check-circle green"></i></a>
-                                    </th>
-                                    <th v-else>
-                                        <a><i class="fas fa-2x fa-times-circle red"></i></a>
+                                        <a><i class="fas fa-times-circle red"></i></a>
                                     </th>
                                     <th>
                                         <a class="btn btn-sm btn-info" @click="detailModal(row.calon_id)">Details</a>
@@ -91,14 +84,14 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">No. Pendaftaran</label>
-                                    <div class="col-sm-7">
-                                        <input v-model="form.pendaftaran" type="text" class="form-control" required />
+                                    <label class="col-sm-4 col-form-label">Nama Peserta</label>
+                                    <div class="col-sm-8">
+                                        <v-select :options="registrasi" v-model="form.name"></v-select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Tanggal Bayar</label>
-                                    <div class="col-sm-7">
+                                    <label class="col-sm-4 col-form-label">Tanggal Bayar</label>
+                                    <div class="col-sm-8">
                                         <input v-model="form.tgl_bayar" type="date" name="tgl_bayar" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('tgl_bayar') }" id="tgl_bayar"
                                         />
@@ -107,8 +100,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Pembayaran</label>
-                                    <div class="col-sm-7">
+                                    <label class="col-sm-4 col-form-label">Pembayaran</label>
+                                    <div class="col-sm-8">
                                         <input v-model="form.bayar" type="number" name="bayar" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('bayar') }" id="bayar"
                                         />
@@ -116,8 +109,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Tambahan Infaq</label>
-                                    <div class="col-sm-7">
+                                    <label class="col-sm-4 col-form-label">Tambahan Infaq</label>
+                                    <div class="col-sm-8">
                                         <input v-model="form.infaq" type="number" name="infaq" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('infaq') }" id="infaq"
                                         />
@@ -125,17 +118,26 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-5 col-form-label">Diskon Pembayaran</label>
-                                    <div class="col-sm-7">
+                                    <label class="col-sm-4 col-form-label">Diskon Pembayaran</label>
+                                    <div class="col-sm-8">
                                         <input v-model="form.diskon" type="number" name="diskon" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('diskon') }" id="diskon"
                                         />
                                         <has-error :form="form" field="diskon"></has-error>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Pembayaran Lunas</label>
+                                    <div class="col-sm-8">
+                                        <select v-model="form.lunas" class="form-control">
+                                            <option value=0>Belum Lunas</option>
+                                            <option value=1>Sudah Lunas</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="col-form-label">Keterangan</label>
-                                    <textarea class="form-control" rows="3" v-model="form.keterangan"></textarea>
+                                    <textarea class="form-control" rows="2" v-model="form.keterangan"></textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -187,6 +189,7 @@
     export default {
         data() {
             return {
+                registrasi: [],
                 calons: [],
                 details: [],
                 filters: {
@@ -198,9 +201,13 @@
                 currentPage: 1,
                 totalPages: 0,
                 form: new Form({
-                    pendaftaran: "",
+                    // pendaftaran: "",
+                    name: "",
                     tgl_bayar: "",
                     bayar: 0,
+                    infaq:0,
+                    diskon:0,
+                    lunas: 0,
                     keterangan: ""
                 })
             };
@@ -216,6 +223,10 @@
 
             addModal() {
                 this.form.reset();
+                axios.get("../api/registrasi")
+                    .then((data) => {
+                        this.registrasi = data
+                    })
                 $("#addModal").modal("show");
             },
 

@@ -70,7 +70,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam', 'tahap'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam', 'tahap', 'registrasi'
     ];
 
     public function getTahapAttribute() {
@@ -123,6 +123,12 @@ class Calon extends Model
     {
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
         return $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+    }
+
+    public function getRegistrasiAttribute()
+    {
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        return $gel->kode_va . sprintf("%03d", $this->attributes['urut']) . ' - ' . $this->attributes['name'];
     }
 
     public function getJadwalAttribute()

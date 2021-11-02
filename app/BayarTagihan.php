@@ -34,16 +34,18 @@ class BayarTagihan extends Model
         $akhir = BayarTagihan::where('calon_id', $this->attributes['calon_id'])->orderBy('id', 'desc')->first()->tgl_bayar;
 
         $calon = Calon::where('id',$this->attributes['calon_id'])->first();
-        $cbs = CalonTagihanPSB::where('calon_id', $this->attributes['calon_id'])->first();
-        $infaq = $cbs->infaq + $cbs->infaqnfpeduli;
+        $cbs = CalonTagihanPSB::where('calon_id', $this->attributes['calon_id'])
+                ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli', 'tambah_infaq', 'diskon']);
+        $infaq = $cbs->infaq + $cbs->infaqnfpeduli + $cbs->tambah_infaq;
+        $diskon = $cbs->diskon;
+        $lunas = $cbs->lunas;
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
                 ->first();
 
         $total = $biayas->total[1] + $infaq;
-
         $sisa = $total - $bayar;
-        return compact('total', 'sisa', 'bayar', 'akhir');
+        return compact('total', 'sisa', 'bayar', 'lunas', 'diskon', 'infaq');
     }
 }
