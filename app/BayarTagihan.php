@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BayarTagihan extends Model
 {
     protected $fillable = [
-        'calon_id','tgl_bayar','bayar','keterangan','admin'
+        'calon_id','tgl_bayar','bayar','tambah_infaq', 'diskon','keterangan','admin'
     ];
 
     protected $hidden = [
@@ -31,13 +31,14 @@ class BayarTagihan extends Model
     public function getTagihanAttribute()
     {
         $bayar = BayarTagihan::where('calon_id', $this->attributes['calon_id'])->get()->sum('bayar');
+        $tambah_infaq = BayarTagihan::where('calon_id', $this->attributes['calon_id'])->get()->sum('tambah_infaq');
+        $diskon = BayarTagihan::where('calon_id', $this->attributes['calon_id'])->get()->sum('diskon');
         $akhir = BayarTagihan::where('calon_id', $this->attributes['calon_id'])->orderBy('id', 'desc')->first()->tgl_bayar;
 
         $calon = Calon::where('id',$this->attributes['calon_id'])->first();
         $cbs = CalonTagihanPSB::where('calon_id', $this->attributes['calon_id'])
-                ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli', 'tambah_infaq', 'diskon']);
-        $infaq = $cbs->infaq + $cbs->infaqnfpeduli + $cbs->tambah_infaq;
-        $diskon = $cbs->diskon;
+                ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli']);
+        $infaq = $cbs->infaq + $cbs->infaqnfpeduli + $tambah_infaq;
         $lunas = $cbs->lunas;
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
                 ->where('kelas', $calon->kelas_tujuan)
@@ -45,7 +46,7 @@ class BayarTagihan extends Model
                 ->first();
 
         $total = $biayas->total[1] + $infaq;
-        $sisa = $total - $bayar;
-        return compact('total', 'sisa', 'bayar', 'lunas', 'diskon', 'infaq');
+        $sisa = $total - $bayar - $diskon;
+        return compact('total', 'sisa', 'bayar', 'lunas', 'infaq', 'diskon');
     }
 }

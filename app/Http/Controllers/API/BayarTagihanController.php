@@ -26,8 +26,10 @@ class BayarTagihanController extends Controller
 
     public function store(Request $request)
     {
-        $gels = Gelombang::where('kode_va', substr($request->pendaftaran,0,6))->first();
-        $urut = intval(substr($request->pendaftaran,6));
+        $registrasi = explode(' - ',$request->name);
+        $pendaftaran = $registrasi[0];
+        $gels = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first();
+        $urut = intval(substr($pendaftaran,6));
 
         if($request->keterangan) {
             $ket = $request->keterangan;
@@ -45,20 +47,22 @@ class BayarTagihanController extends Controller
                     'calon_id' => $calon->id,
                     'tgl_bayar' => $request->tgl_bayar,
                     'bayar' => $request->bayar,
+                    'tambah_infaq' => $request->infaq,
+                    'diskon' => $request->diskon,
                     'keterangan' => $ket,
                     'admin' => auth('api')->user()->id
                 ]);
 
                 $cpsb = CalonTagihanPSB::where('calon_id', $calon->id)->first();
-                $cpsb->update(['daul' => 1 ]);
+                $cpsb->update(['daul' => 1 , 'lunas' => $request->lunas]);
                 $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
                 $tagihan = $bayar->last();
 
-                // Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
-                //     {
-                //         $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
-                //     }
-                // );
+                Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
+                    {
+                        $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
+                    }
+                );
             }
         }
     }

@@ -69,7 +69,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        jurusan()
+        // jurusan()
     })
 
     function jurusan() {

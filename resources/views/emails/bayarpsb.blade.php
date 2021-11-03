@@ -19,10 +19,6 @@
                 <td>{{ $calon->gelnya->unitnya->name }} / Kelas {{ $calon->kelasnya->name }}</td>
             </tr>
             <tr>
-                <th>Total Tagihan - {{ $tagihan->tagihan['ket'] }}</th>
-                <td>{{ number_format($tagihan->tagihan['total']) }}</td>
-            </tr>
-            <tr>
                 <th>Pembayaran</th>
                 <td>
                     <table class="details">
@@ -40,10 +36,6 @@
                     @endforelse
                     </table>
                 </td>
-            </tr>
-            <tr>
-                <th>Sisa Tagihan</th>
-                <td>{{ number_format($tagihan->tagihan['sisa']) }}</td>
             </tr>
         </table>
         <p>Demikian, mohon menjadi perhatian. Terima kasih.<br>

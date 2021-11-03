@@ -34,7 +34,7 @@
                                     <v-th sortKey="calonnya.uruts">No. ID</v-th>
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
                                     <v-th sortKey="calonnya.jk">JK</v-th>
-                                    <v-th sortKey="tagihan['bayar']">Bayar</v-th>
+                                    <v-th sortKey="tagihan['bayar']">Total Bayar</v-th>
                                     <v-th sortKey="tagihan['total']">Total Tagihan</v-th>
                                     <v-th sortKey="tagihan['diskon']">Diskon</v-th>
                                     <v-th sortKey="tagihan['sisa']">Sisa Tagihan</v-th>
@@ -161,6 +161,8 @@
                                 <th>Nama</th>
                                 <th>Tanggal</th>
                                 <th>Bayar</th>
+                                <th>Tambahan Infaq</th>
+                                <th>Diskon</th>
                                 <th>Keterangan</th>
                             </tr>
                             <tr v-for="(d, index) in details" :key="index">
@@ -169,6 +171,8 @@
                                 <td>{{ d.calonnya.name }}</td>
                                 <td>{{ d.tgl_bayar | Tanggal }}</td>
                                 <td>{{ d.bayar | toCurrency }}</td>
+                                <td>{{ d.tambah_infaq | toCurrency }}</td>
+                                <td>{{ d.diskon | toCurrency }}</td>
                                 <td>{{ d.keterangan }}</td>
                             </tr>
                             <tr>
@@ -225,7 +229,7 @@
                 this.form.reset();
                 axios.get("../api/registrasi")
                     .then((data) => {
-                        this.registrasi = data
+                        this.registrasi = data.data
                     })
                 $("#addModal").modal("show");
             },
