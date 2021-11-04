@@ -37,6 +37,10 @@
                     </table>
                 </td>
             </tr>
+            <tr>
+                <th>Status Pembayaran</th>
+                <td>{{ $cpsb->lunas == 1 ? 'Sudah Lunas' : 'Belum Lunas' }}</td>
+            </tr>
         </table>
         <p>Demikian, mohon menjadi perhatian. Terima kasih.<br>
         Wassalamu'alaikum wa Rahmatullah Wa Barakatuh</p>

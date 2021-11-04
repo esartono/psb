@@ -31,10 +31,10 @@ class BayarTagihanController extends Controller
         $gels = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first();
         $urut = intval(substr($pendaftaran,6));
 
+        $ket = "-";
+
         if($request->keterangan) {
             $ket = $request->keterangan;
-        } else {
-            $ket = "-";
         }
 
         if($gels) {
@@ -58,7 +58,7 @@ class BayarTagihanController extends Controller
                 $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
                 $tagihan = $bayar->last();
 
-                Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'tagihan'), function ($m) use ($calon)
+                Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'cpsb'), function ($m) use ($calon)
                     {
                         $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
                     }
