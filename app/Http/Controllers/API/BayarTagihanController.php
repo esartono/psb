@@ -56,7 +56,7 @@ class BayarTagihanController extends Controller
                 $cpsb = CalonTagihanPSB::where('calon_id', $calon->id)->first();
                 $cpsb->update(['daul' => 1 , 'lunas' => $request->lunas]);
                 $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
-                $tagihan = $bayar->last();
+                // $tagihan = $bayar->last();
 
                 Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'cpsb'), function ($m) use ($calon)
                     {

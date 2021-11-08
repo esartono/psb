@@ -215,8 +215,11 @@ class DraftCalonController extends Controller
 
             if(!$calon->pindahan){
                 $ceksma = substr($request->unit, -4);
-                if( $ceksma == 'MIPA' || $ceksma == 'IPS'){
+                if( $ceksma == 'MIPA' || $ceksma == '-IPS'){
                     $jurusan = $ceksma;
+                    if($ceksma == '-IPS') {
+                        $jurusan = 'IPS';
+                    }
                 }
                 $unit = Unit::where('id', $request->unit)->first()->cat_id;
                 $cat = SchoolCategory::where('id', $unit)->first()->name;
