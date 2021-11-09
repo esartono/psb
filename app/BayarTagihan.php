@@ -40,8 +40,8 @@ class BayarTagihan extends Model
                 ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli']);
         $cbsinfaq = 0;
         $cbsinfaqnf = 0;
-        if($cbs->infaq) {
-            $cbsinfaq = $cbs->infaq;
+        if($cbs['infaq']) {
+            $cbsinfaq = $cbs['infaq'];
         }
         if($cbs->infaqnfpeduli) {
             $cbsinfaqnf = $cbs->infaqnfpeduli;
