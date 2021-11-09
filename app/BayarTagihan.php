@@ -38,6 +38,14 @@ class BayarTagihan extends Model
         $calon = Calon::where('id',$this->attributes['calon_id'])->first();
         $cbs = CalonTagihanPSB::where('calon_id', $this->attributes['calon_id'])
                 ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli']);
+        $cbsinfaq = 0;
+        $cbsinfaqnf = 0;
+        if($cbs->infaq) {
+            $cbsinfaq = $cbs->infaq;
+        }
+        if($cbs->infaqnfpeduli) {
+            $cbsinfaqnf = $cbs->infaqnfpeduli;
+        }
         $infaq = $cbs->infaq + $cbs->infaqnfpeduli + $tambah_infaq;
         $lunas = $cbs->lunas;
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
