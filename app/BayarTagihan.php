@@ -39,7 +39,7 @@ class BayarTagihan extends Model
         $cbs = CalonTagihanPSB::where('calon_id', $this->attributes['calon_id'])
                 ->first(['calon_id', 'pewawancara', 'daul', 'lunas', 'infaq', 'infaqnfpeduli']);
         $infaq = $cbs['infaq'] + $cbs['infaqnfpeduli'] + $tambah_infaq;
-        $lunas = $cbs->lunas;
+        $lunas = $cbs['lunas'];
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
