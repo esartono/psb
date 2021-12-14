@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Gelombang;
 use App\AmbilSeragam;
 use App\CalonTagihan;
+use App\CalonTagihanPSB;
 use App\CalonHasil;
 use App\CalonDaul;
+use App\Calon;
 
 class CalonTagihanController extends Controller
 {
@@ -62,7 +64,8 @@ class CalonTagihanController extends Controller
      */
     public function show($id)
     {
-        $undur = CalonHasil::where('lulus', 4)->get()->pluck('pendaftaran');
+        // $undur = CalonHasil::where('lulus', 4)->get()->pluck('pendaftaran');
+        $lunas = CalonTagihanPSB::where('lunas', 1)->get()->pluck('calon_id');
         if(auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
@@ -89,12 +92,19 @@ class CalonTagihanController extends Controller
         //     })->get()->toArray();
         // }
         if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            return CalonDaul::whereNotIn('pendaftaran', $undur)
-                ->Where(function ($query) use($gelombang) {
-                for ($i = 0; $i < count($gelombang); $i++){
-                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
-                }
-            })->get()->toArray();
+            return Calon::with('gelnya.unitnya.catnya', 'cknya')->whereIn('id', $lunas)->get()->toArray();
+            // return CalonTagihanPSB::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
+            //     ->Where(function ($query) use($gelombang) {
+            //     for ($i = 0; $i < count($gelombang); $i++){
+            //         $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+            //     }
+            // })->get()->toArray();
+            // return CalonDaul::whereNotIn('pendaftaran', $undur)
+            //     ->Where(function ($query) use($gelombang) {
+            //     for ($i = 0; $i < count($gelombang); $i++){
+            //         $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+            //     }
+            // })->get()->toArray();
         }
     }
 

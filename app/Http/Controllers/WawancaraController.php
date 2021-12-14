@@ -43,12 +43,20 @@ class WawancaraController extends Controller
         if(auth()->user()->level == 1 || auth()->user()->level == 4) {
             $ctg = CalonTagihanPSB::where('calon_id', $id)->first();
             $calon = Calon::findOrFail($id);
+            if(!$ctg) {
+                return redirect()->route('home');
+            }
         }
 
         if ($calon->asal_nf == 1) {
             if ($ctg->potongan == 0){
                 $ctg->update(['potongan' => 10]);
             }
+        }
+
+        $pindahan = 0;
+        if ($calon->pindahan == 1) {
+            $pindahan = 1;
         }
 
         $tp_now = TahunPelajaran::where('status', 1)->first()->name;
@@ -109,12 +117,12 @@ class WawancaraController extends Controller
         foreach($kelass as $k) {
             if ($no === 1){
                 $sppnya = $biayas->spp;
-                if ($ctg->khusus == 0) {
+                if ($pindahan == 0) {
                     $kelas[$k->name]['ket'][0] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
                     $kelas[$k->name]['total'][0] = $sppnya*11;
                     $totalth = $totalth + $sppnya*11;
                 }
-                if ($ctg->khusus == 1) {
+                if ($pindahan == 1) {
                     $kelas[$k->name]['ket'][0] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                     $kelas[$k->name]['total'][0] = $sppnya*5;
                     $totalth = $totalth + $sppnya*5;
@@ -141,18 +149,20 @@ class WawancaraController extends Controller
                 'diskon' => 5000000
             ],
             2 => [
-            'tgl' => new \DateTime('2021-12-1'),
-            'tanggal' => "30 November 2021",
-            'diskon' => 2500000
+                'tgl' => new \DateTime('2021-12-1'),
+                'tanggal' => "30 November 2021",
+                'diskon' => 2500000
             ]
         ];
 
+        $bataskolom = new \DateTime($ctg->created_at->toDateString());
         $batas = 0;
-        if($diskon[2]['tgl'] > $now) {
+
+        if($diskon[2]['tgl'] > $bataskolom) {
             $batas = 1;
         }
 
-        if($diskon[1]['tgl'] > $now) {
+        if($diskon[1]['tgl'] > $bataskolom) {
             $batas = 2;
         }
 
@@ -161,13 +171,13 @@ class WawancaraController extends Controller
             $pengumuman = Jadwal::whereId($cjadwal)->first()->pengumuman->addDays(30);
         }
 
-        if ($ctg->khusus == 0) {
+        // if ($ctg->khusus == 0) {
             $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas'));
-        }
+        // }
 
-        if ($ctg->khusus == 1) {
-            $pdf = PDF::loadView('pdf.tagihanPSBKhusus', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
-        }
+        // if ($khusus == 1) {
+        //     $pdf = PDF::loadView('pdf.tagihanPSBKhusus', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
+        // }
 
         return $pdf->stream('');
     }

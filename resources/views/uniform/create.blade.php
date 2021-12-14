@@ -26,24 +26,24 @@
                             <div class="col-sm-5 mb-2">
                                 <select class="form-control" name="atas" required>
                                     <option disabled selected>Ukuran Baju</option>
-                                    <option value="SS">SS - 1</option>
-                                    <option value="S">S - 2</option>
-                                    <option value="M">M - 3</option>
-                                    <option value="L">L - 4</option>
-                                    <option value="XL">XL - 5</option>
-                                    <option value="XXL">XXL - 6</option>
+                                    <option value="SS"> SS </option>
+                                    <option value="S"> S </option>
+                                    <option value="M"> M </option>
+                                    <option value="L"> L </option>
+                                    <option value="XL"> XL </option>
+                                    <option value="XXL"> XXL </option>
                                 </select>
                             </div>
                             <label for="name" class="col-sm-7 col-form-label">Pilih ukuran Celana atau Rok</label>
                             <div class="col-sm-5">
                                 <select class="form-control" name="bawah" required>
                                     <option disabled selected>Ukuran Celana/Rok</option>
-                                    <option value="SS">SS - 1</option>
-                                    <option value="S">S - 2</option>
-                                    <option value="M">M - 3</option>
-                                    <option value="L">L - 4</option>
-                                    <option value="XL">XL - 5</option>
-                                    <option value="XXL">XXL - 6</option>
+                                    <option value="SS"> SS </option>
+                                    <option value="S"> S </option>
+                                    <option value="M"> M </option>
+                                    <option value="L"> L </option>
+                                    <option value="XL"> XL </option>
+                                    <option value="XXL"> XXL </option>
                                 </select>
                             </div>
                         </div>

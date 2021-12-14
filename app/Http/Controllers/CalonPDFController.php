@@ -5,6 +5,7 @@ use App\Calon;
 use App\Gelombang;
 use App\Tagihan;
 use App\CalonTagihan;
+use App\CalonTagihanPSB;
 use App\CalonDaul;
 use App\TagihanSeragam;
 use App\AmbilSeragam;
@@ -101,6 +102,47 @@ class CalonPDFController extends Controller
             if($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.daul', compact('calonsnya'));
+                return $pdf->stream('');
+            } else {
+                return redirect('home');
+            }
+        }
+    }
+
+    public function terima($pendaftaran)
+    {
+        $gel = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first()->id;
+        $urut = intval(substr($pendaftaran,6));
+        if (auth()->user()->isUser()){
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
+                    ->where('urut', $urut)->where('gel_id', $gel)
+                    ->where('status', 1)->where('user_id', auth()->user()->id);
+            if($calons->first())
+            {
+                $pd = CalonTagihanPSB::where('calon_id', $id)->first();
+                if(!$pd) {
+                    return redirect('ppdb');
+                }
+                if($pd->lunas == 0) {
+                    return redirect('ppdb');
+                }
+            }
+
+            if($calons->get()->count() > 0) {
+                $calonsnya = $calons->first();
+                $pdf = PDF::loadView('pdf.terima', compact('calonsnya'));
+                return $pdf->stream('');
+            } else {
+                return redirect('ppdb');
+            }
+        }
+
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
+                    ->where('urut', $urut)->where('gel_id', $gel)->where('status', 1);
+            if($calons->get()->count() > 0) {
+                $calonsnya = $calons->first();
+                $pdf = PDF::loadView('pdf.terima', compact('calonsnya'));
                 return $pdf->stream('');
             } else {
                 return redirect('home');

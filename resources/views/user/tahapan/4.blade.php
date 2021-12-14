@@ -14,7 +14,8 @@
                 Tidak Diterima
             @endif
         </b></h3>
-        <hr>
+	<b>{{ $calon->hasil['hasil']->catatan }}</b>
+	<hr>
         {{-- <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-success mt-3" target="_blank">Cetak Tata Cara Pembayaran</a> --}}
         @if($calon->hasil['hasil']->lulus == 1)
             <ul class="text-left">

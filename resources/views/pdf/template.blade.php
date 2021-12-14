@@ -42,7 +42,6 @@
                 margin: 25px;
                 border-collapse: collapse;
             }
-
             .biodata, .biodata th, .biodata td {
                 border: 1px solid black;
                 padding: 10px;

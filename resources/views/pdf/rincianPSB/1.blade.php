@@ -37,7 +37,7 @@ Lampiran 1
         @foreach($biayanya as $k=>$b)
         <tr>
           <td width="5%"> {{ $k+1 }} </td>
-          <td width="50%"> {{ $b }} </td>
+          <td width="50%"> {{ ($calon->pindahan == 1 && $b == 'SPP bulan Juli' ? 'SPP bulan Januari' : $b) }} </td>
           <td align="right"> {{ number_format($biaya1[$b]) }} </td>
         </tr>
         @endforeach

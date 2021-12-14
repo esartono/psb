@@ -51,7 +51,11 @@
                                     <td class="text-center">{{ (row.calonnya.jk == 1 ? 'L' : 'P') }}</td>
                                     <td>{{ row.calonnya.tempat_lahir }}, {{ row.calonnya.tgl_lahir | Tanggal}}</td>
                                     <td class="text-center">{{ row.calonnya.asal_sekolah }}</td>
-                                    <th v-if="row.lulus === 1">Status : Diterima</th>
+                                    <th v-if="row.lulus === 1">
+                                        <a :href="'../SuratKeteranganDiterimaPDF/'+row.pendaftaran" target="_blank">
+                                            <i class="fas fa-2x fa-file-pdf red"></i><br>Status : Diterima
+                                        </a>
+                                    </th>
                                     <th v-else-if="row.lulus === 2">
                                         Status : Cadangan
                                         <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>

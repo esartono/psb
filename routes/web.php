@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
+    Route::get('/SuratKeteranganDiterimaPDF/{id}', 'CalonPDFController@terima')->name('SuratKeteranganDiterimaPDF');
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
     Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
     Route::resource('doku', 'DokuController');

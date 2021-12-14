@@ -45,7 +45,7 @@
                         </li>
                     </ul>
                     <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>
-                    <a href='/uniform/{{ $calon->id }}' class="btn btn-primary"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>
+                    @if($calon->tahap == 4)<a href='/uniform/{{ $calon->id }}' class="btn btn-primary"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>@endif
                 </div>
             </div>
         </div>

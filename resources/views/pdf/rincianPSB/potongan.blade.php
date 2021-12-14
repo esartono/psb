@@ -39,15 +39,22 @@
           @foreach($biayanya as $k=>$b)
           <tr>
             <td width="4%"> {{ $k+1 }} </td>
-            <td width="28%"> {{ $b }} </td>
+            <td width="28%"> {{ ($calon->pindahan == 1 && $b == 'SPP bulan Juli' ? 'SPP bulan Januari' : $b) }} </td>
             @if($b == 'Dana Pengembangan')
               @php
                 $d1 = 0;
                 $d2 = 0;
+                $d3 = 0;
                 $n = $biaya1[$b];
                 if($ctg->potongan > 0) {
-                  $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
-                  $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                  if($batas == 2) {
+                    $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
+                    $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                  }
+                  if($batas == 1) {
+                    $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                    $d3 = $biaya1[$b]*($ctg->potongan/100);
+                  }
                 }
 
                 if($calon->gel_id == 2 && $calon->asal_nf == 1) {
@@ -55,13 +62,19 @@
                     $d2 = 5000000;
                 }
               @endphp
-              <td> {{ number_format($biaya1[$b]-$diskon[1]['diskon']-$d1) }} </td>
-              <td> {{ number_format($biaya1[$b]-$diskon[2]['diskon']-$d2) }} </td>
-              <td> {{ number_format($biaya1[$b]-$diskon[2]['diskon']) }} </td>
+              @if($batas == 2)
+                <td> {{ number_format($biaya1[$b]-$diskon[1]['diskon']-$d1) }} </td>
+                <td> {{ number_format($biaya1[$b]-$diskon[2]['diskon']-$d2) }} </td>
+                <td> {{ number_format($biaya1[$b]-$diskon[2]['diskon']) }} </td>
+              @endif
+              @if($batas == 1)
+                <td> {{ number_format($biaya1[$b]-$d3) }} </td>
+                <td> {{ number_format($biaya1[$b]-$diskon[2]['diskon']-$d2) }} </td>
+              @endif
             @else
+              @if($batas == 2)<td> {{ number_format($biaya1[$b]) }} </td>@endif
               <td> {{ number_format($biaya1[$b]) }} </td>
-              <td> {{ number_format($biaya1[$b]) }} </td>
-              <td> {{ number_format($biaya1[$b]) }} </td>
+              @if($batas >= 1)<td> {{ number_format($biaya1[$b]) }} </td>@endif
             @endif
             <td> {{ number_format($biaya1[$b]) }} </td>
           </tr>
@@ -69,29 +82,35 @@
           <tr>
             <td width="5%"> 6 </td>
             <td>  Infaq SIT Nurul Fikri </td>
+            @if($batas == 2)<td> {{ number_format($ctg->infaq) }} </td>@endif
             <td> {{ number_format($ctg->infaq) }} </td>
-            <td> {{ number_format($ctg->infaq) }} </td>
-            <td> {{ number_format($ctg->infaq) }} </td>
+            @if($batas >= 1)<td> {{ number_format($ctg->infaq) }} </td>@endif
             <td> {{ number_format($ctg->infaq) }} </td>
           </tr>
           <tr>
             <td width="5%"> 7 </td>
             <td>  Infaq NF Peduli </td>
+            @if($batas == 2)<td> {{ number_format($ctg->infaqnfpeduli) }} </td>@endif
             <td> {{ number_format($ctg->infaqnfpeduli) }} </td>
-            <td> {{ number_format($ctg->infaqnfpeduli) }} </td>
-            <td> {{ number_format($ctg->infaqnfpeduli) }} </td>
+            @if($batas >= 1)<td> {{ number_format($ctg->infaqnfpeduli) }} </td>@endif
             <td> {{ number_format($ctg->infaqnfpeduli) }} </td>
           </tr>
           <tr>
             <td></td>
             <td align="center">  <b>TOTAL</b>  </td>
-            <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[1]['diskon']-$d1))) }}</strong> </td>
-            <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[2]['diskon']-$d2))) }}</strong> </td>
-            <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[2]['diskon']))) }}</strong> </td>
+            @if($batas == 2)
+              <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[1]['diskon']-$d1))) }}</strong> </td>
+              <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[2]['diskon']-$d2))) }}</strong> </td>
+              <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[2]['diskon']))) }}</strong> </td>
+            @endif
+            @if($batas == 1)
+              <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-$d3) }}</strong> </td>
+              <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($n-($n-$diskon[2]['diskon']-$d2))) }}</strong> </td>
+            @endif
             <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong> </td>
           </tr>
           <tr>
-            <td colspan="6" style="text-align: left !important">
+            <td colspan="{{ $batas + 4 }}" style="text-align: left !important">
               <b>Keterangan </b>:
               <ol>
                 <li>*&nbsp;&nbsp;potongan Rp. 5,000,000 + potongan khusus dari dana pengembangan</li>

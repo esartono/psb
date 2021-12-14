@@ -34,7 +34,7 @@
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
                                     <th>JK</th>
                                     <v-th sortKey="calonnya.tgl_lahir">Tanggal Lahir</v-th>
-                                    <v-th sortKey="calonnya.asal_sekolah">Asal Sekolah</v-th>
+                                    <!-- <v-th sortKey="calonnya.asal_sekolah">Asal Sekolah</v-th> -->
                                     <th>Daftar Ulang</th>
                                     <th>Seragam</th>
                                 </tr>
@@ -42,21 +42,21 @@
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
-                                    <td class="text-center">{{ row.unitnya.name }}</td>
-                                    <td class="text-center">{{ row.calonnya.ck }}</td>
-                                    <td class="text-center">{{ row.pendaftaran }}</td>
-                                    <td>{{ row.calonnya.name }}</td>
-                                    <td class="text-center">{{ (row.calonnya.jk == 1 ? 'L' : 'P') }}</td>
-                                    <td>{{ row.calonnya.tempat_lahir }}, {{ row.calonnya.tgl_lahir | Tanggal}}</td>
-                                    <td class="text-center">{{ row.calonnya.asal_sekolah }}</td>
+                                    <td class="text-center">{{ row.gelnya.unitnya.name }}</td>
+                                    <td class="text-center">{{ row.cknya.name }}</td>
+                                    <td class="text-center">{{ row.uruts }}</td>
+                                    <td>{{ row.name }}</td>
+                                    <td class="text-center">{{ (row.jk == 1 ? 'L' : 'P') }}</td>
+                                    <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
+                                    <!-- <td class="text-center">{{ row.asal_sekolah }}</td> -->
                                     <th>
-                                        <a :href="'DaftarUlangPDF/'+row.calonnya.idc" target="_blank">
-                                            <i class="fas fa-file-pdf red"> </i> Daftar Ulang
+                                        <a :href="'DaftarUlangPDF/'+row.id" target="_blank">
+                                            <i class="fas fa-2x fa-file-pdf red"> </i><br>Daul
                                         </a>
                                     </th>
                                     <th>
-                                        <a :href="'AmbilSeragamPDF/'+row.calonnya.idc" target="_blank">
-                                            <i class="fas fa-file-pdf green"></i> Seragam
+                                        <a :href="'AmbilSeragamPDF/'+row.id" target="_blank">
+                                            <i class="fas fa-2x fa-file-pdf green"></i><br>Seragam
                                         </a>
                                     </th>
                                 </tr>
@@ -80,7 +80,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["unitnya.name", "pendaftaran", "calonnya.name", "calonnya.tgl_lahir", "calonnya.asal_sekolah"]
+                        keys: ["unitnya.name", "calonnya.uruts", "calonnya.name", "calonnya.tgl_lahir", "calonnya.asal_sekolah"]
                     }
                 },
                 currentPage: 1,
