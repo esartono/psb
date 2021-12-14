@@ -1,6 +1,7 @@
 /app/Http/UjicobaController.php
 /node_modules
 /public
+/storage/khusus
 /storage/*.key
 /vendor
 /catatan
