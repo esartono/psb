@@ -45,6 +45,7 @@
                 <v-th sortKey="name">Nama</v-th>
                 <v-th sortKey="name">Tanggal</v-th>
                 <v-th sortKey="name">Bayar</v-th>
+                <th>Kirim Email</th>
                 <th>Aksi</th>
               </thead>
               <tbody slot="body" slot-scope="{displayData}">
@@ -54,6 +55,11 @@
                   <td class="text-center">{{ row.calons.name }}</td>
                   <td>{{ row.created_at }}</td>
                   <td>{{ row.bayar }}</td>
+                  <td>
+                    <a href="#">
+                      <i class="fas fa-paper-plane blue"></i>
+                    </a>
+                  </td>
                   <td class="text-center">
                     <a href="#" @click="editModal(row)">
                       <i class="fas fa-edit blue"></i>

@@ -11,6 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.js', 'public/js').vue({ version: 2 })
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
+
+mix.webpackConfig({
+    resolve: {
+        fallback: {
+            "crypto": false,
+            "crypto-browserify": require.resolve('crypto-browserify'),
+        }
+    }
+});

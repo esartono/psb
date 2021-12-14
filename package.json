@@ -2,34 +2,34 @@
   "private": true,
   "scripts": {
     "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
     "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "mix --production"
   },
   "devDependencies": {
-    "axios": "^0.18",
+    "axios": "^0.24.0",
     "bootstrap": "^4.5.2",
     "cross-env": "^5.1",
     "jquery": "^3.5.1",
-    "laravel-mix": "^5.0.7",
+    "laravel-mix": "^6.0.39",
     "lodash": "^4.17.20",
     "popper.js": "^1.16.1",
-    "resolve-url-loader": "^2.3.1",
+    "resolve-url-loader": "^4.0.0",
     "sass": "^1.27.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.12",
+    "vue-loader": "^15.9.8",
     "vue-template-compiler": "^2.6.12",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^4.9.1"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.11.2",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@mathieustan/vue-datepicker": "^0.1.9",
     "admin-lte": "^3.0.0-beta.1",
-    "axios": "^0.18.1",
     "babel-runtime": "^6.26.0",
     "core-js": "^3.6.5",
     "lodash.update": "^4.10.2",
@@ -37,12 +37,13 @@
     "sweetalert2": "^8.19.0",
     "vform": "^1.0.1",
     "vue-form-wizard": "^0.8.4",
-    "vue-froala-wysiwyg": "^3.2.2",
+    "vue-froala-wysiwyg": "^4.0.7",
     "vue-numeric": "^2.3.0",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.4.6",
     "vue-select": "^3.16.0",
     "vuejs-datepicker": "^1.6.2",
-    "vuejs-smart-table": "0.0.5"
+    "vuejs-smart-table": "0.0.5",
+    "webpack": "^5.9.0"
   }
 }

@@ -60,6 +60,7 @@
                                     </th>
                                     <th>
                                         <a class="btn btn-sm btn-info" @click="detailModal(row.calon_id)">Details</a>
+                                        <a class="btn btn-sm btn-danger" @click="kirimEmail(row.calon_id)">Kirim Email</a>
                                     </th>
                                 </tr>
                             </tbody>
@@ -178,7 +179,7 @@
                             <tr>
                                 <th colspan="4"> TOTAL </th>
                                 <th> {{ totalBayar | toCurrency }} </th>
-                                <th></th>
+                                <th colspan="3"></th>
                             </tr>
                         </table>
                     </div>
