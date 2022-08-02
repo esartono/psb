@@ -14,6 +14,7 @@
 .env GMAIL
 .env-nyoba
 .phpunit.result.cache
+backup.composer.json.back
 Homestead.json
 Homestead.yaml
 npm-debug.log
