@@ -15,13 +15,15 @@ Aplikasi ini dirancang dan dikembangkan berdasarkan aplikasi Penerimaan Siswa Ba
 
 ## Fitur
 
-*   Laravel versi 5.8 sebagai Framework
+*   Laravel versi 7.4 sebagai Framework
 *   Vue JS sebagai Front End
 *   Multiuser (Admin, Admin Unit, Bagian Keuangan, Bagian Pengadaan, dll)
 *   Responsive, karena menggunakan template dari AdminLte3
 *   Rest API
 *   Export dan Import file Excel
 *   Generate PDF
+*   QRCode
+*   WhatsApp Notification
 *   dan lain2
 
 ## Default User
@@ -31,4 +33,5 @@ Aplikasi ini dirancang dan dikembangkan berdasarkan aplikasi Penerimaan Siswa Ba
 ## Kontak
 
 Copyright (C) 2019 - esartono
+WhatsApp & Telegram : 6281295941985
 https://noteseko.blogspot.com
