@@ -28,7 +28,8 @@
 			============================================= -->
 	<link rel="stylesheet" href="/front/css/linearicons.css">
 	<link rel="stylesheet" href="/front/css/font-awesome.min.css">
-	<link rel="stylesheet" href="/front/css/bootstrap.css">
+	{{-- <link rel="stylesheet" href="/front/css/bootstrap.css"> --}}
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 	<link rel="stylesheet" href="/front/css/magnific-popup.css">
 	<link rel="stylesheet" href="/front/css/nice-select.css">
 	<link rel="stylesheet" href="/front/css/animate.min.css">
@@ -100,7 +101,8 @@
 	<script src="/front/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-	<script src="/front/js/vendor/bootstrap.min.js"></script>
+	{{-- <script src="/front/js/vendor/bootstrap.min.js"></script> --}}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 	<script src="/front/js/easing.min.js"></script>
 	<script src="/front/js/hoverIntent.js"></script>
 	<script src="/front/js/superfish.min.js"></script>

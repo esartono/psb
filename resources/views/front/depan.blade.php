@@ -64,17 +64,21 @@
 		<div class="container">
 			<div class="row justify-content-center d-flex align-items-center">
 				@foreach($units as $unit)
-				<div class="col-lg-3 col-md-6 col-sm-12 single-faculty" style="color: #fff">
+				<div class="col single-faculty" style="color: #fff">
 					<div class="meta-text text-center bg-{{ $unit->catnya->name }}">
 						<img class="img-fluid" src="img/{{ $unit->catnya->name }}.png" alt="logo Unit" width="40%" style="margin-top: -50px">
 						<hr>
-						<h4 style="color: #fff">{{ $unit->name }}</h4>
+						<h5 style="color: #fff">{{ $unit->name }}</h5>
 						<hr>
 						<div class="info wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
-							<p style="font-size: 11px"> {{ $unit->address }} <br> Cimanggis, Kota Depok - Jawa Barat</p>
-							<p class="designation">Telepon : {{ $unit->phone }}<br>Email : {{ $unit->email }}</p>
-							<a style="font-size: 0.8em" href="https://{{ strtolower($unit->catnya->name) }}it.nurulfikri.sch.id"
-							target="_blank" class="genric-btn info-border circle arrow"><b>{{ $unit->name }}</b></a>
+							<p style="font-size: 12px"> {{ $unit->address }} Cimanggis, Kota Depok - Jawa Barat</p>
+							<p style="font-size: 12px" class="designation">Telepon : {{ $unit->phone }}<br>Email : {{ $unit->email }}</p>
+							<a 
+								style="position:absolute; justify-content:center; left:10px; right:10px; bottom:20px;"
+								href="https://{{ strtolower($unit->catnya->name) }}it.nurulfikri.sch.id"
+								target="_blank" class="genric-btn info-border circle arrow">
+								<b>{{ $unit->name }}</b>
+							</a>
 						</div>
 					</div>
 				</div>

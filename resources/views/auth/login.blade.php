@@ -1,7 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
-<p class="login-box-msg">Masukan Email dan Password Anda</p>
+<p class="login-box-msg">Masukan Email dan Password</p>
 <form method="POST" action="{{ route('login') }}">
     @csrf
     <div class="input-group mb-3">

@@ -239,7 +239,8 @@ class HomeController extends Controller
 
         $tp = TahunPelajaran::where('status', 1)->first();
 
-        $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
+        // $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
+        $gelombang = Gelombang::where('tp', $tp->id)->orderBy('start', 'asc')->first();
         if($gelombang){
             $start = date('M d, Y H:i:s', strtotime($gelombang->start));
         } else {
