@@ -39,6 +39,11 @@
         text-transform: none;
     }
 
+    .step2 li {
+        list-style-type: square;
+        font-weight: 400;
+        text-transform: none;
+    }
     .khusus {
         border: 0px !important;
     }
@@ -52,7 +57,7 @@
     <div class="container">
         <div class="section-top-border justify-content-center">
             <h3 class="mt-30 mb-2 text-white">Syarat dan Ketentuan PPDB SIT Nurul Fikri</h3>
-            <h4 class="mb-20 text-white">Tahun Ajaran 2022/2023</h4>
+            <h4 class="mb-20 text-white">Tahun Ajaran {{ $tp }}</h4>
             <div class="progress-table-wrap">
                 <div class="progress-table" style="padding: 25px">
                     <ol class="roman">
@@ -66,7 +71,13 @@
                                         <li>Scan KTP orangtua</li>
                                         <li>Scan kartu Keluarga</li>
                                         <li>Scan Akte Kelahiran</li>
-                                        <li>Scan Rapor (SMP dan SMA)</li>
+                                        <li>Scan Rapor dengan ketentuan sebagai berikut :
+                                            <ul class="step2">
+                                                <li>SD hanya kelas 4 dan kelas 5</li>
+                                                <li>SMP kelas 7 dan kelas 8</li>
+                                                <li>SMA kelas 10 dan kelas 11</li>
+                                            </ul>
+                                        </li>
                                     </ol>
                                 </li>
                             </ol>
@@ -92,17 +103,17 @@
                                                         <tr>
                                                             <td>PG</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni 2018 - Juli 2019</td>
+                                                            <td>Kelahiran Juni {{ $patokan-4 }} - Juli {{ $patokan-3 }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TK A</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni 2017 - Juli 2018</td>
+                                                            <td>Kelahiran Juni {{ $patokan-5 }} - Juli {{ $patokan-4 }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TK B</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni 2016 - Juli 2017</td>
+                                                            <td>Kelahiran Juni {{ $patokan-6 }} - Juli {{ $patokan-5 }}</td>
                                                         </tr>
                                                     </table>
                                                 </li>
@@ -116,7 +127,7 @@
                                                 <li>Psikotes</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
-                                                <li>Usia minimal 5 tahun 10 bulan pada Juli 2022 Kelahiran Maksimal Oktober 2016</li>
+                                                <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-6 }}</li>
                                                 <li>Tes Akademik (bagi Siswa mutasi/pindahan)</li>
                                             </ol>
                                         </td>

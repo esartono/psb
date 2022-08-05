@@ -21,6 +21,7 @@ use Telegram;
 
 class HomeController extends Controller
 {
+    protected $tp_berjalan;
     /**
      * Create a new controller instance.
      *
@@ -31,6 +32,7 @@ class HomeController extends Controller
         $this->middleware(['auth', 'verified'])->except(
             'depan', 'biaya', 'jadwal', 'edupay', 'download', 'hasil', 'gethasil', 'jadwalkesehatan', 'syarat'
         );
+        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
     }
 
     /**
@@ -210,7 +212,9 @@ class HomeController extends Controller
 
     public function syarat()
     {
-        return view('front.syarat');
+        $tp = $this->tp_berjalan;
+        $patokan = (int)substr($tp,0,4);
+        return view('front.syarat', compact('tp', 'patokan'));
     }
 
     public function jadwalkesehatan()
@@ -220,15 +224,7 @@ class HomeController extends Controller
 
     public function download()
     {
-        $tp = TahunPelajaran::where('status', 1)->first();
-
-        $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
-
-        $start = date('M d, Y H:i:s', strtotime($gelombang->start));
-        $units = Unit::with('catnya')->orderBy('id', 'asc')->get();
-        $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
-
-        return view('front.download', compact('start'));
+        return view('front.download');
     }
 
     public function depan()

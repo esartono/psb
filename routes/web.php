@@ -19,18 +19,16 @@ Route::get('/syarat', 'HomeController@syarat')->name('syarat');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
-// Route::get('/uji', 'UjicobaController@cek')->name('uji');
-// Route::get('/uji1', 'UjicobaController@cek1')->name('uji1');
-// Route::get('/uji2', 'UjicobaController@cek2')->name('uji2');
-// Route::get('/uji3', 'UjicobaController@cek3')->name('uji3');
-// Route::get('/uji4', 'UjicobaController@cek4')->name('uji4');
-// Route::get('/uji5', 'UjicobaController@cek5')->name('uji5');
-// Route::get('/uji6', 'UjicobaController@cek6')->name('uji6');
+
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
 
 Route::get('logout', 'Auth\LoginController@logout');
-Auth::routes(['verify' => true]);
+
+Route::get('auth/google', 'SocialiteController@redirectToGoogle');
+Route::get('auth/google/callback', 'SocialiteController@handleGoogleCallback');
+
+Auth::routes(['reset' => false]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');

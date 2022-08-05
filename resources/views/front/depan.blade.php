@@ -13,7 +13,7 @@
 						Selamat Datang di Sistem PPDB Online SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
 						Perhatikan semua informasi mengenai Peserta Didik Baru sebelum anda mulai mendaftar.
 						Apabila Anda belum mempunyai akun, silahkan melakukan proses Daftar Akun.</p>
-					<div class="wow fadeIn card col-md-6 offset-md-3 border-warning countdown mt-4">
+					<div class="wow fadeIn card col-md-8 offset-md-2 border-warning countdown mt-4">
 						<ul class="mt-4">
 							<li><span id="days" class="mb-3"></span>hari</li>
 							<li><span id="hours" class="mb-3"></span>jam</li>
@@ -33,7 +33,7 @@
 									@endif
 								@else
 									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 danger circle mr-10 mb-10 wow fadeInDown">Login</a>
-									<a href="{{ route('register') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Daftar Akun</a>
+									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Daftar Akun</a>
 								@endauth
 							</div>
 						@endif
@@ -64,10 +64,10 @@
 		<div class="container">
 			<div class="row justify-content-center d-flex align-items-center">
 				@foreach($units as $unit)
-				<div class="col single-faculty" style="color: #fff">
+				<div class="col single-faculty" style="color: #fff;padding: 5px !important;">
 					<div class="meta-text text-center bg-{{ $unit->catnya->name }}">
 						<img class="img-fluid" src="img/{{ $unit->catnya->name }}.png" alt="logo Unit" width="40%" style="margin-top: -50px">
-						<hr>
+						<br>
 						<h5 style="color: #fff">{{ $unit->name }}</h5>
 						<hr>
 						<div class="info wow fadeIn" data-wow-duration="1s" data-wow-delay=".1s">
@@ -104,12 +104,12 @@
 			x = setInterval(function() {
 
 			let now = new Date().getTime(),
-				distance = countDown - now;
+			distance = countDown - now;
 
 			document.getElementById('days').innerText = Math.floor(distance / (day)),
-				document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
-				document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-				document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+			document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+			document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+			document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
 
 			//do something later when date is reached
 			if (distance < 0) {

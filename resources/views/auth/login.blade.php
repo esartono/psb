@@ -1,7 +1,11 @@
 @extends('layouts.login')
 
 @section('content')
-<p class="login-box-msg">Masukan Email dan Password</p>
+
+<a href="{{ url('auth/google') }}" class="btn btn-primary btn-block sign-in">
+    <img src="https://www.google.com/favicon.ico"/> Login dengan Akun Google
+</a>
+<p class="login-box-msg">atau Login dengan :<br>Email dan Password</p>
 <form method="POST" action="{{ route('login') }}">
     @csrf
     <div class="input-group mb-3">
