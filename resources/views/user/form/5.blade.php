@@ -1,5 +1,5 @@
-<div class="text-center">
-    <h4 class="mb-3">Data Alamat Calon Siswa</h4>
+<div class="text-right">
+    <h4 class="mb-3 text-center">Data Alamat Calon Siswa</h4>
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
         <input type="hidden" name="step" value=5>
@@ -8,7 +8,6 @@
             <div class="col-md-9">
                 <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Alamat Tempat Tinggal"
                 value="{{ is_null($calon->alamat) ? '' : $calon->alamat }}" required>
-                <has-error :form="form" field="alamat"></has-error>
             </div>
         </div>
         <div class="form-group row">
@@ -20,7 +19,6 @@
                         <option value="{{ $prov->id }}" {{ $calon->provinsi == $prov->id ? 'selected="true"' : '' }}>{{ $prov->name }}</option>
                     @endforeach
                 </select>
-                <has-error :form="form" field="provinsi"></has-error>
             </div>
             <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
             <div class="col-md-3">
@@ -32,7 +30,6 @@
                         @endforeach
                     @endif
                 </select>
-                <has-error :form="form" field="kota"></has-error>
             </div>
         </div>
         <div class="form-group row">
@@ -46,7 +43,6 @@
                         @endforeach
                     @endif
                 </select>
-                <has-error :form="form" field="kecamatan"></has-error>
             </div>
             <label class="col-md-2 offset-md-1 col-form-label">Kelurahan</label>
             <div class="col-md-3">
@@ -58,7 +54,6 @@
                         @endforeach
                     @endif
                 </select>
-                <has-error :form="form" field="kelurahan"></has-error>
             </div>
         </div>
         <div class="form-group row">
@@ -66,15 +61,13 @@
             <div class="col-md-2">
                 <input type="text" name="rt" class="form-control" id="rt"
                 value="{{ is_null($calon->rt) ? '' : $calon->rt }}" required
-                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                <has-error :form="form" field="rt"></has-error>
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="3">
             </div>
             <label class="offset-md-3 col-md-1 col-form-label">RW</label>
             <div class="col-md-2">
                 <input type="text" name="rw" class="form-control" id="rw"
                 value="{{ is_null($calon->rw) ? '' : $calon->rw }}" required
-                onkeypress="return event.charCode >= 48 && event.charCode <= 57">
-                <has-error :form="form" field="rw"></has-error>
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="3">
             </div>
         </div>
         <div class="form-group row">
@@ -83,14 +76,14 @@
                 <input type="text" name="kodepos" class="form-control" id="kodepos"
                 value="{{ is_null($calon->kodepos) ? '' : $calon->kodepos }}"
                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="5" minlength="5">
-                <has-error :form="form" field="kodepos"></has-error>
             </div>
         </div>
         <hr>
-        <a href="/tambahcalon/4" class="btn bg-TK float-left white">
+        <a href="/tambahcalon/4" class="btn bg-TK float-left white mr-2">
             <i class="fa fa-chevron-circle-left"></i>
             Sebelumnya
         </a>
+        @include('user.form.batal')
         <button type="submit" class="btn bg-blue float-right">
             Selanjutnya
             <i class="fa fa-chevron-circle-right"></i>

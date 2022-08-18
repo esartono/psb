@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Spp;
 use App\Calon;
 use App\Kelasnya;
+use App\JTagihan;
 use App\Gelombang;
 use App\TagihanPSB;
 use App\TahunPelajaran;
@@ -17,7 +18,7 @@ class TagihanPSBController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->except('index');
+        $this->middleware('auth:api')->except('index', 'jtagihan');
     }
 
     public function index()
@@ -194,6 +195,11 @@ class TagihanPSBController extends Controller
             $no = $no + 1;
         }
         return compact('biaya', 'total', 'kelas', 'totalTahunan', 'sppnya', 'asalNF');
+    }
+
+    public function jtagihan()
+    {
+        return Jtagihan::orderBy('id', 'asc')->get()->toArray();
     }
 
     public function destroy($id)

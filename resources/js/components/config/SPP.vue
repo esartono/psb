@@ -73,7 +73,7 @@
                                     <label class="col-sm-4 col-form-label">Tahun Pelajaran</label>
                                     <div class="col-sm-8">
                                         <select v-model="form.tp" name="tp" class="form-control" id="tp">
-                                            <option v-for="tp in tps.slice().reverse()" :key="tp.id"
+                                            <option v-for="tp in tps" :key="tp.id"
                                                 v-bind:value="tp.id">{{ tp.name }}</option>
                                         </select>
                                         <has-error :form="form" field="tp"></has-error>
@@ -242,7 +242,7 @@
 
             axios
                 .get("../api/tps")
-                .then(({ data }) => (this.tps = data));
+                .then(({ data }) => (this.tps = data.slice().reverse()));
 
             $("#addModal").on("hidden.bs.modal", this.modalOnHidden);
         }

@@ -64,8 +64,6 @@ class CalonTagihanController extends Controller
      */
     public function show($id)
     {
-        // $undur = CalonHasil::where('lulus', 4)->get()->pluck('pendaftaran');
-        $lunas = CalonTagihanPSB::where('lunas', 1)->get()->pluck('calon_id');
         if(auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
@@ -75,13 +73,30 @@ class CalonTagihanController extends Controller
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
+        $undur = CalonHasil::where('lulus', 4)
+                ->Where(function ($query) use($gelombang) {
+                    for ($i = 0; $i < count($gelombang); $i++){
+                        $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+                    }
+                })->get();
+        return $undur;
+        // $lunas = CalonTagihanPSB::where('lunas', 1)->get()->pluck('calon_id');
+
+        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            $lunas = CalonTagihanPSB::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
+                ->Where(function ($query) use($gelombang) {
+                for ($i = 0; $i < count($gelombang); $i++){
+                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+                }
+            })->get()->toArray();
+        }
         // if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            // return CalonTagihan::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
-                // ->Where(function ($query) use($gelombang) {
-                // for ($i = 0; $i < count($gelombang); $i++){
-                    // $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
-                // }
-            // })->get()->toArray();
+        //     $lunas = CalonTagihan::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
+        //         ->Where(function ($query) use($gelombang) {
+        //         for ($i = 0; $i < count($gelombang); $i++){
+        //             $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+        //         }
+        //     })->get()->toArray();
         // }
         // if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
         //     return AmbilSeragam::whereNotIn('pendaftaran', $undur)->where('lunas_daul', 'Lunas')

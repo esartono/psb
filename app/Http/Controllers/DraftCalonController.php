@@ -21,6 +21,7 @@ use App\Penghasilan;
 use App\CalonBiayaTes;
 use App\CalonKategori;
 use App\SchoolCategory;
+use App\TahunPelajaran;
 
 use App\Edupay\Facades\Edupay;
 
@@ -46,6 +47,9 @@ class DraftCalonController extends Controller
      */
     public function create($l = null)
     {
+        $tp = TahunPelajaran::where('status', 1)->first();
+        $gelombang = Gelombang::where('tp', $tp->id)->orderBy('start', 'asc')->first();
+
         $ages = $min_age = date('Y-m-d');
         $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
@@ -59,6 +63,13 @@ class DraftCalonController extends Controller
             ['name' => 'Data Asal Sekolah', 'icon'=> 'fas fa-school'],
             ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
+
+        // Cek apakah sudah mulai belum pendaftarannya
+        if(!$gelombang){
+            $start = date('M d, Y H:i:s', strtotime(date('Y').'-09-01'));
+            $step = 0;
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'start'));
+        }
 
         if(is_null($l)){
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
@@ -393,11 +404,11 @@ class DraftCalonController extends Controller
 
                 Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
                 $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-                Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-                    {
-                        $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-                    }
-                );
+                // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+                //     {
+                //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+                //     }
+                // );
             }
 
             $draft->delete();

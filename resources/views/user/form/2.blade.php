@@ -57,6 +57,8 @@
             @empty
                 <h2 class="bg-red" style="padding: 20px;">MAAF BELUM ADA KELAS YANG TERSEDIA</h2>
             @endforelse
+            <hr>
+            @include('user.form.batal')
         </form>
     @endif
     @if($calon->pindahan == true)

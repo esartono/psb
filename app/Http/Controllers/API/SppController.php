@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Spp;
+use App\TahunPelajaran;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -20,7 +21,15 @@ class SppController extends Controller
      */
     public function index()
     {
-        return Spp::with('tpnya', 'unitnya')->orderBy('id', 'asc')->get()->toArray();
+        // Cek tahun Ajaran Aktif
+        $tps = array();
+        $tp = TahunPelajaran::where('status', 1)->first();
+        $tps[1] = $tp->id;
+
+        $tp = TahunPelajaran::where('name', 'LIKE', '%/'.substr($tp->name, 0, 4))->first();
+        $tps[0] = $tp->id;
+
+        return Spp::with('tpnya', 'unitnya')->whereIn('tp', $tps)->orderBy('unit_id', 'asc')->get()->toArray();
     }
 
     /**

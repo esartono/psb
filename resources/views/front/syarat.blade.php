@@ -73,9 +73,8 @@
                                         <li>Scan Akte Kelahiran</li>
                                         <li>Scan Rapor dengan ketentuan sebagai berikut :
                                             <ul class="step2">
-                                                <li>SD hanya kelas 4 dan kelas 5</li>
-                                                <li>SMP kelas 7 dan kelas 8</li>
-                                                <li>SMA kelas 10 dan kelas 11</li>
+                                                <li>Untuk calon SMP scan rapor SD hanya kelas 4 dan kelas 5</li>
+                                                <li>Untuk calon SMA scan rapor SMP kelas 7 dan kelas 8</li>
                                             </ul>
                                         </li>
                                     </ol>
@@ -92,7 +91,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="bg-TK">TKIT</td>
+                                        <td style="vertical-align: middle; text-align: center">TKIT</td>
                                         <td>
                                             <ol class="biasa">
                                                 <li>Observasi (dibantu Psikolog)</li>
@@ -121,7 +120,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="bg-SD">SDIT</td>
+                                        <td style="vertical-align: middle; text-align: center">SDIT</td>
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
@@ -133,7 +132,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="bg-SMP">SMPIT</td>
+                                        <td style="vertical-align: middle; text-align: center">SMPIT</td>
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
@@ -146,7 +145,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="bg-SMA">SMAIT</td>
+                                        <td style="vertical-align: middle; text-align: center">SMAIT</td>
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
@@ -219,7 +218,7 @@
                                                     <li>Ilmu Pengetahuan Sosial</li>
                                                 </ol>
                                             </td>
-                                            <td>Kelas 4 Semester ganjil dan Kelas 5 Semester ganjil</td>
+                                            <td>Kelas 4 dan Kelas 5</td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center">SMA</td>

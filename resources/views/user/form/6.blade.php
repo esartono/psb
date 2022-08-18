@@ -1,4 +1,4 @@
-<div class="text-center">
+<div class="text-right">
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
         <input type="hidden" name="step" value=6>
@@ -59,7 +59,7 @@
                         <div class="col-md-7">
                             <input type="text" name="ayah_hp" class="form-control" id="ayah_hp"
                             value="{{ is_null($calon->ayah_hp) ? '' : $calon->ayah_hp }}" required
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="15">
                             <has-error :form="form" field="ayah_hp"></has-error>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         <div class="col-md-7">
                             <input type="text" name="ibu_hp" class="form-control" id="ibu_hp"
                             value="{{ is_null($calon->ibu_hp) ? '' : $calon->ibu_hp }}" required
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="15">
                             <has-error :form="form" field="ibu_hp"></has-error>
                         </div>
                     </div>
@@ -146,10 +146,11 @@
             </div>
         </div>
         <hr>
-        <a href="/tambahcalon/5" class="btn bg-TK float-left white">
+        <a href="/tambahcalon/5" class="btn bg-TK float-left white mr-2">
             <i class="fa fa-chevron-circle-left"></i>
             Sebelumnya
         </a>
+        @include('user.form.batal')
         <button type="submit" class="btn bg-blue float-right">
             Selanjutnya
             <i class="fa fa-chevron-circle-right"></i>

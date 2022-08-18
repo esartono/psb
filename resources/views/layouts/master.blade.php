@@ -12,7 +12,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{ config('app.name') }} | {{ auth()->user()->tpname }}</title>
-
+  
+  <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
   <link rel="stylesheet" href="/css/app.css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2EXL2S2X8"></script>
@@ -216,18 +217,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link to="/config/tagihanPSB" class="nav-link">
-                  <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Biaya PPDB</p>
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link to="/config/biayaSPP" class="nav-link">
-                  <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Biaya SPP</p>
-                </router-link>
-              </li>
-              <li class="nav-item">
                 <router-link to="/config/agreement" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Persetujuan</p>
@@ -397,6 +386,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     Data Tagihan
                   </p>
                 </router-link>
+              </li>
+              <li class="nav-item menu-is-opening">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-circle nav-icon"></i>
+                  <p>Setting
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview" style="display: block;">
+                  <li class="nav-item">
+                    <router-link to="/config/tagihanPSB" class="nav-link">
+                      <i class="fas fa-caret-right nav-icon"></i>
+                      <p>Biaya PPDB</p>
+                    </router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link to="/config/biayaSPP" class="nav-link">
+                      <i class="fas fa-caret-right nav-icon"></i>
+                      <p>Biaya SPP</p>
+                    </router-link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>

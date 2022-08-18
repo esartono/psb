@@ -56,7 +56,7 @@
         <div class="row justify-content-center d-flex align-items-center">
             <h3 class="mt-40">Ketentuan Biaya Pendidikan</h3>
             <div class="col-sm-12">
-                @include('wawancara.ketentuan')
+                @include('wawancara.'.substr($tp,0,4).'.ketentuan')
             </div>
         </div>
     </div>

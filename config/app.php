@@ -182,6 +182,7 @@ return [
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
+        App\Providers\WaServiceProvider::class,
 
     ],
 
@@ -234,7 +235,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Edupay' => App\Edupay\Facades\Edupay::class,
+        'Edupay' => App\Facades\Edupay::class,
+        'Wa' => App\Facades\WaFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,

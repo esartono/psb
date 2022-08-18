@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Edupay\Facades\Edupay;
+use App\Facades\Edupay;
+use App\Notifications\Wa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 use App\Gelombang;
 use App\TahunPelajaran;
 use App\User;
@@ -15,7 +18,9 @@ use App\Calon;
 use App\CalonHasil;
 use App\CalonBiayaTes;
 use App\Jadwal;
+use App\TagihanPSB;
 
+// use Wa;
 use Auth;
 use Telegram;
 
@@ -29,7 +34,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except(
+        $this->middleware(['auth'])->except(
             'depan', 'biaya', 'jadwal', 'edupay', 'download', 'hasil', 'gethasil', 'jadwalkesehatan', 'syarat'
         );
         $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
@@ -129,8 +134,15 @@ class HomeController extends Controller
         return view('psb_old');
     }
 
-    public function psb_new()
+    public function psb()
     {
+        // Cek user baru atau lama
+        // dd('EKO');
+        $cek = auth()->user()->phone;
+        if($cek === null || $cek === '') {
+            return view('user.baru');
+        }
+
         $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
         $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
                 ->where('user_id', auth()->user()->id)
@@ -141,6 +153,32 @@ class HomeController extends Controller
             return view('user.dashboard', compact('calons'));
         }
         return view('user.awal');
+    }
+
+    public function addUser(Request $request)
+    {
+        $user = User::where('email', $request->email)->where('level', 2)->first();
+        $user->update($request->only('name', 'phone'));
+        Wa::kirim(
+            $user->phone,
+            'Terima kasih Bapak/Ibu '.$user->name.', Anda sudah menjadi user di aplikasi PPDB SIT Nurul Fikri. Silahkan melanjutkan proses berikutnya.');
+        return redirect()->route('home');
+    }
+    
+    public function password()
+    {
+        return view('user.password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validatedData = $request->validate([
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
+        ]);
+        $user = User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->route('home');
     }
 
     public function edupay()
@@ -178,7 +216,11 @@ class HomeController extends Controller
             ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
             ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
         ];
-        return view('front.biaya', compact('biaya', 'seragam'));
+
+        $tp = $this->tp_berjalan;
+        $patokan = (int)substr($tp,0,4);
+
+        return view('front.'.$patokan.'.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));
     }
 
     public function hasil()

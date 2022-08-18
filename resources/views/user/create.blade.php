@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    @media only screen and (max-width: 450px) {
+        .stepTitle {
+            display: none;
+        }
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="mt-2 col-md-12">
@@ -24,9 +31,9 @@
                             </div>
                             <ul class="wizard-nav wizard-nav-pills">
                                 <li>
-                                    <a href="/tambahcalon/1">
-                                        <div role="tab" class="wizard-icon-circle md bg-green">
-                                            <div class="wizard-icon-container bg-green">
+                                    <a href="/tambahcalon/1" class="{{ $step == 0 ? 'disabled' : ''}}">
+                                        <div role="tab" class="wizard-icon-circle md {{ $step == 0 ? 'bg-grey' : 'bg-green'}}">
+                                            <div class="wizard-icon-container {{ $step == 0 ? 'bg-grey' : 'bg-green'}}">
                                                 <i class="wizard-icon fas fa-user"></i>
                                             </div>
                                         </div>

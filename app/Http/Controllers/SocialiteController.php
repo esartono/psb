@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 use Exception;
 use Auth;
@@ -22,23 +24,23 @@ class SocialiteController extends Controller
         try {
             $user = Socialite::driver('google')->stateless()->user();
             $finduser = User::where('email', $user->email)->first();
-            // $finduser = User::where('google_id', $user->id)->first();
-            // if($finduser){
-            //     Auth::login($finduser);
-            //     return redirect()->intended('dashboard');
-            // } else {
-            //     $newUser = User::create([
-            //         'name' => $user->name,
-            //         'email' => $user->email,
-            //         'google_id'=> $user->id,
-            //         'password' => encrypt('123456dummy')
-            //     ]);
+            if ($finduser) {
+                Auth::login($finduser);
+                return redirect()->intended('home');
+            } else {
+                $random_password = Hash::make(Str::random(8));
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'password' => Hash::make($random_password),
+                ]);
 
-            //     Auth::login($newUser);
-            //     return redirect()->intended('dashboard');
-            // }
+                Auth::login($newUser);
+                return redirect()->intended('dashboard');
+            }
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return redirect()->intended('login');
+            // dd($e->getMessage());
         }
     }
 }

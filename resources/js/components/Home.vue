@@ -33,6 +33,9 @@
                 </tr>
               </thead>
               <tbody>
+                <tr v-if="!units.length">
+                  <th colspan="11" class="text-center">No Data</th>
+                </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
                   <td class="text-center">{{ unit.name }}</td>
@@ -82,6 +85,9 @@
                 </tr>
               </thead>
               <tbody>
+                <tr v-if="!units.length">
+                  <th colspan="10" class="text-center">No Data</th>
+                </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
                   <td class="text-center">{{ unit.name }}</td>
@@ -125,6 +131,9 @@
                 </tr>
               </thead>
               <tbody>
+                <tr v-if="!units.length">
+                  <th colspan="6" class="text-center">No Data</th>
+                </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
                   <td class="text-center">{{ unit.name }}</td>

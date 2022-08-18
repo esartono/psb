@@ -1,5 +1,5 @@
-<div class="text-center">
-    <h4 class="mb-3">Data Asal Sekolah</h4>
+<div class="text-right">
+    <h4 class="mb-3 text-center">Data Asal Sekolah</h4>
     <form role="form" method="POST" action="{{ route('add.calon') }}">
         @csrf
         <input type="hidden" name="step" value=7>
@@ -70,10 +70,11 @@
             </div>
         </div>
         <hr>
-        <a href="/tambahcalon/6" class="btn bg-TK float-left white">
+        <a href="/tambahcalon/6" class="btn bg-TK float-left white mr-2">
             <i class="fa fa-chevron-circle-left"></i>
             Sebelumnya
         </a>
+        @include('user.form.batal')
         <button type="submit" class="btn bg-blue float-right">
             Selanjutnya
             <i class="fa fa-chevron-circle-right"></i>

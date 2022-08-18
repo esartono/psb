@@ -79,7 +79,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                <label class="col-md-5 col-form-label">Biaya Pendidikan</label>
+                                                <label class="col-md-5 col-form-label">Unit</label>
                                                 <div class="col-md-7">
                                                     <select v-model="form.gel_id" @change="pilihUnit($event)" name="gel_id" class="form-control" id="gel_id" required>
                                                         <option v-for="gel in gelombangs" :key="gel.id" v-bind:value="gel.id">{{ gel.unitnya.name }}</option>
@@ -137,24 +137,7 @@
                 gelombangs: {},
                 kelass: {},
                 tagihanpsbs: [],
-                biaya: [
-                    {
-                        'id': 0,
-                        'name': 'Dana Pengembangan',
-                    },
-                    {
-                        'id': 1,
-                        'name': 'Dana Pendidikan',
-                    },
-                    {
-                        'id': 2,
-                        'name': 'Iuran Komite Sekolah / tahun',
-                    },
-                    {
-                        'id': 3,
-                        'name': 'Seragam'
-                    },
-                ],
+                biaya: [],
                 filters: {
                     name: {
                         value: "",
@@ -179,6 +162,9 @@
                 axios.get("../api/tagihanpsbs").then(({
                     data
                 }) => (this.tagihanpsbs = data));
+                axios.get("../api/jtagihans").then(({
+                    data
+                }) => (this.biaya = data));
                 this.$Progress.finish();
             },
 

@@ -28,7 +28,11 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/google', 'SocialiteController@redirectToGoogle');
 Route::get('auth/google/callback', 'SocialiteController@handleGoogleCallback');
 
-Auth::routes(['reset' => false]);
+Auth::routes([
+    'reset' => false,
+    'register' => false,
+    'verify' => false,
+]);
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
@@ -49,9 +53,11 @@ Route::middleware('auth')->group(function(){
 Route::middleware('auth', 'user')->group(function(){
     // Route::get('/psb', 'HomeController@dashboardUser')->name('psb');
     // Route::get('/psb', 'HomeController@psb_old')->name('psb');
-    Route::get('/ppdb', 'HomeController@psb_new')->name('ppdb');
+    Route::get('/ppdb', 'HomeController@psb')->name('ppdb');
     // Route::get('/dokumen/{id}', 'HomeController@psb')->name('dokumen');
-    // Route::get('/tambahcalon', 'HomeController@psb_old')->name('tambahcalon');
+    Route::get('/password', 'HomeController@password')->name('password');
+    Route::post('/password', 'HomeController@changePassword')->name('edit.password');
+    Route::post('/tambahuser', 'HomeController@addUser')->name('add.user');
     // Route::get('/editcalon/{id}', 'HomeController@psb_old')->name('editcalon');
     Route::get('/tambahcalon', 'DraftCalonController@create')->name('tambahcalon');
     Route::post('/tambahcalon', 'DraftCalonController@store')->name('add.calon');

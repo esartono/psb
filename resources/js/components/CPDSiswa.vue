@@ -40,6 +40,9 @@
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
+                                <tr v-if="!calons.length">
+                                    <th colspan="11" class="text-center">No Data</th>
+                                </tr>
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
                                     <td class="text-center">{{ row.gelnya.unitnya.name }}</td>

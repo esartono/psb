@@ -1,7 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<style>
+    .status_title {
+        font-weight: 800;
+        font-size: 200%;
+    }
+    .status {
+        margin-left: -20px;
+    }
+</style>
+<div class="container-xl">
     <div class="row justify-content-center">
         <div class="card col-md-3 p-1 mt-4 mb-4">
             <a href="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon Siswa </b></a>
@@ -55,7 +64,23 @@
                     <h5>Status : {{ $calon->status == 0 ? 'Tidak Aktif' : 'Aktif' }}</h5>
                 </div>
                 <div class="card-body box-profile">
-                    @include('user.tahapan.'.$calon->tahap)
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="status_title">STATUS</p>
+                            <div class="nav flex-column nav-tabs h-100" aria-orientation="vertical">
+                                <p class="nav-link status active">1. Pendaftaran <i class="fas fa-check-circle text-right"></i></p>
+                                <p class="nav-link status active">2. Biaya Pendaftaran</p>
+                                <p class="nav-link status">3. Seleksi</p>
+                                <p class="nav-link status">4. Pengumuman</p>
+                                <p class="nav-link status">5. Daftar Ulang</p>
+                                <p class="nav-link status">6. Seragam dan Pengambilan Buku</p>
+                                <p class="nav-link status">7. Masa Orientasi Siswa</p>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            @include('user.tahapan.'.$calon->tahap)
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

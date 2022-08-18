@@ -15,6 +15,8 @@
             <img src="/img/logo.png" alt="Logo" width="60%" height="70%">
             Pegawai <br>SIT Nurul Fikri
         </a>
+        <hr>
+        @include('user.form.batal')
     </form>
 </div>
 <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">

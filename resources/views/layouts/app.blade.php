@@ -12,17 +12,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }} | {{ auth()->user()->tpname }}</title>
-
+    <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
     <link rel="stylesheet" href="/css/app.css">
+    <style>
+      .datepicker tr td-:last-of-type {
+          width: 20px !important;
+      }
+  </style>
 </head>
 <body class="hold-transition layout-top-nav">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light bg-teal">
     <div class="container">
       <a href="/home" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU &nbsp;&nbsp;| </a>
-      <a href="https://bit.ly/Kesehatan-PPDB" target="_blank" class="btn bg-yellow"> Health Screening Form - PPDB SIT Nurul Fikri </a>
+      {{-- <a href="https://bit.ly/Kesehatan-PPDB" target="_blank" class="btn bg-yellow"> Health Screening Form - PPDB SIT Nurul Fikri </a> --}}
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
@@ -33,10 +38,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <i class="fas fa-caret-down"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="{{ route('logout')}}" class="nav-link"
+            <a class="dropdown-item" href="password">
+              <p class="indigo"><i class="fas fa-key"></i> &nbsp; Password</p>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{ route('logout')}}" class="dropdown-item"
               onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
-              <p class="indigo"><b> <i class="fas fa-power-off"></i> &nbsp;  {{ __('Logout') }} </b></p>
+              <p class="red"><b> <i class="fas fa-power-off"></i> &nbsp; {{ __('Logout') }} </b></p>
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -68,7 +77,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </footer>
 </div>
 <!-- ./wrapper -->
-<script type="application/javascript" src="/js/app.js"></script>
+<script type="application/javascript" src="/js/user.js"></script>
 @stack('js')
 </body>
 </html>
