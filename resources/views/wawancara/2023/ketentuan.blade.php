@@ -5,14 +5,51 @@
             <li>Sumbangan Pokok Pendidikan (SPP) berlaku untuk 1 tahun pertama, untuk tahun kedua dan seterusnya sesuai dengan ketentuan kenaikan SPP (Lampiran 2)</li>
             <li>SPP yang dibayarkan tidak termasuk biaya catering</li>
             <li>SPP SD, SMP dan SMA dibayarkan sudah termasuk program UKS</li>
-            <li>Biaya Komite Sekolah dibayarkan pertahun</li>
+            <li>Biaya Komite Sekolah dibayarkan pertahun bersamaan dengan SPP bulan Juli</li>
             <li>Biaya pendaftaran dan biaya daftar ulang yang sudah dibayarkan tidak dapat dikembalikan</li>
             <li>Pembayaran biaya daftar ulang minimal 50% dari total biaya daftar ulang, selambat-lambatnya 5 hari setelah dinyatakan diterima, dan bagi yang tidak melakukan pembayaran pada rentang waktu tersebut dianggap mengundurkan diri</li>
             <li>Pelunasan biaya daftar ulang selambat-lambatnya 30 hari terhitung dari tanggal pengumuman hasil seleksi, dan bagi yang tidak melakukan pelunasan pada rentang waktu tersebut dianggap mengundurkan diri</li>
             <div class="page-break"></div>
-            <li>Potongan dana pengembangan Rp. 5.000.000, berlaku untuk pendaftar yang sudah melakukan daftar ulang dengan lunas selambat-lambatnya 31 Oktober 2021</li>
-            <li>Potongan dana pengembangan Rp. 2.500.000, berlaku untuk pendaftar yang sudah melakukan daftar ulang dengan lunas selambat-lambatnya 30 November 2021</li>
-            <li>Untuk pendaftar yang melakukan pelunasan biaya daftar ulang setelah tanggal 30 November 2021, tidak mendapatkan tambahan potongan</li>
+            <li>
+                Potongan dana pengembangan berlaku bagi pendaftar yang sudah melakukan daftar ulang dengan lunas selambat-lambatnya pada tanggal berikut:
+                <table class="table table-bordered table-striped" style="width: 70%">
+                    <tr>
+                        <th>No</th>
+                        <th>Unit</th>
+                        <th>31 Oktober 2022</th>
+                        <th>30 November 2022</th>
+                        <th>31 Desember 2022</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>TK</td>
+                        <td>Rp. 4,000,000</td>
+                        <td>Rp. 3,000,000</td>
+                        <td>Rp. 2,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>SD</td>
+                        <td>Rp. 4,000,000</td>
+                        <td>Rp. 3,000,000</td>
+                        <td>Rp. 1,500,000</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>SMP</td>
+                        <td>Rp. 4,000,000</td>
+                        <td>Rp. 3,000,000</td>
+                        <td>Rp. 1,500,000</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>SMA</td>
+                        <td>Rp. 4,000,000</td>
+                        <td>Rp. 3,000,000</td>
+                        <td>Rp. 1,500,000</td>
+                    </tr>
+                </table>
+            </li>
         </ol>
     </li>
     <li>Ketentuan Khusus Potongan Biaya PPDB
@@ -30,7 +67,7 @@
                                     <li>Saudara kandung kedua dan seterusnya mendapatkan potongan 10% dari Dana Pengembangan</li>
                                 </ol>
                             </li>
-                            <li>Bagi orangtua calon siswa yang mendaftarkan lebih dari 1 siswa pada tahun pelajaran yang sama, berlaku ketentuan potongan point (1).</li>
+                            <li>Potongan Dana Pengembangan bagi orangtua calon siswa yang mendaftarkan lebih dari 1 calon siswa pada tahun pelajaran yang sama di SIT Nurul Fikri, masing-masing calon siswa mendapatkan potongan sebesar 10% dari Dana Pengembangan.</li>
                         </ol>
                     </li>
                     <li><div class="jarak"></div>
@@ -91,17 +128,17 @@
                         <tr>
                             <td>2</td>
                             <td>SD</td>
-                            <td>Rp. 3,500,000</td>
                             <td>Rp. 3,750,000</td>
                             <td>Rp. 4,100,000</td>
                             <td>Rp. 4,500,000</td>
+                            <td>Rp. 4,700,000</td>
                             <td>Rp. 4,900,000</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>SMP</td>
-                            <td>Rp. 4,000,000</td>
                             <td>Rp. 4,250,000</td>
+                            <td>Rp. 5,000,000</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
@@ -109,8 +146,8 @@
                         <tr>
                             <td>4</td>
                             <td>SMA</td>
-                            <td>Rp. 4,500,000</td>
                             <td>Rp. 5,000,000</td>
+                            <td>Rp. 6,000,000</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>

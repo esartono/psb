@@ -216,18 +216,34 @@ class HomeController extends Controller
 
     public function biaya()
     {
-        $biaya = [
-            ['komponen' => 'Dana Pengembangan', 'tka'=>8000000, 'tkb'=>5000000, 'sd'=>22500000, 'smp'=>21500000, 'sma'=>21500000],
-            ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>12500000, 'smp'=>14000000, 'sma'=>14000000],
-            ['komponen' => 'SPP bulan Juli', 'tka'=>1250000, 'tkb'=>1250000, 'sd'=>1900000, 'smp'=>2000000, 'sma'=>2000000],
-            ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
-        ];
-        $seragam = [
-            ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
-            ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
-        ];
-
         $tp = $this->tp_berjalan;
+
+        if($tp === '2022/2023') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka'=>8000000, 'tkb'=>5000000, 'sd'=>22500000, 'smp'=>21500000, 'sma'=>21500000],
+                ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>12500000, 'smp'=>14000000, 'sma'=>14000000],
+                ['komponen' => 'SPP bulan Juli', 'tka'=>1250000, 'tkb'=>1250000, 'sd'=>1900000, 'smp'=>2000000, 'sma'=>2000000],
+                ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
+                ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
+            ];
+        }
+
+        if($tp === '2023/2024') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka'=>8500000, 'tkb'=>6000000, 'sd'=>22500000, 'smp'=>22500000, 'sma'=>22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>14000000, 'smp'=>15000000, 'sma'=>15000000],
+                ['komponen' => 'SPP bulan Juli', 'tka'=>1350000, 'tkb'=>1350000, 'sd'=>2000000, 'smp'=>2100000, 'sma'=>2100000],
+                ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
+                ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
+            ];
+        }
+        
         $patokan = (int)substr($tp,0,4);
 
         return view('front.'.$patokan.'.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));

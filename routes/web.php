@@ -29,11 +29,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('auth/google', 'SocialiteController@redirectToGoogle');
 Route::get('auth/google/callback', 'SocialiteController@handleGoogleCallback');
 
-Auth::routes([
-    'reset' => false,
-    'register' => false,
-    'verify' => false,
-]);
+Auth::routes();
 
 Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');

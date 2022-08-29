@@ -60,18 +60,18 @@
                             <tr>
                                 <td>1.</td>
                                 <td>Asal Non SIT Nurul Fikri</td>
-                                <td>Rp. 400,000</td>
-                                <td>Rp. 525,000</td>
-                                <td>Rp. 550,000</td>
+                                <td>Rp. 450,000</td>
                                 <td>Rp. 600,000</td>
+                                <td>Rp. 650,000</td>
+                                <td>Rp. 700,000</td>
                             </tr>
                             <tr>
                                 <td>2.</td>
                                 <td>Asal SIT Nurul Fikri</td>
                                 <td style="background-color: grey">-</td>
-                                <td>Rp. 400,000</td>
-                                <td>Rp. 400,000</td>
-                                <td>Rp. 400,000</td>
+                                <td>Rp. 500,000</td>
+                                <td>Rp. 500,000</td>
+                                <td>Rp. 500,000</td>
                             </tr>
                             <tr>
                                 <td>3.</td>
