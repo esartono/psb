@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     protected $fillable = [
-        'nip', 'name', 'jk'
+        'nip', 'name', 'jk', 'status'
     ];
 
     protected $hidden = [

@@ -23,7 +23,7 @@ use App\CalonKategori;
 use App\SchoolCategory;
 use App\TahunPelajaran;
 
-use App\Edupay\Facades\Edupay;
+use App\Facades\Edupay;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;

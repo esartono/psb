@@ -36,6 +36,7 @@ class PegawaiController extends Controller
             'nip' => $request['nip'],
             'jk' => $request['jk'],
             'name' => $request['name'],
+            'status' => $request['status']
         ]);
     }
 

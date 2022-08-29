@@ -58,11 +58,11 @@ class BayarTagihanController extends Controller
                 $bayar = BayarTagihan::where('calon_id', $calon->id)->get();
                 // $tagihan = $bayar->last();
 
-                Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'cpsb'), function ($m) use ($calon)
-                    {
-                        $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
-                    }
-                );
+                // Mail::send('emails.bayarpsb', compact('calon', 'bayar', 'cpsb'), function ($m) use ($calon)
+                //     {
+                //         $m->to($calon->usernya->email, $calon->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Pembayaran Daftar Ulang SIT Nurul Fikri');
+                //     }
+                // );
             }
         }
     }

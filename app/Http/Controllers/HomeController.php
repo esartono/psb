@@ -23,6 +23,7 @@ use App\TagihanPSB;
 // use Wa;
 use Auth;
 use Telegram;
+use Avatar;
 
 class HomeController extends Controller
 {
@@ -35,7 +36,16 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware(['auth'])->except(
-            'depan', 'biaya', 'jadwal', 'edupay', 'download', 'hasil', 'gethasil', 'jadwalkesehatan', 'syarat'
+            'depan',
+            'biaya',
+            'jadwal',
+            'edupay',
+            'download',
+            'hasil',
+            'gethasil',
+            'jadwalkesehatan',
+            'syarat',
+            'biayapendaftaran'
         );
         $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
     }
@@ -137,7 +147,7 @@ class HomeController extends Controller
     public function psb()
     {
         // Cek user baru atau lama
-        // dd('EKO');
+        // dd(Avatar::create('Joko Widodo')->toBase64());
         $cek = auth()->user()->phone;
         if($cek === null || $cek === '') {
             return view('user.baru');
@@ -249,7 +259,16 @@ class HomeController extends Controller
 
     public function jadwal()
     {
-        return view('front.jadwal');
+        $tp = $this->tp_berjalan;
+        return view('front.jadwal', compact('tp'));
+    }
+    
+    public function biayapendaftaran()
+    {
+        $tp = $this->tp_berjalan;
+        $kode = substr($tp,2,2).substr($tp,7,2).'31001';
+        return view('front.tatacara', compact('tp','kode'));
+        // return view('front.tatacara');
     }
 
     public function syarat()

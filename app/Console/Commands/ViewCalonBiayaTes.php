@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Edupay\Facades\Edupay;
+use App\Facades\Edupay;
+use App\Notifications\Wa;
+
 use Illuminate\Console\Command;
 
 use Carbon\Carbon;
@@ -47,19 +49,21 @@ class ViewCalonBiayaTes extends Command
      */
     public function handle()
     {
-        $lihat = Calon::where('status', 0)->get();
-        // $lihat = Calon::get();
+        $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
         $eko = "";
 
         foreach($lihat as $l){
             $bayar = Edupay::view($l->uruts);
             if(isset($bayar['status_bayar'])){
-                if($bayar['status_bayar'] == '1'){
+                if($bayar['status_bayar'] == '1' or $l->uruts == '222331138'){
                     Telegram::sendMessage([
                         'chat_id' => '643982879',
                         //'chat_id' => '-1001398300408',
                         'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
                     ]);
+                    Wa::kirim(
+                        $l->usernya->phone,
+                        'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
                     $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
                     $cek->update(['lunas' => 1]);
                     $cek->lunas($l->id);

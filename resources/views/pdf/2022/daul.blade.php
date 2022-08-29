@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Tempat, Tanggal Lahir</th>
-                <td>{{ $calonsnya->lahir }}</td>
+                <td>{{ $calonsnya->tgl_lahir->isoFormat('D MMMM Y') }}</td>
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>

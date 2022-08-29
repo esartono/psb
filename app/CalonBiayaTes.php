@@ -37,11 +37,11 @@ class CalonBiayaTes extends Model
         $calon->update(['status' => 1]);
 
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-        Mail::send('emails.bayartes', compact('calonsnya'), function ($m) use ($calonsnya)
-            {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Terima Kasih');
-            }
-        );
+        // Mail::send('emails.bayartes', compact('calonsnya'), function ($m) use ($calonsnya)
+        //     {
+        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Terima Kasih');
+        //     }
+        // );
 
         $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
 
@@ -50,18 +50,17 @@ class CalonBiayaTes extends Model
             ['jadwal_id' => $jd]
         );
 
-        Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
-            {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Kartu Seleksi');
-            }
-        );
+        // Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
+        //     {
+        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Kartu Seleksi');
+        //     }
+        // );
 
         $jadwal = Jadwal::get();
         foreach($jadwal as $j) {
             $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
             $j->update(['ikut' => $c]);
         }
-
     }
 
     public function pilihjadwal($gel, $asal)

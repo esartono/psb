@@ -17,6 +17,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label class="col-md-5 col-form-label">No. Induk Kependudukan</label>
+                        <div class="col-md-7">
+                            <input type="text" name="ayah_nik" class="form-control" id="ayah_nik" placeholder="No. Induk Kependudukan"
+                            value="{{ is_null($calon->ayah_nik) ? '' : $calon->ayah_nik }}" required
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="16" minlength="16">
+                            <has-error :form="form" field="ayah_nik"></has-error>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label class="col-md-5 col-form-label">Pendidikan</label>
                         <div class="col-md-7">
                             <select name="ayah_pendidikan" class="form-control" id="ayah_pendidikan" required>
@@ -84,6 +93,15 @@
                             <input type="text" name="ibu_nama" class="form-control" id="ibu_nama" placeholder="Nama Ibu"
                             value="{{ is_null($calon->ibu_nama) ? '' : $calon->ibu_nama }}" required>
                             <has-error :form="form" field="ibu_nama"></has-error>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-5 col-form-label">No. Induk Kependudukan</label>
+                        <div class="col-md-7">
+                            <input type="text" name="ibu_nik" class="form-control" id="ibu_nik" placeholder="No. Induk Kependudukan"
+                            value="{{ is_null($calon->ibu_nik) ? '' : $calon->ibu_nik }}" required
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="16" minlength="16">
+                            <has-error :form="form" field="ibu_nik"></has-error>
                         </div>
                     </div>
                     <div class="form-group row">

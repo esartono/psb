@@ -84,7 +84,6 @@ table.table-invoice th, table.table-invoice td {
                             </div>
                         </div>
                         <div class="card col-4 justify-content-center"><router-view tglbatas="{{ $tglbatas }}"></router-view></div>
-                        <!-- @include('wawancara.ketentuan') -->
                     </div>
                 </div>
                 <!-- Modal Ketentuan-->

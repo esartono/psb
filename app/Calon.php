@@ -34,12 +34,14 @@ class Calon extends Model
         'kelurahan',
         'phone',
         'ayah_nama',
+        'ayah_nik',
         'ayah_pendidikan',
         'ayah_pekerjaan',
         'ayah_penghasilan',
         'ayah_hp',
         'ayah_email',
         'ibu_nama',
+        'ibu_nik',
         'ibu_pendidikan',
         'ibu_pekerjaan',
         'ibu_penghasilan',
@@ -133,13 +135,17 @@ class Calon extends Model
 
     public function getJadwalAttribute()
     {
-        $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
+        // $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
+        $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', 863)->first();
         if($jadwal) {
             if($jadwal->jadwal_id > 0) {
                 return $jadwal->jadwalnya;
             }
         }
-        return '-';
+        // return $cek;
+        $jadwal = new Collection();
+        $jadwal->seleksi = '-';
+        return $jadwal;
     }
 
     public function getWawancaraAttribute()

@@ -4,7 +4,12 @@
 <style>
     .status_title {
         font-weight: 800;
-        font-size: 200%;
+        font-size: 130%;
+        text-align: center;
+        border: 1px solid red;
+        margin-top: -1.25rem;
+        margin-left: -20px;
+        background-color: red
     }
     .status {
         margin-left: -20px;
@@ -22,9 +27,9 @@
             <div class="card h-100">
                 <div class="card-header white bg-{{ $calon->gelnya->unitnya->catnya->name }} card-{{ $calon->gelnya->unitnya->catnya->name }}-outline">
                     <h5>Data Calon Peserta - {{ $calon->gelnya->unitnya->name }}</h5>
-                    <div class="card-tools" style="position: absolute; right: 1rem; top: 0.5rem">
+                    {{-- <div class="card-tools" style="position: absolute; right: 1rem; top: 0.5rem">
                         <a href="/editcalon/{{ $calon->id }}" class="btn btn-sm btn-warning"><i class="fas fa-user-edit"> </i><b> Edit </b></a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-body box-profile">
                     <h3 class="profile-username text-center text-uppercase">{{ $calon->name }}</h3>
@@ -53,8 +58,9 @@
                             <b>Tanggal Daftar</b> <a class="float-right">{{ $calon->tgl_daftar->isoFormat('D MMMM Y') }}</a>
                         </li>
                     </ul>
+                    <a href="/editcalon/{{ $calon->id }}" class="btn btn-info"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>
                     <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>
-                    @if($calon->tahap == 4)<a href='/uniform/{{ $calon->id }}' class="btn btn-primary"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>@endif
+                    {{-- @if($calon->tahap == 4)<a href='/uniform/{{ $calon->id }}' class="btn btn-primary"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>@endif --}}
                 </div>
             </div>
         </div>
@@ -66,15 +72,14 @@
                 <div class="card-body box-profile">
                     <div class="row">
                         <div class="col-3">
-                            <p class="status_title">STATUS</p>
                             <div class="nav flex-column nav-tabs h-100" aria-orientation="vertical">
-                                <p class="nav-link status active">1. Pendaftaran <i class="fas fa-check-circle text-right"></i></p>
-                                <p class="nav-link status active">2. Biaya Pendaftaran</p>
-                                <p class="nav-link status">3. Seleksi</p>
-                                <p class="nav-link status">4. Pengumuman</p>
-                                <p class="nav-link status">5. Daftar Ulang</p>
-                                <p class="nav-link status">6. Seragam dan Pengambilan Buku</p>
-                                <p class="nav-link status">7. Masa Orientasi Siswa</p>
+                                <p class="nav-link status {{ $calon->tahap >= 1 ? 'active' : '' }}">1. Pendaftaran @if($calon->tahap >= 1) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">2. Biaya Pendaftaran @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">3. Seleksi @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap == 3 ? 'active' : '' }}">4. Pengumuman @if($calon->tahap == 3) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap == 5 ? 'active' : '' }}">5. Daftar Ulang @if($calon->tahap == 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap == 6 ? 'active' : '' }}">6. Seragam dan Pengambilan Buku @if($calon->tahap == 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap == 7 ? 'active' : '' }}">7. Masa Orientasi Siswa @if($calon->tahap == 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
                             </div>
                         </div>
                         <div class="col-9">

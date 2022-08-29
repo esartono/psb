@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
-use App\Edupay\Facades\Edupay;
+use App\Facades\Edupay;
 
 class CalonBiayaTesController extends Controller
 {
@@ -81,11 +81,11 @@ class CalonBiayaTesController extends Controller
             Edupay::create($idtagihan, $total, $nama, $start, $end);
         }
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$id)->first();
-        Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-            {
-                $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-            }
-        );
+        // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
+        //     {
+        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
+        //     }
+        // );
     }
 
     /**

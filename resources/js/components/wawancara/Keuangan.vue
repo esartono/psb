@@ -31,6 +31,7 @@
           <v-th sortKey="name">Nama</v-th>
           <v-th sortKey="name">Pewawancara</v-th>
           <th>Aksi</th>
+          <th></th>
         </thead>
         <tbody slot="body" slot-scope="{displayData}">
           <tr v-for="(row, index) in displayData" :key="row.id">
@@ -43,6 +44,7 @@
               <a v-if="!row.ygwawancara" class="btn btn-success" :href="'/keuangan/' + row.id">Wawancara</a>
               <a v-if="row.ygwawancara" class="btn btn-danger" :href="'/PDFkeuangan/' + row.id">Print</a>
             </td>
+            <td v-if="row.ygwawancara"><a class="btn btn-info" :href="'/editKeuangan/' + row.id">Edit</a></td>
           </tr>
         </tbody>
       </v-table>

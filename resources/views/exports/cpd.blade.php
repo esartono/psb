@@ -36,7 +36,7 @@
             <td>{{ $calon->name }}</td>
             <td>{{ $calon->panggilan }}</td>
             <td>{{ $calon->kelamin }}</td>
-            <td>{{ $calon->lahir }}</td>
+            <td>{{ $calon->tgl_lahir->isoFormat('D MMMM Y') }}</td>
             <td>Kelas {{ $calon->kelasnya->name }}</td>
             <td>{{ $calon->jurusan }}</td>
             <td>{{ $calon->ayah_nama }}</td>

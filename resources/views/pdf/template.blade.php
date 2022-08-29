@@ -29,7 +29,8 @@
             }
 
             .page-break {
-                page-break-before: always;
+                /* page-break-before: always; */
+                page-break-inside: avoid;
             }
 
             main {
@@ -59,11 +60,11 @@
             }
 
             .qr {
-                margin-top: -40px;
+                margin-top: -20px;
                 font-size: 22px !important;
             }
             .qrcode {
-                margin: 8px;
+                margin: 15px;
             }
             .cardTest {
                 font-size: 13px !important;
@@ -99,7 +100,15 @@
                 border: 1px solid black;
                 padding: 10px;
             }
+            .wrapper-page {
+                page-break-after: always;
+            }
 
+            .wrapper-page:last-child {
+                page-break-after: avoid;
+            }
+
+            .page { width: 100%; height: 100%; }
         </style>
 </head>
 

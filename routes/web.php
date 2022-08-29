@@ -16,6 +16,7 @@ Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
 Route::get('/syarat', 'HomeController@syarat')->name('syarat');
+Route::get('/biayapendaftaran', 'HomeController@biayapendaftaran')->name('biayapendaftaran');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
@@ -48,6 +49,10 @@ Route::middleware('auth')->group(function(){
     Route::resource('uniform', 'UniformController');
     //Route::get('uniform/{calon}/{code?}', 'UniformController@upload')->name('uniform.isi');
     Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
+
+    //Tes Script
+    Route::get('/cek1', 'UjicobaController@cek1')->name('cek');
+
 });
 
 Route::middleware('auth', 'user')->group(function(){
@@ -144,7 +149,9 @@ Route::middleware('auth', 'admin')->group(function(){
     //Route untuk Edit Data Calon Peserta Didik
     Route::get('/editcalons/{id}', 'HomeController@front')->name('editcalons');
     Route::get('/editbio/{id}', 'WawancaraController@editbio')->name('editbio');
+    Route::get('/editKeuangan/{id}', 'WawancaraController@editkeu')->name('editkeu');
     Route::post('/updatebio', 'WawancaraController@updatebio')->name('updatebio');
+    Route::post('/updatekeu', 'WawancaraController@updatekeu')->name('updatekeu');
 
     //Route untuk Download file
     Route::get('file/{id}', 'DokuController@download')->name('downloadfile');

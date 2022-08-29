@@ -55,6 +55,7 @@
                         <v-th sortKey="nis">NIP</v-th>
                         <v-th sortKey="nama">Nama Lengkap</v-th>
                         <th>JK</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                       </thead>
                       <tbody slot="body" slot-scope="{displayData}">
@@ -63,6 +64,7 @@
                           <td class="text-center">{{ row.nip }}</td>
                           <td>{{ row.name }}</td>
                           <td class="text-center">{{ row.kelamin }}</td>
+                          <td class="text-center">{{ row.status }}</td>
                           <td class="text-center">
                             <a href="#" @click="editModal(row)">
                               <i class="fas fa-edit blue"></i>
@@ -161,6 +163,17 @@
                                 <has-error :form="form" field="jk"></has-error>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <select v-model="form.status" name="status" class="form-control" id="status">
+                                    <option value='TETAP'>TETAP</option>
+                                    <option value='KONTRAK'>KONTRAK</option>
+                                    <option value='HONOR'>HONOR</option>
+                                </select>
+                                <has-error :form="form" field="status"></has-error>
+                            </div>
+                        </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -241,7 +254,7 @@ export default {
       editmode: false,
       pegawais: [],
       filters: {
-        name: { value: "", keys: ["name", "nip"] }
+        name: { value: "", keys: ["name", "nip", "jk","status"] }
       },
       currentPage: 1,
       totalPages: 0,
@@ -251,6 +264,7 @@ export default {
         nip: "",
         name: "",
         jk: "",
+        status: "",
       })
     };
   },

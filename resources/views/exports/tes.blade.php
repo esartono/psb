@@ -27,7 +27,7 @@
             <td>{{ $calon->calonsnya->name }}</td>
             <td>{{ $calon->calonsnya->panggilan }}</td>
             <td>{{ $calon->calonsnya->kelamin }}</td>
-            <td>{{ $calon->calonsnya->lahir }}</td>
+            <td>{{ $calon->calonsnya->tgl_lahir->isoFormat('D MMMM Y') }}</td>
             <td>{{ $calon->calonsnya->ayah_nama }}</td>
             <td>{{ $calon->calonsnya->ibu_nama }}</td>
             <td>{{ $calon->calonsnya->ayah_hp }}, {{ $calon->calonsnya->ibu_hp }}</td>

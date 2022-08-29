@@ -24,7 +24,7 @@ use App\Kelasnya;
 use App\CalonTagihanPSB;
 use App\BayarTagihan;
 
-use App\Edupay\Facades\Edupay;
+use App\Facades\Edupay;
 
 class UjicobaController extends Controller
 {
@@ -61,14 +61,29 @@ class UjicobaController extends Controller
 
     public function cek1()
     {
+        $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
+        $eko = "";
 
-        $calonbiayates = CalonBiayaTes::where('lunas', 1)->first();
-        $calon = Calon::whereId($calonbiayates->calon_id)->first();
-
-        $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
-
-        dd($jd);
-
+        foreach($lihat as $l){
+            $bayar = Edupay::view($l->uruts);
+            if(isset($bayar['status_bayar'])){
+                if($bayar['status_bayar'] == '1'){
+                    Telegram::sendMessage([
+                        'chat_id' => '643982879',
+                        //'chat_id' => '-1001398300408',
+                        'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
+                    ]);
+                    Wa::kirim(
+                        $l->usernya->phone,
+                        'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
+                    $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
+                    $cek->update(['lunas' => 1]);
+                    $cek->lunas($l->id);
+                }
+            } else {
+                // $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
+            }
+        }
     }
 
     public function cek2()

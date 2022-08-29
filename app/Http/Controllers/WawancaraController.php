@@ -20,9 +20,12 @@ use App\Kelurahan;
 
 class WawancaraController extends Controller
 {
+    protected $tp_berjalan;
+    
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
+        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
     }
 
     public function wawancaraKeuangan()
@@ -172,7 +175,7 @@ class WawancaraController extends Controller
         }
 
         // if ($ctg->khusus == 0) {
-            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas'));
+            $pdf = PDF::loadView('pdf.'.substr(auth()->user()->tp_name,0 ,4).'.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas'));
         // }
 
         // if ($khusus == 1) {
@@ -184,6 +187,7 @@ class WawancaraController extends Controller
 
     public function getCalon($id)
     {
+        $tp = $this->tp_berjalan;
         $calon = Calon::with('gelnya.unitnya.catnya', 'kelasnya')
                 ->whereId($id)->first();
 
@@ -205,7 +209,7 @@ class WawancaraController extends Controller
             $tglbatas = "31 Januari 2021";
         }
 
-        return view('wawancara.invoice', compact('calon', 'tglbatas'));
+        return view('wawancara.invoice', compact('calon', 'tglbatas', 'tp'));
 
         // $id = $request->id;
         // $va = substr($id, 0, 6);
@@ -246,5 +250,18 @@ class WawancaraController extends Controller
         $calon->update($request->all());
 
         return redirect()->route('getCalon', $request->id);
+    }
+
+    public function editkeu($id) {
+        $calon = Calon::whereId($id)->first();
+        
+        return view('wawancara.editkeu', compact('calon'));
+    }
+
+    public function updatekeu(Request $request) {
+        $calon = Calon::whereId($request->id)->first();
+        // $calon->update($request->all());
+
+        // return redirect()->route('getCalon', $request->id);
     }
 }

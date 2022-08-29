@@ -1,5 +1,5 @@
 <div class="mt-4">
-    <h4 class="timeline-header">Tes Seleksi - Online ( <b>{{ ($calon->jadwal->seleksi) ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : ""}}</b> )</h4>
+    <h4 class="timeline-header">Tes Seleksi - Online ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Silahkan hubungi Panitia"}}</b> )</h4>
     <p>
         Tahapan Tes terdiri dari :
         <ol>
@@ -25,6 +25,6 @@
         </ol>
     </p>
     <hr>
-    <h4 class="timeline-header">Pengumuman - Online ( <b>{{ ($calon->jadwal->seleksi) ? $calon->jadwal->pengumuman->isoFormat('D MMMM Y') : ""}}</b> )</h4>
+    <h4 class="timeline-header">Pengumuman - Online ( <b>{{ $calon->jadwal->seleksi !== '-'  ? $calon->jadwal->pengumuman->isoFormat('D MMMM Y') : "Silahkan hubungi Panitia"}}</b> )</h4>
     <a href='/seleksiPDF/{{ $calon->id }}' class="btn btn-success mt-3" target="_blank">Cetak Kartu Peserta</a>
 </div>

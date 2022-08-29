@@ -122,11 +122,11 @@ class UserController extends Controller
             'password' => Hash::make($newPass),
         ]);
 
-        $mail = Mail::send('emails.resetPassword', compact('user', 'newPass'), function ($m) use ($user)
-            {
-                $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Reset Password');
-            }
-        );
+        // $mail = Mail::send('emails.resetPassword', compact('user', 'newPass'), function ($m) use ($user)
+        //     {
+        //         $m->to($user->email, $user->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Reset Password');
+        //     }
+        // );
     }
 
     public function gantiPassword($pass)
