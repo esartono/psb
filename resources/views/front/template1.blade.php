@@ -85,11 +85,11 @@
 						<li class="menu-has-children"><a>Tata Cara Pembayaran</a>
 							<ul>
 								<li><a href="/biayapendaftaran">Biaya Pendaftaran</a></li>
-								<li><a href="file/Panduan VA PPDB SIT NURUL FIKRI.pdf" target="_blank">Daftar Ulang</a></li>
+								<li><a href="file/Daul.pdf" target="_blank">Daftar Ulang</a></li>
 							</ul>
 						</li>
 						<li><a href="download">Download</a></li>
-						<li style="margin-top: -7px"><a href="hasil" class="genric-btn success circle">Hasil TES</a></li>
+						<li style="margin-top: -7px;"><a href="hasil" class="genric-btn danger circle" style="padding: 0 25px;">Hasil TES</a></li>
 					</ul>
 				</nav><!-- #nav-menu-container -->
 			</div>

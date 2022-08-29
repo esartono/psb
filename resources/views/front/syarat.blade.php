@@ -82,7 +82,7 @@
                             </ol>
                         </li>
                         <li>Jenis Seleksi<div class="jarak"></div>
-                            <table class="table table-bordered table-striped" width="70%">
+                            <table class="table table-bordered table-striped" style="width: 80%">
                                 <thead>
                                     <tr>
                                         <th>Unit</th>
