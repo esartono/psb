@@ -51,7 +51,7 @@
         </div>
         @if(\App\SchoolCategory::namaDariGelombang($calon->gel_id) === 'SMP' || \App\SchoolCategory::namaDariGelombang($calon->gel_id) === 'SMA')
             <div class="form-group row">
-                <label class="col-md-3 col-form-label">NISN</label>
+                <label class="col-md-3 col-form-label">No. Induk Siswa Nasional (NISN)</label>
                 <div class="col-md-4">
                     <input type="text" name="nisn" class="form-control" id="nisn" placeholder="NISN"
                     value="{{ is_null($calon->nisn) ? '' : $calon->nisn }}" required
@@ -60,11 +60,30 @@
             </div>
         @endif
         <div class="form-group row">
-            <label class="col-md-3 col-form-label">NIK</label>
+            <label class="col-md-3 col-form-label">No. Induk Kependudukan (NIK)</label>
             <div class="col-md-4">
                 <input type="text" name="nik" class="form-control" id="nik" placeholder="Nomor Induk Kependudukan"
                 value="{{ $calon->nik == '-' ? '' : $calon->nik }}" required
                 onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="16" minlength="16">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-3 col-form-label">Rencana Masuk Sekolah</label>
+            <div class="col-md-4">
+                <select name="rencana_masuk" class="form-control" id="rencana_masuk">
+                    <option value="8">Agustus - {{ (int)substr(Auth::user()->tp_name, 0, 4) - 1 }}</option>
+                    <option value="9">September - {{ (int)substr(Auth::user()->tp_name, 0, 4) - 1 }}</option>
+                    <option value="10">Oktober - {{ (int)substr(Auth::user()->tp_name, 0, 4) - 1 }}</option>
+                    <option value="11">November - {{ (int)substr(Auth::user()->tp_name, 0, 4) - 1 }}</option>
+                    <option value="12">Desember - {{ (int)substr(Auth::user()->tp_name, 0, 4) - 1 }}</option>
+                    <option value="1">Januari - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="2">Februari - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="3">Maret - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="4">April - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="5">Mei - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="6">Juni - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="7">Juli - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                </select>
             </div>
         </div>
         <div class="form-group row">

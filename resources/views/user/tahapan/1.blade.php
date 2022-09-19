@@ -4,7 +4,8 @@
         <hr>
         <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Indonesia (BSI):</p>
         <h3><b>{{ $calon->uruts }}</b></h3>
-        Paling lambat pembayaran dilakukan pada tanggal : <span style="font-size: 1.35rem; font-weight: bold">{{ $calon->bt['biayates']->expired->isoFormat("D MMMM Y") }}</span>
+        Paling lambat pembayaran dilakukan pada tanggal : <span style="font-size: 1.35rem; font-weight: bold">{{ $calon->bt['biayates']->expired->isoFormat("D MMMM Y") }}</span> <br>
+        <i>Verifikasi pembayaran akan dilakukan secara otomatis oleh system dan memerlukan waktu 5 - 10 menit setelah pembayaran</i>
         <hr>
         <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-primary mt-3 white" target="_blank">Cetak Tata Cara Pembayaran</a>
     </div>

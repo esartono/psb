@@ -10,6 +10,7 @@ use Excel;
 //use App\Exports\KelasExport;
 
 use App\Kelasnya;
+use App\Gelombang;
 
 class KelasnyaController extends Controller
 {
@@ -77,4 +78,9 @@ class KelasnyaController extends Controller
         return Kelasnya::where('unit_id',$unit)->orderBy('id', 'asc')->get()->toArray();
     }
 
+    public function dataKelGel($gel)
+    {
+        $unit = Gelombang::whereId($gel)->first()->unit_id;
+        return Kelasnya::where('unit_id',$unit)->orderBy('id', 'asc')->get()->toArray();
+    }
 }

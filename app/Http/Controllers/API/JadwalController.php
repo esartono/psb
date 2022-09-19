@@ -36,6 +36,7 @@ class JadwalController extends Controller
         Jadwal::create([
             'gel_id' => $request['gel_id'],
             'seleksi' => $request['seleksi'],
+            'seleksi_online' => $request['seleksi_online'],
             'kuota' => $request['kuota'],
             'keterangan' => $request['keterangan'],
         ]);

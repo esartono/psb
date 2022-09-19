@@ -150,7 +150,7 @@
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
                                                 <li>Tes Akademik (Matematika, IPA, IPS, Bahasa Indonesia dan Bahasa Inggris)</li>
-                                                <li>Menyerahkan Surat Keterangan Bebas Narkoba</li>
+                                                <li>Menyerahkan Hasil Tes Bebas Narkoba dari Rumah Sakit, Klinik atau Laboratorium dengan komponen minimal : Amphetamine (AMP), Metamphitamine ( MET), Cocaine (COC), Ganja (THC)</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>

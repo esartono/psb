@@ -36,6 +36,7 @@
                                     <th>Usia</th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="ayah_nama">Orang Tua</v-th>
+                                    <th>Jurusan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

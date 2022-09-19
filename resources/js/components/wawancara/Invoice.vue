@@ -176,6 +176,23 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Error -->
+  <div class="modal fade"
+    id="modalError"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalErrorLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h2>Pembiayaan belum dibuat</h2>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -234,28 +251,29 @@ export default {
         //   'notif': 0
         // },
       ],
-      biaya: [
-        {
-          'id': 0,
-          'name': 'Dana Pengembangan',
-        },
-        {
-          'id': 1,
-          'name': 'Dana Pendidikan',
-        },
-        {
-          'id': 2,
-          'name': 'SPP bulan Juli',
-        },
-        {
-          'id': 3,
-          'name': 'Iuran Komite Sekolah / tahun',
-        },
-        {
-          'id': 4,
-          'name': 'Seragam'
-        },
-      ],
+      biaya: [],
+      // biaya: [
+      //   {
+      //     'id': 0,
+      //     'name': 'Dana Pengembangan',
+      //   },
+      //   {
+      //     'id': 1,
+      //     'name': 'Dana Pendidikan',
+      //   },
+      //   {
+      //     'id': 2,
+      //     'name': 'SPP bulan Juli',
+      //   },
+      //   {
+      //     'id': 3,
+      //     'name': 'Iuran Komite Sekolah / tahun',
+      //   },
+      //   {
+      //     'id': 4,
+      //     'name': 'Seragam'
+      //   },
+      // ],
       form: new Form({
         calon_id: "",
         tagihan_id: "",
@@ -272,18 +290,22 @@ export default {
       this.$Progress.start();
       axios.get("../api/tagihanpsbs/"+this.$route.params.id+':'+tgh)
         .then((data) => {
-            this.tagihanpsb = data.data.biaya;
-            this.total = data.data.total;
-            this.totalTahunan = data.data.totalTahunan;
-            this.kelas = data.data.kelas;
-            this.form.calon_id = this.$route.params.id;
-            this.form.tagihan_id = tgh;
-            // this.form.potongan = data.data.asalNF;
-            // this.modelBayar = this.reguler[tgh-1].name;
-            this.modelBayar = "PPDB SIT Nurul Fikri";
-            $("#addModal").modal({backdrop: 'static', keyboard: false});
-            $("#addModal").modal("show");
-            this.$Progress.finish();
+            if(data.data.data == 'KOSONG') {
+              $("#modalError").modal("show");
+            } else {
+              this.tagihanpsb = data.data.biaya;
+              this.total = data.data.total;
+              this.totalTahunan = data.data.totalTahunan;
+              this.kelas = data.data.kelas;
+              this.form.calon_id = this.$route.params.id;
+              this.form.tagihan_id = tgh;
+              // this.form.potongan = data.data.asalNF;
+              // this.modelBayar = this.reguler[tgh-1].name;
+              this.modelBayar = "PPDB SIT Nurul Fikri";
+              $("#addModal").modal({backdrop: 'static', keyboard: false});
+              $("#addModal").modal("show");
+              this.$Progress.finish();
+            }
           })
           .catch(() => {
               this.$Progress.fail();
@@ -330,7 +352,11 @@ export default {
       $("#modalPotongan").modal("show");
       this.$Progress.finish();
     },
+  },
 
+  mounted() {
+    axios.get("../api/jtagihans")
+      .then(({ data }) => (this.biaya = data));
   },
 
   computed: {

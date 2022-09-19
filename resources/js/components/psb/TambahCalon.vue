@@ -928,7 +928,7 @@ import { constants } from 'crypto';
                                                 case 3:
                                                     this.form.gel_id = 4;
                                                     break;
-                                                case 5:
+                                                case 6:
                                                     this.form.gel_id = 4;
                                                     this.form.asal_sekolah = 'NFBS Bogor'
                                                     this.form.asal_propinsi_sekolah = 32

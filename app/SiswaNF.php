@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SiswaNF extends Model
 {
     protected $fillable = [
-        'nis', 'name', 'jk', 'unit', 'tp', 'kelas'
+        'nis', 'nisn', 'name', 'jk', 'unit', 'tp', 'kelas'
     ];
 
     protected $hidden = [
@@ -36,7 +36,7 @@ class SiswaNF extends Model
             return $unit;
         } else {
             return [
-                'id' => 5,
+                'id' => 6,
                 'cat_id' => 3,
                 'name' => 'NFBS Bogor'
             ];

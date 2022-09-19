@@ -70,7 +70,9 @@
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>
-                <td>{{ $calonsnya->kelasnya->name }}</td>
+                <td>
+                    {{ $calonsnya->kelasnya->name }}
+                </td>
             </tr>
         </table>
         <br>

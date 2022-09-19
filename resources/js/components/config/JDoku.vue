@@ -30,6 +30,7 @@
                                 <v-th sortKey="code">Kode</v-th>
                                 <v-th sortKey="name">Nama</v-th>
                                 <th>Unit</th>
+                                <th>Dokumen Khusus</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
@@ -38,6 +39,7 @@
                                     <td class="text-center">{{ row.code }}</td>
                                     <td class="text-center">{{ row.name }}</td>
                                     <td class="text-center">{{ row.unit }}</td>
+                                    <td class="text-center">{{ row.doku_khusus }}</td>
                                     <td class="text-center">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -91,10 +93,21 @@
                                     <label class="col-sm-4 col-form-label">Unit</label>
                                     <div class="col-sm-8">
                                         <select v-model="form.unit" name="unit" class="form-control" id="unit" multiple="true">
-                                            <option v-for="cats in category" :key="cats.id"
-                                                v-bind:value="cats.name">{{ cats.name }}</option>
+                                            <option v-for="unit in units" :key="unit.id"
+                                                v-bind:value="unit.name">{{ unit.name }}</option>
                                         </select>
                                         <has-error :form="form" field="unit"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Calon Kategori</label>
+                                    <div class="col-sm-8">
+                                        <select v-model="form.khusus" name="khusus" class="form-control" id="khusus">
+                                            <option>Semua Asal Calon</option>
+                                            <option v-for="cats in category" :key="cats.id"
+                                                v-bind:value="cats.id">{{ cats.name }}</option>
+                                        </select>
+                                        <has-error :form="form" field="khusus"></has-error>
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +128,7 @@
         data() {
             return {
                 editmode: false,
+                units: {},
                 category: {},
                 jdokus: [],
                 filters: {
@@ -129,7 +143,8 @@
                     id: "",
                     code: "",
                     name: "",
-                    unit: []
+                    unit: [],
+                    khusus: null
                 })
             };
         },
@@ -237,6 +252,9 @@
         mounted() {
             axios
                 .get("../api/schoolcategories")
+                .then(({ data }) => (this.units = data));
+            axios
+                .get("../api/cks")
                 .then(({ data }) => (this.category = data));
             $("#addModal").on("hidden.bs.modal", this.modalOnHidden);
         }

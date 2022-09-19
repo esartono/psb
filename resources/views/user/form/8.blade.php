@@ -27,7 +27,7 @@
                         <td class="text-center">
                             <div class="icheck-success">
                                 <input type="checkbox" id="cek{{ $no }}" name="ok1" onchange="ceksetujusemua({{ $no }})">
-                                <label id="tidak{{ $no }}"> Tidak</label>
+                                <label id="tidak{{ $no }}"> Ya</label>
                             </div>
                         </td>
                     </tr>
@@ -53,7 +53,7 @@ function ceksetujusemua(no) {
     const ch = document.querySelectorAll('input[type="checkbox"]:checked').length
     const cek = document.getElementById('cek'+no)
     if(cek.checked) {
-        $('#tidak'+no).text(' Iya ')
+        $('#tidak'+no).text(' Ya ')
     } else {
         $('#tidak'+no).text('Tidak')
     }

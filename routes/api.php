@@ -41,6 +41,7 @@ Route::apiResources([
     'calontagihanpsbs' => 'API\CalonTagihanPSBController',
     'bayartagihans' => 'API\BayarTagihanController',
     'spps' => 'API\SppController',
+    'diskons' => 'API\DiskonController'
     //'telegrams' => 'API\TelegramController',
 ]);
 
@@ -55,6 +56,7 @@ Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');
 Route::post('gpass/{id}', 'API\UserController@gantiPassword');
 Route::get('kelasnya/{unit}', 'API\KelasnyaController@dataKelas');
+Route::get('kelasGel/{gel}', 'API\KelasnyaController@dataKelGel');
 Route::get('provinsi', 'API\ProvinsiController@index');
 Route::get('seragam/{pr}', 'API\SeragamController@dataSeragam');
 Route::get('kota/{prov}', 'API\KotaController@dataKota');

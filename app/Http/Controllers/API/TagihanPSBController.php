@@ -27,7 +27,8 @@ class TagihanPSBController extends Controller
                 ->whereHas('gelnya', function ($query) {
                     $query->where('tp', auth('api')->user()->tpid);
                 })
-                ->orderBy('id', 'asc')
+                ->orderBy('kelas', 'asc')
+                ->orderBy('kelamin', 'asc')
                 ->get()
                 ->toArray();
     }
@@ -46,8 +47,16 @@ class TagihanPSBController extends Controller
             if($kelas === '1' || $kelas === '7' || $kelas === '10') {
                 $kls = Kelasnya::where('unit_id', $gel->unit)->get();
                 $dp1 = $request['biaya1'];
-                $dp2 = $request['biaya2'];
-                $dp3 = $request['biaya3'];
+                if($request['biaya2']){
+                    $dp2 = $request['biaya2'];
+                } else {
+                    $dp2['Dana Pengembangan'] = '0';
+                }
+                if($request['biaya3']){
+                    $dp3 = $request['biaya3'];
+                } else {
+                    $dp3['Dana Pengembangan'] = '0';
+                }
 
                 $d1 = intval($dp1['Dana Pengembangan']);
                 $d2 = intval($dp2['Dana Pengembangan']);
@@ -122,7 +131,11 @@ class TagihanPSBController extends Controller
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
                 ->first();
-
+        
+        if(is_null($biayas)) {
+            $data = "KOSONG";
+            return compact('data');
+        }
         // $biaya3 = $biayas->biaya3;
         // $biaya2 = $biayas->biaya2;
 

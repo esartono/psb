@@ -38,6 +38,7 @@
                                     <v-th sortKey="name">Nama Lengkap</v-th>
                                     <v-th sortKey="tgl_lahir">Tanggal Lahir</v-th>
                                     <th>Usia</th>
+                                    <th>Jurusan</th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="ayah_nama">Orang Tua</v-th>
                                     <th>No. Ponsel</th>
@@ -58,6 +59,7 @@
                                     <td>{{ row.name }}</td>
                                     <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
                                     <td>{{ row.tgl_lahir | Usia}}</td>
+                                    <td>{{ row.jurusan }}</td>
                                     <td class="text-center">{{ row.asal_sekolah }}</td>
                                     <td>{{ row.ayah_nama }}<hr>{{ row.ibu_nama }}</td>
                                     <td>{{ row.ayah_hp }}<hr>{{ row.ibu_hp }}</td>

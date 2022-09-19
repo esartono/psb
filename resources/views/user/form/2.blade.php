@@ -70,6 +70,8 @@
                 {{ $unit->name }}
             </button>
         @endforeach
+        <hr>
+        @include('user.form.batal')
     @endif
 </div>
 <!-- Modal -->

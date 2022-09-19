@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.4",
         "barryvdh/laravel-dompdf": "^0.8.4",
-        "calebporzio/sushi": "^2.4",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^7.4",

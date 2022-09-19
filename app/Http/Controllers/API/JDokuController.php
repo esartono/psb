@@ -26,7 +26,8 @@ class JDokuController extends Controller
         JDoku::create([
             'code' => $request['code'],
             'name' => $request['name'],
-            'unit' => $unit
+            'unit' => $unit,
+            'khusus' => $request['khusus']
         ]);
     }
 
@@ -34,7 +35,7 @@ class JDokuController extends Controller
     {
         $unit = implode(",", $request->unit);
         $jd = JDoku::findOrFail($id);
-        $jd->update($request->only('code', 'name') + ['unit' => $unit]);
+        $jd->update($request->only('code', 'name', 'khusus') + ['unit' => $unit]);
     }
 
     public function show($id)

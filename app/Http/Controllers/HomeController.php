@@ -171,7 +171,8 @@ class HomeController extends Controller
         $user->update($request->only('name', 'phone'));
         Wa::kirim(
             $user->phone,
-            'Terima kasih Bapak/Ibu '.$user->name.', Anda sudah menjadi user di aplikasi PPDB SIT Nurul Fikri. Silahkan melanjutkan proses berikutnya.');
+            'Terima kasih Bapak/Ibu '.$user->name.', Anda sudah menjadi user di aplikasi PPDB SIT Nurul Fikri.
+            Silahkan melanjutkan proses berikutnya melalui laman https://ppdb.nurulfikri.sch.id');
         return redirect()->route('home');
     }
     
@@ -276,7 +277,8 @@ class HomeController extends Controller
     public function jadwal()
     {
         $tp = $this->tp_berjalan;
-        return view('front.jadwal', compact('tp'));
+        $patokan = (int)substr($tp,0,4);
+        return view('front.'.$patokan.'.jadwal', compact('tp'));
     }
     
     public function biayapendaftaran()

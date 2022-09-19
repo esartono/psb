@@ -57,6 +57,7 @@ class Calon extends Model
         'asal_kecamatan_sekolah',
         'asal_kelurahan_sekolah',
         'info',
+        'rencana_masuk',
         'status',
         'setuju',
         'aktif',
@@ -135,8 +136,8 @@ class Calon extends Model
 
     public function getJadwalAttribute()
     {
-        // $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
-        $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', 863)->first();
+        $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
+        // $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', 863)->first();
         if($jadwal) {
             if($jadwal->jadwal_id > 0) {
                 return $jadwal->jadwalnya;
@@ -145,6 +146,7 @@ class Calon extends Model
         // return $cek;
         $jadwal = new Collection();
         $jadwal->seleksi = '-';
+        $jadwal->seleksi_online = '-';
         return $jadwal;
     }
 

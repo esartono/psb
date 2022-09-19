@@ -3,7 +3,7 @@
 @section('content')
 
 <a href="{{ url('auth/google') }}" class="btn btn-primary btn-block sign-in">
-    <img src="https://www.google.com/favicon.ico"/> Login dengan Akun Google
+    <img src="https://www.google.com/favicon.ico"/>Daftar/Login dengan Akun Google
 </a>
 <p class="login-box-msg">atau Login dengan :<br>Email dan Password</p>
 <form method="POST" action="{{ route('login') }}">
@@ -37,10 +37,10 @@
     <div class="col-xs-4">
         <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
     </div>
-    @if (Route::has('password.request'))
+    {{-- @if (Route::has('password.request'))
         <a class="btn btn-link" href="{{ route('password.request') }}">
             {{ __('Forgot Your Password?') }}
         </a>
-    @endif
+    @endif --}}
 </form>
 @endsection

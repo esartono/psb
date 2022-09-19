@@ -55,6 +55,7 @@ class DraftCalon extends Model
         'asal_kecamatan_sekolah',
         'asal_kelurahan_sekolah',
         'info',
+        'rencana_masuk',
         'setuju',
         'step',
         'user_id'

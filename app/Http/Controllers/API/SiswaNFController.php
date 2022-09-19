@@ -51,11 +51,11 @@ class SiswaNFController extends Controller
      */
     public function show($id)
     {
-        $siswas = SiswaNF::where('nis', $id)->get();
-        $siswa = $siswas->first();
+        $siswas = SiswaNF::where('nis', $id)->orderBy('tp', 'desc')->get();
         $cek = $siswas->count();
         // return compact('siswa', 'cek');
         if($cek > 0){
+            $siswa = $siswas->first();
             if($siswa->unit === 1 || $siswa->unit === 2 || $siswa->unit === 3) {
                 $alamat = 'Jl. Tugu Raya No. 61 Kelapa Dua';
                 $propinsi = 32;
@@ -73,7 +73,7 @@ class SiswaNFController extends Controller
                     $sekolah = 'SMPIT Nurul Fikri';
                 }
             }
-            if($siswa->unit === 5) {
+            if($siswa->unit === 6) {
                 $sekolah = 'NFBS Bogor';
                 $alamat = 'Jl. Jami RT002/008';
                 $propinsi = 32;

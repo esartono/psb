@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@depan')->name('depan');
+
 Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function(){
     Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
 
     //Tes Script
-    Route::get('/cek1', 'UjicobaController@cek1')->name('cek');
+    Route::get('/cek', 'UjicobaController@cek3')->name('cek');
 
 });
 
@@ -151,4 +152,9 @@ Route::middleware('auth', 'admin')->group(function(){
 
     //Route untuk Download file
     Route::get('file/{id}', 'DokuController@download')->name('downloadfile');
+
+    //Untuk Cek PHP INFO
+    Route::get('phpmyinfo', function () {
+        phpinfo(); 
+    })->name('phpmyinfo');
 });

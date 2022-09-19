@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     protected $fillable = [
-        'gel_id', 'internal', 'seleksi', 'pengumuman', 'kuota', 'ikut', 'keterangan'
+        'gel_id', 'internal', 'seleksi', 'seleksi_online','pengumuman', 'kuota', 'ikut', 'keterangan'
     ];
 
     protected $dates = [
-        'seleksi', 'pengumuman'
+        'seleksi', 'seleksi_online','pengumuman'
     ];
 
     protected $hidden = [

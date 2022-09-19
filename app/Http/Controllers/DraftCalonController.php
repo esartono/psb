@@ -24,6 +24,7 @@ use App\SchoolCategory;
 use App\TahunPelajaran;
 
 use App\Facades\Edupay;
+use App\Notifications\Wa;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class DraftCalonController extends Controller
     public function create($l = null)
     {
         $tp = TahunPelajaran::where('status', 1)->first();
-        $gelombang = Gelombang::where('tp', $tp->id)->orderBy('start', 'asc')->first();
+        $gelombang = Gelombang::where('tp', $tp->id)->whereDate('start', '<=', date('Y-m-d'))->orderBy('start', 'asc')->first();
 
         $ages = $min_age = date('Y-m-d');
         $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
@@ -216,9 +217,13 @@ class DraftCalonController extends Controller
 
             if($calon->pindahan){
                 $ceksma = substr($request->kelas_tujuan, -4);
-                if( $ceksma == 'MIPA' || $ceksma == 'IPS'){
+                if( $ceksma == 'MIPA' || $ceksma == '-IPS'){
                     $k = explode('-', $request->kelas_tujuan);
                     $kelas = $k[0];
+                    $jurusan = $ceksma;
+                    if($ceksma == '-IPS') {
+                        $jurusan = 'IPS';
+                    }
                 } else {
                     $kelas = $request->kelas_tujuan;
                 }
@@ -293,6 +298,7 @@ class DraftCalonController extends Controller
                 'nisn' => $request->nisn,
                 'nik' => $request->nik,
                 'info' => $request->info,
+                'rencana_masuk' => $request->rencana_masuk,
                 'step' => 5,
             ]);
 
@@ -340,13 +346,13 @@ class DraftCalonController extends Controller
             $draft = DraftCalon::where('user_id', auth()->user()->id)->first();
             $urut = Calon::where('gel_id', $draft['gel_id'])->get()->count();
 
-            $calon = Calon::create([
+            $calon = Calon::updateOrCreate([
                 'gel_id' => $draft['gel_id'],
                 'ck_id' => $draft['ck_id'],
                 'tgl_daftar' => date('Y-m-d'),
                 'urut' => $urut+1,
-                'nisn' => $draft['nisn'],
                 'nik' => $draft['nik'],
+                'nisn' => $draft['nisn'],
                 'name' => $draft['name'],
                 'panggilan' => $draft['panggilan'],
                 'jk' => $draft['jk'],
@@ -356,6 +362,7 @@ class DraftCalonController extends Controller
                 'tempat_lahir' => $draft['tempat_lahir'],
                 'tgl_lahir' => $draft['tgl_lahir'],
                 'agama' => $draft['agama'],
+                'rencana_masuk' =>$draft['rencana_masuk'],
                 'info' => $draft['info'],
                 'status' => false,
                 'setuju' => $draft['setuju'],
@@ -396,14 +403,18 @@ class DraftCalonController extends Controller
                         ->where('ck_id', $draft['ck_id'])
                         ->get()->first();
             if($biaya) {
-                $calonbiaya = CalonBiayaTes::create([
-                    'calon_id' => $calon->id,
+                $calonbiaya = CalonBiayaTes::updateOrCreate([
+                    'calon_id' => $calon->id
+                ], [
                     'biaya_id' => $biaya->id,
                     'expired' => date("Y-m-d", strtotime("+3 days"))
                 ]);
 
                 Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
                 $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+                Wa::kirim(auth()->user()->phone,'Terima kasih Bapak/Ibu '.auth()->user()->name.', Data calon siswa telah kami simpan.
+Silahkan melakukan proses pembayaran ke rekening Bank Syariah Indonesia (BSI) dengan nomor pendaftaran '.$calon->uruts.'.
+Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.id/biayapendaftaran');
                 // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
                 //     {
                 //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');

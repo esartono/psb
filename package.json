@@ -44,6 +44,7 @@
     "vue-select": "^3.16.0",
     "vuejs-datepicker": "^1.6.2",
     "vuejs-smart-table": "0.0.5",
+    "vuex": "^4.0.2",
     "webpack": "^5.9.0"
   }
 }

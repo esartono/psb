@@ -9,7 +9,7 @@
                             <a class="btn btn-sm btn-danger" @click="addModal">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="input-group input-group-sm mt-1" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -29,11 +29,12 @@
                                 <th>Tahun Pelajaran</th>
                                 <v-th sortKey="gel_id">Gelombang</v-th>
                                 <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
-                                <v-th sortKey="seleksi">Tes Seleksi</v-th>
+                                <v-th sortKey="seleksi">Seleksi Offline</v-th>
+                                <v-th sortKey="seleksi">Seleksi Online</v-th>
                                 <v-th sortKey="seleksi">Pengumuman</v-th>
                                 <v-th sortKey="internal">Internal</v-th>
                                 <th>Kuota</th>
-                                <th>Keterangan</th>
+                                <!-- <th>Keterangan</th> -->
                                 <th>Aksi</th>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
@@ -43,15 +44,16 @@
                                     <td class="text-center">{{ row.gelnya.name }}</td>
                                     <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
                                     <td class="text-center">{{ row.seleksi | Tanggal }}</td>
+                                    <td class="text-center">{{ row.seleksi_online | Tanggal }}</td>
                                     <td class="text-center">{{ row.pengumuman | Tanggal }}</td>
                                     <td class="text-center">{{ row.internal | YaTidak}}</td>
                                     <td class="text-center">{{ row.kuota }}</td>
-                                    <td>
+                                    <!-- <td>
                                         <a class="btn btn-info btn-sm" @click="editZoom(row.id)">
                                             <i class="fas fa-edit blue"></i>
                                             Link Zoom
                                         </a>
-                                    </td>
+                                    </td> -->
                                     <td class="text-center aksi">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -86,7 +88,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Gelombang</label>
                                     <div class="col-sm-8">
-                                        <select v-model="form.gel_id" name="gel_id" class="form-control" id="gel_id">
+                                        <select v-model="form.gel_id" name="gel_id" class="form-control" id="gel_id" required>
                                             <option v-for="gel in gelombangs" :key="gel.id"
                                                 v-bind:value="gel.id">{{ gel.name }} - {{ gel.unitnya.name }}</option>
                                         </select>
@@ -94,12 +96,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label">Seleksi</label>
+                                    <label class="col-sm-4 col-form-label">Seleksi Offline</label>
                                     <div class="col-sm-8">
                                         <input v-model="form.seleksi" type="date" name="seleksi" class="form-control"
                                             :class="{ 'is-invalid':form.errors.has('seleksi') }" id="seleksi"
-                                            />
+                                            required/>
                                         <has-error :form="form" field="seleksi"></has-error>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Seleksi Online</label>
+                                    <div class="col-sm-8">
+                                        <input v-model="form.seleksi_online" type="date" name="seleksi_online" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('seleksi_online') }" id="seleksi_online"
+                                            />
+                                        <has-error :form="form" field="seleksi_online"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -224,6 +235,7 @@
                     id: "",
                     gel_id: 0,
                     seleksi: "",
+                    seleksi_online: "",
                     pengumuman: "",
                     internal: 0,
                     kuota: 0,

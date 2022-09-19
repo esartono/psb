@@ -23,8 +23,10 @@ use App\TagihanPSB;
 use App\Kelasnya;
 use App\CalonTagihanPSB;
 use App\BayarTagihan;
+use App\JTagihan;
 
 use App\Facades\Edupay;
+use App\Notifications\Wa;
 
 class UjicobaController extends Controller
 {
@@ -61,29 +63,31 @@ class UjicobaController extends Controller
 
     public function cek1()
     {
-        $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
-        $eko = "";
+        $tes = Wa::kirim(auth()->user()->phone, 'Tes kirim dari PPDB NF');
+        dd($tes);
+        // $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
+        // $eko = "";
 
-        foreach($lihat as $l){
-            $bayar = Edupay::view($l->uruts);
-            if(isset($bayar['status_bayar'])){
-                if($bayar['status_bayar'] == '1'){
-                    Telegram::sendMessage([
-                        'chat_id' => '643982879',
-                        //'chat_id' => '-1001398300408',
-                        'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
-                    ]);
-                    Wa::kirim(
-                        $l->usernya->phone,
-                        'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
-                    $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
-                    $cek->update(['lunas' => 1]);
-                    $cek->lunas($l->id);
-                }
-            } else {
-                // $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
-            }
-        }
+        // foreach($lihat as $l){
+        //     $bayar = Edupay::view($l->uruts);
+        //     if(isset($bayar['status_bayar'])){
+        //         if($bayar['status_bayar'] == '1'){
+        //             Telegram::sendMessage([
+        //                 'chat_id' => '643982879',
+        //                 //'chat_id' => '-1001398300408',
+        //                 'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
+        //             ]);
+        //             Wa::kirim(
+        //                 $l->usernya->phone,
+        //                 'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
+        //             $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
+        //             $cek->update(['lunas' => 1]);
+        //             $cek->lunas($l->id);
+        //         }
+        //     } else {
+        //         // $eko = $eko.'Id Tagihan : '.$l->uruts.' - '.$bayar['message'].PHP_EOL;
+        //     }
+        // }
     }
 
     public function cek2()
@@ -143,164 +147,27 @@ class UjicobaController extends Controller
 
     public function cek3()
     {
-        // return CalonTagihanPSB::with('calonnya')->whereId(10)->get()->toArray();
-        // return Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString();
         ini_set('max_execution_time', 1200);
-        $ctgs = CalonTagihanPSB::offset(567)->limit(100)->get();
-        // $ctgs = CalonTagihanPSB::where('calon_id', 535)->get();
 
-        $hitung_urut = 0;
-        foreach($ctgs as $ctg){
-            echo $hitung_urut++;
-            $security = '80191007';
+        $cek = JTagihan::get();
+        dd($cek);
 
-            $biayanya = ['Dana Pengembangan', 'Dana Pendidikan', 'Iuran SPP Bulan Juli', 'Iuran Komite Sekolah / tahun', 'Seragam'];
+        $calons = Calon::where('status', 1)->get();
 
-            $tp_now = TahunPelajaran::where('status', 1)->first()->name;
-            $tp = explode("/", $tp_now);
-            $tp_awal = intval($tp[0]);
-            $tp_akhir = intval($tp[1]);
+        foreach($calons as $c){
+            $cek = CalonBiayaTes::where('calon_id', $c->id)->first();
 
-            $id = $ctg->calon_id;
-            // $tgh_id = $ctg->tagihanpsb_id;
-            //Kalo ini ada yg di edit, maka di TagihanPSBController.show juga mulai dari baris ini
-            $calon = Calon::findOrFail($id);
-            $khusus = 0;
-            $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
-                    ->where('kelas', $calon->kelas_tujuan)
-                    ->where('kelamin', $calon->jk)
-                    ->first();
-
-            if (TagihanPSB::where('gel_id', $calon->uruts)->exists()) {
-                $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
-                $khusus = 1;
+            if(is_null($cek)) {
+                $biaya = BiayaTes::where('gel_id', $c->gel_id)->where('ck_id', $c->ck_id)->first();
+                CalonBiayaTes::updateOrCreate([
+                    'calon_id' => $c->id
+                ], [
+                    'biaya_id' => $biaya->id,
+                    'expired' => date("Y-m-d", strtotime("+3 days"))
+                ]);
             }
-
-            $biaya1 = $biayas->biaya1;
-            $biaya2 = $biayas->biaya2;
-            $biaya3 = $biayas->biaya3;
-
-            $total1 = $biayas->total[1];
-            $total2 = $biayas->total[2];
-            $total3 = $biayas->total[3];
-
-            $kls = Kelasnya::where('id', $calon->kelas_tujuan)->first();
-            $kelass = Kelasnya::where('unit_id', $kls->unit_id)->where('id', '>=', $kls->id)->get();
-
-            $spp_naik = [0, 0, 0, 0, 50000, 150000, 250000];
-            $daul = [
-                'TK A' => 2000000,
-                'TK B' => 2000000,
-                '2' => 3500000,
-                '3' => 3750000,
-                '4' => 4100000,
-                '5' => 4500000,
-                '6' => 4900000,
-                '8' => 4000000,
-                '9' => 4250000,
-                '11' => 4500000,
-                '12' => 5000000,
-            ];
-
-            $totalAll = [];
-            $kelas = [];
-            for($tgh_id = 1; $tgh_id<=3; $tgh_id++){
-                $no = 1;
-                $dauls = 0;
-                $totalth = 0;
-                foreach($kelass as $k) {
-                    if ($no === 1){
-                        if($tgh_id == 1){
-                            $sppnya = $biaya1['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        }
-                        if($tgh_id == 2){
-                            $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        }
-                        if($tgh_id == 3){
-                            $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        }
-                        if ($ctg->khusus == 0) {
-                            $kelas[$k->name]['ket'.$tgh_id] = 'SPP Agustus '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                            $kelas[$k->name]['total'.$tgh_id] = $sppnya*11;
-                            $totalth = $totalth + $sppnya*11;
-                        }
-
-                        if ($ctg->khusus == 1) {
-                            $kelas[$k->name]['ket'.$tgh_id] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                            $kelas[$k->name]['total'.$tgh_id] = $sppnya*5;
-                            $totalth = $totalth + $sppnya*5;
-                        }
-                    }
-                    if ($no > 1){
-                        $dauls = (isset($daul[$k->name]) ? $daul[$k->name] : 0);
-                        $kelas[$k->name]['daul'.$tgh_id] = (isset($daul[$k->name]) ? $daul[$k->name] : 0);
-                        $totalth = $totalth + $dauls;
-                    }
-                    if ($no === 2 && $tgh_id < 3) {
-                        $sppnya = $biaya2['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                        $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
-                        $totalth = $totalth + $sppnya*12;
-                    }
-                    if ($no === 2 && $tgh_id >= 3) {
-                        $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                        $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
-                        $totalth = $totalth + $sppnya*12;
-                    }
-                    if ($no > 2) {
-                        $sppnya = $biaya3['Iuran SPP Bulan Juli'] + $spp_naik[$no];
-                        $kelas[$k->name]['ket'.$tgh_id] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                        $kelas[$k->name]['total'.$tgh_id] = $sppnya*12;
-                        $totalth = $totalth + $sppnya*12;
-                    }
-                    $totalAll[$tgh_id] = $totalth;
-                    $kelas[$k->name]['spp'.$tgh_id] = $sppnya;
-                    $kelas[$k->name]['kelas'] = $k->name;
-                    $no = $no + 1;
-                }
-            }
-
-            $batasannya = new \DateTime('2021-05-31');
-
-            $reg1 = new \DateTime('2021-02-1');
-            $reg2 = new \DateTime('2021-03-1');
-            $reg3 = new \DateTime('2021-04-1');
-
-            if($reg3 > $ctg->created_at) {
-                $tglbatas = "31 April 2021";
-            }
-
-            if($reg2 > $ctg->created_at) {
-                $tglbatas = "31 Maret 2021";
-            }
-
-            if($reg1 > $ctg->created_at) {
-                $tglbatas = "31 Januari 2021";
-            }
-
-            if($batasannya < $ctg->created_at) {
-                $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first()->jadwal_id;
-                $jadwal = explode('-', Jadwal::whereId($cjadwal)->first()->keterangan);
-                $tglbatas = $jadwal[1];
-            }
-
-            $pdf = PDF::loadView('pdf.tagihanPSB', compact('biayanya', 'ctg', 'security', 'tglbatas', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));
-            // return $pdf->stream('');
-            $path = Storage::disk('my_upload')->put('/'.$calon->uruts.'/tagihanPSB-'.$calon->uruts.'.pdf', $pdf->output());
-
-            $calonsnya = Calon::with('gelnya.unitnya', 'usernya')->where('id',$calon->id)->first();
-            Mail::send('emails.tagihanPSB', compact('calonsnya'), function ($m) use ($calonsnya)
-                {
-                    $m->to($calonsnya->usernya->email, $calonsnya->name)
-                        ->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')
-                        ->attach(storage_path('dokumen').'/'.$calonsnya->uruts.'/tagihanPSB-'.$calonsnya->uruts.'.pdf', [
-                            'mime' => 'application/pdf',
-                        ])
-                        ->subject('Form Pembiayaan PPDB - SIT Nurul Fikri');
-                }
-            );
         }
+        dd('Berhasil Gan');
     }
 
     public function cek4()

@@ -170,7 +170,7 @@
 
             pilihUnit(event) {
                 axios
-                    .get("../api/kelasnya/" + event.target.value)
+                    .get("../api/kelasGel/" + event.target.value)
                     .then(({ data }) => (this.kelass = data))
             },
 
@@ -200,7 +200,7 @@
 
             editModal(tagihanpsb) {
                 axios
-                    .get("../api/kelasnya/" + tagihanpsb.gel_id)
+                    .get("../api/kelasGel/" + tagihanpsb.gel_id)
                     .then(({ data }) => (this.kelass = data))
 
                 this.editmode = true;

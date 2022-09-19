@@ -29,18 +29,16 @@ class CalonJadwalController extends Controller
     public function index()
     {
         if(auth('api')->user()->isAdmin()) {
-            $calons = CalonJadwal::with('jadwalnya')
-                    ->orderBy('jadwal_id', 'asc')->get();
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+            $jadwal = Jadwal::whereIn('gel_id',$gelombang)->get()->pluck('id');
         }
 
         if(auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             $jadwal = Jadwal::whereIn('gel_id',$gelombang)->get()->pluck('id');
-            $calons = CalonJadwal::with('jadwalnya')
-                    ->whereIn('jadwal_id', $jadwal)->orderBy('jadwal_id', 'asc')->get();
         }
-
+        $calons = CalonJadwal::with('jadwalnya')->whereIn('jadwal_id', $jadwal)->orderBy('jadwal_id', 'asc')->get();
         return compact('calons');
     }
 

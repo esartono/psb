@@ -298,7 +298,7 @@ class CalonController extends Controller
                 } else {
                     return DB::table('calons')
                         ->select('calons.id', 'calons.name', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ayah_hp', 'ibu_nama', 'ibu_hp',
-                                'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'tgl_daftar', 'expired',
+                                'jurusan', 'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'tgl_daftar', 'expired',
                                 DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
                         ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
                         ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')

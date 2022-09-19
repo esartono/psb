@@ -9,6 +9,9 @@ require('moment/locale/id');
 
 window.Vue = require('vue');
 
+// Storage
+import store from './store'
+
 // Plugins momentjs
 import moment from 'moment'
 
@@ -190,7 +193,7 @@ Vue.filter('Usia', function(tanggalnya){
     let bl = parseInt(moment(tanggalnya).format('MM'));
     let dt = parseInt(moment(tanggalnya).format('DD'));
 
-    var d1 = new Date(2021, 7, 1);
+    var d1 = new Date(window.tp.substr(0, 4), 7, 1);
     var d2 = new Date(th, bl, dt);
 
     var diff = new Date(
@@ -260,5 +263,6 @@ window.Fire = Fire;
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });
