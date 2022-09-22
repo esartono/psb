@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Exception;
 use Auth;
 use Socialite;
+use Carbon\Carbon;
 
 use App\User;
 
@@ -33,6 +34,7 @@ class SocialiteController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'password' => Hash::make($random_password),
+                    'email_verified_at' => Carbon::now(),
                 ]);
 
                 Auth::login($newUser);

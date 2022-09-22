@@ -10,7 +10,8 @@
         <th>Nama Lengkap</th>
         <th>Panggilan</th>
         <th>JK</th>
-        <th>Tempat, Tanggal Lahir</th>
+        <th>Tempat Lahir</th>
+        <th>Tanggal Lahir</th>
         <th>Kelas Tujuan</th>
         <th>Jurusan</th>
         <th>Nama Ayah</th>
@@ -36,6 +37,7 @@
             <td>{{ $calon->name }}</td>
             <td>{{ $calon->panggilan }}</td>
             <td>{{ $calon->kelamin }}</td>
+            <td>{{ $calon->tempat_lahir }}</td>
             <td>{{ $calon->tgl_lahir->isoFormat('D MMMM Y') }}</td>
             <td>Kelas {{ $calon->kelasnya->name }}</td>
             <td>{{ $calon->jurusan }}</td>

@@ -12,41 +12,41 @@
             <div class="page-break"></div>
             <li>
                 Potongan dana pengembangan berlaku bagi pendaftar yang sudah melakukan daftar ulang dengan lunas selambat-lambatnya pada tanggal berikut:
-                <table class="table table-bordered table-striped" style="width: 70%">
+                <table class="table table-bordered table-striped" style="width: 76%">
                     <tr>
-                        <th>No</th>
-                        <th>Unit</th>
-                        <th>31 Oktober 2022</th>
-                        <th>30 November 2022</th>
-                        <th>31 Desember 2022</th>
+                        <th style="width: 5%">No</th>
+                        <th style="width: 11%">Unit</th>
+                        <th style="width: 20%">31 Oktober 2022</th>
+                        <th style="width: 20%">30 November 2022</th>
+                        <th style="width: 20%">31 Desember 2022</th>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>TK</td>
-                        <td>Rp. 4,000,000</td>
-                        <td>Rp. 3,000,000</td>
-                        <td>Rp. 2,000,000</td>
+                        <td style="text-align: center">1</td>
+                        <td style="text-align: center">TK</td>
+                        <td style="text-align: right">Rp. 4,000,000</td>
+                        <td style="text-align: right">Rp. 3,000,000</td>
+                        <td style="text-align: right">Rp. 2,000,000</td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>SD</td>
-                        <td>Rp. 4,000,000</td>
-                        <td>Rp. 3,000,000</td>
-                        <td>Rp. 1,500,000</td>
+                        <td style="text-align: center">2</td>
+                        <td style="text-align: center">SD</td>
+                        <td style="text-align: right">Rp. 4,000,000</td>
+                        <td style="text-align: right">Rp. 3,000,000</td>
+                        <td style="text-align: right">Rp. 1,500,000</td>
                     </tr>
                     <tr>
-                        <td>3</td>
-                        <td>SMP</td>
-                        <td>Rp. 4,000,000</td>
-                        <td>Rp. 3,000,000</td>
-                        <td>Rp. 1,500,000</td>
+                        <td style="text-align: center">3</td>
+                        <td style="text-align: center">SMP</td>
+                        <td style="text-align: right">Rp. 4,000,000</td>
+                        <td style="text-align: right">Rp. 3,000,000</td>
+                        <td style="text-align: right">Rp. 1,500,000</td>
                     </tr>
                     <tr>
-                        <td>4</td>
-                        <td>SMA</td>
-                        <td>Rp. 4,000,000</td>
-                        <td>Rp. 3,000,000</td>
-                        <td>Rp. 1,500,000</td>
+                        <td style="text-align: center">4</td>
+                        <td style="text-align: center">SMA</td>
+                        <td style="text-align: right">Rp. 4,000,000</td>
+                        <td style="text-align: right">Rp. 3,000,000</td>
+                        <td style="text-align: right">Rp. 1,500,000</td>
                     </tr>
                 </table>
             </li>
@@ -58,7 +58,8 @@
             <li>Ketentuan potongan khusus yang satu tidak dapat digabung dengan jenis potongan khusus lainnya</li>
             <li>Jenis Potongan Khusus sebagai berikut:
                 <ol class="step1">
-                    <li><div class="jarak"></div>
+                    <li>
+                        <div class="jarak"></div>
                         a. Potongan Saudara Kandung
                         <ol class="step2">
                             <li>Potongan Dana Pengembangan bagi calon siswa yang memiliki saudara kandung yang bersekolah di SIT Nurul Fikri, sebagai berikut:
@@ -82,6 +83,7 @@
                         <ol class="step2">
                             <li>Potongan biaya 25% dari Dana Pengembangan dan bebas biaya pendaftaran bagi calon siswa yang berasal dari SIT Nurul Fikri dan NFBS Bogor yang mendapatkan undangan khusus dari YPPU Nurul Fikri.</li>
                             <li>Potongan biaya 50% dari Dana Pengembangan bagi calon siswa Pemenang Lomba Tingkat Nasional (Berjenjang) Juara 1 dan 2, yang dibuktikan dengan sertifikat dan diverifikasi oleh panitia.</li>
+                            <div class="page-break"></div>
                             <li>Potongan biaya sebesar 15% dari Dana Pengembangan bagi calon siswa yang memiliki hafalan Al-Qur’an, sebagai berikut:
                                 <ol class="step3">
                                     <li>Pendaftar SD minimal 4 juz</li>
@@ -96,18 +98,18 @@
             </li>
         </ol>
     </li>
-    <div class="page-break"></div>
     <li>
         <div class="jarak"></div>
         Ketentuan Daftar Ulang Tahunan dan Kenaikan SPP
         <ol class="biasa">
             <li>
                 Dana Daftar Ulang Tahunan berlaku mulai tahun kedua dan seterusnya, dengan besaran sebagai berikut:
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped spp">
                     <thead>
                         <tr>
                             <th>No.</th>
                             <th>Unit</th>
+                            <th>Komponen</th>
                             <th>Tahun ke-2</th>
                             <th>Tahun ke-3</th>
                             <th>Tahun ke-4</th>
@@ -117,37 +119,91 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>PG / TK A</td>
-                            <td>Rp. 2,000,000</td>
-                            <td>Rp. 2,000,000</td>
+                            <td rowspan="2" style="text-align: center">1</td>
+                            <td rowspan="2"  style="text-align: center">Play Group</td>
+                            <td style="text-align: center">Dana Tahunan</td>
+                            <td style="text-align: right">Rp. 2,000,000</td>
+                            <td style="text-align: right">Rp. 2,000,000</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>SD</td>
-                            <td>Rp. 3,750,000</td>
-                            <td>Rp. 4,100,000</td>
-                            <td>Rp. 4,500,000</td>
-                            <td>Rp. 4,700,000</td>
-                            <td>Rp. 4,900,000</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>SMP</td>
-                            <td>Rp. 4,250,000</td>
-                            <td>Rp. 5,000,000</td>
+                            <td style="text-align: center">SPP</td>
+                            <td style="text-align: right">Rp. 1,450,000</td>
+                            <td style="text-align: right">Rp. 1,450,000</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                         </tr>
                         <tr>
-                            <td>4</td>
-                            <td>SMA</td>
-                            <td>Rp. 5,000,000</td>
-                            <td>Rp. 6,000,000</td>
+                            <td rowspan="2" style="text-align: center">2</td>
+                            <td rowspan="2" style="text-align: center">TK A</td>
+                            <td style="text-align: center">Dana Tahunan</td>
+                            <td style="text-align: right">Rp. 2,000,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">SPP</td>
+                            <td style="text-align: right">Rp. 1,450,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="text-align: center">3</td>
+                            <td rowspan="2" style="text-align: center">SD</td>
+                            <td style="text-align: center">Dana Tahunan</td>
+                            <td style="text-align: right">Rp. 3,750,000</td>
+                            <td style="text-align: right">Rp. 4,100,000</td>
+                            <td style="text-align: right">Rp. 4,500,000</td>
+                            <td style="text-align: right">Rp. 4,700,000</td>
+                            <td style="text-align: right">Rp. 4,900,000</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">SPP</td>
+                            <td style="text-align: right">Rp. 2,100,000</td>
+                            <td style="text-align: right">Rp. 2,200,000</td>
+                            <td style="text-align: right">Rp. 2,300,000</td>
+                            <td style="text-align: right">Rp. 2,400,000</td>
+                            <td style="text-align: right">Rp. 2,500,000</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="text-align: center">4</td>
+                            <td rowspan="2" style="text-align: center">SMP</td>
+                            <td style="text-align: center">Dana Tahunan</td>
+                            <td style="text-align: right">Rp. 4,250,000</td>
+                            <td style="text-align: right">Rp. 5,000,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">SPP</td>
+                            <td style="text-align: right">Rp. 2,200,000</td>
+                            <td style="text-align: right">Rp. 2,300,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="text-align: center">5</td>
+                            <td rowspan="2" style="text-align: center">SMA</td>
+                            <td style="text-align: center">Dana Tahunan</td>
+                            <td style="text-align: right">Rp. 5,000,000</td>
+                            <td style="text-align: right">Rp. 6,000,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center">SPP</td>
+                            <td style="text-align: right">Rp. 2,200,000</td>
+                            <td style="text-align: right">Rp. 2,300,000</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>
                             <td style="background-color: grey">-</td>

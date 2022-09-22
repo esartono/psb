@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Spp;
 use App\Calon;
+use App\Simmsit;
 use App\Kelasnya;
 use App\JTagihan;
 use App\Gelombang;
@@ -158,26 +159,45 @@ class TagihanPSBController extends Controller
         $daul = [
             'TK A' => 2000000,
             'TK B' => 2000000,
-            '2' => 3500000,
-            '3' => 3750000,
-            '4' => 4100000,
-            '5' => 4500000,
+            '2' => 3750000,
+            '3' => 4100000,
+            '4' => 4500000,
+            '5' => 4700000,
             '6' => 4900000,
-            '8' => 4000000,
-            '9' => 4250000,
-            '11' => 4500000,
-            '12' => 5000000,
+            '8' => 4250000,
+            '9' => 5000000,
+            '11' => 5000000,
+            '12' => 6000000,
         ];
+        $bln = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        if($calon->pindahan === 0) {
+            $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+            $hitungbln = 11;
+        }
+        if($calon->pindahan === 1) {
+            if($calon->rencana_masuk >= 7) {
+                $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+                $hitungbln = 12 - $calon->rencana_masuk + 6;
+            }
+
+            if($calon->rencana_masuk <= 6) {
+                $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+                $hitungbln = 6 - $calon->rencana_masuk;
+            }
+         }
 
         foreach($kelass as $k) {
             if ($no === 1){
                 $sppnya = $biayas->spp;
-                $kelas[$no]['ket'] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
-                $kelas[$no]['total'] = 'Rp. '.number_format($sppnya*11);
-                $totalTahunan = $biayas->spp*11;
+                $kelas[$no]['ket'] = $bulan;
+                $kelas[$no]['total'] = 'Rp. '.number_format($sppnya*$hitungbln);
+                $totalTahunan = $biayas->spp*$hitungbln;
             }
             if ($no > 1){
                 $sppnya = $biayas->spp + ($spp_naik*($no-1));
+                if($k->name == 'TK A' || $k->name == 'TK B' || $k->name == 'PG') {
+                    $sppnya = $biayas->spp + 100000;
+                }
                 $dauls = (isset($daul[$k->name]) ? $daul[$k->name] : 0);
                 $kelas[$no]['ket'] = 'SPP Juli '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
                 $kelas[$no]['total'] = 'Rp. '.number_format(($sppnya*12)+$dauls);
@@ -210,9 +230,22 @@ class TagihanPSBController extends Controller
         return compact('biaya', 'total', 'kelas', 'totalTahunan', 'sppnya', 'asalNF');
     }
 
+    public function simmsit()
+    {
+        $tp = (int)substr(auth('api')->user()->tpname, 0, 4) - 1;
+        return Simmsit::orderBy('nama', 'asc')->where('tahun_ajaran', $tp)->pluck('nama');
+    }
+    
     public function jtagihan()
     {
         return Jtagihan::orderBy('id', 'asc')->get()->toArray();
+    }
+
+    public function jtagihaninvoce()
+    {
+        $jt = Jtagihan::orderBy('id', 'asc')->get()->toArray();
+        array_push($jt,['id' => 5, 'alias' => 'spp', 'name' => 'SPP bulan Juli']);
+        return $jt;
     }
 
     public function destroy($id)

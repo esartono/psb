@@ -200,8 +200,8 @@
                             </tr>
                             <tr>
                                 <td>TK</td>
-                                <td>Kamis</td>
-                                <td>Jam 08.00 - 12.00</td>
+                                <td>Jumat</td>
+                                <td>Jam 10.00 - 12.00</td>
                                 <td colspan="2">Di TKIT Nurul Fikri atau Online</td>
                             </tr>
                             <tr>
@@ -212,7 +212,7 @@
                             </tr>
                             <tr>
                                 <td>SMP dan SMA</td>
-                                <td>Sabtu</td>
+                                <td>Jumat</td>
                                 <td>Jam 08.00 - 12.00</td>
                                 <td colspan="2">Di SMPIT Nurul Fikri atau Online</td>
                             </tr>

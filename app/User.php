@@ -25,12 +25,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new MailResetPasswordNotification($token));
+        // $this->notify(new MailResetPasswordNotification($token));
     }
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new UserMail);
+        // $this->notify(new UserMail);
     }
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'level', 'unit', 'force_change'
+        'name', 'email', 'phone', 'password', 'level', 'unit', 'force_change', 'email_verified_at'
     ];
 
     /**

@@ -51,6 +51,8 @@ Route::middleware('auth:api')->get('indexadmin/{id}', 'API\CalonController@index
 Route::middleware('auth:api')->get('admins', 'API\UserController@admin');
 Route::middleware('auth:api')->get('registrasi', 'API\CalonTagihanPSBController@registrasi');
 Route::middleware('auth:api')->get('jtagihans', 'API\TagihanPSBController@jtagihan');
+Route::middleware('auth:api')->get('jtagihaninvoce', 'API\TagihanPSBController@jtagihaninvoce');
+Route::middleware('auth:api')->get('simmsit', 'API\TagihanPSBController@simmsit');
 
 Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');

@@ -31,15 +31,14 @@
           <tr>
             <td width="10%"> {{ $k+1 }} </td>
             <td> {{ ($calon->pindahan == 1 && $b == 'SPP bulan Juli' ? 'SPP bulan Januari' : $b) }} </td>
-            @if($b == 'Dana Pengembangan')
-              @php
+            @php
+              if($b == 'Dana Pengembangan') {
                 $d1 = 0;
                 $d2 = 0;
                 $d3 = 0;
                 $n = $biaya1[$b];
                 if($ctg->potongan > 0) {
                   if($batas == 2) {
-                    // $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
                     $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
                     $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
                   }
@@ -48,13 +47,24 @@
                     $d3 = $biaya1[$b]*($ctg->potongan/100);
                   }
                 }
-
                 if($calon->gel_id == 2 && $calon->asal_nf == 1) {
-                    $d1 = 5000000;
-                    $d2 = 5000000;
+                  $d1 = 5000000;
+                  $d2 = 5000000;
                 }
-              @endphp
-            @endif
+              }
+              if($b == 'Dana Pendidikan') {
+                if($ctg->potongan > 0) {
+                  if($batas == 2) {
+                    $d1 = $d1 + (($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100));
+                    $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
+                  }
+                  if($batas == 1) {
+                    $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
+                    $d3 = $d3 + ($biaya1[$b]*($ctg->potongan/100));
+                  }
+                }
+              }
+            @endphp
             <td> {{ number_format($biaya1[$b]) }} </td>
           </tr>
           @endforeach
@@ -95,7 +105,7 @@
             <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon']+$d2)) }} </td>
           </tr>
           <tr>
-            <td>2</td>
+            <td>3</td>
             <td>Diskon Pelunasan untuk pembayaran sebelum tanggal <b>{{ $diskon[2]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
             <td> {{ number_format($diskon[2]['diskon']) }} </td>
             <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
@@ -103,13 +113,9 @@
           <tr>
             <td colspan="4" style="text-align: left !important">
               <b>Keterangan </b>:
-              <ol>
-                <li>*&nbsp;&nbsp;potongan Rp. 5,000,000 + potongan khusus dari dana pengembangan</li>
-                <li>**&nbsp;potongan Rp. 2,500,000 + potongan khusus dari dana pengembangan</li>
-                <li>***potongan Rp. 2,500,000 dana pengembangan</li>
-                <li>Potongan khusus berlaku 30 hari setelah pengumuman hasil seleksi</li>
-                <li>Potongan khusus sesuai dengan ketentuan yang telah ditentukan oleh panitia PPDB SIT Nurul Fikri</li>
-              </ol>
+              <ul>
+                <li>Potongan sesuai dengan ketentuan yang telah berlaku</li>
+              </ul>
             </td>
           </tr>
         </table>

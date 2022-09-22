@@ -40,7 +40,7 @@
                 position: fixed;
                 float: right;
                 bottom: 87px;
-                margin-right: -40px;
+                /* margin-right: -20px; */
             }
 
             .page-break {
@@ -59,6 +59,9 @@
             ol {
                 margin-top: 0px;
                 margin-bottom: 0px;
+            }
+            li {
+                text-align: justify;
             }
 
             .pagenum:before {
@@ -98,7 +101,7 @@
                     Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
                 </td>
                 <td align="right" width="10%">
-                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('https://ppdb.nurulfikri.sch.id/img/logo.png', .2, true)->generate($calon->uruts)) !!} ">
+                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('https://ppdb.nurulfikri.sch.id/img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
                 </td>
             </tr>
         </table>

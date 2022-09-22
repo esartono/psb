@@ -54,6 +54,18 @@ class CalonTagihanPSBController extends Controller
                 'keterangan' => 'Memiliki Saudara kandung KEDUA di NF',
                 'notif' => 1
             ],[
+                'potongan' => 10,
+                'keterangan' => 'Diskon Mendaftarkan lebih dari 1',
+                'notif' => 1
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI TETAP',
+                'notif' => 1
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI KONTRAK',
+                'notif' => 1
+            ],[
                 'potongan' => 25,
                 'keterangan' => 'Undangan Khusus asal NF (Depok/Bogor)',
                 'notif' => 0
@@ -73,6 +85,7 @@ class CalonTagihanPSBController extends Controller
             $potongan = $pots[$request->potongan]['potongan'];
             $keterangan = $pots[$request->potongan]['keterangan'];
         }
+        $saudara = implode(' dan ',$request['saudara']);
         CalonTagihanPSB::updateOrCreate(
             [
                 'calon_id' => $request['calon_id'],
@@ -84,7 +97,7 @@ class CalonTagihanPSBController extends Controller
                 'infaqnfpeduli' => $request['infaqnfpeduli'],
                 'potongan' => $potongan,
                 'keterangan' => $keterangan,
-                'saudara' => $request['saudara'],
+                'saudara' => $saudara,
                 'daul' => 0,
                 'lunas' => false,
             ]

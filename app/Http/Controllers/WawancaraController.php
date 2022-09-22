@@ -93,6 +93,14 @@ class WawancaraController extends Controller
         // $total2 = $biayas->total[2];
         // $total3 = $biayas->total[3];
 
+        if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+            $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan/100);
+            $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'] - $diskonpegawai;
+            $total1 = $total1 - $diskonpegawai;
+        }
+
+        // dd($biaya1);
+
         $kls = Kelasnya::where('id', $calon->kelas_tujuan)->first();
         $kelass = Kelasnya::where('unit_id', $kls->unit_id)->where('id', '>=', $kls->id)->get();
 
@@ -100,16 +108,17 @@ class WawancaraController extends Controller
         $daul = [
             'TK A' => 2000000,
             'TK B' => 2000000,
-            '2' => 3500000,
-            '3' => 3750000,
-            '4' => 4100000,
-            '5' => 4500000,
+            '2' => 3750000,
+            '3' => 4100000,
+            '4' => 4500000,
+            '5' => 4700000,
             '6' => 4900000,
-            '8' => 4000000,
-            '9' => 4250000,
-            '11' => 4500000,
-            '12' => 5000000,
+            '8' => 4250000,
+            '9' => 5000000,
+            '11' => 5000000,
+            '12' => 6000000,
         ];
+        $bln = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
         $totalAll = [];
         $kelas = [];
@@ -117,22 +126,63 @@ class WawancaraController extends Controller
         $dauls = 0;
         $totalth = 0;
         $tgh_id = 1;
+
+        if($calon->pindahan === 0) {
+            $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+            $hitungbln = 11;
+        }
+        if($calon->pindahan === 1) {
+            if($calon->rencana_masuk >= 7) {
+                $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+                $hitungbln = 12 - $calon->rencana_masuk + 6;
+            }
+
+            if($calon->rencana_masuk <= 6) {
+                $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
+                $hitungbln = 6 - $calon->rencana_masuk;
+            }
+        }
+
         foreach($kelass as $k) {
             if ($no === 1){
                 $sppnya = $biayas->spp;
+                if($ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+                    $sppnya = $biayas->spp * ($ctg->potongan/100);
+                }
+                if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
+                    $sppnya = $biayas->spp * ($ctg->potongan/100);
+                }
                 if ($pindahan == 0) {
                     $kelas[$k->name]['ket'][0] = 'SPP Agustus '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
                     $kelas[$k->name]['total'][0] = $sppnya*11;
                     $totalth = $totalth + $sppnya*11;
                 }
                 if ($pindahan == 1) {
-                    $kelas[$k->name]['ket'][0] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
-                    $kelas[$k->name]['total'][0] = $sppnya*5;
-                    $totalth = $totalth + $sppnya*5;
+                    // $kelas[$k->name]['ket'][0] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
+                    $kelas[$k->name]['ket'][0] = $bulan;
+                    $kelas[$k->name]['total'][0] = $sppnya*$hitungbln;
+                    $totalth = $totalth + $sppnya*$hitungbln;
                 }
             }
             if ($no > 1) {
                 $sppnya = $biayas->spp + ($spp_naik*($no-1));
+                if($ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+                    $sppnya = ($biayas->spp + ($spp_naik*($no-1))) * ($ctg->potongan/100);
+                }
+                if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
+                    $sppnya = ($biayas->spp + ($spp_naik*($no-1))) * ($ctg->potongan/100);
+                }
+
+                if($k->name == 'TK A' || $k->name == 'TK B' || $k->name == 'PG') {
+                    $sppnya = $biayas->spp + 100000;
+                    if($ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+                        $sppnya = ($biayas->spp + 100000) * ($ctg->potongan/100);
+                    }
+                    if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
+                        $sppnya = ($biayas->spp + 100000) * ($ctg->potongan/100);
+                    }
+    
+                }
                 $kelas[$k->name]['ket'][$no-1] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                 $kelas[$k->name]['total'][$no-1] = $sppnya*12;
                 $kelas[$k->name]['daul'][$no-1] = $daul[$k->name];
@@ -147,14 +197,19 @@ class WawancaraController extends Controller
         $now = new \DateTime();
         $diskon = [
             1 => [
-                'tgl' => new \DateTime('2021-11-1'),
-                'tanggal' => "31 Oktober 2021",
-                'diskon' => 5000000
+                'tgl' => new \DateTime('2022-11-1'),
+                'tanggal' => "31 Oktober 2022",
+                'diskon' => 4000000
             ],
             2 => [
-                'tgl' => new \DateTime('2021-12-1'),
-                'tanggal' => "30 November 2021",
-                'diskon' => 2500000
+                'tgl' => new \DateTime('2022-12-1'),
+                'tanggal' => "30 November 2022",
+                'diskon' => 3000000
+            ],
+            3 => [
+                'tgl' => new \DateTime('2023-1-1'),
+                'tanggal' => "31 Desember 2022",
+                'diskon' => 1500000
             ]
         ];
 

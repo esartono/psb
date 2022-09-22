@@ -118,7 +118,8 @@
                   <br>
                   <hr>
                   <label class="col-form-label">Keterangan <br><span class="badge badge-warning">diisi hanya untuk pilihan 'Memiliki Saudara di NF'</span></label>
-                  <input v-model="form.saudara" type="text" name="saudara" class="form-control"/>
+                  <!-- <input v-model="form.saudara" type="text" name="saudara" class="form-control"/> -->
+                  <v-select multiple v-model="form.saudara" :options=siswanf></v-select>
                   <hr>
                   <br>
                   <button type="button" class="btn btn-secondary col-md-4 offset-md-2" data-dismiss="modal">Batal</button>
@@ -232,6 +233,24 @@ export default {
           'keterangan': 'Memiliki Saudara kandung KEDUA di NF',
           'notif': 1
         },
+        {
+          'id': 4,
+          'potongan': 10,
+          'keterangan': 'Diskon Mendaftarkan lebih dari 1',
+          'notif': 1
+        },
+        {
+          'id': 5,
+          'potongan': 50,
+          'keterangan': 'Diskon anak PEGAWAI TETAP',
+          'notif': 1
+        },
+        {
+          'id': 6,
+          'potongan': 50,
+          'keterangan': 'Diskon anak PEGAWAI KONTRAK',
+          'notif': 1
+        },
         // {
         //   'id': 4,
         //   'potongan': 25,
@@ -251,6 +270,7 @@ export default {
         //   'notif': 0
         // },
       ],
+      siswanf: [],
       biaya: [],
       // biaya: [
       //   {
@@ -278,7 +298,7 @@ export default {
         calon_id: "",
         tagihan_id: "",
         potongan: 0,
-        saudara: "",
+        saudara: [],
         infaq: 0,
         infaqnfpeduli: 0,
       })
@@ -355,8 +375,10 @@ export default {
   },
 
   mounted() {
-    axios.get("../api/jtagihans")
+    axios.get("../api/jtagihaninvoce")
       .then(({ data }) => (this.biaya = data));
+    axios.get("../api/simmsit")
+      .then(({ data }) => (this.siswanf = data));
   },
 
   computed: {

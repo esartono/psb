@@ -39,7 +39,7 @@
     }
 
     .step2>li:before {
-        content: "(" counter(elementcounter) "). ";
+        content: "(" counter(elementcounter) ").  ";
         counter-increment: elementcounter;
     }
 
@@ -50,11 +50,22 @@
     .step3 li {
         list-style: lower-roman;
     }
+    .spp li {
+        margin-bottom: 8px;
+    }
+    .spp_detail li {
+        margin-top: 8px;
+        list-style: lower-alpha;
+    }
+
+    .konsekuensi {
+        margin: 5px 0 15px 0px;
+    }
 
     .table {
         border-collapse: collapse;
         border-spacing: 0;
-        width: 100%;
+        width: 105%;
         border: 1px solid #000;
         margin: 10px 0px;
     }
@@ -67,9 +78,8 @@
 
     .table td {
         font-size: 14px;
-        padding: 8px;
+        padding: 5px;
         border: 1px solid #000;
-        text-align: right;
         width: 18% !important;
     }
 
@@ -77,13 +87,13 @@
         background-color: #f2f2f2;
     }
     .table td:nth-child(1) {
-        text-align: center;
         width: 3% !important;
     }
     .table td:nth-child(2) {
         width: 11% !important;
-        text-align: left
     }
+
+    table.spp tr td { font-size: 11px; }
 </style>
     <div class="main">
         <br>
@@ -174,8 +184,6 @@
         @include('wawancara.'.substr(Auth::user()->tp_name,0,4).'.ketentuan')
         <p>Demikian pernyataan ini dibuat dengan sebenarnya untuk dipergunakan sebagaimana mestinya.</p>
         <br>
-        <br>
-        <br>
         <table align="center" width="100%">
             <tr>
                 <td colspan="2" align="center"><u> Depok, {{ $ctg->created_at->isoFormat('D MMMM Y') }} </u></td>
@@ -205,5 +213,7 @@
         @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.1')
         <div class="page-break"></div>
         @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.potongan')
+        <div class="page-break"></div>
+        @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.pernyataan')
     </div>
 @endsection
