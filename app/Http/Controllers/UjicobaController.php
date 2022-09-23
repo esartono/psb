@@ -24,6 +24,8 @@ use App\Kelasnya;
 use App\CalonTagihanPSB;
 use App\BayarTagihan;
 use App\JTagihan;
+use App\SiswaNF;
+
 
 use App\Facades\Edupay;
 use App\Notifications\Wa;
@@ -149,21 +151,17 @@ class UjicobaController extends Controller
     {
         ini_set('max_execution_time', 1200);
 
-        $cek = JTagihan::get();
-        dd($cek);
-
-        $calons = Calon::where('status', 1)->get();
+        $calons = Calon::whereIn('gel_id', [6,7,8,9])->where('status', 1)->get();
 
         foreach($calons as $c){
-            $cek = CalonBiayaTes::where('calon_id', $c->id)->first();
+            $cek = CalonJadwal::where('calon_id', $c->id)->first();
 
             if(is_null($cek)) {
-                $biaya = BiayaTes::where('gel_id', $c->gel_id)->where('ck_id', $c->ck_id)->first();
-                CalonBiayaTes::updateOrCreate([
+                $jadwal = Jadwal::where('gel_id', $c->gel_id)->where('internal', $c->asal_nf)->first();
+                CalonJadwal::updateOrCreate([
                     'calon_id' => $c->id
                 ], [
-                    'biaya_id' => $biaya->id,
-                    'expired' => date("Y-m-d", strtotime("+3 days"))
+                    'jadwal_id' => $jadwal->id,
                 ]);
             }
         }

@@ -99,7 +99,6 @@
         <br>
         <center><h3>SURAT PERNYATAAN</h3></center>
         <p>Yang bertanda tangan di bawah ini :</p>
-        <br>
         <table>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

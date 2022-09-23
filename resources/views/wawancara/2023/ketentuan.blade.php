@@ -211,8 +211,8 @@
                     </tbody>
                 </table>
             </li>
-            <li>Dana daftar ulang tahunan meliputi dana kegiatan dan buku paket</li>
-            <li>Kenaikan SPP diberlakukan saat awal tahun dengan besaran kisaran 8 – 10%</li>
+            <li>Dana daftar ulang tahunan meliputi dana kegiatan dan sarana pembelajaran</li>
+            <li>Kenaikan SPP diberlakukan saat awal tahun sesuai dengan ketentuan yang berlaku</li>
         </ol>
     </li>
 </ol>

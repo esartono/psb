@@ -52,18 +52,18 @@
                   $d2 = 5000000;
                 }
               }
-              if($b == 'Dana Pendidikan') {
-                if($ctg->potongan > 0) {
-                  if($batas == 2) {
-                    $d1 = $d1 + (($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100));
-                    $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
-                  }
-                  if($batas == 1) {
-                    $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
-                    $d3 = $d3 + ($biaya1[$b]*($ctg->potongan/100));
-                  }
-                }
-              }
+              // if($b == 'Dana Pendidikan') {
+              //   if($ctg->potongan > 0) {
+              //     if($batas == 2) {
+              //       $d1 = $d1 + (($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100));
+              //       $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
+              //     }
+              //     if($batas == 1) {
+              //       $d2 = $d2 + (($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100));
+              //       $d3 = $d3 + ($biaya1[$b]*($ctg->potongan/100));
+              //     }
+              //   }
+              // }
             @endphp
             <td> {{ number_format($biaya1[$b]) }} </td>
           </tr>

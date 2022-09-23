@@ -136,7 +136,7 @@ Route::middleware('auth', 'admin')->group(function(){
     Route::get('/suratseragam', 'HomeController@front');
     Route::get('/tes', 'HomeController@front');
     Route::get('/berkas', 'HomeController@front');
-    Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan');
+    Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan')->name('wawancara-keu');
     Route::get('/keuangan/{id}', 'WawancaraController@getCalon')->name('getCalon');
     Route::get('/PDFkeuangan/{id}', 'WawancaraController@PDFKeuangan')->name('PDFkeuangan');
     Route::get('/bayartagihan', 'HomeController@front');

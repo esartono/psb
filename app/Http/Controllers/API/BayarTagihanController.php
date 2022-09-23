@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Calon;
 use App\Gelombang;
 use App\BayarTagihan;
+use App\TahunPelajaran;
 use App\CalonTagihanPSB;
 
 use Excel;
@@ -16,11 +17,26 @@ use App\Exports\ExportBayar;
 
 class BayarTagihanController extends Controller
 {
+    protected $tp_berjalan;
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+    }
+
     public function index()
     {
+        $tp = TahunPelajaran::where('name', $this->tp_berjalan)->first()->id;
+        $gelombang = Gelombang::where('tp', $tp)->get()->pluck('id');
+        $calon = Calon::whereIn('gel_id', $gelombang)->pluck('id');
         return BayarTagihan::distinct()
                 ->select('calon_id')
                 ->with('calonnya', 'adminnya')
+                ->whereIn('calon_id', $calon)
                 ->get()->toArray();
     }
 

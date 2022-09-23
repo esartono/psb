@@ -96,7 +96,11 @@ class WawancaraController extends Controller
         if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
             $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan/100);
             $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'] - $diskonpegawai;
-            $total1 = $total1 - $diskonpegawai;
+            
+            $diskonpegawai2 = $biaya1['Dana Pendidikan'] * ($ctg->potongan/100);
+            $biaya1['Dana Pendidikan'] = $biaya1['Dana Pendidikan'] - $diskonpegawai2;
+            
+            $total1 = $total1 - $diskonpegawai - $diskonpegawai2;
         }
 
         // dd($biaya1);
@@ -185,6 +189,9 @@ class WawancaraController extends Controller
                 }
                 $kelas[$k->name]['ket'][$no-1] = 'SPP Juli '.($tp_awal+$no-1-$khusus).' s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                 $kelas[$k->name]['total'][$no-1] = $sppnya*12;
+                if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+                    $daul[$k->name] = $daul[$k->name] - ($daul[$k->name] * $ctg->potongan/100);
+                }
                 $kelas[$k->name]['daul'][$no-1] = $daul[$k->name];
                 $totalth = $totalth + $sppnya*12 + $daul[$k->name];
             }
@@ -314,9 +321,64 @@ class WawancaraController extends Controller
     }
 
     public function updatekeu(Request $request) {
-        $calon = Calon::whereId($request->id)->first();
-        // $calon->update($request->all());
+        $calon = CalonTagihanPSB::where('calon_id', $request->id)->first();
+        $pots = [
+            [
+                'potongan' => 0,
+                'keterangan' => 'Tidak ada potongan',
+                'notif' => 0
+            ],[
+                'potongan' => 10,
+                'keterangan' => 'Asal dari NF (Depok/Bogor)',
+                'notif' => 0
+            ],[
+                'potongan' => 5,
+                'keterangan' => 'Memiliki Saudara kandung PERTAMA di NF',
+                'notif' => 1
+            ],[
+                'potongan' => 10,
+                'keterangan' => 'Memiliki Saudara kandung KEDUA di NF',
+                'notif' => 1
+            ],[
+                'potongan' => 10,
+                'keterangan' => 'Diskon Mendaftarkan lebih dari 1',
+                'notif' => 1
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI TETAP',
+                'notif' => 1
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI KONTRAK',
+                'notif' => 1
+            ],[
+                'potongan' => 25,
+                'keterangan' => 'Diskon Undangan Khusus asal NF (Depok/Bogor)',
+                'notif' => 0
+            ],[
+                'potongan' => 50,
+                'keterangan' => 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)',
+                'notif' => 0
+            ],[
+                'potongan' => 25,
+                'keterangan' => 'Diskon Hafal minimal 15 Juz',
+                'notif' => 0
+            ]
+        ];
+        $potongan = 0;
+        $keterangan = $pots[0]['keterangan'];
+        if($request->potongan) {
+            $potongan = $pots[$request->potongan]['potongan'];
+            $keterangan = $pots[$request->potongan]['keterangan'];
+        }
+        // dd($keterangan);
+        $calon->update([
+            'potongan' => $potongan,
+            'keterangan' => $keterangan,
+            'infaq' => $request['infaq'],
+            'infaqnfpeduli' => $request['infaqnfpeduli'],
+        ]);
 
-        // return redirect()->route('getCalon', $request->id);
+        return redirect()->route('wawancara-keu');
     }
 }

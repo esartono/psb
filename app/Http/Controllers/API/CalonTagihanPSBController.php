@@ -67,15 +67,15 @@ class CalonTagihanPSBController extends Controller
                 'notif' => 1
             ],[
                 'potongan' => 25,
-                'keterangan' => 'Undangan Khusus asal NF (Depok/Bogor)',
+                'keterangan' => 'Diskon Undangan Khusus asal NF (Depok/Bogor)',
                 'notif' => 0
             ],[
                 'potongan' => 50,
-                'keterangan' => 'Pemenang Lomba tingkat Nasional (Bertingkat)',
+                'keterangan' => 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)',
                 'notif' => 0
             ],[
                 'potongan' => 25,
-                'keterangan' => 'Hafal minimal 15 Juz',
+                'keterangan' => 'Diskon Hafal minimal 15 Juz',
                 'notif' => 0
             ]
         ];
@@ -85,7 +85,7 @@ class CalonTagihanPSBController extends Controller
             $potongan = $pots[$request->potongan]['potongan'];
             $keterangan = $pots[$request->potongan]['keterangan'];
         }
-        $saudara = implode(' dan ',$request['saudara']);
+        $saudara = implode(', ',$request['saudara']);
         CalonTagihanPSB::updateOrCreate(
             [
                 'calon_id' => $request['calon_id'],

@@ -25,9 +25,15 @@
                                 <select name="potongan" class="form-control" id="potongan" required>
                                     <option selected='true' disabled='disabled'>Pilih Diskon Khusus</option>
                                     <option value=0>Tidak ada potongan</option>
-                                    <option value=10>Asal dari NF (Depok/Bogor)</option>
-                                    <option value=5>Memiliki Saudara kandung PERTAMA di NF</option>
-                                    <option value=10>Memiliki Saudara kandung KEDUA di NF</option>
+                                    <option value=1>Asal dari NF (Depok/Bogor)</option>
+                                    <option value=2>Memiliki Saudara kandung PERTAMA di NF</option>
+                                    <option value=3>Memiliki Saudara kandung KEDUA di NF</option>
+                                    <option value=4>Diskon Mendaftarkan lebih dari 1</option>
+                                    <option value=5>Diskon anak PEGAWAI TETAP</option>
+                                    <option value=6>Diskon anak PEGAWAI KONTRAK</option>
+                                    <option value=7>Diskon Undangan Khusus asal NF (Depok/Bogor)</option>
+                                    <option value=8>Diskon Pemenang Lomba tingkat Nasional (Bertingkat)</option>
+                                    <option value=9>Diskon Hafal minimal 15 Juz</option>
                                 </select>
                             </div>
                         </div>
