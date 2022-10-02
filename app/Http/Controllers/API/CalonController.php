@@ -291,7 +291,18 @@ class CalonController extends Controller
 
             if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit() || auth('api')->user()->isAdminKeu()) {
                 if ($id === '100') {
-                    return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                    // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                    //     ->whereIn('gel_id', $gelombang)
+                    //     ->where('aktif', true)
+                    //     ->get()->toArray();
+                    return DB::table('calons')
+                        ->select('calons.id', 'calons.name', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ibu_nama', 'users.email as email',
+                                'jurusan', 'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'units.name as unit',
+                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
+                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                        ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                        ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
                         ->whereIn('gel_id', $gelombang)
                         ->where('aktif', true)
                         ->get()->toArray();

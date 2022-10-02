@@ -47,7 +47,7 @@
                     $d3 = $biaya1[$b]*($ctg->potongan/100);
                   }
                 }
-                if($calon->gel_id == 2 && $calon->asal_nf == 1) {
+                if($calon->gel_id == 7 && $calon->asal_nf == 1) {
                   $d1 = 5000000;
                   $d2 = 5000000;
                 }
@@ -92,24 +92,41 @@
             <th width="15%">Diskon</th>
             <th width="15%">Pembayaran</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Diskon Pelunasan untuk pembayaran sebelum tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-            <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
-            <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Diskon Pelunasan untuk pembayaran sebelum tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-            <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
-            <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon']+$d2)) }} </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Diskon Pelunasan untuk pembayaran sebelum tanggal <b>{{ $diskon[2]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-            <td> {{ number_format($diskon[2]['diskon']) }} </td>
-            <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
-          </tr>
+          @if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
+            <tr>
+              <td>1</td>
+              <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+              <td> {{ number_format($diskon[1]['diskon']) }} </td>
+              <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon'])) }} </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              {{-- <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[2]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td> --}}
+              <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+              <td> {{ number_format($diskon[2]['diskon']) }} </td>
+              <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
+            </tr>
+          @endif
+          @if($ctg->keterangan != 'Diskon anak PEGAWAI TETAP') {
+            <tr>
+              <td>1</td>
+              <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+              <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
+              <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+              <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
+              <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon']+$d2)) }} </td>
+            </tr>
+            {{-- <tr>
+              <td>3</td>
+              <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[2]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+              <td> {{ number_format($diskon[2]['diskon']) }} </td>
+              <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
+            </tr> --}}
+          @endif
           <tr>
             <td colspan="4" style="text-align: left !important">
               <b>Keterangan </b>:
@@ -127,9 +144,9 @@
                   <td></td>
               </tr>
               <tr>
-                  <td align="center" width="20%">Ayah</td>
-                  <td align="center" width="20%">Ibu</td>
-                  <td align="center" width="30%"></td>
+                  <td align="center" width="27%">Ayah</td>
+                  <td align="center" width="27%">Ibu</td>
+                  <td align="center" width="16%"></td>
                   <td align="center" width="30%">Pewawancara</td>
               </tr>
               <tr>

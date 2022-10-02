@@ -28,26 +28,26 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
+                                    <v-th sortKey="unit">Unit</v-th>
                                     <v-th sortKey="uruts">ID</v-th>
                                     <v-th sortKey="name">Nama Lengkap</v-th>
                                     <v-th sortKey="tgl_lahir">Tanggal Lahir</v-th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="ayah_nama">Orangtua</v-th>
-                                    <v-th sortKey="usernya.email">User E-mail</v-th>
+                                    <v-th sortKey="email">User E-mail</v-th>
                                     <v-th sortKey="status">Status</v-th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
-                                    <td class="text-center">{{ row.gelnya.unitnya.name }}</td>
+                                    <td class="text-center">{{ row.unit }}</td>
                                     <td class="text-center">{{ row.uruts }}</td>
                                     <td>{{ row.name }}</td>
                                     <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
                                     <td class="text-center">{{ row.asal_sekolah }}</td>
                                     <td>{{ row.ayah_nama }}<hr>{{ row.ibu_nama }}</td>
-                                    <td>{{ row.usernya.email }}</td>
+                                    <td>{{ row.email }}</td>
                                     <td>{{ (row.status == 0 ? 'Belum Aktif' : 'Aktif') }}</td>
                                 </tr>
                             </tbody>
@@ -70,7 +70,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["gelnya.unitnya.name", "cknya.name", "uruts", "name", "tgl_lahir", "asal_sekolah", "ayah_nama", "ibu_nama", "usernya.email"]
+                        keys: ["unit", "ck", "uruts", "name", "tgl_lahir", "asal_sekolah", "ayah_nama", "ibu_nama", "email"]
                     }
                 },
                 currentPage: 1,

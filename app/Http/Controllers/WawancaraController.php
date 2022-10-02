@@ -97,10 +97,13 @@ class WawancaraController extends Controller
             $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan/100);
             $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'] - $diskonpegawai;
             
-            $diskonpegawai2 = $biaya1['Dana Pendidikan'] * ($ctg->potongan/100);
-            $biaya1['Dana Pendidikan'] = $biaya1['Dana Pendidikan'] - $diskonpegawai2;
+            $diskonpegawai2 = $biaya1['Dana Pengembangan'] * ($ctg->potongan/100);
+            $biaya1['Dana Pengembangan'] = $biaya1['Dana Pengembangan'] - $diskonpegawai2;
             
-            $total1 = $total1 - $diskonpegawai - $diskonpegawai2;
+            $diskonpegawai3 = $biaya1['Dana Pendidikan'] * ($ctg->potongan/100);
+            $biaya1['Dana Pendidikan'] = $biaya1['Dana Pendidikan'] - $diskonpegawai3;
+            
+            $total1 = $total1 - $diskonpegawai - $diskonpegawai2 - $diskonpegawai3;
         }
 
         // dd($biaya1);
@@ -316,8 +319,9 @@ class WawancaraController extends Controller
 
     public function editkeu($id) {
         $calon = Calon::whereId($id)->first();
+        $potongan = CalonTagihanPSB::where('calon_id', $id)->first();
         
-        return view('wawancara.editkeu', compact('calon'));
+        return view('wawancara.editkeu', compact('calon', 'potongan'));
     }
 
     public function updatekeu(Request $request) {

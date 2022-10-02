@@ -57,6 +57,9 @@
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ $calon->tgl_daftar->isoFormat('D MMMM Y') }}</a>
                         </li>
+                        <li class="list-group-item">
+                            <b>User Email</b> <a class="float-right">{{ Auth()->user()->email }}</a>
+                        </li>
                     </ul>
                     <a href="/editcalon/{{ $calon->id }}" class="btn btn-info"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>
                     <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>

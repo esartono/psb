@@ -23,17 +23,17 @@
                             <label class="col-md-4 col-form-label">Potongan</label>
                             <div class="col-md-8">
                                 <select name="potongan" class="form-control" id="potongan" required>
-                                    <option selected='true' disabled='disabled'>Pilih Diskon Khusus</option>
-                                    <option value=0>Tidak ada potongan</option>
-                                    <option value=1>Asal dari NF (Depok/Bogor)</option>
-                                    <option value=2>Memiliki Saudara kandung PERTAMA di NF</option>
-                                    <option value=3>Memiliki Saudara kandung KEDUA di NF</option>
-                                    <option value=4>Diskon Mendaftarkan lebih dari 1</option>
-                                    <option value=5>Diskon anak PEGAWAI TETAP</option>
-                                    <option value=6>Diskon anak PEGAWAI KONTRAK</option>
-                                    <option value=7>Diskon Undangan Khusus asal NF (Depok/Bogor)</option>
-                                    <option value=8>Diskon Pemenang Lomba tingkat Nasional (Bertingkat)</option>
-                                    <option value=9>Diskon Hafal minimal 15 Juz</option>
+                                    <option @if(is_null($potongan)) selected='true' @endif disabled='disabled'>Pilih Diskon Khusus</option>
+                                    <option @if($potongan->keterangan === 'Tidak ada potongan') selected='true' @endif value=0>Tidak ada potongan</option>
+                                    <option @if($potongan->keterangan === 'Asal dari NF (Depok/Bogor)') selected='true' @endif value=1>Asal dari NF (Depok/Bogor)</option>
+                                    <option @if($potongan->keterangan === 'Memiliki Saudara kandung PERTAMA di NF') selected='true' @endif value=2>Memiliki Saudara kandung PERTAMA di NF</option>
+                                    <option @if($potongan->keterangan === 'Memiliki Saudara kandung KEDUA di NF') selected='true' @endif value=3>Memiliki Saudara kandung KEDUA di NF</option>
+                                    <option @if($potongan->keterangan === 'Diskon Mendaftarkan lebih dari 1') selected='true' @endif value=4>Diskon Mendaftarkan lebih dari 1</option>
+                                    <option @if($potongan->keterangan === 'Diskon anak PEGAWAI TETAP') selected='true' @endif value=5>Diskon anak PEGAWAI TETAP</option>
+                                    <option @if($potongan->keterangan === 'Diskon anak PEGAWAI KONTRAK') selected='true' @endif value=6>Diskon anak PEGAWAI KONTRAK</option>
+                                    <option @if($potongan->keterangan === 'Diskon Undangan Khusus asal NF (Depok/Bogor)') selected='true' @endif value=7>Diskon Undangan Khusus asal NF (Depok/Bogor)</option>
+                                    <option @if($potongan->keterangan === 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)') selected='true' @endif value=8>Diskon Pemenang Lomba tingkat Nasional (Bertingkat)</option>
+                                    <option @if($potongan->keterangan === 'Diskon Hafal minimal 15 Juz') selected='true' @endif value=9>Diskon Hafal minimal 15 Juz</option>
                                 </select>
                             </div>
                         </div>
@@ -41,6 +41,7 @@
                             <label class="col-md-4 col-form-label">Infaq SIT Nurul Fikri</label>
                             <div class="col-md-8">
                                 <input type="text" name="infaq" class="form-control" id="infaq"
+                                value={{ $potongan->infaq == 0 ? 0 : $potongan->infaq }}
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>
                         </div>
@@ -48,6 +49,7 @@
                             <label class="col-md-4 col-form-label">Infaq NF Peduli</label>
                             <div class="col-md-8">
                                 <input type="text" name="infaqnfpeduli" class="form-control" id="infaqnfpeduli"
+                                value={{ $potongan->infaqnfpeduli == 0 ? 0 : $potongan->infaqnfpeduli }}
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>
                         </div>

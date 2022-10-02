@@ -99,27 +99,27 @@
         <br>
         <center><h3>SURAT PERNYATAAN</h3></center>
         <p>Yang bertanda tangan di bawah ini :</p>
-        <table>
+        <table style="width: 100%">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td> Nama Ayah </td>
-                <td> : </td>
-                <td> {{ Str::title($calon->ayah_nama) }} </td>
+                <td style="width: 5%"></td>
+                <td style="width: 20%"> Nama Ayah </td>
+                <td style="width: 2%"> : </td>
+                <td style="width: 71%"> {{ Str::title($calon->ayah_nama) }} </td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td> Nama Ibu </td>
                 <td> : </td>
                 <td> {{ Str::title($calon->ibu_nama) }} </td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td> Alamat </td>
                 <td> : </td>
                 <td> {{ $calon->alamat }} RT. {{ $calon->rt }} / RW. {{ $calon->rw }}</td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td></td>
                 <td></td>
                 <td>
@@ -129,19 +129,19 @@
                 </td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Email</td>
                 <td> : </td>
                 <td>{{ App\User::email($calon->user_id) }}</td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Nomor Ponsel Ayah</td>
                 <td> : </td>
                 <td>{{ $calon->ayah_hp }}</td>
             </tr>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td>Nomor Ponsel Ibu</td>
                 <td> : </td>
                 <td>{{ $calon->ibu_hp }}</td>

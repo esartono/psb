@@ -165,6 +165,29 @@ class UjicobaController extends Controller
                 ]);
             }
         }
+
+        // if($asal == 1) {
+        //     $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+        //             ->where('gel_id', $gel)
+        //             ->where('internal', 1)
+        //             ->whereColumn('kuota', '>=', 'ikut')
+        //             ->first();
+        //     if($jadwal) {
+        //         return $jadwal->id;
+        //     }
+        // }
+
+        // $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+        //         ->where('gel_id', $gel)
+        //         ->where('internal', 0)
+        //         ->whereColumn('kuota', '>=', 'ikut')
+        //         ->first();
+
+        // if($jadwal) {
+        //     return $jadwal->id;
+        // }
+        // return 0;
+        
         dd('Berhasil Gan');
     }
 
