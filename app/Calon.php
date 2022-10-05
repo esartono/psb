@@ -73,7 +73,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bt', 'seragam', 'tahap', 'registrasi'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bayarppdb', 'biayappdb', 'bt', 'seragam', 'tahap', 'registrasi'
     ];
 
     public function getTahapAttribute() {
@@ -94,7 +94,13 @@ class Calon extends Model
         $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
         if($hasil) {
             $tahap = 4;
+
+            $daul = BayarTagihan::where('calon_id', $this->attributes['id'])->first();
+            if($daul) {
+                $tahap = 5;
+            }
         }
+
         return $tahap;
     }
 
@@ -173,6 +179,27 @@ class Calon extends Model
         }
 
         return compact('hasil', 'tagihan');
+    }
+    
+    public function getBiayappdbAttribute()
+    {
+        $bayarppdb = BayarTagihan::where('calon_id', $this->attributes['id']);
+        if(!$bayarppdb) {
+            $bayarppdb = 'Kosong';
+        }
+
+        return compact('bayarppdb');
+    }
+    
+    public function getBayarppdbAttribute()
+    {
+        $bayarppdb = BayarTagihan::where('calon_id', $this->attributes['id'])->get();
+        if(!$bayarppdb) {
+            $bayarppdb = 'Kosong';
+        }
+        $cpsb = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
+
+        return compact('bayarppdb', 'cpsb');
     }
 
     public function getSeragamAttribute()

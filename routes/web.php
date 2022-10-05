@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/biayatesPDF/{id}', 'CalonPDFController@biayates')->name('biayatesPDF');
     Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
+    Route::get('/buktiBayarPPDB/{id}', 'CalonPDFController@bayarPPDB')->name('bayarPPDB');
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
     Route::get('/SuratKeteranganDiterimaPDF/{id}', 'CalonPDFController@terima')->name('SuratKeteranganDiterimaPDF');

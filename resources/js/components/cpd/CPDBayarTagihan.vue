@@ -39,7 +39,7 @@
                                     <v-th sortKey="tagihan['diskon']">Diskon</v-th>
                                     <v-th sortKey="tagihan['sisa']">Sisa Tagihan</v-th>
                                     <th>Lunas</th>
-                                    <th>Aksi</th>
+                                    <th style="width: 18%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
@@ -58,10 +58,10 @@
                                     <th v-else>
                                         <a><i class="fas fa-times-circle red"></i></a>
                                     </th>
-                                    <th>
+                                    <td>
                                         <a class="btn btn-sm btn-info" @click="detailModal(row.calon_id)">Details</a>
-                                        <a class="btn btn-sm btn-danger" @click="kirimEmail(row.calon_id)">Kirim Email</a>
-                                    </th>
+                                        <a :href="'/buktiBayarPPDB/'+row.calon_id" class="btn btn-danger btn-sm" target="_blank">Cetak Bukti</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </v-table>

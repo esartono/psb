@@ -70,7 +70,7 @@
         <div class="col-md-7 mb-3">
             <div class="card h-100">
                 <div class="card-header white bg-{{ $calon->gelnya->unitnya->catnya->name }} card-{{ $calon->gelnya->unitnya->catnya->name }}-outline">
-                    <h5>Status : {{ $calon->status == 0 ? 'Tidak Aktif' : 'Aktif' }}</h5>
+                    <h5>Status : {{ $calon->status == 0 ? 'Tidak Aktif' : 'Aktif' }} - {{ $calon->tahap }}</h5>
                 </div>
                 <div class="card-body box-profile">
                     <div class="row">
@@ -79,8 +79,8 @@
                                 <p class="nav-link status {{ $calon->tahap >= 1 ? 'active' : '' }}">1. Pendaftaran @if($calon->tahap >= 1) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">2. Biaya Pendaftaran @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">3. Seleksi @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap == 3 ? 'active' : '' }}">4. Pengumuman @if($calon->tahap == 3) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap == 5 ? 'active' : '' }}">5. Daftar Ulang @if($calon->tahap == 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 4 ? 'active' : '' }}">4. Pengumuman @if($calon->tahap >= 4) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 5 ? 'active' : '' }}">5. Daftar Ulang @if($calon->tahap >= 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap == 6 ? 'active' : '' }}">6. Seragam dan Pengambilan Buku @if($calon->tahap == 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap == 7 ? 'active' : '' }}">7. Masa Orientasi Siswa @if($calon->tahap == 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
                             </div>

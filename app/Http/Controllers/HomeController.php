@@ -160,6 +160,7 @@ class HomeController extends Controller
                 ->whereIn('gel_id', $gelombang)->get();
 
         if($calons->count() > 0) {
+            // dd($calons->first()->bayarppdb['bayarppdb']);
             return view('user.dashboard', compact('calons'));
         }
         return view('user.awal');

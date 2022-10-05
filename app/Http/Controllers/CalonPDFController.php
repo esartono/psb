@@ -68,6 +68,33 @@ class CalonPDFController extends Controller
             }
         }
     }
+    
+    public function bayarPPDB($id)
+    {
+        if (auth()->user()->isUser()){
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
+                        ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if($calons->get()->count() > 0) {
+                $calon = $calons->first();
+                $pdf = PDF::loadView('pdf.bayarPPDB', compact('calon'));
+                return $pdf->stream('');
+            } else {
+                return redirect('ppdb');
+            }
+        }
+
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
+                        ->where('id',$id)->where('status', 1);
+            if($calons->get()->count() > 0) {
+                $calon = $calons->first();
+                $pdf = PDF::loadView('pdf.bayarPPDB', compact('calon'));
+                return $pdf->stream('');
+            } else {
+                return redirect('ppdb');
+            }
+        }
+    }
 
     public function daul($id)
     {
