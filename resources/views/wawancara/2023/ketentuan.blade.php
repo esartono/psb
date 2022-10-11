@@ -104,6 +104,59 @@
         <ol class="biasa">
             <li>
                 Dana Daftar Ulang Tahunan berlaku mulai tahun kedua dan seterusnya, dengan besaran sebagai berikut:
+                @if($calon->pindahan == 1 && $calon->rencana_masuk != 7)
+                <table class="table table-bordered table-striped spp">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Unit</th>
+                            <th>Tahun ke-2</th>
+                            <th>Tahun ke-3</th>
+                            <th>Tahun ke-4</th>
+                            <th>Tahun ke-5</th>
+                            <th>Tahun ke-6</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>PG / TK A</td>
+                            <td>Rp. 2,000,000</td>
+                            <td>Rp. 2,000,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>SD</td>
+                            <td>Rp. 3,500,000</td>
+                            <td>Rp. 3,750,000</td>
+                            <td>Rp. 4,100,000</td>
+                            <td>Rp. 4,500,000</td>
+                            <td>Rp. 4,900,000</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>SMP</td>
+                            <td>Rp. 4,000,000</td>
+                            <td>Rp. 4,250,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>SMA</td>
+                            <td>Rp. 4,500,000</td>
+                            <td>Rp. 5,000,000</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                            <td style="background-color: grey">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @else
                 <table class="table table-bordered table-striped spp">
                     <thead>
                         <tr>
@@ -210,6 +263,7 @@
                         </tr>
                     </tbody>
                 </table>
+                @endif
             </li>
             <li>Dana daftar ulang tahunan meliputi dana kegiatan dan sarana pembelajaran</li>
             <li>Kenaikan SPP diberlakukan saat awal tahun sesuai dengan ketentuan yang berlaku</li>

@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Biaya PPDB Calon Siswa - SIT Nurul Fikri</title>
     <style>
             /** Define the margins of your page **/
@@ -101,7 +103,7 @@
                     Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
                 </td>
                 <td align="right" width="10%">
-                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('https://ppdb.nurulfikri.sch.id/img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
+                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
                 </td>
             </tr>
         </table>

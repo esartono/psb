@@ -44,6 +44,7 @@ class CalonPDFController extends Controller
 
     public function seleksi($id)
     {
+        ini_set('max_execution_time', 1200);
         if (auth()->user()->isUser()){
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
                         ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
@@ -71,6 +72,7 @@ class CalonPDFController extends Controller
     
     public function bayarPPDB($id)
     {
+        ini_set('max_execution_time', 1200);
         if (auth()->user()->isUser()){
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
                         ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
@@ -83,7 +85,7 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminKeu()){
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
                         ->where('id',$id)->where('status', 1);
             if($calons->get()->count() > 0) {
@@ -98,6 +100,7 @@ class CalonPDFController extends Controller
 
     public function daul($id)
     {
+        ini_set('max_execution_time', 1200);
         if (auth()->user()->isUser()){
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
                         ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
@@ -138,6 +141,7 @@ class CalonPDFController extends Controller
 
     public function terima($pendaftaran)
     {
+        ini_set('max_execution_time', 1200);
         $gel = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first()->id;
         $urut = intval(substr($pendaftaran,6));
         if (auth()->user()->isUser()){
@@ -179,6 +183,7 @@ class CalonPDFController extends Controller
 
     public function seragam($id)
     {
+        ini_set('max_execution_time', 1200);
         if (auth()->user()->isUser()){
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
                         ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
@@ -285,6 +290,7 @@ class CalonPDFController extends Controller
 
     public function getCalon(Request $request)
     {
+        ini_set('max_execution_time', 1200);
         $id = $request->id;
         $va = substr($id, 0, 6);
         $urt = intval(substr($id, 6));

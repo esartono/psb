@@ -75,23 +75,39 @@ class WawancaraController extends Controller
         // $tgh_id = $ctg->tagihanpsb_id;
         //Kalo ini ada yg di edit, maka di TagihanPSBController.show juga mulai dari baris ini
         $khusus = 0;
-        $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
+        
+        if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
+            $tp_cek = $tp_awal-1 . '/' . $tp_awal;
+            $tp_pindahan = TahunPelajaran::where('name', $tp_cek)->first()->id;
+            $unit_cek = Gelombang::where('id', $calon->gel_id)->first()->unit_id;
+            $gel_pindahan = Gelombang::where('unit_id', $unit_cek)->where('tp', $tp_pindahan)->first()->id;
+            $biayas = TagihanPSB::where('gel_id', $gel_pindahan)
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
                 ->first();
+            
+            $biaya1 = $biayas->biaya1 + ['SPP bulan Juli' => $biayas->spppindahan];
+            $total1 = $biayas->totalpindahan[1];
+
+        } else {
+            $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
+                ->where('kelas', $calon->kelas_tujuan)
+                ->where('kelamin', $calon->jk)
+                ->first();
+
+            $biaya1 = $biayas->biaya1 + ['SPP bulan Juli' => $biayas->spp];
+            // $biaya2 = $biayas->biaya2;
+            // $biaya3 = $biayas->biaya3;
+            
+            $total1 = $biayas->total[1];
+            // $total2 = $biayas->total[2];
+            // $total3 = $biayas->total[3];
+        }
 
         if (TagihanPSB::where('gel_id', $calon->uruts)->exists()) {
             $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
             $khusus = 1;
         }
-
-        $biaya1 = $biayas->biaya1 + ['SPP bulan Juli' => $biayas->spp];
-        // $biaya2 = $biayas->biaya2;
-        // $biaya3 = $biayas->biaya3;
-
-        $total1 = $biayas->total[1];
-        // $total2 = $biayas->total[2];
-        // $total3 = $biayas->total[3];
 
         if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
             $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan/100);
@@ -125,6 +141,23 @@ class WawancaraController extends Controller
             '11' => 5000000,
             '12' => 6000000,
         ];
+
+        if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
+            $daul = [
+                'TK A' => 2000000,
+                'TK B' => 2000000,
+                '2' => 3500000,
+                '3' => 3750000,
+                '4' => 4100000,
+                '5' => 4500000,
+                '6' => 4500000,
+                '8' => 4000000,
+                '9' => 4250000,
+                '11' => 4500000,
+                '12' => 5000000,
+            ];
+        }
+
         $bln = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
         $totalAll = [];
@@ -133,6 +166,8 @@ class WawancaraController extends Controller
         $dauls = 0;
         $totalth = 0;
         $tgh_id = 1;
+
+        $bulanmasuk = 'SPP bulan '.$bln[$calon->rencana_masuk];
 
         if($calon->pindahan === 0) {
             $bulan = 'SPP '.$bln[($calon->rencana_masuk)+1].' '.($tp_awal+$no-1).' s/d SPP Juni '.($tp_akhir+$no-1);
@@ -164,6 +199,9 @@ class WawancaraController extends Controller
                     $kelas[$k->name]['total'][0] = $sppnya*11;
                     $totalth = $totalth + $sppnya*11;
                 }
+                if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
+                    $sppnya = $biayas->spppindahan;
+                }
                 if ($pindahan == 1) {
                     // $kelas[$k->name]['ket'][0] = 'SPP Februari s/d SPP Juni '.($tp_akhir+$no-1-$khusus);
                     $kelas[$k->name]['ket'][0] = $bulan;
@@ -173,6 +211,9 @@ class WawancaraController extends Controller
             }
             if ($no > 1) {
                 $sppnya = $biayas->spp + ($spp_naik*($no-1));
+                if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
+                    $sppnya = $biayas->spppindahan + ($spp_naik*($no-1));
+                }
                 if($ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
                     $sppnya = ($biayas->spp + ($spp_naik*($no-1))) * ($ctg->potongan/100);
                 }
@@ -240,7 +281,7 @@ class WawancaraController extends Controller
         }
 
         // if ($ctg->khusus == 0) {
-            $pdf = PDF::loadView('pdf.'.substr(auth()->user()->tp_name,0 ,4).'.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas'));
+            $pdf = PDF::loadView('pdf.'.substr(auth()->user()->tp_name,0 ,4).'.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas', 'bulanmasuk'));
         // }
 
         // if ($khusus == 1) {
@@ -381,6 +422,7 @@ class WawancaraController extends Controller
             'keterangan' => $keterangan,
             'infaq' => $request['infaq'],
             'infaqnfpeduli' => $request['infaqnfpeduli'],
+            'saudara' => $request['saudara'],
         ]);
 
         return redirect()->route('wawancara-keu');

@@ -78,6 +78,55 @@ class TagihanPSB extends Model
         return $total;
     }
 
+    public function getTotalpindahanAttribute()
+    {
+        $total = [];
+        $total[1] = 0;
+        $total[2] = 0;
+        $total[3] = 0;
+        $sppnya = 0;
+
+        $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        $tp_cek = explode("/", $tp_now);
+        $tp_awal = intval($tp_cek[0]);
+        $tp_pindahan = $tp_awal-1 . '/' . $tp_awal;
+
+        $tp = TahunPelajaran::where('name', $tp_pindahan)->first()->id;
+        $unit = Gelombang::whereId($this->attributes['gel_id'])->first()->unit_id;
+        if($tp){
+            $spp = Spp::where('tp', $tp)->where('unit_id', $unit)->first();
+            if($spp){
+                $sppnya = $spp->spp;
+            }
+        }
+
+        if($this->attributes['biaya1']){
+            $biaya = json_decode($this->attributes['biaya1']);
+            foreach($biaya as $k => $v){
+                $total[1] = $total[1] + $v;
+            }
+            $total[1] = $total[1] + $sppnya;
+        }
+
+        if($this->attributes['biaya2']){
+            $biaya = json_decode($this->attributes['biaya2']);
+            foreach($biaya as $k => $v){
+                $total[2] = $total[2] + $v;
+            }
+            $total[2] = $total[2] + $sppnya;
+        }
+
+        if($this->attributes['biaya3']){
+            $biaya = json_decode($this->attributes['biaya3']);
+            foreach($biaya as $k => $v){
+                $total[3] = $total[3] + $v;
+            }
+            $total[3] = $total[3] + $sppnya;
+        }
+
+        return $total;
+    }
+
     public static function biayanya($id)
     {
         $calon = Calon::where('id', $id)->first();
@@ -111,7 +160,25 @@ class TagihanPSB extends Model
         }
         return 0;
     }
+    
+    public function getSpppindahanAttribute()
+    {
+        $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        $tp_cek = explode("/", $tp_now);
+        $tp_awal = intval($tp_cek[0]);
+        $tp_pindahan = $tp_awal-1 . '/' . $tp_awal;
 
+        $tp = TahunPelajaran::where('name', $tp_pindahan)->first()->id;
+        $unit = Gelombang::whereId($this->attributes['gel_id'])->first()->unit_id;
+        if($tp){
+            $spp = Spp::where('tp', $tp)->where('unit_id', $unit)->first();
+            if($spp){
+                return $spp->spp;
+            }
+        }
+        return 0;
+    }
+    
     public static function sppnya($id)
     {
         $calon = Calon::where('id', $id)->first();

@@ -197,7 +197,12 @@
 </div>
 </template>
 
+<script type="module">
+  import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js'
+</script>
+
 <script>
+
 export default {
   props: ['tglbatas'],
   data() {
@@ -272,28 +277,6 @@ export default {
       ],
       siswanf: [],
       biaya: [],
-      // biaya: [
-      //   {
-      //     'id': 0,
-      //     'name': 'Dana Pengembangan',
-      //   },
-      //   {
-      //     'id': 1,
-      //     'name': 'Dana Pendidikan',
-      //   },
-      //   {
-      //     'id': 2,
-      //     'name': 'SPP bulan Juli',
-      //   },
-      //   {
-      //     'id': 3,
-      //     'name': 'Iuran Komite Sekolah / tahun',
-      //   },
-      //   {
-      //     'id': 4,
-      //     'name': 'Seragam'
-      //   },
-      // ],
       form: new Form({
         calon_id: "",
         tagihan_id: "",
@@ -352,6 +335,15 @@ export default {
           .catch(() => {
             this.$Progress.fail();
           });
+    },
+
+    fuseSearch(options, search) {
+      const fuse = new Fuse(siswanf, {
+        shouldSort: true,
+      })
+      return search.length
+        ? fuse.search(search).map(({ item }) => item)
+        : fuse.list
     },
 
     cekNotif($e) {

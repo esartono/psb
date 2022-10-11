@@ -61,9 +61,9 @@ class ViewCalonBiayaTes extends Command
                         //'chat_id' => '-1001398300408',
                         'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
                     ]);
-                    Wa::kirim(
-                        $l->usernya->phone,
-                        'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
+                    // Wa::kirim(
+                    //     $l->usernya->phone,
+                    //     'Terima kasih Bapak/Ibu '.$l->usernya->name.', Pembayaran Biaya Pendaftaran atas nama '.$bayar['inquiry_response_nama'].' telah kami terima');
                     $cek = CalonBiayaTes::where('calon_id', $l->id)->first();
                     $cek->update(['lunas' => 1]);
                     $cek->lunas($l->id);

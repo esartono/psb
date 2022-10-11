@@ -70,7 +70,7 @@
         <div class="col-md-7 mb-3">
             <div class="card h-100">
                 <div class="card-header white bg-{{ $calon->gelnya->unitnya->catnya->name }} card-{{ $calon->gelnya->unitnya->catnya->name }}-outline">
-                    <h5>Status : {{ $calon->status == 0 ? 'Tidak Aktif' : 'Aktif' }} - {{ $calon->tahap }}</h5>
+                    <h5>Status : {{ $calon->status == 0 ? 'Tidak Aktif' : 'Aktif' }}</h5>
                 </div>
                 <div class="card-body box-profile">
                     <div class="row">

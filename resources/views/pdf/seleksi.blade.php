@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <th colspan="2" align="center">
-                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(150)->margin(0.2)->merge('https://ppdb.nurulfikri.sch.id/img/logo.png', .2, true)->generate($calonsnya->uruts)) !!} ">
+                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(150)->margin(0.2)->merge('img/logo.png', .2, true)->generate($calonsnya->uruts)) !!} ">
                     <div class="qr">{{ $calonsnya->uruts }} </div>
                 </th>
             </tr>

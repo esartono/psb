@@ -53,6 +53,16 @@
                                 onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label">Saudara</label>
+                            <div class="col-md-8">
+                                <input type="text" name="saudara" class="form-control" id="saudara"
+                                    @if($potongan->saudara)
+                                        value={{ $potongan->saudara }}
+                                    @endif
+                                >
+                            </div>
+                        </div>
                         <hr>
                         <center>
                             <a href="/wawancara-keu" class="btn btn-danger col-md-2">
