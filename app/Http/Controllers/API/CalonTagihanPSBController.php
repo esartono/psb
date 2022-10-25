@@ -20,17 +20,43 @@ class CalonTagihanPSBController extends Controller
      */
     public function index()
     {
-        if(auth('api')->user()->isHaveAccess([1,4])) {
+        if (auth('api')->user()->isHaveAccess([1, 4])) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
         }
 
-        if(auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
         }
 
-        if(auth('api')->user()->isHaveAccess([1,4]) || auth('api')->user()->isAdminUnit()) {
-            return CalonTagihanPSB::with('calonnya')->get()->toArray();
+        if (auth('api')->user()->isHaveAccess([1, 4]) || auth('api')->user()->isAdminUnit()) {
+            $calons = Calon::whereIn('gel_id', $gelombang)->pluck('id');
+            return CalonTagihanPSB::with('calonnya')->whereIn('calon_id', $calons)->get()->toArray();
+            // return DB::table('calons')
+            //     ->select(
+            //         'calons.id',
+            //         'calons.name',
+            //         'jk',
+            //         'gelombangs.kode_va',
+            //         'users.name as ygwawancara',
+            //         'calon_tagihan_p_s_b_s.infaq',
+            //         'calon_tagihan_p_s_b_s.infaqnfpeduli',
+            //         'calon_tagihan_p_s_b_s.potongan',
+            //         'calon_tagihan_p_s_b_s.va1',
+            //         'calon_tagihan_p_s_b_s.saudara',
+            //         'urut',
+            //         DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+            //     )
+            //     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+            //     ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
+            //     ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
+            //     ->whereIn('gel_id', $gelombang)
+            //     ->where('calons.status', 1)
+            //     ->where('calons.aktif', true)
+            //     ->orderBy('ygwawancara', 'asc')
+            //     ->orderBy('calons.name', 'asc')
+            //     ->get()
+            //     ->toArray();
         }
     }
 
@@ -41,39 +67,39 @@ class CalonTagihanPSBController extends Controller
                 'potongan' => 0,
                 'keterangan' => 'Tidak ada potongan',
                 'notif' => 0
-            ],[
+            ], [
                 'potongan' => 10,
                 'keterangan' => 'Asal dari NF (Depok/Bogor)',
                 'notif' => 0
-            ],[
+            ], [
                 'potongan' => 5,
                 'keterangan' => 'Memiliki Saudara kandung PERTAMA di NF',
                 'notif' => 1
-            ],[
+            ], [
                 'potongan' => 10,
                 'keterangan' => 'Memiliki Saudara kandung KEDUA di NF',
                 'notif' => 1
-            ],[
+            ], [
                 'potongan' => 10,
                 'keterangan' => 'Diskon Mendaftarkan lebih dari 1',
                 'notif' => 1
-            ],[
+            ], [
                 'potongan' => 50,
                 'keterangan' => 'Diskon anak PEGAWAI TETAP',
                 'notif' => 1
-            ],[
+            ], [
                 'potongan' => 50,
                 'keterangan' => 'Diskon anak PEGAWAI KONTRAK',
                 'notif' => 1
-            ],[
+            ], [
                 'potongan' => 25,
                 'keterangan' => 'Diskon Undangan Khusus asal NF (Depok/Bogor)',
                 'notif' => 0
-            ],[
+            ], [
                 'potongan' => 50,
                 'keterangan' => 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)',
                 'notif' => 0
-            ],[
+            ], [
                 'potongan' => 25,
                 'keterangan' => 'Diskon Hafal minimal 15 Juz',
                 'notif' => 0
@@ -81,16 +107,17 @@ class CalonTagihanPSBController extends Controller
         ];
         $potongan = 0;
         $keterangan = $pots[0]['keterangan'];
-        if($request->potongan) {
+        if ($request->potongan) {
             $potongan = $pots[$request->potongan]['potongan'];
             $keterangan = $pots[$request->potongan]['keterangan'];
         }
-        $saudara = implode(', ',$request['saudara']);
+        $saudara = implode(', ', $request['saudara']);
         CalonTagihanPSB::updateOrCreate(
             [
                 'calon_id' => $request['calon_id'],
                 'pewawancara' => auth('api')->user()->id
-            ],[
+            ],
+            [
                 'va1' => '860001',
                 'va2' => '',
                 'infaq' => $request['infaq'],
@@ -107,7 +134,8 @@ class CalonTagihanPSBController extends Controller
         CalonHasil::updateOrCreate(
             [
                 'pendaftaran' => $calon->uruts
-            ],[
+            ],
+            [
                 'lulus' => 0,
                 'catatan' => '',
                 'va' => ''
@@ -157,5 +185,4 @@ class CalonTagihanPSBController extends Controller
 
         return $calon;
     }
-
 }

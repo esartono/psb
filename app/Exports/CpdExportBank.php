@@ -3,6 +3,8 @@
 namespace App\Exports;
 
 use App\CalonTagihanPSB;
+use App\Gelombang;
+use App\Calon;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -16,27 +18,30 @@ class CpdExportBank implements FromView
         $this->data = $data;
     }
 
-    public function view() : view
+    public function view(): view
     {
-        if(auth()->user()->isHaveAccess([1,4])) {
-            if($this->data == 1) {
-                $calons = CalonTagihanPSB::with('calonnya')->get();
+        $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+        $calons = Calon::whereIn('gel_id', $gelombang)->pluck('id');
+
+        if (auth()->user()->isHaveAccess([1, 4])) {
+            if ($this->data == 1) {
+                $calons = CalonTagihanPSB::with('calonnya')->whereIn('calon_id', $calons)->get();
                 return view('exports.muamalat', [
                     'calons' => $calons,
                     'no' => 1,
                 ]);
             }
 
-            if($this->data == 2) {
-                $calons = CalonTagihanPSB::with('calonnya.kelasnya')->whereNull('va2')->get();
+            if ($this->data == 2) {
+                $calons = CalonTagihanPSB::with('calonnya.kelasnya')->whereIn('calon_id', $calons)->whereNull('va2')->get();
                 return view('exports.bjbs', [
                     'calons' => $calons,
                     'no' => 1,
                 ]);
             }
 
-            if($this->data == 3) {
-                $calons = CalonTagihanPSB::with('calonnya')->get();
+            if ($this->data == 3) {
+                $calons = CalonTagihanPSB::with('calonnya')->whereIn('calon_id', $calons)->get();
                 $now = new \DateTime();
                 $reg1 = new \DateTime('2020-11-4');
                 $reg2 = new \DateTime('2020-12-1');
@@ -47,15 +52,15 @@ class CpdExportBank implements FromView
                 $judul = 3;
                 // }
 
-                if($reg3 > $now) {
+                if ($reg3 > $now) {
                     $judul = 3;
                 }
 
-                if($reg2 > $now) {
+                if ($reg2 > $now) {
                     $judul = 2;
                 }
 
-                if($reg1 > $now) {
+                if ($reg1 > $now) {
                     $judul = 1;
                 }
 

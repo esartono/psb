@@ -34,6 +34,9 @@
                                     <option @if($potongan->keterangan === 'Diskon Undangan Khusus asal NF (Depok/Bogor)') selected='true' @endif value=7>Diskon Undangan Khusus asal NF (Depok/Bogor)</option>
                                     <option @if($potongan->keterangan === 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)') selected='true' @endif value=8>Diskon Pemenang Lomba tingkat Nasional (Bertingkat)</option>
                                     <option @if($potongan->keterangan === 'Diskon Hafal minimal 15 Juz') selected='true' @endif value=9>Diskon Hafal minimal 15 Juz</option>
+                                    <option @if($potongan->keterangan === 'Diskon Hafal minimal 4 Juz untuk Pendaftar SD') selected='true' @endif value=10>Diskon Hafal minimal 4 Juz untuk Pendaftar SD</option>
+                                    <option @if($potongan->keterangan === 'Diskon Hafal minimal 8 Juz untuk Pendaftar SMP') selected='true' @endif value=11>Diskon Hafal minimal 8 Juz untuk Pendaftar SMP</option>
+                                    <option @if($potongan->keterangan === 'Diskon Hafal minimal 10 Juz untuk Pendaftar SMA') selected='true' @endif value=12>Diskon Hafal minimal 10 Juz untuk Pendaftar SMA</option>
                                 </select>
                             </div>
                         </div>

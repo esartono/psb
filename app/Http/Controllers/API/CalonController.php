@@ -44,13 +44,13 @@ class CalonController extends Controller
 
     public function index()
     {
-        if (auth('api')->user()->isUser()){
+        if (auth('api')->user()->isUser()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya');
 
             return $calons->where('user_id', auth('api')->user()->id)
-                    ->where('aktif', true)
-                    ->whereIn('gel_id', $gelombang)->get()->toArray();
+                ->where('aktif', true)
+                ->whereIn('gel_id', $gelombang)->get()->toArray();
         }
     }
 
@@ -74,7 +74,7 @@ class CalonController extends Controller
             'gel_id' => $request['gel_id'],
             'ck_id' => $request['ck_id'],
             'tgl_daftar' => date('Y-m-d'),
-            'urut' => $urut+1,
+            'urut' => $urut + 1,
             'nisn' => $request['nisn'],
             'nik' => $request['nik'],
             'name' => $request['name'],
@@ -123,9 +123,9 @@ class CalonController extends Controller
         ]);
 
         $biaya = BiayaTes::where('gel_id', $request['gel_id'])
-                    ->where('ck_id', $request['ck_id'])
-                    ->get()->first();
-        if($biaya) {
+            ->where('ck_id', $request['ck_id'])
+            ->get()->first();
+        if ($biaya) {
             $calonbiaya = CalonBiayaTes::create([
                 'calon_id' => $calon->id,
                 'biaya_id' => $biaya->id,
@@ -133,7 +133,7 @@ class CalonController extends Controller
             ]);
 
             Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
-            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
             // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
             //     {
             //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
@@ -150,180 +150,231 @@ class CalonController extends Controller
      */
     public function show($id)
     {
-        if(auth('api')->user()->isUser()){
+        if (auth('api')->user()->isUser()) {
             $calon = Calon::with('gelnya.unitnya.catnya')
                 ->where('user_id', auth('api')->user()->id)
                 ->where('id', $id)
                 ->first();
 
-            if($calon) {
+            if ($calon) {
                 $kota = Kota::where('prov_id', $calon->provinsi)->get();
                 $camat = Kecamatan::where('kota_id', $calon->kota)->get();
                 $lurah = Kelurahan::where('camat_id', $calon->kecamatan)->get();
                 $kota_sekolah = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
                 $camat_sekolah = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
                 $lurah_sekolah = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
-                return compact('calon','kota','camat','lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
+                return compact('calon', 'kota', 'camat', 'lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
             } else {
                 return response()->json(['message' => 'Not Found!'], 404);
             }
         }
 
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()){
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
             $calon = Calon::with('gelnya.unitnya.catnya')->where('id', $id)->first();
 
-            if($calon) {
+            if ($calon) {
                 $kota = Kota::where('prov_id', $calon->provinsi)->get();
                 $camat = Kecamatan::where('kota_id', $calon->kota)->get();
                 $lurah = Kelurahan::where('camat_id', $calon->kecamatan)->get();
                 $kota_sekolah = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
                 $camat_sekolah = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
                 $lurah_sekolah = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
-                return compact('calon','kota','camat','lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
+                return compact('calon', 'kota', 'camat', 'lurah', 'kota_sekolah', 'camat_sekolah', 'lurah_sekolah');
             } else {
                 return response()->json(['message' => 'Not Found!'], 404);
             }
         }
-
     }
 
     public function indexAdmin($id)
     {
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes()) {
-                $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes()) {
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if (auth('api')->user()->isAdminUnit()) {
+            $unit = auth('api')->user()->unit_id;
+            $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
+            if ($id === '1000') {
+                return DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'jk',
+                        'gelombangs.kode_va',
+                        'users.name as ygwawancara',
+                        'urut',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
+                    ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('calons.status', 1)
+                    ->where('calons.aktif', true)
+                    ->orderBy('ygwawancara', 'asc')
+                    ->orderBy('calons.name', 'asc')
+                    ->get()
+                    ->toArray();
             }
+        }
 
-            if(auth('api')->user()->isAdminUnit()) {
-                $unit = auth('api')->user()->unit_id;
-                $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            if ($id === '1001') {
+                $calons = DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'units.name as unit',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                        DB::raw("GROUP_CONCAT(j_dokus.name ORDER BY j_dokus.name SEPARATOR ',') as sudah")
+                    )
+                    ->groupBy('calons.id')
+                    ->leftJoin('dokus', 'calons.id', '=', 'dokus.calon_id')
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                    ->leftJoin('j_dokus', 'dokus.jdoku', '=', 'j_dokus.code')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('calons.status', 1)
+                    ->where('calons.aktif', true)
+                    ->orderBy('calons.name', 'asc')
+                    ->get();
+
+                return $calons->map(function ($arr) {
+                    $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
+                    $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
+                    $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
+                    $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
+
+                    $u = trim(str_replace('IT Nurul Fikri', '', $arr->unit));
+                    $s = explode(',', $arr->sudah);
+                    $sdh = implode(', ', array_diff($jdoku[$u], $s));
+
+                    return [
+                        'id' => $arr->id,
+                        'name' => $arr->name,
+                        'unit' => $arr->unit,
+                        'uruts' => $arr->uruts,
+                        'sudah' => ($sdh == '') ? 'Lengkap' : $sdh
+                    ];
+                });
+
+                // return compact('calons');
             }
+        }
 
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu()) {
-                if ($id === '1000') {
-                    return DB::table('calons')
-                        ->select('calons.id', 'calons.name', 'jk', 'gelombangs.kode_va', 'users.name as ygwawancara', 'urut',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
-                        ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
-                        ->whereIn('gel_id', $gelombang)
-                        ->where('calons.status', 1)
-                        ->where('calons.aktif', true)
-                        ->orderBy('ygwawancara', 'asc')
-                        ->orderBy('calons.name', 'asc')
-                        ->get()
-                        ->toArray();
-                }
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
+            if ($id === '101') {
+                return DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'units.name as unit',
+                        'users.email as email',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                    ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('calons.status', 1)
+                    ->where('calons.aktif', true)
+                    ->orderBy('calons.name', 'asc')
+                    ->get()
+                    ->toArray();
             }
+        }
 
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-                if ($id === '1001') {
-                    $calons = DB::table('calons')
-                        ->select('calons.id', 'calons.name', 'units.name as unit',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
-                                DB::raw("GROUP_CONCAT(j_dokus.name ORDER BY j_dokus.name SEPARATOR ',') as sudah"))
-                        ->groupBy('calons.id')
-                        ->leftJoin('dokus', 'calons.id', '=', 'dokus.calon_id')
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
-                        ->leftJoin('j_dokus', 'dokus.jdoku', '=', 'j_dokus.code')
-                        ->whereIn('gel_id', $gelombang)
-                        ->where('calons.status', 1)
-                        ->where('calons.aktif', true)
-                        ->orderBy('calons.name', 'asc')
-                        ->get();
-
-                    return $calons->map(function ($arr) {
-                        $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
-                        $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
-                        $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
-                        $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
-
-                        $u = trim(str_replace('IT Nurul Fikri','',$arr->unit));
-                        $s = explode(',', $arr->sudah);
-                        $sdh = implode(', ', array_diff($jdoku[$u], $s));
-
-                        return [
-                            'id' => $arr->id,
-                            'name' => $arr->name,
-                            'unit' => $arr->unit,
-                            'uruts' => $arr->uruts,
-                            'sudah' => ($sdh == '') ? 'Lengkap' : $sdh
-                        ];
-                    });
-
-                    // return compact('calons');
-                }
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isPengadaan()) {
+            if ($id === '102') {
+                return DB::table('calon_seragams')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'units.name as unit',
+                        'calon_seragams.atas as atas',
+                        'calon_seragams.bawah as bawah',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                        DB::raw('IF(calons.jk=1, "L", "P") as kelamin')
+                    )
+                    ->leftJoin('calons', 'calon_seragams.calon_id', '=', 'calons.id')
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->orderBy('calons.name', 'asc')
+                    ->get()
+                    ->toArray();
             }
+        }
 
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
-                if ($id === '101') {
-                    return DB::table('calons')
-                        ->select('calons.id', 'calons.name', 'units.name as unit', 'users.email as email',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
-                        ->leftJoin('users', 'calons.user_id', '=', 'users.id')
-                        ->whereIn('gel_id', $gelombang)
-                        ->where('calons.status', 1)
-                        ->where('calons.aktif', true)
-                        ->orderBy('calons.name', 'asc')
-                        ->get()
-                        ->toArray();
-                }
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit() || auth('api')->user()->isAdminKeu()) {
+            if ($id === '100') {
+                // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                //     ->whereIn('gel_id', $gelombang)
+                //     ->where('aktif', true)
+                //     ->get()->toArray();
+                return DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'jk',
+                        'tempat_lahir',
+                        'tgl_lahir',
+                        'ayah_nama',
+                        'ibu_nama',
+                        'users.email as email',
+                        'jurusan',
+                        'asal_sekolah',
+                        'calon_kategoris.name as ck',
+                        'gelombangs.kode_va',
+                        'urut',
+                        'units.name as unit',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                    ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                    ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('aktif', true)
+                    ->get()->toArray();
+            } else {
+                return DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'jk',
+                        'tempat_lahir',
+                        'tgl_lahir',
+                        'ayah_nama',
+                        'ayah_hp',
+                        'ibu_nama',
+                        'ibu_hp',
+                        'jurusan',
+                        'asal_sekolah',
+                        'calon_kategoris.name as ck',
+                        'gelombangs.kode_va',
+                        'urut',
+                        'tgl_daftar',
+                        'expired',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                    ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('calons.status', $id)
+                    ->where('aktif', true)
+                    ->get()->toArray();
+                // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                //     ->whereIn('gel_id', $gelombang)
+                //     ->where('status',$id)
+                //     ->get()->toArray();
             }
-
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isPengadaan()) {
-                if ($id === '102') {
-                    return DB::table('calon_seragams')
-                        ->select('calons.id', 'calons.name', 'units.name as unit', 'calon_seragams.atas as atas', 'calon_seragams.bawah as bawah',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
-                                DB::raw('IF(calons.jk=1, "L", "P") as kelamin'))
-                        ->leftJoin('calons', 'calon_seragams.calon_id', '=', 'calons.id')
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
-                        ->whereIn('gel_id', $gelombang)
-                        ->orderBy('calons.name', 'asc')
-                        ->get()
-                        ->toArray();
-                }
-            }
-
-            if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit() || auth('api')->user()->isAdminKeu()) {
-                if ($id === '100') {
-                    // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
-                    //     ->whereIn('gel_id', $gelombang)
-                    //     ->where('aktif', true)
-                    //     ->get()->toArray();
-                    return DB::table('calons')
-                        ->select('calons.id', 'calons.name', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ibu_nama', 'users.email as email',
-                                'jurusan', 'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'units.name as unit',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
-                        ->leftJoin('users', 'calons.user_id', '=', 'users.id')
-                        ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
-                        ->whereIn('gel_id', $gelombang)
-                        ->where('aktif', true)
-                        ->get()->toArray();
-                } else {
-                    return DB::table('calons')
-                        ->select('calons.id', 'calons.name', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ayah_hp', 'ibu_nama', 'ibu_hp',
-                                'jurusan', 'asal_sekolah', 'calon_kategoris.name as ck', 'gelombangs.kode_va', 'urut', 'tgl_daftar', 'expired',
-                                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'))
-                        ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                        ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
-                        ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
-                        ->whereIn('gel_id', $gelombang)
-                        ->where('calons.status', $id)
-                        ->where('aktif', true)
-                        ->get()->toArray();
-                    // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
-                    //     ->whereIn('gel_id', $gelombang)
-                    //     ->where('status',$id)
-                    //     ->get()->toArray();
-                }
-            }
+        }
     }
 
     /**
@@ -386,15 +437,14 @@ class CalonController extends Controller
 
     public function exportBank($id)
     {
-        if($id === "1"){
+        if ($id === "1") {
             return Excel::download(new CpdExportBank(1), 'Ajuan VA Bank Muamalat.xlsx');
         }
-        if($id === "2"){
+        if ($id === "2") {
             return Excel::download(new CpdExportBank(2), 'Ajuan VA Bank BJBS.xlsx');
         }
-        if($id === "3"){
-            return Excel::download(new CpdExportBank(3), 'Tagihan PPDB '.str_replace("/","-",auth()->user()->tpname).'.xlsx');
+        if ($id === "3") {
+            return Excel::download(new CpdExportBank(3), 'Tagihan PPDB ' . str_replace("/", "-", auth()->user()->tpname) . '.xlsx');
         }
     }
-
 }

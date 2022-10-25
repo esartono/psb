@@ -320,24 +320,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <router-link to="/cpdHasil/0" class="nav-link">
-                  <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Belum</p>
-                </router-link>
-              </li>
+              @if(Auth::user()->isHaveAccess([1]))
+                <li class="nav-item">
+                  <router-link to="/cpdHasil/0" class="nav-link">
+                    <i class="fas fa-caret-right nav-icon"></i>
+                    <p>Belum</p>
+                  </router-link>
+                </li>
+              @endif
               <li class="nav-item">
                 <router-link to="/cpdHasil/1" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Diterima</p>
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link to="/cpdHasil/2" class="nav-link">
-                  <i class="fas fa-caret-right nav-icon"></i>
-                  <p>Cadangan</p>
-                </router-link>
-              </li>
+              @if(Auth::user()->isHaveAccess([1]))
+                <li class="nav-item">
+                  <router-link to="/cpdHasil/2" class="nav-link">
+                    <i class="fas fa-caret-right nav-icon"></i>
+                    <p>Cadangan</p>
+                  </router-link>
+                </li>
+              @endif
               <li class="nav-item">
                 <router-link to="/cpdHasil/3" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>

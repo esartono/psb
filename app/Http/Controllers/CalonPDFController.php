@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Calon;
 use App\Gelombang;
 use App\Tagihan;
@@ -18,10 +19,10 @@ class CalonPDFController extends Controller
 {
     public function biayates($id)
     {
-        if (auth()->user()->isUser()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('user_id', auth()->user()->id);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('user_id', auth()->user()->id);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.biayates', compact('calonsnya'));
                 return $pdf->stream('');
@@ -30,9 +31,9 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$id);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $id);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.biayates', compact('calonsnya'));
                 return $pdf->stream('');
@@ -45,10 +46,10 @@ class CalonPDFController extends Controller
     public function seleksi($id)
     {
         ini_set('max_execution_time', 1200);
-        if (auth()->user()->isUser()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.seleksi', compact('calonsnya'));
                 return $pdf->stream('');
@@ -57,10 +58,10 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.seleksi', compact('calonsnya'));
                 return $pdf->stream('');
@@ -69,14 +70,14 @@ class CalonPDFController extends Controller
             }
         }
     }
-    
+
     public function bayarPPDB($id)
     {
         ini_set('max_execution_time', 1200);
-        if (auth()->user()->isUser()){
+        if (auth()->user()->isUser()) {
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
-                        ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
-            if($calons->get()->count() > 0) {
+                ->where('id', $id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->get()->count() > 0) {
                 $calon = $calons->first();
                 $pdf = PDF::loadView('pdf.bayarPPDB', compact('calon'));
                 return $pdf->stream('');
@@ -85,10 +86,10 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminKeu()){
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminKeu()) {
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
-                        ->where('id',$id)->where('status', 1);
-            if($calons->get()->count() > 0) {
+                ->where('id', $id)->where('status', 1);
+            if ($calons->get()->count() > 0) {
                 $calon = $calons->first();
                 $pdf = PDF::loadView('pdf.bayarPPDB', compact('calon'));
                 return $pdf->stream('');
@@ -101,23 +102,22 @@ class CalonPDFController extends Controller
     public function daul($id)
     {
         ini_set('max_execution_time', 1200);
-        if (auth()->user()->isUser()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
-            if($calons->first())
-            {
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->first()) {
                 $pend = $calons->first()->uruts;
 
                 $pd = CalonDaul::where('pendaftaran', $pend)->first();
-                if(!$pd) {
+                if (!$pd) {
                     return redirect('ppdb');
                 }
-                if($pd->lunas == 0) {
+                if ($pd->lunas == 0) {
                     return redirect('ppdb');
                 }
             }
 
-            if($calons->get()->count() > 0) {
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.daul', compact('calonsnya'));
                 return $pdf->stream('');
@@ -126,10 +126,10 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.daul', compact('calonsnya'));
                 return $pdf->stream('');
@@ -142,24 +142,23 @@ class CalonPDFController extends Controller
     public function terima($pendaftaran)
     {
         ini_set('max_execution_time', 1200);
-        $gel = Gelombang::where('kode_va', substr($pendaftaran,0,6))->first()->id;
-        $urut = intval(substr($pendaftaran,6));
-        if (auth()->user()->isUser()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                    ->where('urut', $urut)->where('gel_id', $gel)
-                    ->where('status', 1)->where('user_id', auth()->user()->id);
-            if($calons->first())
-            {
+        $gel = Gelombang::where('kode_va', substr($pendaftaran, 0, 6))->first()->id;
+        $urut = intval(substr($pendaftaran, 6));
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('urut', $urut)->where('gel_id', $gel)
+                ->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->first()) {
                 $pd = CalonTagihanPSB::where('calon_id', $id)->first();
-                if(!$pd) {
+                if (!$pd) {
                     return redirect('ppdb');
                 }
-                if($pd->lunas == 0) {
+                if ($pd->lunas == 0) {
                     return redirect('ppdb');
                 }
             }
 
-            if($calons->get()->count() > 0) {
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.terima', compact('calonsnya'));
                 return $pdf->stream('');
@@ -168,10 +167,10 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                    ->where('urut', $urut)->where('gel_id', $gel)->where('status', 1);
-            if($calons->get()->count() > 0) {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('urut', $urut)->where('gel_id', $gel)->where('status', 1);
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 $pdf = PDF::loadView('pdf.terima', compact('calonsnya'));
                 return $pdf->stream('');
@@ -184,11 +183,10 @@ class CalonPDFController extends Controller
     public function seragam($id)
     {
         ini_set('max_execution_time', 1200);
-        if (auth()->user()->isUser()){
-            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                        ->where('id',$id)->where('status', 1)->where('user_id', auth()->user()->id);
-            if($calons->first())
-            {
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->first()) {
                 $pend = $calons->first()->uruts;
 
                 // $pd = CalonTagihan::where('pendaftaran', $pend)->first()->lunas;
@@ -197,44 +195,39 @@ class CalonPDFController extends Controller
                 // }
             }
 
-            if($calons->get()->count() > 0) {
+            if ($calons->get()->count() > 0) {
                 $calonsnya = $calons->first();
                 // $lunas = CalonTagihan::where('pendaftaran', $calonsnya->uruts)->first()->lunas;
                 $seragam = AmbilSeragam::where('pendaftaran', $calonsnya->uruts)->first();
 
-                if(!$seragam){
+                if (!$seragam) {
                     $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya'));
                     return $pdf->stream('');
                 }
                 // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
                 // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'seragam'));
 
-                if($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP')
-                {
+                if ($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP') {
                     // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
                     $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
                 }
 
-                if($seragam->lunas_daul === 'Belum Lunas')
-                {
+                if ($seragam->lunas_daul === 'Belum Lunas') {
                     // $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'lunas', 'seragam'));
                     $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'seragam'));
                 }
 
-                if($seragam->siap === 'BELUM')
-                {
+                if ($seragam->siap === 'BELUM') {
                     // $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
                     $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
 
-                if($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP')
-                {
+                if ($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP') {
                     // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
                     $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
                 }
 
-                if($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM')
-                {
+                if ($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM') {
                     // $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'lunas', 'seragam'));
                     $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
@@ -245,42 +238,36 @@ class CalonPDFController extends Controller
             }
         }
 
-        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()){
-            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')
-                    ->whereId($id)->first();
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->whereId($id)->first();
             $gel = Gelombang::where('id', $calonsnya->gel_id)->first();
             $pendaftaran = $gel->kode_va . sprintf("%03d", $calonsnya->urut);
 
             $seragam = AmbilSeragam::where('pendaftaran', $pendaftaran)->first();
 
-            if($seragam) {
+            if ($seragam) {
                 $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
 
-                if($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP')
-                {
+                if ($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP') {
                     $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
                 }
 
-                if($seragam->lunas_daul === 'Belum Lunas')
-                {
+                if ($seragam->lunas_daul === 'Belum Lunas') {
                     $pdf = PDF::loadView('pdf.seragam_blmlunas', compact('calonsnya', 'seragam'));
                 }
 
-                if($seragam->siap === 'BELUM')
-                {
+                if ($seragam->siap === 'BELUM') {
                     $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
 
-                if($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP')
-                {
+                if ($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP') {
                     $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
                 }
 
-                if($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM')
-                {
+                if ($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM') {
                     $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
                 }
-
             } else {
                 $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
             }
@@ -294,15 +281,15 @@ class CalonPDFController extends Controller
         $id = $request->id;
         $va = substr($id, 0, 6);
         $urt = intval(substr($id, 6));
-        if(auth()->user()->isAdmin()) {
+        if (auth()->user()->isAdmin()) {
             $gelombang = Gelombang::where('kode_va', $va)->get()->pluck('id');
             $calon = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
-                    ->where('gel_id',$gelombang)
-                    ->where('urut',$urt)
-                    ->where('status',1)->first();
+                ->where('gel_id', $gelombang)
+                ->where('urut', $urt)
+                ->where('status', 1)->first();
             $tagihans = Tagihan::where('kelas_id', $calon->kelas_tujuan)->get();
-            $tagihanseragam = TagihanSeragam::where('gel_id',$gelombang)->where('jk',$calon->jk)->first();
-            $totaltagihan = $tagihans->sum('biaya')+$tagihanseragam->biaya;
+            $tagihanseragam = TagihanSeragam::where('gel_id', $gelombang)->where('jk', $calon->jk)->first();
+            $totaltagihan = $tagihans->sum('biaya') + $tagihanseragam->biaya;
             $no = 1;
             return view('wawancara.invoice', compact('calon', 'tagihans', 'tagihanseragam', 'totaltagihan', 'no'));
         }

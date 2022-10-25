@@ -104,6 +104,7 @@
         <ol class="biasa">
             <li>
                 Dana Daftar Ulang Tahunan berlaku mulai tahun kedua dan seterusnya, dengan besaran sebagai berikut:
+                @isset($calon)
                 @if($calon->pindahan == 1 && $calon->rencana_masuk != 7)
                 <table class="table table-bordered table-striped spp">
                     <thead>
@@ -264,6 +265,7 @@
                     </tbody>
                 </table>
                 @endif
+                @endisset
             </li>
             <li>Dana daftar ulang tahunan meliputi dana kegiatan dan sarana pembelajaran</li>
             <li>Kenaikan SPP diberlakukan saat awal tahun sesuai dengan ketentuan yang berlaku</li>

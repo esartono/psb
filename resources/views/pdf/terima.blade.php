@@ -8,7 +8,7 @@
     </style>
     <div>
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
-        Terimakasih Ananda telah mengikuti tes seleksi yang dilaksanakan dalam rangkaian proses PPDB SIT Nurul Fikri tahun pelajaran 2022/2023. Berdasarkan hasil seleksi, maka Ananda:
+        Terimakasih Ananda telah mengikuti tes seleksi yang dilaksanakan dalam rangkaian proses PPDB SIT Nurul Fikri tahun pelajaran {{ Auth::user()->tpname }}. Berdasarkan hasil seleksi, maka Ananda:
         </div>
         <table class="biodata">
             <tr>
@@ -24,7 +24,7 @@
                 <td>{{ $calonsnya->asal_sekolah }}</td>
             </tr>
             <tr>
-                <th>Tujuan Level</th>
+                <th>Unit Tujuan</th>
                 <td>{{ $calonsnya->gelnya->unitnya->name }}</td>
             </tr>
             <tr>

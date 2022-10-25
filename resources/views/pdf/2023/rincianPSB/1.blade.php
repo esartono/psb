@@ -27,7 +27,11 @@ Lampiran 1
 <tr>
 <td valign="top" width="47%">
 
-<h5 style="margin-top: -5px">A. Pembiayaan Peserta Didik Baru TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
+@if($calon->pindahan === 1)
+  <h5 style="margin-top: -5px">A. Pembiayaan Peserta Didik Baru (Pindahan) <br> &nbsp; &nbsp; TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
+@else
+  <h5 style="margin-top: -5px">A. Pembiayaan Peserta Didik Baru TA {{ $tp_awal }} - {{ $tp_akhir }}</h5>
+@endif
     <table class="rincian">
         <tr>
             <th>No.</th>

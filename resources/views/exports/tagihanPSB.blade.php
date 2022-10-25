@@ -23,6 +23,7 @@
         <th>No. HP Ayah</th>
         <th>Nama Ibu</th>
         <th>No. HP Ibu</th>
+        <th>Saudara</th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +49,7 @@
             <td>{{ $calon->calonnya->ayah_hp }}</td>
             <td>{{ $calon->calonnya->ibu_nama }}</td>
             <td>{{ $calon->calonnya->ibu_hp }}</td>
+            <td>{{ $calon->saudara }}</td>
         </tr>
     @endforeach
     </tbody>

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Biaya TES Calon Siswa - SIT Nurul Fikri</title>
+    <title>PPDB SIT Nurul Fikri</title>
     <style>
             /** Define the margins of your page **/
             @page {
@@ -118,7 +118,7 @@
     <header>
         <table>
             <tr>
-                {{-- <td align="center" width="120px"><img src="img/logo.png" alt="Logo NF" height="100" width="100"></img></td> --}}
+                <td align="center" width="120px"><img src="img/logo.png" alt="Logo NF" height="100" width="100"></img></td>
                 <td>
                     <h1 style="margin-bottom: -15px">Sekolah Islam Terpadu Nurul Fikri</h1>
                     <h2>TKIT - SDIT - SMPIT - SMAIT Nurul Fikri </h2>

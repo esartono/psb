@@ -44,7 +44,7 @@
                                     <v-th sortKey="infaqnfpeduli">Infaq NF Peduli</v-th>
                                     <th>Tagihan</th>
                                     <th>Total Tagihan</th>
-                                    <th>Aksi</th>
+                                    <th>Lunas</th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
