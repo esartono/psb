@@ -76,15 +76,16 @@ class Calon extends Model
         'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bayarppdb', 'biayappdb', 'bt', 'seragam', 'tahap', 'registrasi'
     ];
 
-    public function getTahapAttribute() {
+    public function getTahapAttribute()
+    {
         $tahap = 1;
 
-        if($this->attributes['status'] === 1) {
+        if ($this->attributes['status'] === 1) {
             $tahap = 2;
         }
 
         $cek_wawancara_keu = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
-        if($cek_wawancara_keu){
+        if ($cek_wawancara_keu) {
             $tahap = 3;
         }
 
@@ -92,12 +93,15 @@ class Calon extends Model
         $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
 
         $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
-        if($hasil) {
+        if ($hasil) {
             $tahap = 4;
 
             $daul = BayarTagihan::where('calon_id', $this->attributes['id'])->first();
-            if($daul) {
+            if ($daul) {
                 $tahap = 5;
+                if ($cek_wawancara_keu->lunas == 1) {
+                    $tahap = 6;
+                }
             }
         }
 
@@ -106,11 +110,11 @@ class Calon extends Model
 
     public function getKelaminAttribute()
     {
-        if($this->attributes['jk'] === 1) {
+        if ($this->attributes['jk'] === 1) {
             return 'Laki-Laki';
         }
 
-        if($this->attributes['jk'] === 2) {
+        if ($this->attributes['jk'] === 2) {
             return 'Perempuan';
         }
     }
@@ -125,7 +129,7 @@ class Calon extends Model
     public function getLahirAttribute()
     {
         $age = Carbon::create($this->attributes['tgl_lahir']);
-        return $this->attributes['tempat_lahir'].', '.\Carbon\Carbon::parse($age)->locale('id')->formatLocalized('%d %B %Y');
+        return $this->attributes['tempat_lahir'] . ', ' . \Carbon\Carbon::parse($age)->locale('id')->formatLocalized('%d %B %Y');
     }
 
     public function getUrutsAttribute()
@@ -144,8 +148,8 @@ class Calon extends Model
     {
         $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', $this->attributes['id'])->first();
         // $jadwal = CalonJadwal::with('jadwalnya')->where('calon_id', 863)->first();
-        if($jadwal) {
-            if($jadwal->jadwal_id > 0) {
+        if ($jadwal) {
+            if ($jadwal->jadwal_id > 0) {
                 return $jadwal->jadwalnya;
             }
         }
@@ -159,10 +163,10 @@ class Calon extends Model
     public function getWawancaraAttribute()
     {
         $jadwal = CalonJadwal::where('calon_id', $this->attributes['id'])->first();
-        if($jadwal) {
-            return $jadwal=['wawancara'=> $jadwal->wawancara, 'waktu'=>$jadwal->waktu];
+        if ($jadwal) {
+            return $jadwal = ['wawancara' => $jadwal->wawancara, 'waktu' => $jadwal->waktu];
         } else {
-            return $jadwal=['wawancara'=> "Belum Ada", 'waktu'=>"-"];
+            return $jadwal = ['wawancara' => "Belum Ada", 'waktu' => "-"];
         }
     }
 
@@ -173,28 +177,28 @@ class Calon extends Model
 
         $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
         $tagihan = CalonTagihan::where('pendaftaran', $daftar)->first();
-        if(!$hasil) {
+        if (!$hasil) {
             $hasil = 'Kosong';
             $tagihan = 'Kosong';
         }
 
         return compact('hasil', 'tagihan');
     }
-    
+
     public function getBiayappdbAttribute()
     {
         $bayarppdb = BayarTagihan::where('calon_id', $this->attributes['id']);
-        if(!$bayarppdb) {
+        if (!$bayarppdb) {
             $bayarppdb = 'Kosong';
         }
 
         return compact('bayarppdb');
     }
-    
+
     public function getBayarppdbAttribute()
     {
         $bayarppdb = BayarTagihan::where('calon_id', $this->attributes['id'])->get();
-        if(!$bayarppdb) {
+        if (!$bayarppdb) {
             $bayarppdb = 'Kosong';
         }
         $cpsb = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
@@ -209,7 +213,7 @@ class Calon extends Model
         $bawah = '-';
 
         $seragam = CalonSeragam::where('calon_id', $this->attributes['id'])->first();
-        if($seragam) {
+        if ($seragam) {
             $sudah = TRUE;
             $atas = $seragam->atas;
             $bawah = $seragam->bawah;
@@ -221,7 +225,7 @@ class Calon extends Model
     public function getBtAttribute()
     {
         $bt = CalonBiayaTes::where('calon_id', $this->attributes['id'])->first();
-        if($bt){
+        if ($bt) {
             $biayates = $bt;
             $bn = BiayaTes::where('id', $biayates->biaya_id)->first();
         } else {
@@ -229,7 +233,7 @@ class Calon extends Model
             $bn = "-";
         }
 
-        if($bn !== "-"){
+        if ($bn !== "-") {
             $biayanya = $bn;
         } else {
             $biayanya = "-";
@@ -262,5 +266,4 @@ class Calon extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }

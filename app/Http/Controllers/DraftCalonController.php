@@ -53,28 +53,28 @@ class DraftCalonController extends Controller
 
         $ages = $min_age = date('Y-m-d');
         $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
+        $age = date('d', strtotime($ages)) . ' ' . $bulan[(date('m', strtotime($ages)) - 1)] . ' ' . date('Y', strtotime($ages));
 
         $pilihan = [
             ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
             ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
             ['name' => 'Data Pribadi', 'icon' => 'fas fa-user'],
             ['name' => 'Data Alamat', 'icon' => 'fas fa-home'],
-            ['name' => 'Data Orang Tua', 'icon'=> 'fas fa-users'],
-            ['name' => 'Data Asal Sekolah', 'icon'=> 'fas fa-school'],
+            ['name' => 'Data Orang Tua', 'icon' => 'fas fa-users'],
+            ['name' => 'Data Asal Sekolah', 'icon' => 'fas fa-school'],
             ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
 
         // Cek apakah sudah mulai belum pendaftarannya
-        if(!$gelombang){
-            $start = date('M d, Y H:i:s', strtotime(date('Y').'-09-01'));
+        if (!$gelombang) {
+            $start = date('M d, Y H:i:s', strtotime(date('Y') . '-09-01'));
             $step = 0;
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'start'));
         }
 
-        if(is_null($l)){
+        if (is_null($l)) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
-            if($calon){
+            if ($calon) {
                 $step = $calon->step;
             } else {
                 $step = 1;
@@ -82,11 +82,11 @@ class DraftCalonController extends Controller
         } else {
             $step = 1;
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
-            if($calon){
+            if ($calon) {
                 $step = $calon->step;
             }
-            if($l <= $step && $step > 3){
-                if($l < 4){
+            if ($l <= $step && $step > 3) {
+                if ($l < 4) {
                     $step = 4;
                 } else {
                     $step = $l;
@@ -94,26 +94,26 @@ class DraftCalonController extends Controller
             }
         }
 
-        if($step == 1){
+        if ($step == 1) {
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age'));
         }
 
-        if($step == 2){
+        if ($step == 2) {
             $ok = $calon->pindahan;
             $csma = '';
-            if($ok === 1){
+            if ($ok === 1) {
                 $cekkelas = Kelasnya::where('status', 1)
-                    ->whereIn('tahun_ajaran', [0,2])
+                    ->whereIn('tahun_ajaran', [0, 2])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
             } else {
                 $cekkelas = Kelasnya::where('status', 1)
-                    ->whereIn('tahun_ajaran', [0,1])
+                    ->whereIn('tahun_ajaran', [0, 1])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
 
                 $ceksma = Kelasnya::where('status', 1)->where('name', '10')->first();
-                if($ceksma){
+                if ($ceksma) {
                     $csma = $ceksma->jurusan;
                 }
             }
@@ -122,27 +122,27 @@ class DraftCalonController extends Controller
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon', 'csma'));
         }
 
-        if($step == 3){
+        if ($step == 3) {
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age'));
         }
 
-        if($step == 4){
+        if ($step == 4) {
             $infos = SumberInfo::orderBy('id', 'asc')->get();
             $agama = Agama::orderBy('id', 'asc')->get();
             $ages = $min_age = Gelombang::where('id', $calon->gel_id)->first()->minimum_age;
-            $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
+            $age = date('d', strtotime($ages)) . ' ' . $bulan[(date('m', strtotime($ages)) - 1)] . ' ' . date('Y', strtotime($ages));
 
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agama', 'infos'));
         }
 
-        if($step == 5){
+        if ($step == 5) {
             $provinsi = Provinsi::orderBy('name', 'asc')->get();
             $kota = $kecamatan = $kelurahan = "";
-            if($calon->provinsi){
+            if ($calon->provinsi) {
                 $kota = Kota::where('prov_id', $calon->provinsi)->get();
-                if($calon->kota){
+                if ($calon->kota) {
                     $kecamatan = Kecamatan::where('kota_id', $calon->kota)->get();
-                    if($calon->kecamatan){
+                    if ($calon->kecamatan) {
                         $kelurahan = Kelurahan::where('camat_id', $calon->kecamatan)->get();
                     }
                 }
@@ -150,21 +150,21 @@ class DraftCalonController extends Controller
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
         }
 
-        if($step == 6){
+        if ($step == 6) {
             $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
             $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
             $penghasilan = Penghasilan::orderBy('id', 'asc')->get();
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'pendidikan', 'pekerjaan', 'penghasilan'));
         }
 
-        if($step == 7){
+        if ($step == 7) {
             $provinsi = Provinsi::orderBy('name', 'asc')->get();
             $kota = $kecamatan = $kelurahan = "";
-            if($calon->asal_propinsi_sekolah){
+            if ($calon->asal_propinsi_sekolah) {
                 $kota = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
-                if($calon->asal_kota_sekolah){
+                if ($calon->asal_kota_sekolah) {
                     $kecamatan = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
-                    if($calon->asal_kecamatan_sekolah){
+                    if ($calon->asal_kecamatan_sekolah) {
                         $kelurahan = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
                     }
                 }
@@ -172,8 +172,8 @@ class DraftCalonController extends Controller
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
         }
 
-        if($step == 8){
-            $agreement = Agreement::orderBy('id','asc')->get();
+        if ($step == 8) {
+            $agreement = Agreement::orderBy('id', 'asc')->get();
             return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agreement'));
         }
     }
@@ -186,12 +186,12 @@ class DraftCalonController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->step == 1) {
-            if($request->pindahan == 'ya') {
+        if ($request->step == 1) {
+            if ($request->pindahan == 'ya') {
                 $ok = true;
             }
 
-            if($request->pindahan == 'tidak') {
+            if ($request->pindahan == 'tidak') {
                 $ok = false;
             }
 
@@ -204,24 +204,24 @@ class DraftCalonController extends Controller
                     'pindahan' => $ok,
                     'step' => 2,
                     'user_id' => auth()->user()->id,
-                    ]
-                );
+                ]
+            );
 
             $step = 2;
         }
 
-        if($request->step == 2) {
+        if ($request->step == 2) {
             $gelombang = Gelombang::where('unit_id', $request->unit)->latest()->first()->id;
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $jurusan = '-';
 
-            if($calon->pindahan){
+            if ($calon->pindahan) {
                 $ceksma = substr($request->kelas_tujuan, -4);
-                if( $ceksma == 'MIPA' || $ceksma == '-IPS'){
+                if ($ceksma == 'MIPA' || $ceksma == '-IPS') {
                     $k = explode('-', $request->kelas_tujuan);
                     $kelas = $k[0];
                     $jurusan = $ceksma;
-                    if($ceksma == '-IPS') {
+                    if ($ceksma == '-IPS') {
                         $jurusan = 'IPS';
                     }
                 } else {
@@ -229,26 +229,26 @@ class DraftCalonController extends Controller
                 }
             }
 
-            if(!$calon->pindahan){
+            if (!$calon->pindahan) {
                 $ceksma = substr($request->unit, -4);
-                if( $ceksma == 'MIPA' || $ceksma == '-IPS'){
+                if ($ceksma == 'MIPA' || $ceksma == '-IPS') {
                     $jurusan = $ceksma;
-                    if($ceksma == '-IPS') {
+                    if ($ceksma == '-IPS') {
                         $jurusan = 'IPS';
                     }
                 }
                 $unit = Unit::where('id', $request->unit)->first()->cat_id;
                 $cat = SchoolCategory::where('id', $unit)->first()->name;
-                if($cat === 'TK'){
+                if ($cat === 'TK') {
                     $kelas = $request->kelas_tujuan;
                 }
-                if($cat === 'SD'){
+                if ($cat === 'SD') {
                     $kelas = Kelasnya::where('name', '1')->first()->id;
                 }
-                if($cat === 'SMP'){
+                if ($cat === 'SMP') {
                     $kelas = Kelasnya::where('name', '7')->first()->id;
                 }
-                if($cat === 'SMA'){
+                if ($cat === 'SMA') {
                     $kelas = Kelasnya::where('name', '10')->first()->id;
                 }
             }
@@ -262,14 +262,14 @@ class DraftCalonController extends Controller
             $step = 3;
         }
 
-        if($request->step == 3) {
+        if ($request->step == 3) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $cek = 1;
-            if($calon) {
-                if($calon->ck_id === 2){
+            if ($calon) {
+                if ($calon->ck_id === 2) {
                     $cek = 2;
                 }
-                if($calon->ck_id === 3){
+                if ($calon->ck_id === 3) {
                     $cek = 3;
                 }
             }
@@ -282,17 +282,17 @@ class DraftCalonController extends Controller
             $step = 4;
         }
 
-        if($request->step == 4) {
+        if ($request->step == 4) {
             $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             $pecah_tgl = explode(' ', $request->tgl_lahir);
-            $m = (array_search($pecah_tgl[1], $bulan))+1;
+            $m = (array_search($pecah_tgl[1], $bulan)) + 1;
 
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $calon->update([
                 'name' => $request->name,
                 'panggilan' => $request->panggilan,
                 'tempat_lahir' => $request->tempat_lahir,
-                'tgl_lahir' => $pecah_tgl[2].'-'.$m.'-'.$pecah_tgl[0],
+                'tgl_lahir' => $pecah_tgl[2] . '-' . $m . '-' . $pecah_tgl[0],
                 'jk' => $request->jk,
                 'agama' => $request->agama,
                 'nisn' => $request->nisn,
@@ -305,25 +305,25 @@ class DraftCalonController extends Controller
             $step = 5;
         }
 
-        if($request->step == 5) {
+        if ($request->step == 5) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
-            $calon->update($request->except('step')+['step'=>6]);
+            $calon->update($request->except('step') + ['step' => 6]);
 
             $step = 6;
         }
 
-        if($request->step == 6) {
+        if ($request->step == 6) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
-            $calon->update($request->except('step')+['step'=>7]);
+            $calon->update($request->except('step') + ['step' => 7]);
 
             $step = 7;
-            if($calon->asal_nf == 1) {
-                $calon->update(['step'=>8]);
+            if ($calon->asal_nf == 1) {
+                $calon->update(['step' => 8]);
                 $step = 8;
             }
         }
 
-        if($request->step == 7) {
+        if ($request->step == 7) {
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $calon->update($request->except(
                 'step',
@@ -332,17 +332,17 @@ class DraftCalonController extends Controller
                 'kecamatan',
                 'kelurahan'
             ) + [
-                    'step' => 8,
-                    'asal_propinsi_sekolah' => $request->provinsi,
-                    'asal_kota_sekolah' => $request->kota,
-                    'asal_kecamatan_sekolah' => $request->kecamatan,
-                    'asal_kelurahan_sekolah' => $request->kelurahan,
-                ]);
+                'step' => 8,
+                'asal_propinsi_sekolah' => $request->provinsi,
+                'asal_kota_sekolah' => $request->kota,
+                'asal_kecamatan_sekolah' => $request->kecamatan,
+                'asal_kelurahan_sekolah' => $request->kelurahan,
+            ]);
 
             $step = 8;
         }
 
-        if($request->step == 8) {
+        if ($request->step == 8) {
             $draft = DraftCalon::where('user_id', auth()->user()->id)->first();
             $urut = Calon::where('gel_id', $draft['gel_id'])->get()->count();
 
@@ -350,7 +350,7 @@ class DraftCalonController extends Controller
                 'gel_id' => $draft['gel_id'],
                 'ck_id' => $draft['ck_id'],
                 'tgl_daftar' => date('Y-m-d'),
-                'urut' => $urut+1,
+                'urut' => $urut + 1,
                 'nik' => $draft['nik'],
                 'nisn' => $draft['nisn'],
                 'name' => $draft['name'],
@@ -362,7 +362,7 @@ class DraftCalonController extends Controller
                 'tempat_lahir' => $draft['tempat_lahir'],
                 'tgl_lahir' => $draft['tgl_lahir'],
                 'agama' => $draft['agama'],
-                'rencana_masuk' =>$draft['rencana_masuk'],
+                'rencana_masuk' => $draft['rencana_masuk'],
                 'info' => $draft['info'],
                 'status' => false,
                 'setuju' => $draft['setuju'],
@@ -400,9 +400,9 @@ class DraftCalonController extends Controller
             ]);
 
             $biaya = BiayaTes::where('gel_id', $draft['gel_id'])
-                        ->where('ck_id', $draft['ck_id'])
-                        ->get()->first();
-            if($biaya) {
+                ->where('ck_id', $draft['ck_id'])
+                ->get()->first();
+            if ($biaya) {
                 $calonbiaya = CalonBiayaTes::updateOrCreate([
                     'calon_id' => $calon->id
                 ], [
@@ -411,10 +411,10 @@ class DraftCalonController extends Controller
                 ]);
 
                 Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
-                $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$calon->id)->first();
-                Wa::kirim(auth()->user()->phone,'Terima kasih Bapak/Ibu '.auth()->user()->name.', Data calon siswa telah kami simpan.
-Silahkan melakukan proses pembayaran ke rekening Bank Syariah Indonesia (BSI) dengan nomor pendaftaran '.$calon->uruts.'.
-Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.id/biayapendaftaran');
+                $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
+                // Wa::kirim(auth()->user()->phone,'Terima kasih Bapak/Ibu '.auth()->user()->name.', Data calon siswa telah kami simpan.
+                // Silahkan melakukan proses pembayaran ke rekening Bank Syariah Indonesia (BSI) dengan nomor pendaftaran '.$calon->uruts.'.
+                // Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.id/biayapendaftaran');
                 // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
                 //     {
                 //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
@@ -425,7 +425,7 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
             $draft->delete();
             return redirect()->route('ppdb');
         }
-        return redirect('tambahcalon/'.$step);
+        return redirect('tambahcalon/' . $step);
     }
 
     /**
@@ -450,7 +450,7 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
         $calon = Calon::whereId($id)->first();
         $ages = $calon->tgl_lahir;
         $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $age = date('d', strtotime($ages)).' '.$bulan[(date('m', strtotime($ages))-1)].' '.date('Y', strtotime($ages));
+        $age = date('d', strtotime($ages)) . ' ' . $bulan[(date('m', strtotime($ages)) - 1)] . ' ' . date('Y', strtotime($ages));
         $gel = Gelombang::whereId($calon->gel_id)->first();
         $min_age = $gel->minimum_age;
 
@@ -459,30 +459,30 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
             ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
             ['name' => 'Data Pribadi', 'icon' => 'fas fa-user'],
             ['name' => 'Data Alamat', 'icon' => 'fas fa-home'],
-            ['name' => 'Data Orang Tua', 'icon'=> 'fas fa-users'],
-            ['name' => 'Data Asal Sekolah', 'icon'=> 'fas fa-school'],
+            ['name' => 'Data Orang Tua', 'icon' => 'fas fa-users'],
+            ['name' => 'Data Asal Sekolah', 'icon' => 'fas fa-school'],
             ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
 
-        if(!$calon) {
+        if (!$calon) {
             return redirect()->route('home');
         }
 
-        if($step == 4) {
+        if ($step == 4) {
             $infos = SumberInfo::orderBy('id', 'asc')->get();
             $agama = Agama::orderBy('id', 'asc')->get();
 
             return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'infos', 'agama'));
         }
 
-        if($step == 5) {
+        if ($step == 5) {
             $provinsi = Provinsi::orderBy('name', 'asc')->get();
             $kota = $kecamatan = $kelurahan = "";
-            if($calon->provinsi){
+            if ($calon->provinsi) {
                 $kota = Kota::where('prov_id', $calon->provinsi)->get();
-                if($calon->kota){
+                if ($calon->kota) {
                     $kecamatan = Kecamatan::where('kota_id', $calon->kota)->get();
-                    if($calon->kecamatan){
+                    if ($calon->kecamatan) {
                         $kelurahan = Kelurahan::where('camat_id', $calon->kecamatan)->get();
                     }
                 }
@@ -490,7 +490,7 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
             return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan'));
         }
 
-        if($step == 6) {
+        if ($step == 6) {
             $pendidikan = Pendidikan::orderBy('id', 'asc')->get();
             $pekerjaan = Pekerjaan::orderBy('id', 'asc')->get();
             $penghasilan = Penghasilan::orderBy('id', 'asc')->get();
@@ -498,20 +498,20 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
             return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'pendidikan', 'pekerjaan', 'penghasilan'));
         }
 
-        if($step == 7) {
+        if ($step == 7) {
             $provinsi = Provinsi::orderBy('name', 'asc')->get();
             $kota = $kecamatan = $kelurahan = "";
-            if($calon->asal_propinsi_sekolah){
+            if ($calon->asal_propinsi_sekolah) {
                 $kota = Kota::where('prov_id', $calon->asal_propinsi_sekolah)->get();
-                if($calon->asal_kota_sekolah){
+                if ($calon->asal_kota_sekolah) {
                     $kecamatan = Kecamatan::where('kota_id', $calon->asal_kota_sekolah)->get();
-                    if($calon->asal_kecamatan_sekolah){
+                    if ($calon->asal_kecamatan_sekolah) {
                         $kelurahan = Kelurahan::where('camat_id', $calon->asal_kecamatan_sekolah)->get();
                     }
                 }
             }
             $edited = '';
-            if($calon->asal_nf == 1) {
+            if ($calon->asal_nf == 1) {
                 $edited = 'disabled';
             }
             return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'edited'));
@@ -530,26 +530,26 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
     public function update(Request $request)
     {
         $calon = Calon::whereId($request->id)->where('user_id', auth()->user()->id)->first();
-        if($request->step == 4) {
+        if ($request->step == 4) {
             $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
             $pecah_tgl = explode(' ', $request->tgl_lahir);
-            $m = (array_search($pecah_tgl[1], $bulan))+1;
+            $m = (array_search($pecah_tgl[1], $bulan)) + 1;
 
-            $data = $request->only('name', 'panggilan', 'tempat_lahir', 'jk', 'agama', 'nik', 'nisn', 'info')+['tgl_lahir' => $pecah_tgl[2].'-'.$m.'-'.$pecah_tgl[0],];
+            $data = $request->only('name', 'panggilan', 'tempat_lahir', 'jk', 'agama', 'nik', 'nisn', 'info') + ['tgl_lahir' => $pecah_tgl[2] . '-' . $m . '-' . $pecah_tgl[0],];
             $step = 5;
         }
 
-        if($request->step == 5) {
+        if ($request->step == 5) {
             $data = $request->only('alamat', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'rt', 'rw', 'kodepos');
             $step = 6;
         }
 
-        if($request->step == 6) {
+        if ($request->step == 6) {
             $data = $request->only('ayah_nama', 'ayah_pendidikan', 'ayah_pekerjaan', 'ayah_penghasilan', 'ayah_hp', 'ayah_email', 'ibu_nama', 'ibu_pendidikan', 'ibu_pekerjaan', 'ibu_penghasilan', 'ibu_hp', 'ibu_email');
             $step = 7;
         }
 
-        if($request->step == 7) {
+        if ($request->step == 7) {
             $data = $request->only('asal_sekolah', 'asal_alamat_sekolah') + [
                 'asal_propinsi_sekolah' => $request->provinsi,
                 'asal_kota_sekolah' => $request->kota,
@@ -559,10 +559,10 @@ Tatacara pembayaran dapat dilihat melalui laman web https://ppdb.nurulfikri.sch.
             $step = 'done';
         }
 
-        if($calon) {
+        if ($calon) {
             $calon->update($data);
             if ($step !== 'done') {
-                return redirect('editcalon/'.$request->id.'/'.$step);
+                return redirect('editcalon/' . $request->id . '/' . $step);
             }
         }
 

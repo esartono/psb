@@ -82,7 +82,7 @@
                     <option value="4">April - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
                     <option value="5">Mei - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
                     <option value="6">Juni - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
-                    <option value="7">Juli - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
+                    <option value="7" selected>Juli - {{ (int)substr(Auth::user()->tp_name, 0, 4) }}</option>
                 </select>
             </div>
         </div>

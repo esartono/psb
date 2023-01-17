@@ -236,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Edupay' => App\Facades\Edupay::class,
+        'Maja' => App\Facades\Maja::class,
         'Wa' => App\Facades\WaFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,

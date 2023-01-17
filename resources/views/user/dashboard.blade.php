@@ -61,9 +61,14 @@
                             <b>User Email</b> <a class="float-right">{{ Auth()->user()->email }}</a>
                         </li>
                     </ul>
-                    <a href="/editcalon/{{ $calon->id }}" class="btn btn-info"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>
-                    <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>
-                    {{-- @if($calon->tahap == 4)<a href='/uniform/{{ $calon->id }}' class="btn btn-primary"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>@endif --}}
+                    <a href="/editcalon/{{ $calon->id }}" class="btn btn-info col-md-5"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>
+                    <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger col-md-6"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>
+                    {{-- @if($calon->tahap >= 5)
+                        @if($calon->bayarppdb['cpsb']->lunas == 1)
+                            <hr>
+                            <a href='/uniform/{{ $calon->id }}' class="btn btn-success"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>
+                        @endif
+                    @endif --}}
                 </div>
             </div>
         </div>
@@ -81,8 +86,9 @@
                                 <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">3. Seleksi @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap >= 4 ? 'active' : '' }}">4. Pengumuman @if($calon->tahap >= 4) <i class="fas fa-check-circle float-right"></i>@endif</p>
                                 <p class="nav-link status {{ $calon->tahap >= 5 ? 'active' : '' }}">5. Daftar Ulang @if($calon->tahap >= 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap == 6 ? 'active' : '' }}">6. Seragam dan Pengambilan Buku @if($calon->tahap == 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap == 7 ? 'active' : '' }}">7. Masa Orientasi Siswa @if($calon->tahap == 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 6 ? 'active' : '' }}">6. Input Seragam @if($calon->tahap >= 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 7 ? 'active' : '' }}">7. Pengambilan Buku dan Seragam @if($calon->tahap >= 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 8 ? 'active' : '' }}">8. Masa Orientasi Siswa @if($calon->tahap >= 8) <i class="fas fa-check-circle float-right"></i>@endif</p>
                             </div>
                         </div>
                         <div class="col-9">

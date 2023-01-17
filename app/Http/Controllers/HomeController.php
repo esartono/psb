@@ -57,17 +57,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit() || auth()->user()->isAdminKeu()){
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit() || auth()->user()->isAdminKeu()) {
             return redirect()->route('dashboard');
             // return view('home');
         }
 
-        if(auth()->user()->isUser()){
+        if (auth()->user()->isUser()) {
             return redirect()->route('ppdb');
             // return view('psb');
         }
 
-        if(auth()->user()->isPsikotes()){
+        if (auth()->user()->isPsikotes()) {
             return redirect()->route('email');
             // return view('psb');
         }
@@ -75,27 +75,27 @@ class HomeController extends Controller
 
     public function loginJadiUser()
     {
-        if(auth()->user()->isAdministrator()){
+        if (auth()->user()->isAdministrator()) {
             return view('auth.loginsebagai');
         }
     }
     public function login_as(Request $request)
     {
-        if(auth()->user()->isAdministrator()){
+        if (auth()->user()->isAdministrator()) {
             if (filter_var($request->daftar, FILTER_VALIDATE_EMAIL)) {
                 $user = User::where('email', $request->daftar)->first()->id;
                 Auth::loginUsingId($user);
             } else {
-                $gel = Gelombang::where('kode_va', substr($request->daftar,0,6))->first();
-                if($gel){
+                $gel = Gelombang::where('kode_va', substr($request->daftar, 0, 6))->first();
+                if ($gel) {
                     $id = $gel->id;
-                    $urut = intval(substr($request->daftar,6));
+                    $urut = intval(substr($request->daftar, 6));
                     $calon = DB::table('calons')
-                            ->select('user_id')
-                            ->where('urut', $urut)
-                            ->where('gel_id', $id)
-                            ->first()
-                            ->user_id;
+                        ->select('user_id')
+                        ->where('urut', $urut)
+                        ->where('gel_id', $id)
+                        ->first()
+                        ->user_id;
                     Auth::loginUsingId($calon);
                 }
             }
@@ -118,7 +118,7 @@ class HomeController extends Controller
         $va = substr($id, 0, 6);
         $urt = intval(substr($id, 6));
         $gelombang = Gelombang::where('kode_va', $va)->get()->pluck('id');
-        return Calon::where('gel_id',$gelombang)->where('urut',$urt)->where('status',1)->get()->toArray();
+        return Calon::where('gel_id', $gelombang)->where('urut', $urt)->where('status', 1)->get()->toArray();
     }
 
     public function profile()
@@ -128,11 +128,11 @@ class HomeController extends Controller
 
     public function dashboardUser()
     {
-        if (auth()->user()->isUser()){
+        if (auth()->user()->isUser()) {
             $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
             $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
-                    ->where('user_id', auth()->user()->id)
-                    ->whereIn('gel_id', $gelombang)->get();
+                ->where('user_id', auth()->user()->id)
+                ->whereIn('gel_id', $gelombang)->get();
         }
 
         return view('user.dashboard', compact('calons'));
@@ -149,17 +149,17 @@ class HomeController extends Controller
         // Cek user baru atau lama
         // dd(Avatar::create('Joko Widodo')->toBase64());
         $cek = auth()->user()->phone;
-        if($cek === null || $cek === '') {
+        if ($cek === null || $cek === '') {
             return view('user.baru');
         }
 
         $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
         $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
-                ->where('user_id', auth()->user()->id)
-                ->where('aktif', true)
-                ->whereIn('gel_id', $gelombang)->get();
+            ->where('user_id', auth()->user()->id)
+            ->where('aktif', true)
+            ->whereIn('gel_id', $gelombang)->get();
 
-        if($calons->count() > 0) {
+        if ($calons->count() > 0) {
             // dd($calons->first()->bayarppdb['bayarppdb']);
             return view('user.dashboard', compact('calons'));
         }
@@ -170,13 +170,13 @@ class HomeController extends Controller
     {
         $user = User::where('email', $request->email)->where('level', 2)->first();
         $user->update($request->only('name', 'phone'));
-        Wa::kirim(
-            $user->phone,
-            'Terima kasih Bapak/Ibu '.$user->name.', Anda sudah menjadi user di aplikasi PPDB SIT Nurul Fikri.
-            Silahkan melanjutkan proses berikutnya melalui laman https://ppdb.nurulfikri.sch.id');
+        // Wa::kirim(
+        //     $user->phone,
+        //     'Terima kasih Bapak/Ibu '.$user->name.', Anda sudah menjadi user di aplikasi PPDB SIT Nurul Fikri.
+        //     Silahkan melanjutkan proses berikutnya melalui laman https://ppdb.nurulfikri.sch.id');
         return redirect()->route('home');
     }
-    
+
     public function password()
     {
         return view('user.password');
@@ -198,15 +198,15 @@ class HomeController extends Controller
         $tp = TahunPelajaran::where('status', 1)->first();
 
         $gelombang = Gelombang::with('unitnya.catnya')->where('tp', $tp->id)
-                ->orderBy('unit_id', 'asc')->get()->toArray();
+            ->orderBy('unit_id', 'asc')->get()->toArray();
 
-        $cek = 'Update Pendaftaran PPDB SIT NF'.PHP_EOL.'Tanggal: '.date('d M Y').' ('.date('H:i').')'.PHP_EOL;
+        $cek = 'Update Pendaftaran PPDB SIT NF' . PHP_EOL . 'Tanggal: ' . date('d M Y') . ' (' . date('H:i') . ')' . PHP_EOL;
         foreach ($gelombang as $gel) {
-            $cek = $cek.PHP_EOL.$gel['unitnya']['name'] . ' : '.PHP_EOL.
-                'Umum : '.$gel['jlhrekap']['umumaktif'].PHP_EOL.
-                'Internal : '.$gel['jlhrekap']['nfaktif'].PHP_EOL.
-                'Pegawai : '.$gel['jlhrekap']['pegaktif'].PHP_EOL.
-                'TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL;
+            $cek = $cek . PHP_EOL . $gel['unitnya']['name'] . ' : ' . PHP_EOL .
+                'Umum : ' . $gel['jlhrekap']['umumaktif'] . PHP_EOL .
+                'Internal : ' . $gel['jlhrekap']['nfaktif'] . PHP_EOL .
+                'Pegawai : ' . $gel['jlhrekap']['pegaktif'] . PHP_EOL .
+                'TOTAL : ' . ($gel['jlhrekap']['umumaktif'] + $gel['jlhrekap']['nfaktif'] + $gel['jlhrekap']['pegaktif']) . PHP_EOL;
         }
 
         Telegram::sendMessage([
@@ -220,35 +220,35 @@ class HomeController extends Controller
     {
         $tp = $this->tp_berjalan;
 
-        if($tp === '2022/2023') {
+        if ($tp === '2022/2023') {
             $biaya = [
-                ['komponen' => 'Dana Pengembangan', 'tka'=>8000000, 'tkb'=>5000000, 'sd'=>22500000, 'smp'=>21500000, 'sma'=>21500000],
-                ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>12500000, 'smp'=>14000000, 'sma'=>14000000],
-                ['komponen' => 'SPP bulan Juli', 'tka'=>1250000, 'tkb'=>1250000, 'sd'=>1900000, 'smp'=>2000000, 'sma'=>2000000],
-                ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
+                ['komponen' => 'Dana Pengembangan', 'tka' => 8000000, 'tkb' => 5000000, 'sd' => 22500000, 'smp' => 21500000, 'sma' => 21500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 8500000, 'tkb' => 8000000, 'sd' => 12500000, 'smp' => 14000000, 'sma' => 14000000],
+                ['komponen' => 'SPP bulan Juli', 'tka' => 1250000, 'tkb' => 1250000, 'sd' => 1900000, 'smp' => 2000000, 'sma' => 2000000],
+                ['komponen' => 'Komite Sekolah tahun pertama', 'tka' => 300000, 'tkb' => 300000, 'sd' => 400000, 'smp' => 450000, 'sma' => 450000],
             ];
             $seragam = [
-                ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
-                ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
+                ['komponen' => 'Seragam Putra', 'tka' => 1200000, 'tkb' => 1200000, 'sd' => 1800000, 'smp' => 1900000, 'sma' => 2000000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1400000, 'tkb' => 1400000, 'sd' => 2400000, 'smp' => 2650000, 'sma' => 2700000],
             ];
         }
 
-        if($tp === '2023/2024') {
+        if ($tp === '2023/2024') {
             $biaya = [
-                ['komponen' => 'Dana Pengembangan', 'tka'=>8500000, 'tkb'=>6000000, 'sd'=>22500000, 'smp'=>22500000, 'sma'=>22500000],
-                ['komponen' => 'Dana Pendidikan', 'tka'=>8500000, 'tkb'=>8000000, 'sd'=>14000000, 'smp'=>15000000, 'sma'=>15000000],
-                ['komponen' => 'SPP bulan Juli', 'tka'=>1350000, 'tkb'=>1350000, 'sd'=>2000000, 'smp'=>2100000, 'sma'=>2100000],
-                ['komponen' => 'Komite Sekolah tahun pertama', 'tka'=>300000, 'tkb'=>300000, 'sd'=>400000, 'smp'=>450000, 'sma'=>450000],
+                ['komponen' => 'Dana Pengembangan', 'tka' => 8500000, 'tkb' => 6000000, 'sd' => 22500000, 'smp' => 22500000, 'sma' => 22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 8500000, 'tkb' => 8000000, 'sd' => 14000000, 'smp' => 15000000, 'sma' => 15000000],
+                ['komponen' => 'SPP bulan Juli', 'tka' => 1350000, 'tkb' => 1350000, 'sd' => 2000000, 'smp' => 2100000, 'sma' => 2100000],
+                ['komponen' => 'Komite Sekolah tahun pertama', 'tka' => 300000, 'tkb' => 300000, 'sd' => 400000, 'smp' => 450000, 'sma' => 450000],
             ];
             $seragam = [
-                ['komponen' => 'Seragam Putra', 'tka'=>1200000, 'tkb'=>1200000, 'sd'=>1800000, 'smp'=>1900000, 'sma'=>2000000],
-                ['komponen' => 'Seragam Putri', 'tka'=>1400000, 'tkb'=>1400000, 'sd'=>2400000, 'smp'=>2650000, 'sma'=>2700000],
+                ['komponen' => 'Seragam Putra', 'tka' => 1200000, 'tkb' => 1200000, 'sd' => 1800000, 'smp' => 1900000, 'sma' => 2000000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1400000, 'tkb' => 1400000, 'sd' => 2400000, 'smp' => 2650000, 'sma' => 2700000],
             ];
         }
-        
-        $patokan = (int)substr($tp,0,4);
 
-        return view('front.'.$patokan.'.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));
+        $patokan = (int)substr($tp, 0, 4);
+
+        return view('front.' . $patokan . '.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));
     }
 
     public function hasil()
@@ -260,14 +260,14 @@ class HomeController extends Controller
     public function gethasil(Request $request)
     {
         $id = $request->id;
-        $va = substr($id,0,6);
-        $urut = intval(substr($id,6));
+        $va = substr($id, 0, 6);
+        $urut = intval(substr($id, 6));
         $arrayhasil = array("-", "DITERIMA", "CADANGAN", "TIDAK DITERIMA");
 
         $calons = null;
         $hasils = CalonHasil::where('pendaftaran', $id)->first();
 
-        if($hasils){
+        if ($hasils) {
             $gelombang = Gelombang::where('kode_va', $va)->first();
             $calons = Calon::where('gel_id', $gelombang->id)->where('urut', $urut)->where('status', 1)->get();
             return view('front.hasil', compact('calons', 'hasils', 'arrayhasil'));
@@ -278,22 +278,22 @@ class HomeController extends Controller
     public function jadwal()
     {
         $tp = $this->tp_berjalan;
-        $patokan = (int)substr($tp,0,4);
-        return view('front.'.$patokan.'.jadwal', compact('tp'));
+        $patokan = (int)substr($tp, 0, 4);
+        return view('front.' . $patokan . '.jadwal', compact('tp'));
     }
-    
+
     public function biayapendaftaran()
     {
         $tp = $this->tp_berjalan;
-        $kode = substr($tp,2,2).substr($tp,7,2).'31001';
-        return view('front.tatacara', compact('tp','kode'));
+        $kode = substr($tp, 2, 2) . substr($tp, 7, 2) . '31001';
+        return view('front.tatacara', compact('tp', 'kode'));
         // return view('front.tatacara');
     }
 
     public function syarat()
     {
         $tp = $this->tp_berjalan;
-        $patokan = (int)substr($tp,0,4);
+        $patokan = (int)substr($tp, 0, 4);
         return view('front.syarat', compact('tp', 'patokan'));
     }
 
@@ -309,7 +309,7 @@ class HomeController extends Controller
 
     public function depan()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
 
@@ -317,10 +317,10 @@ class HomeController extends Controller
 
         // $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
         $gelombang = Gelombang::where('tp', $tp->id)->orderBy('start', 'asc')->first();
-        if($gelombang){
+        if ($gelombang) {
             $start = date('M d, Y H:i:s', strtotime($gelombang->start));
         } else {
-            $start = date('M d, Y H:i:s', strtotime(date('Y').'-09-01'));
+            $start = date('M d, Y H:i:s', strtotime(date('Y') . '-09-01'));
         }
 
         $units = Unit::with('catnya')->orderBy('id', 'asc')->get();

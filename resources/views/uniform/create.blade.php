@@ -25,25 +25,25 @@
                             <label for="name" class="col-sm-7 col-form-label mb-2">Pilih ukuran Baju atau Blouse</label>
                             <div class="col-sm-5 mb-2">
                                 <select class="form-control" name="atas" required>
-                                    <option disabled selected>Ukuran Baju</option>
-                                    <option value="SS"> SS </option>
-                                    <option value="S"> S </option>
-                                    <option value="M"> M </option>
-                                    <option value="L"> L </option>
-                                    <option value="XL"> XL </option>
-                                    <option value="XXL"> XXL </option>
+                                    <option disabled {{ $calon->seragam['atas'] == '-' ? 'selected' : '' }}>Ukuran Baju</option>
+                                    <option value="SS" {{ $calon->seragam['atas'] == 'SS' ? 'selected' : '' }}> SS </option>
+                                    <option value="S" {{ $calon->seragam['atas'] == 'S' ? 'selected' : '' }}> S </option>
+                                    <option value="M" {{ $calon->seragam['atas'] == 'M' ? 'selected' : '' }}> M </option>
+                                    <option value="L" {{ $calon->seragam['atas'] == 'L' ? 'selected' : '' }}> L </option>
+                                    <option value="XL" {{ $calon->seragam['atas'] == 'XL' ? 'selected' : '' }}> XL </option>
+                                    <option value="XXL" {{ $calon->seragam['atas'] == 'XXL' ? 'selected' : '' }}> XXL </option>
                                 </select>
                             </div>
                             <label for="name" class="col-sm-7 col-form-label">Pilih ukuran Celana atau Rok</label>
                             <div class="col-sm-5">
                                 <select class="form-control" name="bawah" required>
-                                    <option disabled selected>Ukuran Celana/Rok</option>
-                                    <option value="SS"> SS </option>
-                                    <option value="S"> S </option>
-                                    <option value="M"> M </option>
-                                    <option value="L"> L </option>
-                                    <option value="XL"> XL </option>
-                                    <option value="XXL"> XXL </option>
+                                    <option disabled {{ $calon->seragam['bawah'] == '-' ? 'selected' : '' }}>Ukuran Celana/Rok</option>
+                                    <option value="SS" {{ $calon->seragam['bawah'] == 'SS' ? 'selected' : '' }}> SS </option>
+                                    <option value="S" {{ $calon->seragam['bawah'] == 'S' ? 'selected' : '' }}> S </option>
+                                    <option value="M" {{ $calon->seragam['bawah'] == 'M' ? 'selected' : '' }}> M </option>
+                                    <option value="L" {{ $calon->seragam['bawah'] == 'L' ? 'selected' : '' }}> L </option>
+                                    <option value="XL" {{ $calon->seragam['bawah'] == 'XL' ? 'selected' : '' }}> XL </option>
+                                    <option value="XXL" {{ $calon->seragam['bawah'] == 'XXL' ? 'selected' : '' }}> XXL </option>
                                 </select>
                             </div>
                         </div>
@@ -53,7 +53,8 @@
                     </div>
                 </form>
                 <div class="row">
-                    <div class="col-sm-12 col-md-7">
+                    @include('uniform.ukuran.'.$calon->gelnya->unitnya->catnya->name.'_'.$calon->kelamin)
+                    {{-- <div class="col-sm-12 col-md-7">
                         <table style="width: 100%; margin: 0 auto;">
                             <tr>
                                 <td style="text-align: center; font-weight:bold">Ukuran Baju atau Blouse</td>
@@ -72,7 +73,7 @@
                                 <td style="text-align: center; font-weight:bold"><img src="/file/{{ strtolower($tingkat) }}/bawah{{ $calon->jk }}.jpg" alt="seragam" style="max-width:90%;"></td>
                             </tr>
                         </table>
-                    </div>
+                    </div> --}}
                 </div>
                 </div>
             </div>

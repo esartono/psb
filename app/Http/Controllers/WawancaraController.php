@@ -245,29 +245,96 @@ class WawancaraController extends Controller
         }
 
         $now = new \DateTime();
-        $diskon = [
+        $unitd = str_replace('IT Nurul Fikri', '', Gelombang::unit($calon->gel_id));
+        $diskonUnit = [
             1 => [
-                'tgl' => new \DateTime('2022-11-1'),
-                'tanggal' => "31 Oktober 2022",
-                'diskon' => 4000000
+                'TK' => 4000000,
+                'SD' => 4000000,
+                'SMP' => 4000000,
+                'SMA' => 4000000,
             ],
             2 => [
-                'tgl' => new \DateTime('2022-12-1'),
-                'tanggal' => "30 November 2022",
-                'diskon' => 3000000
+                'TK' => 3000000,
+                'SD' => 3000000,
+                'SMP' => 3000000,
+                'SMA' => 3000000,
             ],
             3 => [
-                'tgl' => new \DateTime('2023-1-1'),
-                'tanggal' => "31 Desember 2022",
-                'diskon' => 1500000
+                'TK' => 2000000,
+                'SD' => 1500000,
+                'SMP' => 1500000,
+                'SMA' => 1500000,
             ]
         ];
 
         $bataskolom = new \DateTime($ctg->created_at->toDateString());
+        $diskon = array();
+
+        $tgl = new \DateTime('2023-6-1');
+        if ($tgl > $bataskolom) {
+            $diskon = [
+                1 => [
+                    'tgl' => new \DateTime('2023-1-1'),
+                    'tanggal' => "31 Desember 2022",
+                    'diskon' => 0
+                ]
+            ];
+        }
+
+        $tgl = new \DateTime('2023-1-1');
+        if ($tgl > $bataskolom) {
+            $diskon = [
+                1 => [
+                    'tgl' => new \DateTime('2023-1-1'),
+                    'tanggal' => "31 Desember 2022",
+                    'diskon' => $diskonUnit[3][$unitd]
+                ]
+            ];
+        }
+
+        $tgl = new \DateTime('2022-12-1');
+        if ($tgl > $bataskolom) {
+            $diskon = [
+                1 => [
+                    'tgl' => new \DateTime('2022-12-1'),
+                    'tanggal' => "30 November 2022",
+                    'diskon' => $diskonUnit[2][$unitd]
+                ],
+                2 => [
+                    'tgl' => new \DateTime('2023-1-1'),
+                    'tanggal' => "31 Desember 2022",
+                    'diskon' => $diskonUnit[3][$unitd]
+                ]
+            ];
+        }
+
+        $tgl = new \DateTime('2022-11-1');
+        if ($tgl > $bataskolom) {
+            $diskon = [
+                1 => [
+                    'tgl' => new \DateTime('2022-11-1'),
+                    'tanggal' => "31 Oktober 2022",
+                    'diskon' => $diskonUnit[1][$unitd]
+                ],
+                2 => [
+                    'tgl' => new \DateTime('2022-12-1'),
+                    'tanggal' => "30 November 2022",
+                    'diskon' => $diskonUnit[2][$unitd]
+                ],
+                3 => [
+                    'tgl' => new \DateTime('2023-1-1'),
+                    'tanggal' => "31 Desember 2022",
+                    'diskon' => $diskonUnit[3][$unitd]
+                ]
+            ];
+        }
+
         $batas = 0;
 
-        if ($diskon[2]['tgl'] > $bataskolom) {
-            $batas = 1;
+        if (array_key_exists(2, $diskon)) {
+            if ($diskon[2]['tgl'] > $bataskolom) {
+                $batas = 1;
+            }
         }
 
         if ($diskon[1]['tgl'] > $bataskolom) {
