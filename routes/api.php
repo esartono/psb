@@ -37,6 +37,7 @@ Route::apiResources([
     'calonhasils' => 'API\CalonHasilController',
     'calontagihans' => 'API\CalonTagihanController',
     'suratseragam' => 'API\SuratSeragamController',
+    'suratbuku' => 'API\SuratBukuController',
     'tagihanpsbs' => 'API\TagihanPSBController',
     'calontagihanpsbs' => 'API\CalonTagihanPSBController',
     'bayartagihans' => 'API\BayarTagihanController',

@@ -117,6 +117,7 @@ let routes = [
      * Data Surat Seragam
      */
     { path: '/suratseragam', component: require('./components/cpd/CPDSuratSeragam.vue').default},
+    { path: '/suratbuku', component: require('./components/cpd/CPDSuratBuku.vue').default},
 
     /**
      * Wawancara

@@ -101,6 +101,14 @@ class Calon extends Model
                 $tahap = 5;
                 if ($cek_wawancara_keu->lunas == 1) {
                     $tahap = 6;
+                    $ambilSeragam = AmbilSeragam::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                    if ($ambilSeragam) {
+                        $tahap = 7;
+                        $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                        if ($ambilBuku) {
+                            $tahap = 7.5;
+                        }
+                    }
                 }
             }
         }

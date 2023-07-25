@@ -14,6 +14,15 @@
     .status {
         margin-left: -20px;
     }
+    .pp {
+        position: relative;
+    }
+    .pp a {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 </style>
 <div class="container-xl">
     <div class="row justify-content-center">
@@ -32,6 +41,10 @@
                     </div> --}}
                 </div>
                 <div class="card-body box-profile">
+                    <div class="pp">
+                        <img class="img-thumbnail rounded mx-auto d-block" src="{{ $pp[$calon->uruts] }}" style="max-height: 160px; width: auto">
+                        <a href="/photo/{{ $calon->id }}" class="btn btn-sm btn-warning">Edit Photo</a>
+                    </div>
                     <h3 class="profile-username text-center text-uppercase">{{ $calon->name }}</h3>
                     <h4 class="text-muted text-center">{{ $calon->uruts }}</h4>
                     <ul class="list-group list-group-unbordered mb-2">
@@ -92,7 +105,11 @@
                             </div>
                         </div>
                         <div class="col-9">
-                            @include('user.tahapan.'.$calon->tahap)
+                            @if($calon->tahap == 7 || $calon->tahap == 7.5)
+                                @include('user.tahapan.7')
+                            @else
+                                @include('user.tahapan.'.$calon->tahap)
+                            @endif
                         </div>
                     </div>
                 </div>

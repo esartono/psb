@@ -18,6 +18,7 @@ class CreateJDokusTable extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('unit');
+            $table->integer('khusus');
             $table->timestamps();
         });
     }

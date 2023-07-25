@@ -2,11 +2,16 @@
 
 @section('content')
 
-<a href="{{ url('auth/google') }}" class="btn btn-primary btn-block sign-in">
-    <img src="https://www.google.com/favicon.ico"/>Daftar/Login dengan Akun Google
+<a href="{{ url('auth/google') }}" class="btn btn-primary btn-block sign-in" style="margin-top: 1em">
+    <img src="https://www.google.com/favicon.ico">
+    Daftar/Login dengan Akun Google
 </a>
-<p class="login-box-msg">atau Login dengan :<br>Email dan Password</p>
-<form method="POST" action="{{ route('login') }}">
+<hr>
+<a href=" {{ url('login/admin') }}" class="btn btn-block btn-outline-primary" style="">
+    <span><i class="fas fa-user-shield"></i></span> Administrator
+</a>
+{{-- <p class="login-box-msg">atau Login dengan :<br>Email dan Password</p> --}}
+{{-- <form method="POST" action="{{ route('login') }}">
     @csrf
     <div class="input-group mb-3">
         <input id="email" type="email" placeholder="E-Mail" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -42,5 +47,5 @@
             {{ __('Forgot Your Password?') }}
         </a>
     @endif --}}
-</form>
+{{-- </form> --}}
 @endsection

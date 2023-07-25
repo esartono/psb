@@ -421,6 +421,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link">
               <i class="fas fa-tshirt nav-icon yellow"></i>
               <p>
+                Data Seragam & Buku
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/seragam" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Seragam Calon
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/suratseragam" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Surat Pengambilan Seragam
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/suratbuku" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Surat Pengambilan Buku
+                  </p>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          {{-- @endif --}}
+        @endif
+        @if(Auth::user()->isHaveAccess([6]))
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-tshirt nav-icon yellow"></i>
+              <p>
                 Data Seragam PPDB
                 <i class="right fas fa-angle-left"></i>
               </p>
@@ -444,7 +482,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-          {{-- @endif --}}
         @endif
         @if(Auth::user()->isHaveAccess([1,4]))
           <li class="nav-item">
@@ -526,7 +563,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       IT Team - SIT Nurul Fikri
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2021 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+    <strong>Copyright &copy; 2019 - {{  date("Y") }} <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
   </footer>
 </div>
 <!-- ./wrapper -->

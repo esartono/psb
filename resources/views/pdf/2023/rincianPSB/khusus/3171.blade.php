@@ -34,10 +34,42 @@
                 <th>Jenis Pembayaran</th>
                 <th>Nominal (Rp.)</th>
             </tr>
+            @php
+              $DPengembangan = 7480000;
+              $DPendidikan = 5600000;
+              $SPP = 1000000;
+              $total1 = 16280000;
+              $sppAll = 0;
+              $daul = 0;
+
+              foreach($kelass as $k=>$b) {
+                if($b->name == "2" || $b->name == "7" || $b->name == "10") {
+                  $totalSPP = $SPP * 11;
+                } else {
+                  $totalSPP = $SPP * 12;
+                }
+                if(isset($kelas[$b->name]['daul'][$k])) {
+                  $daul = intval($kelas[$b->name]['daul'][$k]);
+                }
+                $sppAll = $sppAll + intval($kelas[$b->name]['total'][$k]) + $daul - $totalSPP;
+              }
+              $totalAll[1] = $sppAll;
+            @endphp
             @foreach($biayanya as $k=>$b)
             <tr>
+              @php
+                if($b == "Dana Pengembangan") {
+                  $biaya1[$b] = $DPengembangan;
+                }
+                if($b == "Dana Pendidikan") {
+                  $biaya1[$b] = $DPendidikan;
+                }
+                if($b == "SPP bulan Juli") {
+                  $biaya1[$b] = $biaya1[$b] - $SPP;
+                }
+              @endphp
               <td width="5%"> {{ $k+1 }} </td>
-              <td width="50%"> {{ ($b == 'SPP bulan Juli' ? 'SPP bulan Januari' : $b) }} </td>
+              <td width="50%"> {{ ($b == 'SPP bulan Juli' ? $bulanmasuk : $b) }} </td>
               <td align="right"> {{ number_format($biaya1[$b]) }} </td>
             </tr>
             @endforeach
@@ -79,8 +111,12 @@
         <td colspan="2"> <strong>Kelas {{ $b->name }}</strong> </td>
       </tr>
       <tr>
-        <td width="75%">{{ $kelas[$b->name]['ket'][$k] }} @ Rp. {{ number_format($kelas[$b->name]['spp'][$k]) }} <br></td>
-        <td align="right">Rp. {{ number_format(intval($kelas[$b->name]['total'][$k])) }}</td>
+        <td width="75%">{{ $kelas[$b->name]['ket'][$k] }} @ Rp. {{ number_format($kelas[$b->name]['spp'][$k] - $SPP) }} <br></td>
+        @if($b->name == "1" || $b->name == "7" || $b->name == "10")
+          <td align="right">Rp. {{ number_format(intval($kelas[$b->name]['total'][$k]) - ($SPP * 11)) }}</td>
+        @else
+          <td align="right">Rp. {{ number_format(intval($kelas[$b->name]['total'][$k]) - ($SPP * 12)) }}</td>
+        @endif
       </tr>
       @if(isset($kelas[$b->name]['daul'][$k]))
       <tr>

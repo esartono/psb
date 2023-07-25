@@ -11,16 +11,36 @@
 |
 */
 
-Route::get('/', 'HomeController@depan')->name('depan');
+// use Telegram;
+use Illuminate\Http\Request;
 
+/* Tester untuk WebHook */
+
+Route::post('/webhook/notification/gitlab', function (Request $request) {
+    Telegram::sendMessage([
+        'chat_id' => '643982879',
+        'text' => 'KIRIM OKE',
+    ]);
+});
+
+/* Tester untuk Gdrive */
+Route::get('/coba', 'HomeController@coba')->name('coba');
+
+Route::get('/', 'HomeController@depan')->name('depan');
+Route::get('/alur', 'HomeController@alur')->name('alur');
 Route::get('/biaya', 'HomeController@biaya')->name('biaya');
 Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
 Route::get('/syarat', 'HomeController@syarat')->name('syarat');
+Route::get('/daftarulang', 'HomeController@daftarulang')->name('daftarulang');
+Route::get('/faq', 'HomeController@faq')->name('faq');
 Route::get('/biayapendaftaran', 'HomeController@biayapendaftaran')->name('biayapendaftaran');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
+Route::get('/ukuranseragam', 'HomeController@ukuranseragam')->name('ukuranseragam');
+Route::get('/waitinglist', 'HomeController@waitinglist')->name('wl');
+Route::post('/waitinglist', 'HomeController@simpanwaitinglist')->name('waitinglist');
 
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
@@ -31,14 +51,16 @@ Route::get('auth/google', 'SocialiteController@redirectToGoogle');
 Route::get('auth/google/callback', 'SocialiteController@handleGoogleCallback');
 
 Auth::routes();
+Route::get('login/admin', 'HomeController@adminLogin');
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/biayatesPDF/{id}', 'CalonPDFController@biayates')->name('biayatesPDF');
     Route::get('/seleksiPDF/{id}', 'CalonPDFController@seleksi')->name('seleksiPDF');
     Route::get('/buktiBayarPPDB/{id}', 'CalonPDFController@bayarPPDB')->name('bayarPPDB');
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
+    Route::get('/AmbilBukuPDF/{id}', 'CalonPDFController@buku')->name('AmbilBukuPDF');
     Route::get('/SuratKeteranganDiterimaPDF/{id}', 'CalonPDFController@terima')->name('SuratKeteranganDiterimaPDF');
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
     Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
@@ -50,10 +72,9 @@ Route::middleware('auth')->group(function(){
 
     //Tes Script
     Route::get('/cek', 'UjicobaController@cek3')->name('cek');
-
 });
 
-Route::middleware('auth', 'user')->group(function(){
+Route::middleware('auth', 'user')->group(function () {
     // Route::get('/psb', 'HomeController@dashboardUser')->name('psb');
     // Route::get('/psb', 'HomeController@psb_old')->name('psb');
     Route::get('/ppdb', 'HomeController@psb')->name('ppdb');
@@ -71,19 +92,21 @@ Route::middleware('auth', 'user')->group(function(){
     Route::post('/editjurusan', 'DraftCalonController@jurusan');
     Route::delete('/bataldaftar', 'DraftCalonController@destroy')->name('bataldaftar');
     Route::get('/printTagihanPPDB/{id}', 'WawancaraController@PDFKeuangan')->name('print.tagihan');
+    Route::get('/photo/{id}', 'DraftCalonController@photo')->name('editpp');
+    Route::post('/photo', 'DraftCalonController@photopp')->name('postpp');
 });
 
-Route::middleware('auth', 'psikotes')->group(function(){
+Route::middleware('auth', 'psikotes')->group(function () {
     Route::get('/psikotes', 'HomeController@front')->name('psikotes');
     Route::get('/email', 'HomeController@front')->name('email');
 });
 
-Route::middleware('auth', 'pengadaan')->group(function(){
+Route::middleware('auth', 'pengadaan')->group(function () {
     Route::get('/seragam', 'HomeController@front')->name('seragam');
     Route::get('/EksportSeragam', 'API\CalonController@exportSeragam');
 });
 
-Route::middleware('auth', 'admin')->group(function(){
+Route::middleware('auth', 'admin')->group(function () {
     Route::get('/login_as', 'HomeController@loginJadiUser')->name('login_as');
     Route::post('/login_as', 'HomeController@login_as')->name('login_as');
     Route::get('/dashboard', 'HomeController@front')->name('dashboard');
@@ -135,6 +158,7 @@ Route::middleware('auth', 'admin')->group(function(){
     //Route::get('/tes', 'HomeController@tes');
     Route::get('/tagihan', 'HomeController@front');
     Route::get('/suratseragam', 'HomeController@front');
+    Route::get('/suratbuku', 'HomeController@front');
     Route::get('/tes', 'HomeController@front');
     Route::get('/berkas', 'HomeController@front');
     Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan')->name('wawancara-keu');
@@ -156,6 +180,6 @@ Route::middleware('auth', 'admin')->group(function(){
 
     //Untuk Cek PHP INFO
     Route::get('phpmyinfo', function () {
-        phpinfo(); 
+        phpinfo();
     })->name('phpmyinfo');
 });

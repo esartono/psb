@@ -32,12 +32,21 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
+// let laravel = 
+// let token = localStorage.getItem('access_token');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+// window.axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN': token.content,
+//     'X-Requested-With': 'XMLHttpRequest',
+//     'Authorization': 'Bearer ' + token.content,
+    
+// };
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

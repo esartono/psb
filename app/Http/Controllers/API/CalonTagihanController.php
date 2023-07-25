@@ -27,19 +27,19 @@ class CalonTagihanController extends Controller
      */
     public function index()
     {
-        if(auth('api')->user()->isAdmin()) {
+        if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        if(auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            return CalonTagihan::Where(function ($query) use($gelombang) {
-                for ($i = 0; $i < count($gelombang); $i++){
-                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            return CalonTagihan::Where(function ($query) use ($gelombang) {
+                for ($i = 0; $i < count($gelombang); $i++) {
+                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] . '%');
                 }
             })->orderBy('pendaftaran', 'asc')->get()->toArray();
         }
@@ -64,32 +64,32 @@ class CalonTagihanController extends Controller
      */
     public function show($id)
     {
-        if(auth('api')->user()->isAdmin()) {
+        if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        if(auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        $undur = CalonHasil::where('lulus', 4)
-                ->Where(function ($query) use($gelombang) {
-                    for ($i = 0; $i < count($gelombang); $i++){
-                        $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
-                    }
-                })->get();
-        return $undur;
-        // $lunas = CalonTagihanPSB::where('lunas', 1)->get()->pluck('calon_id');
+        // $lulus = CalonHasil::where('lulus', 1)
+        //     ->Where(function ($query) use ($gelombang) {
+        //         for ($i = 0; $i < count($gelombang); $i++) {
+        //             $query->orwhere('pendaftaran', 'like',  $gelombang[$i] . '%');
+        //         }
+        //     })->get();
+        // return $lulus;
+        $lunas = CalonTagihanPSB::where('lunas', 1)->get()->pluck('calon_id');
 
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            $lunas = CalonTagihanPSB::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
-                ->Where(function ($query) use($gelombang) {
-                for ($i = 0; $i < count($gelombang); $i++){
-                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
-                }
-            })->get()->toArray();
-        }
+        // if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+        //     $lunas = CalonTagihanPSB::whereIn('calon_id', $lulus)->where('lunas', 1)
+        //         ->Where(function ($query) use ($gelombang) {
+        //             for ($i = 0; $i < count($gelombang); $i++) {
+        //                 $query->orwhere('pendaftaran', 'like',  $gelombang[$i] . '%');
+        //             }
+        //         })->get()->toArray();
+        // }
         // if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
         //     $lunas = CalonTagihan::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
         //         ->Where(function ($query) use($gelombang) {
@@ -106,7 +106,7 @@ class CalonTagihanController extends Controller
         //         }
         //     })->get()->toArray();
         // }
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
             return Calon::with('gelnya.unitnya.catnya', 'cknya')->whereIn('id', $lunas)->get()->toArray();
             // return CalonTagihanPSB::whereNotIn('pendaftaran', $undur)->where('lunas', 1)
             //     ->Where(function ($query) use($gelombang) {
@@ -136,7 +136,6 @@ class CalonTagihanController extends Controller
         $lunas->update([
             'lunas' => 1
         ]);
-
     }
 
     /**

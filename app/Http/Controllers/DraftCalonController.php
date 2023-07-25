@@ -28,9 +28,19 @@ use App\Notifications\Wa;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+
+use App\Http\Controllers\FileController;
 
 class DraftCalonController extends Controller
 {
+    protected $FileController;
+    public function __construct(FileController $FileController)
+    {
+        $this->FileController = $FileController;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -594,5 +604,18 @@ class DraftCalonController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return 'EKO';
         }
+    }
+
+    public function photo($id)
+    {
+        $calon = Calon::where('id', $id)->where('user_id', auth()->user()->id)->first();
+        return view('photo.create', compact('calon'));
+    }
+
+    public function photopp(Request $request)
+    {
+        $response = $this->FileController->upload($request->file('file'), 'pp', $request->id);
+
+        return redirect()->route('ppdb');
     }
 }

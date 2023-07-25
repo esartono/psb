@@ -45,7 +45,7 @@
                 <td width="50%">
                   <table class="table table-striped table-sm" style="padding: 10px">
                     <tr v-for="b in biaya" :key="b.id">
-                      <td width="55%"><label class="col-form-label">{{ b.name }}</label></td>
+                      <td width="55%"><label class="col-form-label">{{ b.name == 'SPP bulan Juli' ? bulanmasuk : b.name }}</label></td>
                       <td align="right"><label class="col-form-label">{{ tagihanpsb[b.name] | toCurrency }}</label></td>
                     </tr>
                     <tr>
@@ -277,6 +277,7 @@ export default {
       ],
       siswanf: [],
       biaya: [],
+      bulanmasuk: '',
       form: new Form({
         calon_id: "",
         tagihan_id: "",
@@ -302,6 +303,7 @@ export default {
               this.kelas = data.data.kelas;
               this.form.calon_id = this.$route.params.id;
               this.form.tagihan_id = tgh;
+              this.bulanmasuk = data.data.bulanmasuk;
               // this.form.potongan = data.data.asalNF;
               // this.modelBayar = this.reguler[tgh-1].name;
               this.modelBayar = "PPDB SIT Nurul Fikri";

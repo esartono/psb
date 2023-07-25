@@ -2,137 +2,264 @@
 
 namespace App\Edupay;
 
-use SimpleXMLElement;
+use Cache;
+
+use Illuminate\Support\Facades\Http;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 
 class Edupay
 {
-    private $url = 'https://bsi.edupay.id/index.php/apiprod/';
-    // private $url = 'https://bankbsi.maja.id/v3/index.php/apiprod/';
-    // private $url = 'https://bsi.edupay.co.id/v3/index.php/apiprod/';
+    private $client = null;
+    // const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi/protocol/openid-connect/token';
+    // const API_URL = 'https://billing-bpi.maja.id';
 
-    public function view($idtagihan)
+    const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi-dev/protocol/openid-connect/token';
+    const API_URL = 'https://billing-bpi-dev.maja.id';
+
+    var $accessToken;
+
+    public function __construct()
     {
-        // if ($idtagihan === '202134292')
-        // {
-        //     $idtagihan = 'inv9000329220200709176315';
-        // }
-        $apikey = config('edupay.api');
-        $biller = config('edupay.biller');
-        $checksum = sha1($biller . $apikey . $idtagihan);
-        $fields = array(
-            'billerid' => $biller,
-            'id_tagihan' => $idtagihan,
-            'checksum' => $checksum,
-        );
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->url . 'view/');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        if (curl_errno($ch)) {
-            return "Error ND";
-        } else {
-            curl_close($ch);
-            $xml = simplexml_load_string($output);
-            $json = json_encode($xml);
-            return json_decode($json, TRUE);
-        }
+        $this->client = new Client();
     }
 
-    public function create($idtagihan, $total, $nama, $start, $end)
+    public function test1()
     {
-        $apikey = config('edupay.api');
-        $biller = config('edupay.biller');
-        $checksum = sha1($biller . $apikey . $idtagihan);
-        $fields = array(
-            'billerid' => $biller,
-            'id_tagihan' => $idtagihan,
-            'checksum' => $checksum,
-            'nomor_pembayaran' => $idtagihan,
-            'total_nominal_tagihan' => $total,
-            'is_tagihan_aktif' => '1',
-            'waktu_berlaku' => $start,
-            'waktu_berakhir' => $end . ' 23:59:59',
-            'inquiry_response_nama' => $nama,
-        );
+        Cache::flush();
+    }
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->url . 'create/');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo "Error ND";
-        } else {
-            curl_close($ch);
-            try {
-                $xml = simplexml_load_string($output);
-                $json = json_encode($xml);
-                return json_decode($json, TRUE);
-            } catch (Exception $e) {
-                print_r($e);
+    public function prepare_access_token()
+    {
+        try {
+            $getToken = true;
+            $url = self::API_TOKEN;
+            $cekToken = Cache::get('token');
+
+            $data = [
+                'grant_type' => 'password',
+                'client_id' => config('edupay.id'),
+                'client_secret' => config('edupay.secret'),
+                'username' => config('edupay.user'),
+                'password' => 'api3292'
+            ];
+
+            if (!$cekToken) {
+                $response = $this->client->request('POST', $url, [
+                    'headers' => ['Content-type: application/x-www-form-urlencoded'],
+                    'form_params' => $data,
+                    'timeout' => 20, // Response timeout
+                    'connect_timeout' => 20, // Connection timeout
+                ]);
+
+                $result = json_decode($response->getBody()->getContents());
+                Cache::put('token', $result->access_token, $result->expires_in);
+                // Cache::put('token', $result->access_token, 10);
             }
+
+            $this->accessToken = Cache::get('token');
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
         }
     }
 
-    public function edit($idtagihan, $total, $nama, $end)
+    public function StatusCodeHandling($e)
     {
-        $apikey = config('edupay.api');
-        $biller = config('edupay.biller');
-        $checksum = sha1($biller . $apikey . $idtagihan);
-        $fields = array(
-            'billerid' => $biller,
-            'id_tagihan' => $idtagihan,
-            'checksum' => $checksum,
-            'nomor_pembayaran' => $idtagihan,
-            'total_nominal_tagihan' => $total,
-            'is_tagihan_aktif' => '1',
-            'waktu_berlaku' => date('Y-m-d'),
-            'waktu_berakhir' => $end . ' 23:59:59',
-            'inquiry_response_nama' => $nama,
-        );
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->url . 'update/');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        if (curl_errno($ch)) {
-            return "Error ND";
+        if ($e->getResponse()->getStatusCode() == '400') {
+            $this->prepare_access_token();
+        } elseif ($e->getResponse()->getStatusCode() == '422') {
+            $response = json_decode($e->getResponse()->getBody(true)->getContents());
+            return $response;
+        } elseif ($e->getResponse()->getStatusCode() == '500') {
+            $response = json_decode($e->getResponse()->getBody(true)->getContents());
+            return $response;
+        } elseif ($e->getResponse()->getStatusCode() == '401') {
+            $response = json_decode($e->getResponse()->getBody(true)->getContents());
+            return $response;
+        } elseif ($e->getResponse()->getStatusCode() == '403') {
+            $response = json_decode($e->getResponse()->getBody(true)->getContents());
+            return $response;
         } else {
-            curl_close($ch);
-            $xml = simplexml_load_string($output);
-            $json = json_encode($xml);
-            return json_decode($json, TRUE);
+            $response = json_decode($e->getResponse()->getBody(true)->getContents());
+            return $response;
         }
     }
 
-    public function delete($idtagihan)
+    public function test()
     {
-        $apikey = config('edupay.api');
-        $biller = config('edupay.biller');
-        $checksum = sha1($biller . $apikey . $idtagihan);
-        $fields = array(
-            'billerid' => $biller,
-            'id_tagihan' => $idtagihan,
-            'checksum' => $checksum,
-        );
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->url . 'delete/');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        if (curl_errno($ch)) {
-            return "Error ND";
-        } else {
-            curl_close($ch);
-            $xml = simplexml_load_string($output);
-            $json = json_encode($xml);
-            return json_decode($json, TRUE);
+        try {
+            $url = self::API_URL . '/api/v2/register';
+            // $url = self::API_URL . '/api/v2/update/805318462099425244';
+            // $url = self::API_URL . '/api/v2/inquiry';
+
+            $data = [
+                'date' => date('Y-m-d'),
+                'amount' => 100,
+                'name' => 'Eko Sartono',
+                'email' => 'eko.sartono@nurulfikri.sch.id',
+                'va' =>  '12345',
+                'openPayment' => false,
+                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'items' => [],
+                'attributes' => []
+            ];
+            // $data = [
+            //     'va' => '12345',
+            //     'invoiceNumber' => '805318462099425244'
+            // ];
+
+            $cekToken = Cache::get('token');
+
+            if (!$cekToken) {
+                $this->prepare_access_token();
+            }
+
+            $cekToken = Cache::get('token');
+
+            $response = $this->client->request('POST', $url, [
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $cekToken],
+                'body' => json_encode($data),
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public function view($idtagihan, $idTransaction)
+    {
+        try {
+            $url = self::API_URL . '/api/v2/inquiry';
+            $data = [
+                'va' =>  $idtagihan,
+                'invoiceNumber' => $idTransaction
+            ];
+
+            $cekToken = Cache::get('token');
+
+            if (!$cekToken) {
+                $this->prepare_access_token();
+            }
+
+            $cekToken = Cache::get('token');
+
+            $response = $this->client->request('POST', $url, [
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $cekToken],
+                'body' => json_encode($data),
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public function create($idtagihan, $total, $nama, $start, $end, $email)
+    {
+        try {
+            $url = self::API_URL . '/api/v2/register';
+            $data = [
+                'date' => $start,
+                'activeDate' => $start,
+                'inactiveDate' => end,
+                'amount' => $total,
+                'name' => $nama,
+                'email' => $email,
+                'va' =>  $idtagihan,
+                'openPayment' => false,
+                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'items' => [],
+                'attributes' => []
+            ];
+
+            $cekToken = Cache::get('token');
+
+            if (!$cekToken) {
+                $this->prepare_access_token();
+            }
+
+            $cekToken = Cache::get('token');
+
+            $response = $this->client->request('POST', $url, [
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $cekToken],
+                'body' => json_encode($data),
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public function edit($idtagihan, $total, $nama, $end, $email, $idTransaction)
+    {
+        try {
+            $url = self::API_URL . '/api/v2/update/' . $idTransaction;
+            $data = [
+                'date' => $start,
+                'inactiveDate' => end,
+                'amount' => $total,
+                'name' => $nama,
+                'email' => $email,
+                'va' =>  $idtagihan,
+                'openPayment' => false,
+                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'items' => [],
+                'attributes' => []
+            ];
+
+            $cekToken = Cache::get('token');
+
+            if (!$cekToken) {
+                $this->prepare_access_token();
+            }
+
+            $cekToken = Cache::get('token');
+
+            $response = $this->client->request('POST', $url, [
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $cekToken],
+                'body' => json_encode($data),
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
+        }
+    }
+
+    public function delete($idtagihan, $idTransaction)
+    {
+        try {
+            $url = self::API_URL . '/api/v2/cancel';
+            $data = [
+                'va' =>  $idtagihan,
+                'invoiceNumber' => $idTransaction
+            ];
+
+            $cekToken = Cache::get('token');
+
+            if (!$cekToken) {
+                $this->prepare_access_token();
+            }
+
+            $cekToken = Cache::get('token');
+
+            $response = $this->client->request('POST', $url, [
+                'headers' => ['Content-Type' => 'application/json', 'Authorization' => 'Bearer ' . $cekToken],
+                'body' => json_encode($data),
+            ]);
+
+            return json_decode($response->getBody()->getContents());
+        } catch (RequestException $e) {
+            $response = $this->StatusCodeHandling($e);
+            return $response;
         }
     }
 }

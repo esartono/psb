@@ -86,11 +86,17 @@
             Rp. {{ number_format($calonsnya->biayates->biayanya->biaya) }},-, 
             batas waktu pembayaran sampai tanggal : <b>{{ date('d M Y', strtotime($calonsnya->biayates->expired)) }}</b></p>
     </div>
-    <p style="page-break-after: always;">
-        <div class="container">
-            <div class="row" style="margin-top: 120px;">
-                @include('wawancara.tatacara')
+    @if(date("Y-m-d", strtotime($calonsnya->tgl_daftar)) > "2023-03-01")
+        <p>Pembayaran Biaya Pendaftaran silahkan melalui rekening bank :</p>
+        <p><b>BSI (Bank Syariah Indonesia) 7000326668</b> a.n. YAY PEND DAN PEMB NURUL FIKRI</p>
+        <p>Jika sudah melakukan pembayaran, silakan konfirmasi dengan mengirimkan bukti transfer ke nomor Whatsapp <b>0822 1133 3434</b></p>
+    @else
+        <p style="page-break-after: always;">
+            <div class="container">
+                <div class="row" style="margin-top: 120px;">
+                    @include('wawancara.tatacara')
+                </div>
             </div>
-        </div>
-    </p>
+        </p>
+    @endif
 @endsection

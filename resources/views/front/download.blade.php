@@ -4,7 +4,7 @@
 	<section class="banner-area relative">
 		<div class="container">
 			<div class="section-top-border justify-content-center">
-				<h3 class="mt-30 mb-20 text-white">Unduh Dokumen</h3>
+				<h3 class="mt-60 mb-20 text-white">Unduh Dokumen</h3>
 				<div class="progress-table-wrap">
 					<div class="progress-table">
 						<div class="table-head">

@@ -37,30 +37,29 @@
                 $d2 = 0;
                 $d3 = 0;
                 $n = $biaya1[$b];
-                if($diskon[1]['diskon'] == 0) {
-                  if($ctg->potongan > 0) {
-                    if($batas == 2) {
-                      $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
-                      if (array_key_exists(2, $diskon)) {
-                        $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
-                      } else {
-                        $d = 0;
-                      }
-                    }
-                    if($batas == 1) {
-                      if (array_key_exists(2, $diskon)) {
-                        $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
-                      } else {
-                        $d = 0;
-                      }
-                      $d3 = $biaya1[$b]*($ctg->potongan/100);
+                if($ctg->potongan > 0) {
+                  if($batas == 2) {
+                    $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
+                    if (array_key_exists(2, $diskon)) {
+                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
                     }
                   }
-                  if($calon->gel_id == 7 && $calon->asal_nf == 1) {
-                    $d1 = 5000000;
-                    $d2 = 5000000;
-                    $d3 = 5000000;
+                  if($batas == 1) {
+                    if (array_key_exists(2, $diskon)) {
+                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                    }
+                    $d3 = $biaya1[$b]*($ctg->potongan/100);
                   }
+                  if($batas == 0) {
+                    if (array_key_exists(2, $diskon)) {
+                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                    }
+                  }
+                }
+                if($calon->gel_id == 7 && $calon->asal_nf == 1) {
+                  $d1 = 5000000;
+                  $d2 = 5000000;
+                  $d3 = 5000000;
                 }
               }
               // if($b == 'Dana Pendidikan') {
@@ -105,7 +104,7 @@
             <td> <strong>{{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong> </td>
           </tr>
         </table>
-        @if($diskon[1]['diskon'] !== 0)
+        @if($ctg->keterangan != 'Diskon anak PEGAWAI KONTRAK')
           <h4>Diskon Pembiayaan PPDB SIT Nurul Fikri</h4>
           <table class="rincian">
             <tr>
@@ -115,31 +114,35 @@
               <th width="15%">Pembayaran</th>
             </tr>
             @if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
-              <tr>
-                <td>1</td>
-                <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-                <td> {{ number_format($diskon[1]['diskon']) }} </td>
-                <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon'])) }} </td>
-              </tr>
+              @isset($diskon[1])
+                <tr>
+                  <td>1</td>
+                  <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+                  <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
+                </tr>
+              @endisset
               @isset($diskon[2])
                 <tr>
                   <td>2</td>
                   <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-                  <td> {{ number_format($diskon[2]['diskon']) }} </td>
-                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
+                  <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])+$d2) }} </td>
                 </tr>
               @endisset
             @endif
             @if($ctg->keterangan != 'Diskon anak PEGAWAI TETAP') {
-              <tr>
-                <td>1</td>
-                <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-                <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
-                <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
-              </tr>
+              @isset($diskon[1])
+                <tr>
+                  <td>{{ $diskon[1]['no'] }}</td>
+                  <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }} </i></td>
+                  <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
+                </tr>
+              @endisset
               @isset($diskon[2])
                 <tr>
-                  <td>2</td>
+                  <td>{{ $diskon[2]['no'] }}</td>
                   <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
                   <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
                   <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon']+$d2)) }} </td>
@@ -155,7 +158,7 @@
               </td>
             </tr>
           </table>
-          @endif
+        @endif
         <br>
         <table align="center" width="100%" style="font-size: 14px;">
           <tr>

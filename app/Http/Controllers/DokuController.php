@@ -21,29 +21,30 @@ use App\CalonJadwal;
 
 class DokuController extends Controller
 {
-    public function calon($id){
-        $calon = Calon::where('id',$id)->where('user_id',auth()->user()->id)->first();
-        if($calon) {
-            $doku = Doku::where('calon_id',$id)->where('user_id',auth()->user()->id)->pluck('file', 'jdoku');
+    public function calon($id)
+    {
+        $calon = Calon::where('id', $id)->where('user_id', auth()->user()->id)->first();
+        if ($calon) {
+            $doku = Doku::where('calon_id', $id)->where('user_id', auth()->user()->id)->pluck('file', 'jdoku');
             return view('doku.index', compact('calon', 'doku'));
         }
     }
 
     public function detail($id)
     {
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            $calon = Calon::where('id',$id)->first()->gel_id;
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+            $calon = Calon::where('id', $id)->first()->gel_id;
             $gelombang = Gelombang::where('id', $calon)->first()->unit_id;
             $unitnya = Unit::where('id', $gelombang)->first()->name;
-            $unit = trim(str_replace('IT Nurul Fikri','',$unitnya));
+            $unit = trim(str_replace('IT Nurul Fikri', '', $unitnya));
 
-            $jd = JDoku::where('unit', 'like', '%'.$unit.'%')->get();
+            $jd = JDoku::where('unit', 'like', '%' . $unit . '%')->get();
             $oke = array();
             $idsnya = -1;
 
-            foreach($jd as $j){
+            foreach ($jd as $j) {
                 $doku = Doku::where('calon_id', $id)->where('jdoku', $j->code)->first();
-                if($doku) {
+                if ($doku) {
                     $ids = $doku->id;
                     $file = $doku->file;
                 } else {
@@ -81,8 +82,8 @@ class DokuController extends Controller
     {
         $doku = Doku::whereId($id)->first();
         $calon = Calon::whereId($doku->calon_id)->first()->uruts;
-        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
-            $path = storage_path('dokumen/'.$calon.'/'.$doku->file);
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $path = storage_path('dokumen/' . $calon . '/' . $doku->file);
         }
 
         if (!File::exists($path)) {
@@ -111,7 +112,7 @@ class DokuController extends Controller
         $extension = $file->getClientOriginalExtension();
         $namefile = $file->getClientOriginalName();
 
-        Storage::disk('my_upload')->put('/'.$calon->uruts.'/'.$namefile, File::get($file));
+        Storage::disk('my_upload')->put('/' . $calon->uruts . '/' . $namefile, File::get($file));
         Doku::create([
             'calon_id' => $calon->id,
             'user_id' => auth()->user()->id,
@@ -126,28 +127,28 @@ class DokuController extends Controller
     {
         return redirect()->route('home');
         //Gak JADI .....
-        $calons = Calon::where('id',$calon)->where('user_id',auth()->user()->id)->first()->gel_id;
-        if($calons) {
+        $calons = Calon::where('id', $calon)->where('user_id', auth()->user()->id)->first()->gel_id;
+        if ($calons) {
             $cj = CalonJadwal::where('calon_id', $calon)->first()->jadwal_id;
             $seleksi = strtotime(Jadwal::where('id', $cj)->first()->seleksi);
             $jadwal = array();
             for ($i = 0; $i < 7; $i++) {
                 $seleksi = strtotime('-1 day', $seleksi);
                 $cek = strftime('%w', $seleksi);
-                if( $cek != 0 && $cek != 6) {
+                if ($cek != 0 && $cek != 6) {
                     $cekJadwal = CalonJadwal::whereDate('wawancara', date("yy-m-d", $seleksi))->get()->count();
-                    if( $cek == 5 ) {
-                        if($calons <= 2 && $cekJadwal <= 9 ) {
+                    if ($cek == 5) {
+                        if ($calons <= 2 && $cekJadwal <= 9) {
                             $jadwal[date("yy-m-d", $seleksi)] = strftime('%A, %d %B %Y', $seleksi);
                         }
-                        if($calons > 2 && $cekJadwal <= 15 ) {
+                        if ($calons > 2 && $cekJadwal <= 15) {
                             $jadwal[date("yy-m-d", $seleksi)] = strftime('%A, %d %B %Y', $seleksi);
                         }
                     } else {
-                        if($calons <= 2 && $cekJadwal <= 15 ) {
+                        if ($calons <= 2 && $cekJadwal <= 15) {
                             $jadwal[date("yy-m-d", $seleksi)] = strftime('%A, %d %B %Y', $seleksi);
                         }
-                        if($calons > 2 && $cekJadwal <= 25 ) {
+                        if ($calons > 2 && $cekJadwal <= 25) {
                             $jadwal[date("yy-m-d", $seleksi)] = strftime('%A, %d %B %Y', $seleksi);
                         }
                     }
@@ -161,11 +162,12 @@ class DokuController extends Controller
 
     public function updatejadwal(Request $request)
     {
-        $calon = Calon::where('id',$request->calon)->where('user_id',auth()->user()->id)->first();
-        if($calon) {
+        $calon = Calon::where('id', $request->calon)->where('user_id', auth()->user()->id)->first();
+        if ($calon) {
             CalonJadwal::updateOrCreate(
                 ['calon_id' => $request->calon],
-                ['wawancara' => $request->wawancara, 'waktu' => $request->waktu]);
+                ['wawancara' => $request->wawancara, 'waktu' => $request->waktu]
+            );
         }
 
         return redirect()->route('home');
@@ -176,20 +178,20 @@ class DokuController extends Controller
         $seleksi = strtotime($request->jadwal);
         $calon = Calon::whereId($request->calon)->first()->gel_id;
 
-        $j = ['09.00 - 10.00','10.00 - 11.00','11.00 - 12.00','13.00 - 14.00','14.00 - 15.00'];
+        $j = ['09.00 - 10.00', '10.00 - 11.00', '11.00 - 12.00', '13.00 - 14.00', '14.00 - 15.00'];
 
         $cek = strftime('%w', $seleksi);
-        if($cek == 5) {
-            $j = array_diff($j, ['11.00 - 12.00','13.00 - 14.00']);
+        if ($cek == 5) {
+            $j = array_diff($j, ['11.00 - 12.00', '13.00 - 14.00']);
         }
 
-        foreach($j as $cekcok) {
+        foreach ($j as $cekcok) {
             $cekJadwal = CalonJadwal::whereDate('wawancara', date("yy-m-d", $seleksi))
-                        ->where('waktu', $cekcok)->get()->count();
-            if($calon > 2 && $cekJadwal >= 5) {
+                ->where('waktu', $cekcok)->get()->count();
+            if ($calon > 2 && $cekJadwal >= 5) {
                 $j = array_diff($j, [$cekcok]);
             }
-            if($calon <= 2 && $cekJadwal >= 3) {
+            if ($calon <= 2 && $cekJadwal >= 3) {
                 $j = array_diff($j, [$cekcok]);
             }
         }

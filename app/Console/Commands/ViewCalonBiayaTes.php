@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Facades\Edupay;
+use App\Facades\Maja;
 use App\Notifications\Wa;
 
 use Illuminate\Console\Command;
@@ -30,7 +30,7 @@ class ViewCalonBiayaTes extends Command
      *
      * @var string
      */
-    protected $description = 'View Edupay from Calon Biaya Tes ';
+    protected $description = 'View Transaksi di Maja from Calon Biaya Tes ';
 
     /**
      * Create a new command instance.
@@ -49,17 +49,18 @@ class ViewCalonBiayaTes extends Command
      */
     public function handle()
     {
-        $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
+        // $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
+        $lihat = CalonBiayaTes::where('lunas', 0);
         $eko = "";
 
-        foreach($lihat as $l){
-            $bayar = Edupay::view($l->uruts);
-            if(isset($bayar['status_bayar'])){
-                if($bayar['status_bayar'] == '1' or $l->uruts == '222331138'){
+        foreach ($lihat as $l) {
+            $bayar = Maja::view($l->uruts);
+            if (isset($bayar['status_bayar'])) {
+                if ($bayar['status_bayar'] == '1' or $l->uruts == '222331138') {
                     Telegram::sendMessage([
                         'chat_id' => '643982879',
                         //'chat_id' => '-1001398300408',
-                        'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
+                        'text' => 'Id Tagihan : ' . $bayar['inquiry_response_nama'] . ' - ' . $bayar['id_tagihan'] . ' Sudah Lunas',
                     ]);
                     // Wa::kirim(
                     //     $l->usernya->phone,
@@ -82,7 +83,7 @@ class ViewCalonBiayaTes extends Command
         }
 
         $jadwal = Jadwal::get();
-        foreach($jadwal as $j) {
+        foreach ($jadwal as $j) {
             $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
             $j->update(['ikut' => $c]);
         }
@@ -98,7 +99,7 @@ class ViewCalonBiayaTes extends Command
 
         //         Telegram::sendMessage([
         //             'chat_id' => '643982879',
-		//             //'chat_id' => '-1001398300408',
+        //             //'chat_id' => '-1001398300408',
         //             'text' => 'Id Tagihan : '.$bayar['inquiry_response_nama'].' - '.$bayar['id_tagihan'].' Sudah Lunas',
         //         ]);
         //     }

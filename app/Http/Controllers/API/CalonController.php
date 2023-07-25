@@ -188,7 +188,7 @@ class CalonController extends Controller
 
     public function indexAdmin($id)
     {
-        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes()) {
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminKeu() || auth('api')->user()->isPsikotes() || auth('api')->user()->isPengadaan()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
         }
 

@@ -23,7 +23,9 @@ class SocialiteController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $user = Socialite::driver('google')->stateless()->user();
+            $parameters = ['access_type' => 'offline'];
+            $driver = Socialite::driver('google')->with($parameters);
+            $user = $driver->stateless()->user();
             $finduser = User::where('email', $user->email)->first();
             if ($finduser) {
                 Auth::login($finduser);

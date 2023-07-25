@@ -211,10 +211,8 @@
         <div class="page-break"></div>
         @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.1')
         <div class="page-break"></div>
-        @isset($diskon[1])
-            @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.potongan')
-            <div class="page-break"></div>
-        @endisset
+        @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.potongan')
+        <div class="page-break"></div>
         @include('pdf.'.substr(Auth::user()->tp_name,0,4).'.rincianPSB.pernyataan')
     </div>
 @endsection

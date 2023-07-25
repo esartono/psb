@@ -16,8 +16,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'App\Model' => 'App\Policies\ModelPolicy',
-        Calon::class => CalonPolicy::class,
+        'App\Model' => 'App\Policies\ModelPolicy',
+        // Calon::class => CalonPolicy::class,
     ];
 
     /**
@@ -28,7 +28,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         Passport::routes();
     }
 }

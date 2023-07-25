@@ -19,7 +19,7 @@ class JDoku extends Model
         $gel = Gelombang::where('id', $gel_id)->first()->unit_id;
         $units = Unit::where('id', $gel)->first()->cat_id;
         $unit = SchoolCategory::where('id', $units)->first()->name;
-        return static::where('unit', 'LIKE', '%'.$unit.'%')->get();
+        return static::where('unit', 'LIKE', '%' . $unit . '%')->get();
     }
 
     protected $appends = [
@@ -28,11 +28,11 @@ class JDoku extends Model
 
     public function getDokuKhususAttribute()
     {
-        if(is_null($this->attributes['khusus'])){
+        if (is_null($this->attributes['khusus'])) {
             return 'Semua Asal Calon';
         } else {
             $cek = CalonKategori::where('id', $this->attributes['khusus'])->first();
-            return 'Khusus dari '.$cek->name;
+            return 'Khusus dari ' . $cek->name;
         }
     }
 }

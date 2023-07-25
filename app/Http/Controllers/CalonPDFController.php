@@ -10,7 +10,9 @@ use App\CalonTagihanPSB;
 use App\CalonDaul;
 use App\TagihanSeragam;
 use App\AmbilSeragam;
+use App\AmbilBuku;
 use PDF;
+use Auth;
 
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\DocBlock\Tag;
@@ -209,7 +211,7 @@ class CalonPDFController extends Controller
 
                 if ($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP') {
                     // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
-                    $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if ($seragam->lunas_daul === 'Belum Lunas') {
@@ -224,7 +226,7 @@ class CalonPDFController extends Controller
 
                 if ($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP') {
                     // $pdf = PDF::loadView('pdf.seragam', compact('calonsnya', 'lunas', 'seragam'));
-                    $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if ($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM') {
@@ -247,10 +249,10 @@ class CalonPDFController extends Controller
             $seragam = AmbilSeragam::where('pendaftaran', $pendaftaran)->first();
 
             if ($seragam) {
-                $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
+                $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.seragam', compact('calonsnya', 'seragam'));
 
                 if ($seragam->lunas_daul === 'Lunas' && $seragam->siap === 'SIAP') {
-                    $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if ($seragam->lunas_daul === 'Belum Lunas') {
@@ -262,7 +264,7 @@ class CalonPDFController extends Controller
                 }
 
                 if ($calonsnya->ck_id === 3 && $seragam->siap === 'SIAP') {
-                    $pdf = PDF::loadView('pdf.seragam1', compact('calonsnya', 'seragam'));
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.seragam', compact('calonsnya', 'seragam'));
                 }
 
                 if ($calonsnya->ck_id === 3 && $seragam->siap === 'BELUM') {
@@ -270,6 +272,88 @@ class CalonPDFController extends Controller
                 }
             } else {
                 $pdf = PDF::loadView('pdf.seragam_blmsiap', compact('calonsnya', 'seragam'));
+            }
+            return $pdf->stream('');
+        }
+    }
+
+    public function buku($id)
+    {
+        ini_set('max_execution_time', 1200);
+        if (auth()->user()->isUser()) {
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->where('id', $id)->where('status', 1)->where('user_id', auth()->user()->id);
+            if ($calons->first()) {
+                $pend = $calons->first()->uruts;
+            }
+
+            if ($calons->get()->count() > 0) {
+                $calonsnya = $calons->first();
+                $buku = AmbilBUKU::where('pendaftaran', $calonsnya->uruts)->first();
+
+                if (!$buku) {
+                    $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya'));
+                    return $pdf->stream('');
+                }
+
+                if ($buku->lunas_daul === 'Lunas' && $buku->siap === 'SIAP') {
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.buku', compact('calonsnya', 'buku'));
+                }
+
+                if ($buku->lunas_daul === 'Belum Lunas') {
+                    $pdf = PDF::loadView('pdf.buku_blmlunas', compact('calonsnya', 'buku'));
+                }
+
+                if ($buku->siap === 'BELUM') {
+                    $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya', 'buku'));
+                }
+
+                if ($calonsnya->ck_id === 3 && $buku->siap === 'SIAP') {
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.buku', compact('calonsnya', 'buku'));
+                }
+
+                if ($calonsnya->ck_id === 3 && $buku->siap === 'BELUM') {
+                    $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya', 'buku'));
+                }
+
+                return $pdf->stream('');
+            } else {
+                return redirect('ppdb');
+            }
+        }
+
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+                ->whereId($id)->first();
+            $gel = Gelombang::where('id', $calonsnya->gel_id)->first();
+            $pendaftaran = $gel->kode_va . sprintf("%03d", $calonsnya->urut);
+
+            $buku = AmbilBuku::where('pendaftaran', $pendaftaran)->first();
+
+            if ($buku) {
+                $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.buku', compact('calonsnya', 'buku'));
+
+                if ($buku->lunas_daul === 'Lunas' && $buku->siap === 'SIAP') {
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.buku', compact('calonsnya', 'buku'));
+                }
+
+                if ($buku->lunas_daul === 'Belum Lunas') {
+                    $pdf = PDF::loadView('pdf.buku_blmlunas', compact('calonsnya', 'buku'));
+                }
+
+                if ($buku->siap === 'BELUM') {
+                    $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya', 'buku'));
+                }
+
+                if ($calonsnya->ck_id === 3 && $buku->siap === 'SIAP') {
+                    $pdf = PDF::loadView('pdf.' . substr(Auth::user()->tp_name, 0, 4) . '.buku', compact('calonsnya', 'buku'));
+                }
+
+                if ($calonsnya->ck_id === 3 && $buku->siap === 'BELUM') {
+                    $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya', 'buku'));
+                }
+            } else {
+                $pdf = PDF::loadView('pdf.buku_blmsiap', compact('calonsnya', 'buku'));
             }
             return $pdf->stream('');
         }

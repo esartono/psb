@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Excel;
+use Auth;
 
 use App\Gelombang;
 use App\TahunPelajaran;
@@ -21,8 +22,8 @@ class GelombangController extends Controller
     public function index()
     {
         return Gelombang::with('unitnya.catnya', 'tpnya')
-                ->where('tp', auth('api')->user()->tpid)
-                ->orderBy('unit_id', 'asc')->get()->toArray();
+            ->where('tp', auth('api')->user()->tpid)
+            ->orderBy('unit_id', 'asc')->get()->toArray();
     }
 
     public function show($id)
@@ -30,11 +31,11 @@ class GelombangController extends Controller
         $tgl_sekarang = Carbon::now('Asia/Jakarta');
 
         $gelombang = Gelombang::with('unitnya.catnya', 'tpnya')
-                ->where('unit_id', $id)
-                ->whereDate('start', '<=', $tgl_sekarang)
-                ->whereDate('end', '>=', $tgl_sekarang)
-                ->where('tp', auth('api')->user()->tpid)
-                ->first();
+            ->where('unit_id', $id)
+            ->whereDate('start', '<=', $tgl_sekarang)
+            ->whereDate('end', '>=', $tgl_sekarang)
+            ->where('tp', auth('api')->user()->tpid)
+            ->first();
 
         if ($gelombang !== null) {
             return $gelombang->toArray();

@@ -33,6 +33,8 @@
 									@endif
 								@else
 									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 danger circle mr-10 mb-10 wow fadeInDown">DAFTAR/LOGIN</a>
+									<br>
+									<a href="waitinglist" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 info circle mr-10 mb-10 wow fadeInDown" style="border: 1px solid white">WAITING LIST</a>
 									{{-- <a href="{{ route('register') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Daftar Akun</a> --}}
 								@endauth
 							</div>
@@ -45,7 +47,7 @@
 						<div class="card-body">
 							@foreach($berita as $b)
 								<h5>{{ $b->judul }}</h5>
-								{{ mb_strimwidth($b->berita, 0, 150, '...') }}
+								{{ mb_strimwidth($b->berita, 0, 115, '...') }}
 								<hr>
 							@endforeach
 						</div>

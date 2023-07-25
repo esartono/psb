@@ -64,8 +64,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- To the right -->

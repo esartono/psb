@@ -16,9 +16,9 @@ class CpdPsikoTesExport implements FromView
         $this->data = $data;
     }
 
-    public function view() : view
+    public function view(): view
     {
-        if(auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
             $calons = CalonJadwal::with('calonsnya', 'jadwalnya')->where('jadwal_id', $this->data)->get();
         }
 

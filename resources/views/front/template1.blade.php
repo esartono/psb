@@ -37,18 +37,21 @@
 	<link rel="stylesheet" href="/front/css/owl.carousel.css">
 	<link rel="stylesheet" href="/front/css/main.css">
 	<style>
-	li {
-		display: inline-block;
-		font-size: 1em;
-		list-style-type: none;
-		padding: 0.5em;
-		text-transform: uppercase;
-		color: #024A81;
+		.nav-menu > li {
+			display: inline-block;
+			font-size: 1em;
+			list-style-type: none;
+			padding: 0.12em;
+			text-transform: uppercase;
+			color: #024A81;
+			height: 50px;
+    		line-height: 50px;
+			margin-left: 0; 
 		}
 
-		li span {
-		display: block;
-		font-size: 3em;
+		.nav-menu li span {
+			display: block;
+			font-size: 3em;
 		}
 	</style>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -71,25 +74,25 @@
 	<header id="header">
 		<div class="container">
 			<div class="row align-items-center justify-content-between d-flex">
-				<div id="logo">
-					<a href="index.html"><img src="img/logo.png" width="50" height="50" alt="Logo NF" title="Logo SIT Nurul Fikri" /></a>
-				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"><a href="/">Depan</a></li>
-						<li><a href="file/Alur PPDB NF.jpg" target="_blank">Alur Pendaftaran</a></li>
-						<li><a href="/biaya">Biaya Pendidikan</a></li>
-						{{-- <li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li> --}}
-						<li><a href="/syarat">Syarat dan Ketentuan</a></li>
-						<li><a href="/jadwal">Jadwal</a></li>
-						<li class="menu-has-children"><a>Tata Cara Pembayaran</a>
+						<li id="logo"><a href="index.html"><img src="img/logo.png" width="50" height="50" alt="Logo NF" title="Logo SIT Nurul Fikri" /></a></li>
+						<li class="{{ Request::path() ==  '/' ? 'menu-active' : '' }}"><a href="/">Depan</a></li>
+						<li class="{{ Request::path() ==  'alur' ? 'menu-active' : '' }}"><a href="/alur">Alur Pendaftaran</a></li>
+						<li class="menu-has-children {{ (Request::path() == 'biayapendaftaran' || Request::path() == 'biaya' || Request::path() == 'daftarulang') ? 'menu-active' : '' }}">
+							<a>Biaya Pendidikan</a>
 							<ul>
 								<li><a href="/biayapendaftaran">Biaya Pendaftaran</a></li>
-								<li><a href="file/Daul.pdf" target="_blank">Daftar Ulang</a></li>
+								<li><a href="/biaya">Biaya Pendidikan</a></li>
+								<li><a href="/daftarulang">Daftar Ulang</a></li>
 							</ul>
 						</li>
-						<li><a href="download">Download</a></li>
-						<li style="margin-top: -7px;"><a href="hasil" class="genric-btn danger circle" style="padding: 0 25px;">Hasil TES</a></li>
+						{{-- <li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li> --}}
+						<li class="{{ Request::path() ==  'syarat' ? 'menu-active' : '' }}"><a href="/syarat">Syarat dan Ketentuan</a></li>
+						<li class="{{ Request::path() ==  'jadwal' ? 'menu-active' : '' }}"><a href="/jadwal">Jadwal</a></li>
+						<li class="{{ Request::path() ==  'download' ? 'menu-active' : '' }}"><a href="download">Download</a></li>
+						<li><a href="faq" class="genric-btn warning circle" style="padding: 0 15px; color: blue">F A Q</a></li>
+						<li><a href="hasil" class="genric-btn danger circle" style="padding: 0 15px;">Hasil TES</a></li>
 					</ul>
 				</nav><!-- #nav-menu-container -->
 			</div>
@@ -99,7 +102,9 @@
 
 	@yield('isi')
 
-	<script src="/front/js/vendor/jquery-2.2.4.min.js"></script>
+	{{-- <script src="/front/js/vendor/jquery-2.2.4.min.js"></script> --}}
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
 	{{-- <script src="/front/js/vendor/bootstrap.min.js"></script> --}}
@@ -114,11 +119,23 @@
 	<script src="/front/js/jquery.sticky.js"></script>
 	<script src="/front/js/jquery.nice-select.min.js"></script>
 	<script src="/front/js/parallax.min.js"></script>
-	<script src="/front/js/waypoints.min.js"></script>
+	{{-- <script src="/front/js/waypoints.min.js"></script> --}}
 	<script src="/front/js/wow.min.js"></script>
 	<script src="/front/js/jquery.counterup.min.js"></script>
 	<script src="/front/js/mail-script.js"></script>
 	<script src="/front/js/main.js"></script>
+	<script type="text/javascript">
+		$(".input").focus(function() {
+			$(this).parent().addClass("focus");
+		})
+		$(".input").focusout(function() {
+			cek = $(this).val();
+			if(cek == "") {
+				$(this).parent().removeClass("focus");
+			}
+		})
+	</script>
+	
 </body>
 
 </html>

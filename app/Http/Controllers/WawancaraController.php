@@ -108,15 +108,20 @@ class WawancaraController extends Controller
             $khusus = 1;
         }
 
+        $diskonpegawai = 0;
+        $diskonpegawai2 = 0;
+        $diskonpegawai3 = 0;
+
         if ($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
             $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan / 100);
             $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'] - $diskonpegawai;
+            if ($ctg->keterangan != 'Diskon anak PEGAWAI KONTRAK') {
+                $diskonpegawai2 = $biaya1['Dana Pengembangan'] * ($ctg->potongan / 100);
+                $biaya1['Dana Pengembangan'] = $biaya1['Dana Pengembangan'] - $diskonpegawai2;
 
-            $diskonpegawai2 = $biaya1['Dana Pengembangan'] * ($ctg->potongan / 100);
-            $biaya1['Dana Pengembangan'] = $biaya1['Dana Pengembangan'] - $diskonpegawai2;
-
-            $diskonpegawai3 = $biaya1['Dana Pendidikan'] * ($ctg->potongan / 100);
-            $biaya1['Dana Pendidikan'] = $biaya1['Dana Pendidikan'] - $diskonpegawai3;
+                $diskonpegawai3 = $biaya1['Dana Pendidikan'] * ($ctg->potongan / 100);
+                $biaya1['Dana Pendidikan'] = $biaya1['Dana Pendidikan'] - $diskonpegawai3;
+            }
 
             $total1 = $total1 - $diskonpegawai - $diskonpegawai2 - $diskonpegawai3;
         }
@@ -149,7 +154,7 @@ class WawancaraController extends Controller
                 '3' => 3750000,
                 '4' => 4100000,
                 '5' => 4500000,
-                '6' => 4500000,
+                '6' => 4900000,
                 '8' => 4000000,
                 '9' => 4250000,
                 '11' => 4500000,
@@ -247,6 +252,12 @@ class WawancaraController extends Controller
         $now = new \DateTime();
         $unitd = str_replace('IT Nurul Fikri', '', Gelombang::unit($calon->gel_id));
         $diskonUnit = [
+            0 => [
+                'TK' => 0,
+                'SD' => 0,
+                'SMP' => 0,
+                'SMA' => 0,
+            ],
             1 => [
                 'TK' => 4000000,
                 'SD' => 4000000,
@@ -269,38 +280,32 @@ class WawancaraController extends Controller
 
         $bataskolom = new \DateTime($ctg->created_at->toDateString());
         $diskon = array();
+        $kontrak = false;
 
-        $tgl = new \DateTime('2023-6-1');
+        $tgl = new \DateTime('2023-6-31');
         if ($tgl > $bataskolom) {
             $diskon = [
-                1 => [
+                2 => [
+                    'no' => 1,
                     'tgl' => new \DateTime('2023-1-1'),
-                    'tanggal' => "31 Desember 2022",
-                    'diskon' => 0
-                ]
-            ];
-        }
-
-        $tgl = new \DateTime('2023-1-1');
-        if ($tgl > $bataskolom) {
-            $diskon = [
-                1 => [
-                    'tgl' => new \DateTime('2023-1-1'),
-                    'tanggal' => "31 Desember 2022",
-                    'diskon' => $diskonUnit[3][$unitd]
+                    'tanggal' => "",
+                    'diskon' => $diskonUnit[0][$unitd]
                 ]
             ];
         }
 
         $tgl = new \DateTime('2022-12-1');
         if ($tgl > $bataskolom) {
+            $kontrak = true;
             $diskon = [
                 1 => [
+                    'no' => 1,
                     'tgl' => new \DateTime('2022-12-1'),
                     'tanggal' => "30 November 2022",
                     'diskon' => $diskonUnit[2][$unitd]
                 ],
                 2 => [
+                    'no' => 2,
                     'tgl' => new \DateTime('2023-1-1'),
                     'tanggal' => "31 Desember 2022",
                     'diskon' => $diskonUnit[3][$unitd]
@@ -310,18 +315,22 @@ class WawancaraController extends Controller
 
         $tgl = new \DateTime('2022-11-1');
         if ($tgl > $bataskolom) {
+            $kontrak = true;
             $diskon = [
                 1 => [
+                    'no' => 1,
                     'tgl' => new \DateTime('2022-11-1'),
                     'tanggal' => "31 Oktober 2022",
                     'diskon' => $diskonUnit[1][$unitd]
                 ],
                 2 => [
+                    'no' => 2,
                     'tgl' => new \DateTime('2022-12-1'),
                     'tanggal' => "30 November 2022",
                     'diskon' => $diskonUnit[2][$unitd]
                 ],
                 3 => [
+                    'no' => 3,
                     'tgl' => new \DateTime('2023-1-1'),
                     'tanggal' => "31 Desember 2022",
                     'diskon' => $diskonUnit[3][$unitd]
@@ -337,8 +346,10 @@ class WawancaraController extends Controller
             }
         }
 
-        if ($diskon[1]['tgl'] > $bataskolom) {
-            $batas = 2;
+        if (array_key_exists(1, $diskon)) {
+            if ($diskon[1]['tgl'] > $bataskolom) {
+                $batas = 2;
+            }
         }
 
         $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first()->jadwal_id;
@@ -346,9 +357,12 @@ class WawancaraController extends Controller
             $pengumuman = Jadwal::whereId($cjadwal)->first()->pengumuman->addDays(30);
         }
 
-        // if ($ctg->khusus == 0) {
-        $pdf = PDF::loadView('pdf.' . substr(auth()->user()->tp_name, 0, 4) . '.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas', 'bulanmasuk'));
-        // }
+        if ($ctg->khusus == 1) {
+            $pdf = PDF::loadView('pdf.' . substr(auth()->user()->tp_name, 0, 4) . '.tagihanPSBKhusus', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'bulanmasuk'));
+        }
+        if ($ctg->khusus == 0) {
+            $pdf = PDF::loadView('pdf.' . substr(auth()->user()->tp_name, 0, 4) . '.tagihanPSB', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'total1', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir', 'diskon', 'pengumuman', 'batas', 'bulanmasuk', 'kontrak'));
+        }
 
         // if ($khusus == 1) {
         //     $pdf = PDF::loadView('pdf.tagihanPSBKhusus', compact('biayanya', 'ctg', 'security', 'calon', 'biaya1', 'biaya2', 'biaya3', 'total1', 'total2', 'total3', 'kelass', 'kelas', 'totalAll', 'tp_awal', 'tp_akhir'));

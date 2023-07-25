@@ -2,7 +2,7 @@
 
 //Untuk koneksi ke API BSM Edupay
 return [
-    'edupay' => env('EDUPAY_API_KEY').env('EDUPAY_BILLER'),
-    'api' => env('EDUPAY_API_KEY'),
-    'biller' => env('EDUPAY_BILLER')
+    'id' => env('EDUPAY_ID'),
+    'secret' => env('EDUPAY_SECRET_DEV'),
+    'user' => env('EDUPAY_USER')
 ];

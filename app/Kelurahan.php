@@ -16,6 +16,11 @@ class Kelurahan extends Model
 
     public static function nama($id)
     {
-        return static::where('id', '=', $id)->first()->name;
+        // return static::where('id', '=', $id)->first()->name;
+        $data = static::where('id', '=', $id)->first();
+        if ($data) {
+            return $data->name;
+        }
+        return '-';
     }
 }

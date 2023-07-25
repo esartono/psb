@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Maja;
+namespace App\EdupayOld;
 
 use SimpleXMLElement;
 
-class Maja
+class EdupayOld
 {
     private $url = 'https://bsi.edupay.id/index.php/apiprod/';
     // private $url = 'https://bankbsi.maja.id/v3/index.php/apiprod/';

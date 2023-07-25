@@ -20,9 +20,9 @@ class JadwalController extends Controller
     public function index()
     {
         return Jadwal::with('gelnya.unitnya.catnya', 'gelnya.tpnya')
-                    ->whereHas('gelnya', function ($query) {
-                        $query->where('tp', auth('api')->user()->tpid);
-                    })->orderBy('seleksi', 'asc')->get()->toArray();
+            ->whereHas('gelnya', function ($query) {
+                $query->where('tp', auth('api')->user()->tpid);
+            })->orderBy('seleksi', 'asc')->get()->toArray();
     }
 
     /**
@@ -37,6 +37,7 @@ class JadwalController extends Controller
             'gel_id' => $request['gel_id'],
             'seleksi' => $request['seleksi'],
             'seleksi_online' => $request['seleksi_online'],
+            'pengumuman' => $request['pengumuman'],
             'kuota' => $request['kuota'],
             'keterangan' => $request['keterangan'],
         ]);
@@ -76,6 +77,5 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::findOrFail($id);
         $jadwal->delete();
-
     }
 }

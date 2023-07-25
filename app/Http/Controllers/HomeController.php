@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 use App\Gelombang;
 use App\TahunPelajaran;
@@ -19,6 +21,7 @@ use App\CalonHasil;
 use App\CalonBiayaTes;
 use App\Jadwal;
 use App\TagihanPSB;
+use App\FileGdrive;
 
 // use Wa;
 use Auth;
@@ -36,16 +39,24 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware(['auth'])->except(
+            'adminLogin',
             'depan',
+            'alur',
             'biaya',
             'jadwal',
             'edupay',
             'download',
+            'daftarulang',
+            'faq',
             'hasil',
             'gethasil',
             'jadwalkesehatan',
             'syarat',
-            'biayapendaftaran'
+            'biayapendaftaran',
+            'ukuranseragam',
+            'waitinglist',
+            'simpanwaitinglist',
+            'coba',
         );
         $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
     }
@@ -71,6 +82,16 @@ class HomeController extends Controller
             return redirect()->route('email');
             // return view('psb');
         }
+
+        if (auth()->user()->isPengadaan()) {
+            return redirect()->route('seragam');
+            // return view('psb');
+        }
+    }
+
+    public function adminLogin()
+    {
+        return view('auth.admin');
     }
 
     public function loginJadiUser()
@@ -79,6 +100,7 @@ class HomeController extends Controller
             return view('auth.loginsebagai');
         }
     }
+
     public function login_as(Request $request)
     {
         if (auth()->user()->isAdministrator()) {
@@ -126,6 +148,11 @@ class HomeController extends Controller
         return view('profile');
     }
 
+    public function faq()
+    {
+        return view('front.faq');
+    }
+
     public function dashboardUser()
     {
         if (auth()->user()->isUser()) {
@@ -161,7 +188,11 @@ class HomeController extends Controller
 
         if ($calons->count() > 0) {
             // dd($calons->first()->bayarppdb['bayarppdb']);
-            return view('user.dashboard', compact('calons'));
+            $pp = array();
+            foreach ($calons as $c) {
+                $pp[$c->uruts] = $this->pProfile($c->id);
+            }
+            return view('user.dashboard', compact('calons', 'pp'));
         }
         return view('user.awal');
     }
@@ -214,6 +245,11 @@ class HomeController extends Controller
             'text' => $cek
         ]);
         return view('profile');
+    }
+
+    public function alur()
+    {
+        return view('front.alur');
     }
 
     public function biaya()
@@ -297,6 +333,13 @@ class HomeController extends Controller
         return view('front.syarat', compact('tp', 'patokan'));
     }
 
+    public function daftarulang()
+    {
+        $tp = $this->tp_berjalan;
+        $patokan = (int)substr($tp, 0, 4);
+        return view('front.daftarulang', compact('tp', 'patokan'));
+    }
+
     public function jadwalkesehatan()
     {
         return view('front.kesehatan');
@@ -327,5 +370,55 @@ class HomeController extends Controller
         $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
 
         return view('front.depan', compact('start', 'tp', 'units', 'berita'));
+    }
+
+    public function ukuranseragam()
+    {
+        return view('front.ukuranseragam');
+    }
+
+    public function pProfile($id)
+    {
+        $urls = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            // $path = storage_path('dokumen/' . $calon . '/' . $doku->file);
+        }
+
+        if (auth()->user()->isUser()) {
+            $calon = Calon::where('id', $id)
+                ->where('user_id', auth()->user()->id)
+                ->first();
+
+            if ($calon) {
+                $fileid = FileGdrive::where('fileName', 'Photo-' . $calon->uruts)->first();
+                if ($fileid) {
+                    $urls = Storage::disk('gdrive')->url($fileid->fileId);
+                }
+            }
+        }
+
+        return $urls;
+    }
+
+    public function waitinglist()
+    {
+        $tp = $this->tp_berjalan;
+        $patokan = (int)substr($tp, 0, 4);
+        return view('front.waiting', compact('tp', 'patokan'));
+    }
+
+    public function simpanwaitinglist(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function coba(Request $request)
+    {
+        $files = Storage::disk('gdrive')->allFiles();
+        $details = Storage::disk('gdrive')->getMetadata($files[0]);
+        $urls = Storage::disk('gdrive')->url($files[0]);
+        dump($details['filename']);
+        dump($details['extension']);
+        dump($urls);
     }
 }

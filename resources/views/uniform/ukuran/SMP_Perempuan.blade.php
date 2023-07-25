@@ -56,20 +56,20 @@
     </tr>
     <tr>
         <th>XL</th>
-        <td style="text-align: center">53</td>
-        <td style="text-align: center">43</td>
-        <td style="text-align: center">55</td>
-        <td style="text-align: center">72</td>
+        <td style="text-align: center">58</td>
+        <td style="text-align: center">46</td>
+        <td style="text-align: center">60</td>
+        <td style="text-align: center">77</td>
         <th>XL</th>
         <td style="text-align: center">78 - 89</td>
         <td style="text-align: center">99</td>
     </tr>
     <tr>
         <th>XXL</th>
-        <td style="text-align: center">56</td>
-        <td style="text-align: center">44</td>
-        <td style="text-align: center">57</td>
-        <td style="text-align: center">74</td>
+        <td style="text-align: center">60</td>
+        <td style="text-align: center">48</td>
+        <td style="text-align: center">62</td>
+        <td style="text-align: center">80</td>
         <th>XXL</th>
         <td style="text-align: center">85 - 93</td>
         <td style="text-align: center">102</td>
