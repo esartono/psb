@@ -1,7 +1,7 @@
 @extends('pdf.template')
 
 @section('isi')
-    <style>
+    <style type="text/css">
         .biodata th {
             text-align: left;
         }

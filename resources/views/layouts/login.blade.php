@@ -14,8 +14,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>{{ config('app.name') }}</title>
   
   <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
-  <link rel="stylesheet" href="/css/app.css">
-  <style>
+  <link rel="stylesheet" href="/css/app.css" type="text/css">
+  <style type="text/css">
     .sign-in {
       padding: 0.2rem !important;
       text-align: left !important;

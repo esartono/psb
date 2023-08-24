@@ -1,7 +1,8 @@
 @extends('front.template1')
 
 @section('isi')
-<style>
+<style type="text/css">
+
     body {
         color: black
     }
@@ -82,10 +83,10 @@
                             </ol>
                         </li>
                         <li>Jenis Seleksi<div class="jarak"></div>
-                            <table class="table table-bordered table-striped" style="width: 80%">
+                            <table class="table table-bordered table-striped" style="width: 80%; margin-left: 30px">
                                 <thead>
                                     <tr>
-                                        <th>Unit</th>
+                                        <th style="width: 15%">Unit</th>
                                         <th>Keterangan</th>
                                     </tr>
                                 </thead>
@@ -126,7 +127,7 @@
                                                 <li>Psikotes</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
-                                                <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-6 }}</li>
+                                                <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-5 }}</li>
                                                 <li>Tes Akademik (bagi Siswa mutasi/pindahan)</li>
                                             </ol>
                                         </td>
@@ -136,11 +137,10 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Akademik (Matematika dan IPA)</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Numerik dan Literasi)</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
-                                                <li>Tes Kemampuan Bahasa Inggris</li>
                                             </ol>
                                         </td>
                                     </tr>
@@ -149,12 +149,11 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Akademik (Matematika, IPA, IPS, Bahasa Indonesia dan Bahasa Inggris)</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Numerik dan Literasi)</li>
                                                 <li>Menyerahkan Hasil Tes Bebas Narkoba dari Rumah Sakit, Klinik atau Laboratorium dengan komponen minimal : Amphetamine (AMP), Metamphitamine ( MET), Cocaine (COC), Ganja (THC)</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
-                                                <li>Tes Kemampuan Bahasa Inggris</li>
                                             </ol>
                                         </td>
                                     </tr>
@@ -163,47 +162,16 @@
                         </li>
                         <li>Ketentuan Seleksi<div class="jarak"></div>
                             <ol class="biasa">
-                                <li>Psikotes (Observasi untuk unit TK) dilaksanakan secara offline (TK dan SD) atau online (SMP dan SMA) sesuai jadwal yang sudah ditentukan</li>
-                                <li>Tes Akademik dilaksanakan secara Online sesuai dengan tanggal yang ditentukan, dengan mata pelajaran sebagai berikut :
-                                    <br>
-                                    <br>
-                                    <table class="spesial">
-                                        <tr>
-                                            <th width="100px">Unit</th>
-                                            <th>Mata Pelajaran</th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center">SMP</td>
-                                            <td>
-                                                <ol class="biasa">
-                                                    <li>Matematika</li>
-                                                    <li>Ilmu Pengetahuan Alam</li>
-                                                </ol>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center">SMA</td>
-                                            <td>
-                                                <ol class="biasa">
-                                                    <li>Matematika</li>
-                                                    <li>Ilmu Pengetahuan Alam</li>
-                                                    <li>Ilmu Pengetahuan Sosial</li>
-                                                    <li>Bahasa Indonesia</li>
-                                                    <li>Bahasa Inggris</li>
-                                                </ol>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <br>
-                                </li>
+                                <li>Psikotes (Observasi untuk unit TK) dilaksanakan secara offline sesuai jadwal yang sudah ditentukan</li>
+                                <li>Tes Potensi Akademik dilaksanakan secara Offline sesuai dengan tanggal yang ditentukan, dengan muatan tes tentang Kemampuan Numerik dan Literasi.</li>
                                 <li>Wawancara Orang Tua Calon siswa dan Wawancara Calon Siswa dilaksanakan dalam satu hari tes secara langsung sesuai jadwal.</li>
                                 <li>Peserta tes melakukan upload surat keterangan sehat dari dokter pada laman web sebelum pelaksanaan seleksi.</li>
                                 <li>Untuk calon siswa SMP dan SMA melakukan input nilai rapor website, mata pelajaran sebagai berikut:
                                     <br>
                                     <br>
-                                    <table class="spesial">
+                                    <table class="table table-bordered table-striped" style="width: 80%">
                                         <tr>
-                                            <th width="100px">Unit</th>
+                                            <th width="15%">Unit</th>
                                             <th>Mata Pelajaran</th>
                                             <th>Kelas</th>
                                         </tr>

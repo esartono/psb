@@ -13,12 +13,12 @@
 						Selamat Datang di Sistem PPDB Online SIT Nurul Fikri Tahun Akademik {{ $tp->name }}.
 						Perhatikan semua informasi mengenai Peserta Didik Baru sebelum anda mulai mendaftar.
 						Apabila Anda belum mempunyai akun, silahkan melakukan proses Daftar Akun.</p>
-					<div class="wow fadeIn card col-md-8 offset-md-2 border-warning countdown mt-4">
+					<div class="wow fadeIn border-warning countdown mt-4">
 						<ul class="mt-4">
-							<li><span id="days" class="mb-3"></span>hari</li>
-							<li><span id="hours" class="mb-3"></span>jam</li>
-							<li><span id="minutes" class="mb-3"></span>menit</li>
-							<li><span id="seconds" class="mb-3"></span>detik</li>
+							<li><span id="days"></span>hari</li>
+							<li><span id="hours"></span>jam</li>
+							<li><span id="minutes"></span>menit</li>
+							<li><span id="seconds"></span>detik</li>
 						</ul>
 					</div>
 					<div class="courses pt-20 mt-4">
@@ -34,7 +34,7 @@
 								@else
 									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 danger circle mr-10 mb-10 wow fadeInDown">DAFTAR/LOGIN</a>
 									<br>
-									<a href="waitinglist" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 info circle mr-10 mb-10 wow fadeInDown" style="border: 1px solid white">WAITING LIST</a>
+									<a href="{{ route('waiting.create') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 info circle mr-10 mb-10 wow fadeInDown" style="border: 1px solid white">WAITING LIST</a>
 									{{-- <a href="{{ route('register') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Daftar Akun</a> --}}
 								@endauth
 							</div>

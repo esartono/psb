@@ -49,6 +49,10 @@ import VueProgressBar from 'vue-progressbar'
 import VueDatePicker from '@mathieustan/vue-datepicker';
 Vue.use(VueDatePicker)
 
+//Tinymce Editor
+import tinymce from 'vue-tinymce-editor'
+Vue.component('tinymce', tinymce)
+
 const newLocal = '/ppdb';
 let routes = [
     { path: '/dashboard', component: require('./components/Home.vue').default},
@@ -77,6 +81,7 @@ let routes = [
     { path: '/config/biayaSPP', component: require('./components/config/SPP.vue').default},
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
     { path: '/config/berita', component: require('./components/config/Berita.vue').default},
+    { path: '/config/faq', component: require('./components/config/Faq.vue').default},
 
     /**
      * Dashboard Ortu
@@ -112,6 +117,11 @@ let routes = [
      * Data Kelengkapan Berkas
      */
     { path: '/berkas', component: require('./components/cpd/Berkas.vue').default},
+
+    /**
+     * Data Waiting List
+     */
+    { path: '/waitingList', component: require('./components/cpd/Waiting.vue').default},
 
     /**
      * Data Surat Seragam

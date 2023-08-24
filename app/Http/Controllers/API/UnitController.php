@@ -51,7 +51,6 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-
         Unit::create([
             'name' => $request['name'],
             'cat_id' => $request['cat_id'],
@@ -104,5 +103,4 @@ class UnitController extends Controller
     {
         return Excel::download(new UnitExport, 'units.xlsx');
     }
-
 }

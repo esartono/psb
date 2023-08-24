@@ -1,4 +1,4 @@
-<style>
+<style type="text/css">
     .jk-warna {
         color:white;
         position: relative;
@@ -94,20 +94,20 @@
                             @if($unit->catnya->name != 'SMA')
                                 <button type="submit" name="kelas_tujuan" value="{{ $k['id'] }}" class="mb-5 btn btn-app btn-lg white bg-{{ $unit->catnya->name }}">
                                     <p class="@if(\App\Kelasnya::cjk($k->id) === 0) jk-bening @else jk-warna @endif">@include('user.form.cekjk',['cek' => $k->id])</p>
-                                    <h3 style="margin: 15px 0 -15px 0">Kelas</h3><br><h2 style="margin-bottom: -15px"><b>{{ $k['name'] }}</b></h2><br>
+                                    <h4 style="margin: 15px 0 -15px 0">Kelas</h4><br><h3 style="margin-bottom: -15px"><b>{{ $k['name'] }}</b></h3><br>
                                 </button>
                             @endif
                             @if($unit->catnya->name == 'SMA')
                                 @if($k['jurusan'] == 'TIDAK' || $k['jurusan'] == 'MIPA')
                                     <button type="submit" name="kelas_tujuan" value="{{ $k['id'] }}-MIPA" class="mb-5 btn btn-app btn-lg white bg-{{ $unit->catnya->name }}">
                                         <p class="@if(\App\Kelasnya::cjk($k->id) === 0) jk-bening @else jk-warna @endif">@include('user.form.cekjk',['cek' => $k->id])</p>
-                                        <h3 style="margin: 15px 0 -15px 0">Kelas</h3><br><h2 style="margin-bottom: -15px"><b>{{ $k['name'] }} - MIPA</b></h2><br>
+                                        <h4 style="margin: 15px 0 -15px 0">Kelas</h4><br><h3 style="margin-bottom: -15px"><b>{{ $k['name'] }} - MIPA</b></h3><br>
                                     </button>
                                 @endif
                                 @if($k['jurusan'] == 'TIDAK' || $k['jurusan'] == 'IPS')
                                     <button type="submit" name="kelas_tujuan" value="{{ $k['id'] }}-IPS" class="mb-5 btn btn-app btn-lg white bg-{{ $unit->catnya->name }}">
                                         <p class="@if(\App\Kelasnya::cjk($k->id) === 0) jk-bening @else jk-warna @endif">@include('user.form.cekjk',['cek' => $k->id])</p>
-                                        <h3 style="margin: 15px 0 -15px 0">Kelas</h3><br><h2 style="margin-bottom: -15px"><b>{{ $k['name'] }} - IPS</b></h2><br>
+                                        <h4 style="margin: 15px 0 -15px 0">Kelas</h4><br><h3 style="margin-bottom: -15px"><b>{{ $k['name'] }} - IPS</b></h3><br>
                                     </button>
                                 @endif
                             @endif

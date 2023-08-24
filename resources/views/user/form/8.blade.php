@@ -35,7 +35,8 @@
             </tbody>
         </table>
         <hr>
-        <a href="/tambahcalon/7" class="btn bg-TK float-left white mr-2">
+        {{-- <a href="/tambahcalon/7" class="btn bg-TK float-left white mr-2"> --}}
+        <a href="/tambahcalon/4" class="btn bg-TK float-left white mr-2">    
             <i class="fa fa-chevron-circle-left"></i>
             Sebelumnya
         </a>

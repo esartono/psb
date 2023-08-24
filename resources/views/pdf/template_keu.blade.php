@@ -3,12 +3,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Biaya PPDB Calon Siswa - SIT Nurul Fikri</title>
-    <style>
+    <style type="text/css">
             /** Define the margins of your page **/
             @page {
-                margin: 10px 50px 45px 50px;
+                margin: 10px 80px 45px 80px;
             }
 
             header {
@@ -94,19 +93,15 @@
     </header>
     <footer>
         <div class="halaman">{{ Str::title($calon->name) }} ({{ $calon->uruts }}) - hal. <span class="pagenum"></span></div>
-        <table width="100%">
-            <tr>
-                <td align="center" width="90%">
-                    <b>Panitia Penerimaan Peserta Didik Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b><br>
-                    informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)<br>
-                    Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070<br>
-                    Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
-                </td>
-                <td align="right" width="10%">
-                    <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
-                </td>
-            </tr>
-        </table>
+        <div class="panitia">
+            <b>Panitia Penerimaan Peserta Didik Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b>
+            <br>informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)
+            <br>Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070
+            <br>Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
+        </div>
+        {{-- <div class="qrsecurity">
+            <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
+        </div> --}}
     </footer>
     <main>
         @yield('isi')

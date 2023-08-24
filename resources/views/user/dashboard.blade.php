@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
+<style type="text/css">
     .status_title {
         font-weight: 800;
         font-size: 130%;
@@ -24,12 +24,14 @@
         transform: translate(-50%, -50%);
     }
 </style>
-<div class="container-xl">
-    <div class="row justify-content-center">
-        <div class="card col-md-3 p-1 mt-4 mb-4">
-            <a href="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon Siswa </b></a>
+<div class="container-xl" style="padding-top: 5rem">
+    <nav class="navbar fixed-top navbar-expand navbar-light" style="height: 10rem !important; z-index: 1029 !important">
+        <div class="container justify-content-center mt-5">
+            <div class="card p-2 mt-4 mb-4" style="min-width: 25rem !important">
+                <a href="/tambahcalon" class="btn btn-success btn-lg"><i class="fas fa-user-plus"> </i><b> Tambah Calon Siswa </b></a>
+            </div>
         </div>
-    </div>
+    </nav>
     @foreach($calons as $calon)
     <div style="border-bottom: 2px solid grey" class="row justify-content-center mb-4">
         <div class="col-md-5 mb-3">
@@ -56,7 +58,7 @@
                         </li>
                         <li class="list-group-item">
                             <b>Kelas Tujuan</b> <a class="float-right">Kelas {{ $calon->kelasnya->name }}
-                                @if($calon->gelnya->unitnya->catnya->name === 'SMA')
+                                {{-- @if($calon->gelnya->unitnya->catnya->name === 'SMA')
                                     ( Jurusan
                                     @if($calon->jurusan === '-')
                                         <button class="btn btn-danger btn-sm" onclick="jurusan()">Pilih Jurusan</button>
@@ -64,18 +66,18 @@
                                         {{ $calon->jurusan }}
                                     @endif
                                     )
-                                @endif
+                                @endif --}}
                                 </a>
                         </li>
                         <li class="list-group-item">
                             <b>Tanggal Daftar</b> <a class="float-right">{{ $calon->tgl_daftar->isoFormat('D MMMM Y') }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>User Email</b> <a class="float-right">{{ Auth()->user()->email }}</a>
+                            <b>Email Pendaftar</b> <a class="float-right">{{ Auth()->user()->email }}</a>
                         </li>
                     </ul>
-                    <a href="/editcalon/{{ $calon->id }}" class="btn btn-info col-md-5"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>
-                    <a href='/dokumen/{{ $calon->id }}' class="btn btn-danger col-md-6"><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a>
+                    @if($calon->tahap >= 2)<a href="/editcalon/{{ $calon->id }}" class="btn btn-info text-white"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>@endif
+                    @if($calon->tahap >= 3)<a href='/dokumen/{{ $calon->id }}' class="btn btn-danger col-md-6"><i class="fa fa-book"> </i> &nbsp;Edit Dokumen</a>@endif
                     {{-- @if($calon->tahap >= 5)
                         @if($calon->bayarppdb['cpsb']->lunas == 1)
                             <hr>
@@ -95,18 +97,19 @@
                         <div class="col-3">
                             <div class="nav flex-column nav-tabs h-100" aria-orientation="vertical">
                                 <p class="nav-link status {{ $calon->tahap >= 1 ? 'active' : '' }}">1. Pendaftaran @if($calon->tahap >= 1) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">2. Biaya Pendaftaran @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">3. Seleksi @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 4 ? 'active' : '' }}">4. Pengumuman @if($calon->tahap >= 4) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 5 ? 'active' : '' }}">5. Daftar Ulang @if($calon->tahap >= 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 6 ? 'active' : '' }}">6. Input Seragam @if($calon->tahap >= 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 7 ? 'active' : '' }}">7. Pengambilan Buku dan Seragam @if($calon->tahap >= 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
-                                <p class="nav-link status {{ $calon->tahap >= 8 ? 'active' : '' }}">8. Masa Orientasi Siswa @if($calon->tahap >= 8) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">2. Lunas Biaya Pendaftaran @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 2 ? 'active' : '' }}">3. Kelengkapan Data dan Berkas @if($calon->tahap >= 2) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 3 ? 'active' : '' }}">4. Seleksi @if($calon->tahap >= 3) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 4 ? 'active' : '' }}">5. Pengumuman @if($calon->tahap >= 4) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 5 ? 'active' : '' }}">6. Daftar Ulang @if($calon->tahap >= 5) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 6 ? 'active' : '' }}">7. Input Seragam @if($calon->tahap >= 6) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 7 ? 'active' : '' }}">8. Pengambilan Buku dan Seragam @if($calon->tahap >= 7) <i class="fas fa-check-circle float-right"></i>@endif</p>
+                                <p class="nav-link status {{ $calon->tahap >= 8 ? 'active' : '' }}">9. Masa Orientasi Siswa @if($calon->tahap >= 8) <i class="fas fa-check-circle float-right"></i>@endif</p>
                             </div>
                         </div>
                         <div class="col-9">
-                            @if($calon->tahap == 7 || $calon->tahap == 7.5)
-                                @include('user.tahapan.7')
+                            @if($calon->tahap == 8 || $calon->tahap == 8.5)
+                                @include('user.tahapan.8')
                             @else
                                 @include('user.tahapan.'.$calon->tahap)
                             @endif

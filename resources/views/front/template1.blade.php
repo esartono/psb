@@ -21,22 +21,23 @@
 	<!--
 			Google Font
 			============================================= -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,500,600" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500i" rel="stylesheet" type="text/css">
 
 	<!--
 			CSS
 			============================================= -->
-	<link rel="stylesheet" href="/front/css/linearicons.css">
-	<link rel="stylesheet" href="/front/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/front/css/linearicons.css" type="text/css">
+	<link rel="stylesheet" href="/front/css/font-awesome.min.css" type="text/css">
 	{{-- <link rel="stylesheet" href="/front/css/bootstrap.css"> --}}
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-	<link rel="stylesheet" href="/front/css/magnific-popup.css">
-	<link rel="stylesheet" href="/front/css/nice-select.css">
-	<link rel="stylesheet" href="/front/css/animate.min.css">
-	<link rel="stylesheet" href="/front/css/owl.carousel.css">
-	<link rel="stylesheet" href="/front/css/main.css">
-	<style>
+	<link rel="stylesheet" href="/front/css/magnific-popup.css" type="text/css">
+	<link rel="stylesheet" href="/front/css/nice-select.css" type="text/css">
+	<link rel="stylesheet" href="/front/css/animate.min.css" type="text/css">
+	<link rel="stylesheet" href="/front/css/owl.carousel.css" type="text/css">
+	<link rel="stylesheet" href="/front/css/main.css" type="text/css">
+	<style type="text/css">
+
 		.nav-menu > li {
 			display: inline-block;
 			font-size: 1em;
@@ -52,6 +53,54 @@
 		.nav-menu li span {
 			display: block;
 			font-size: 3em;
+		}
+
+		.countdown ul {
+			color: #024A81;
+			display: inline;
+		}
+		.countdown ul li {
+			margin: 0px 5px;
+			display: inline-block;
+			width: 100px;
+			border: #024A81 2px solid;
+			background-color: #fff;
+			padding: 15px 20px;
+			border-radius: 15px;
+		}
+		.countdown ul li span {
+			font-size: 40px;
+		}
+		.countdown ul li span::after {
+			content: "\a";
+			white-space: pre;
+		}
+
+		@media only screen and (max-width: 800px) {
+			.countdown ul li {
+				width: 80px;
+				font-size: 1em;
+				padding: 0.25em 1em;
+				margin: 0 0.25em;
+				border-radius: 0.5em;
+			}
+
+			.countdown ul li span {
+				font-size: 2em;
+			}
+		}
+		@media only screen and (max-width: 450px) {
+			.countdown ul li {
+				width: 50px;
+				font-size: 0.75em;
+				padding: 0.1em 0.5em;
+				margin: 0 0.25em;
+				border-radius: 0.25em;
+			}
+
+			.countdown ul li span {
+				font-size: 2em;
+			}
 		}
 	</style>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -76,22 +125,22 @@
 			<div class="row align-items-center justify-content-between d-flex">
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li id="logo"><a href="index.html"><img src="img/logo.png" width="50" height="50" alt="Logo NF" title="Logo SIT Nurul Fikri" /></a></li>
+						<li id="logo"><a href="/"><img src="/img/logo.png" width="50" height="50" alt="Logo NF" title="Logo SIT Nurul Fikri" /></a></li>
 						<li class="{{ Request::path() ==  '/' ? 'menu-active' : '' }}"><a href="/">Depan</a></li>
 						<li class="{{ Request::path() ==  'alur' ? 'menu-active' : '' }}"><a href="/alur">Alur Pendaftaran</a></li>
 						<li class="menu-has-children {{ (Request::path() == 'biayapendaftaran' || Request::path() == 'biaya' || Request::path() == 'daftarulang') ? 'menu-active' : '' }}">
 							<a>Biaya Pendidikan</a>
 							<ul>
-								<li><a href="/biayapendaftaran">Biaya Pendaftaran</a></li>
 								<li><a href="/biaya">Biaya Pendidikan</a></li>
 								<li><a href="/daftarulang">Daftar Ulang</a></li>
+								<li><a href="/tatacara">Tata Cara Bayar Pendaftaran</a></li>
 							</ul>
 						</li>
 						{{-- <li><a href="file/Syarat dan Ketentuan Pendaftaran PSB SIT NF.pdf" target="_blank">Syarat dan Ketentuan</a></li> --}}
 						<li class="{{ Request::path() ==  'syarat' ? 'menu-active' : '' }}"><a href="/syarat">Syarat dan Ketentuan</a></li>
 						<li class="{{ Request::path() ==  'jadwal' ? 'menu-active' : '' }}"><a href="/jadwal">Jadwal</a></li>
 						<li class="{{ Request::path() ==  'download' ? 'menu-active' : '' }}"><a href="download">Download</a></li>
-						<li><a href="faq" class="genric-btn warning circle" style="padding: 0 15px; color: blue">F A Q</a></li>
+						<li><a href="qna" class="genric-btn warning circle" style="padding: 0 15px; color: blue">Q & A</a></li>
 						<li><a href="hasil" class="genric-btn danger circle" style="padding: 0 15px;">Hasil TES</a></li>
 					</ul>
 				</nav><!-- #nav-menu-container -->

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class JDoku extends Model
 {
     protected $fillable = [
-        'code', 'name', 'unit', 'khusus'
+        'code', 'name', 'unit', 'khusus', 'optional'
     ];
 
     protected $hidden = [

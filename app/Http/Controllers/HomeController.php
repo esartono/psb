@@ -22,6 +22,7 @@ use App\CalonBiayaTes;
 use App\Jadwal;
 use App\TagihanPSB;
 use App\FileGdrive;
+use App\Faq;
 
 // use Wa;
 use Auth;
@@ -52,7 +53,7 @@ class HomeController extends Controller
             'gethasil',
             'jadwalkesehatan',
             'syarat',
-            'biayapendaftaran',
+            'tatacara',
             'ukuranseragam',
             'waitinglist',
             'simpanwaitinglist',
@@ -105,8 +106,10 @@ class HomeController extends Controller
     {
         if (auth()->user()->isAdministrator()) {
             if (filter_var($request->daftar, FILTER_VALIDATE_EMAIL)) {
-                $user = User::where('email', $request->daftar)->first()->id;
-                Auth::loginUsingId($user);
+                $user = User::where('email', $request->daftar)->first();
+                if ($user) {
+                    Auth::loginUsingId($user->id);
+                }
             } else {
                 $gel = Gelombang::where('kode_va', substr($request->daftar, 0, 6))->first();
                 if ($gel) {
@@ -150,7 +153,8 @@ class HomeController extends Controller
 
     public function faq()
     {
-        return view('front.faq');
+        $faq = Faq::where('status', 1)->get();
+        return view('front.faq', compact('faq'));
     }
 
     public function dashboardUser()
@@ -284,7 +288,11 @@ class HomeController extends Controller
 
         $patokan = (int)substr($tp, 0, 4);
 
-        return view('front.' . $patokan . '.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));
+        if (isset($biaya)) {
+            return view('front.' . $patokan . '.biaya', compact('biaya', 'seragam', 'tp', 'patokan'));
+        } else {
+            return view('front.belumada.biaya', compact('tp'));
+        }
     }
 
     public function hasil()
@@ -315,10 +323,20 @@ class HomeController extends Controller
     {
         $tp = $this->tp_berjalan;
         $patokan = (int)substr($tp, 0, 4);
-        return view('front.' . $patokan . '.jadwal', compact('tp'));
+
+        // $tpid = TahunPelajaran::where('name', $tp)->first();
+        // $gelombang = Gelombang::where('tp', $tpid->id)->pluck('id');
+        // $jadwal = Jadwal::whereIn('gel_id', $gelombang)->first();
+        $jadwal = 'ada';
+
+        if ($jadwal) {
+            return view('front.' . $patokan . '.jadwal', compact('tp'));
+        } else {
+            return view('front.belumada.jadwal', compact('tp'));
+        }
     }
 
-    public function biayapendaftaran()
+    public function tatacara()
     {
         $tp = $this->tp_berjalan;
         $kode = substr($tp, 2, 2) . substr($tp, 7, 2) . '31001';
@@ -398,18 +416,6 @@ class HomeController extends Controller
         }
 
         return $urls;
-    }
-
-    public function waitinglist()
-    {
-        $tp = $this->tp_berjalan;
-        $patokan = (int)substr($tp, 0, 4);
-        return view('front.waiting', compact('tp', 'patokan'));
-    }
-
-    public function simpanwaitinglist(Request $request)
-    {
-        dd($request->all());
     }
 
     public function coba(Request $request)

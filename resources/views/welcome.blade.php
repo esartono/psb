@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Aplikasi PPDB | 2022-2023</title>
-        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/app.css" type="text/css">
 
     </head>
     <body class="hold-transition layout-top-nav">

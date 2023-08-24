@@ -13,7 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <title>{{ config('app.name') }}</title>
 
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper" id="app">

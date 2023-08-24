@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Signika+Negative" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Signika+Negative" rel="stylesheet" type="text/css">
     <title>PPDB Online - SIT Nurul Fikri</title>
-    <style>
+    <style type="text/css">
+
         body {
             padding: 10px;
             font-family: 'Signika Negative', sans-serif;

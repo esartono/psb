@@ -1,7 +1,8 @@
 @extends('front.template1')
 
 @section('isi')
-<style>
+<style type="text/css">
+
     body, b {
         color: black
     }
@@ -46,10 +47,10 @@
                             <tr>
                                 <td>1.</td>
                                 <td class="tebal">Pendaftaran Online</td>
-                                <td>1 September 2022</td>
-                                <td>1 September 2022</td>
-                                <td>1 September 2022</td>
-                                <td>1 September 2022</td>
+                                <td>1 September 2023</td>
+                                <td>1 September 2023</td>
+                                <td>1 September 2023</td>
+                                <td>1 September 2023</td>
                             </tr>
                             <tr>
                                 <td>2.</td>
@@ -59,25 +60,25 @@
                                 <td></td>
                                 <td>Seleksi</td>
                                 <td></td>
-                                <td>1 Oktober 2022</td>
-                                <td>24 September 2022</td>
-                                <td>25 September 2022</td>
+                                <td>30 September 2023</td>
+                                <td>23 September 2023</td>
+                                <td>24 September 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Pengumuman</td>
                                 <td></td>
-                                <td>11 Oktober 2022</td>
-                                <td>4 Oktober 2022</td>
-                                <td>5 Oktober 2022</td>
+                                <td>10 Oktober 2023</td>
+                                <td>3 Oktober 2023</td>
+                                <td>4 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Daftar Ulang</td>
                                 <td></td>
-                                <td>11 - 16 Oktober 2022</td>
-                                <td>4 - 9 Oktober 2022</td>
-                                <td>5 - 10 Oktober 2022</td>
+                                <td>10 - 15 Oktober 2023</td>
+                                <td>3 - 8 Oktober 2023</td>
+                                <td>4 - 9 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td>3.</td>
@@ -86,26 +87,26 @@
                             <tr>
                                 <td></td>
                                 <td>Seleksi</td>
-                                <td>15 Oktober 2022</td>
-                                <td>8 Oktober 2022</td>
-                                <td>15 dan 16 Oktober 2022</td>
-                                <td>8 dan 9 Oktober 2022</td>
+                                <td>14 Oktober 2023</td>
+                                <td>7 Oktober 2023</td>
+                                <td>21 dan 22 Oktober 2023</td>
+                                <td>14 dan 15 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Pengumuman</td>
-                                <td>25 Oktober 2022</td>
-                                <td>18 Oktober 2022</td>
-                                <td>25 Oktober 2022</td>
-                                <td>18 Oktober 2022</td>
+                                <td>24 Oktober 2023</td>
+                                <td>17 Oktober 2023</td>
+                                <td>31 Oktober 2023</td>
+                                <td>24 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Daftar Ulang</td>
-                                <td>25 - 30 Oktober 2022</td>
-                                <td>18 - 23 Oktober 2022</td>
-                                <td>25 - 30 Oktober 2022</td>
-                                <td>18 - 23 Oktober 2022</td>
+                                <td>24 - 29 Oktober 2023</td>
+                                <td>17 - 22 Oktober 2023</td>
+                                <td>25 - 30 Oktober 2023</td>
+                                <td>24 - 29 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td>4.</td>
@@ -114,26 +115,26 @@
                             <tr>
                                 <td></td>
                                 <td>Seleksi</td>
-                                <td>19 November 2022</td>
-                                <td>12 November 2022</td>
-                                <td>13 November 2022</td>
-                                <td>13 November 2022</td>
+                                <td>18 November 2023</td>
+                                <td>11 November 2023</td>
+                                <td>18 November 2023</td>
+                                <td>18 November 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Pengumuman</td>
-                                <td>24 November 2022</td>
-                                <td>22 November 2022</td>
-                                <td>23 November 2022</td>
-                                <td>23 November 2022</td>
+                                <td>23 November 2023</td>
+                                <td>21 November 2023</td>
+                                <td>27 November 2023</td>
+                                <td>27 November 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Daftar Ulang</td>
-                                <td>24 - 30 November 2022</td>
-                                <td>22 - 27 November 2022</td>
-                                <td>23 - 28 November 2022</td>
-                                <td>23 - 28 November 2022</td>
+                                <td>20 - 24 November 2023</td>
+                                <td>21 - 26 November 2023</td>
+                                <td>27 - 30 November 2023</td>
+                                <td>27 - 30 November 2023</td>
                             </tr>
                             <tr>
                                 <td>5.</td>
@@ -142,54 +143,69 @@
                             <tr>
                                 <td></td>
                                 <td>Seleksi</td>
-                                <td>17 Desember 2022</td>
-                                <td>17 Desember 2022</td>
-                                <td>18 Desember 2022</td>
-                                <td>18 Desember 2022</td>
+                                <td>16 Desember 2023</td>
+                                <td>16 Desember 2023</td>
+                                <td>9 Desember 2023</td>
+                                <td>9 Desember 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Pengumuman</td>
-                                <td>27 Desember 2022</td>
-                                <td>27 Desember 2022</td>
-                                <td>27 Desember 2022</td>
-                                <td>27 Desember 2022</td>
+                                <td>20 Desember 2023</td>
+                                <td>21 Desember 2023</td>
+                                <td>19 Desember 2023</td>
+                                <td>19 Desember 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Daftar Ulang</td>
-                                <td>27 - 31 Desember 2022</td>
-                                <td>27 - 31 Desember 2022</td>
-                                <td>27 - 31 Desember 2022</td>
-                                <td>27 - 31 Desember 2022</td>
+                                <td>20 - 24 Desember 2023</td>
+                                <td>21 - 26 Desember 2023</td>
+                                <td>19 - 24 Desember 2023</td>
+                                <td>19 - 24 Desember 2023</td>
                             </tr>
                             <tr>
                                 <td>6.</td>
                                 <td class="tebal">Pengukuran Seragam</td>
-                                <td colspan="4">
-                                    Pengukuran Seragam secara ONLINE bagi calon siswa yang diterima dan sudah melakukan daftar ulang mulai 10 Janauri 2022 di laman web ppdb.nurulfikri.sch.id
+                                <td>
+                                    13 Januari 2024<br>
+                                    Putra : 08.00 - 10.00<br>
+                                    Putri : 10.00 - 12.00
+                                </td>
+                                <td>
+                                    13 Januari 2024<br>
+                                    Putra : 08.00 - 10.00<br>
+                                    Putri : 10.00 - 12.00
+                                </td>
+                                <td>
+                                    Putra : 20 Januari 2024 (13.00 - 16.00)<br>
+                                    Putri : 27 Januari 2024 (13.00 - 16.00)
+                                </td>
+                                <td>
+                                    Putra : 20 Januari 2024 (08.00 - 12.00)<br>
+                                    Putri : 27 Januari 2024 (08.00 - 12.00)
                                 </td>
                             </tr>
                             <tr>
                                 <td>7.</td>
                                 <td class="tebal">Pengambilan Seragam</td>
                                 <td colspan="4">
-                                    16 – 31 Mei 2023 (jadwal akan diinfokan kemudian) <br>
-                                    1 – 30 Juni 2023 (Masa Komplain Seragam)
+                                    Mulai tanggal 1 Juni 2024 (jadwal akan diinfokan kemudian)<br>
+                                    1 - 30 Juni 2024 masa komplain seragam
                                 </td>
                             <tr>
                                 <td>8.</td>
                                 <td class="tebal">Pembagian Buku</td>
                                 <td colspan="4">
-                                    Siswa baru : 24 Juni 2023, 08.00 - 16.00, jadwal akan diinfokan kemudian <br>
-                                    Siswa mutasi : 15 Juli 2023, jam 08.00 - 16.00 WIB
+                                    Siswa baru : 22 Juni 2024, 08.00 - 16.00, jadwal akan diinfokan kemudian <br>
+                                    Siswa mutasi : 13 Juli 2024, jam 08.00 - 16.00 WIB
                                 </td>
                             </tr>
                             <tr>
                                 <td>9.</td>
                                 <td class="tebal">Prediksi Awal Masuk</td>
                                 <td colspan="4">
-                                    11 – 15 Juli 2023
+                                    15 Juli 2024
                                 </td>
                             </tr>
                             <tr>

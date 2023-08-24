@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    const ACCESS_ROOT = 0;
     const ACCESS_ADMIN = 1;
     const ACCESS_USER = 2;
     const ACCESS_ADMINUNIT = 3;

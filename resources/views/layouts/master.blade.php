@@ -14,7 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>{{ config('app.name') }} | {{ auth()->user()->tpname }}</title>
   
   <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/app.css" type="text/css">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-E2EXL2S2X8"></script>
 <script>
@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
-      @if(Auth::user()->isHaveAccess([1]))
+      @if(Auth::user()->isAdministrator())
       <div class="user-panel">
         <a href="/login_as" class="btn btn-danger btn-block">
           {{ __('Login As') }}
@@ -130,6 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+          @if(Auth::user()->isAdministrator())
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -171,6 +172,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li> -->
             </ul>
           </li>
+          @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs yellow"></i>
@@ -226,6 +228,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <router-link to="/config/berita" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>Berita</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/config/faq" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>F A Q</p>
                 </router-link>
               </li>
             </ul>
@@ -287,6 +295,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>
                     Kelengkapan Berkas
                   </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/waitingList" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>Waiting List</p>
                 </router-link>
               </li>
               <!-- <li class="nav-item">

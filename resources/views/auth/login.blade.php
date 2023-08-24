@@ -4,11 +4,11 @@
 
 <a href="{{ url('auth/google') }}" class="btn btn-primary btn-block sign-in" style="margin-top: 1em">
     <img src="https://www.google.com/favicon.ico">
-    Daftar/Login dengan Akun Google
+    PENDAFTAR/CALON SISWA
 </a>
 <hr>
 <a href=" {{ url('login/admin') }}" class="btn btn-block btn-outline-primary" style="">
-    <span><i class="fas fa-user-shield"></i></span> Administrator
+    <span><i class="fas fa-user-shield"></i></span> Panitia
 </a>
 {{-- <p class="login-box-msg">atau Login dengan :<br>Email dan Password</p> --}}
 {{-- <form method="POST" action="{{ route('login') }}">

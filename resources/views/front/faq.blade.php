@@ -1,7 +1,9 @@
 @extends('front.template1')
 
 @section('isi')
-<style>
+
+<style type="text/css">
+
     body {
         color: black
     }
@@ -81,59 +83,22 @@
     <div class="container">
         <div class="section-top-border justify-content-center">
             <h3 class="mt-60 mb-2 text-white"></h3>
-            <h4 class="mb-20 text-white">Frequently Asked Question (faq)</h4>
+            <h4 class="mb-20 text-white">Questions and Answers (Q&A)</h4>
             <div class="progress-table-wrap">
                 <div class="accordion" id="accordionExample">
+                    @foreach ($faq as $k=>$f )
                     <div class="card">
-                        <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true">     
-                            <span class="title"> Kapan proses pendaftaran untuk tahun ajaran baru dibuka </span>
+                        <div class="card-header" data-toggle="collapse" data-target="#collapse{{ $k }}" aria-expanded="true">     
+                            <span class="title">{!! $f->tanya !!}</span>
                             <span class="accicon"><i class="fa fa-angle-down rotate-icon"></i></span>
                         </div>
-                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                        <div id="collapse{{ $k }}" class="collapse" data-parent="#accordionExample">
                             <div class="card-body">
-                                Proses pendaftaran untuk tahun ajaran baru dibuka sekitar bulan September awal. Lebih baik untuk menanyakan secara langsung untuk proses tahapan awal-akhir nya pada pihak admission sekolah melalui WhatsApp (0812-xxxx-xxxx) atau email yang sudah disediakan (psb@nurulfikri.sch.id).
+                                {!! $f->jawab !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">     
-                            <span class="title"> Kapan proses pendaftaran ditutup?</span>
-                            <span class="accicon"><i class="fa fa-angle-down rotate-icon"></i></span>
-                        </div>
-                        <div id="collapseTwo" class="collapse" data-parent="#accordionExample">
-                            <div class="card-body">
-                                Proses pendaftaran akan ditutup apabila kuota kelas yang sudah ada terpenuhi. Apabila ada yang mendaftar ketika kuota kelas terpenuhi, maka akan dimasukan kedalam <i>waiting list</i>. Lebih baik untuk menanyakan secara langsung untuk proses tahapan awal-akhir nya pada pihak admission sekolah melalui WhatsApp (0812-xxxx-xxxx) atau email yang sudah disediakan (psb@nurulfikri.sch.id).
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false">
-                            <span class="title">Apa saja dokumen yang dibutuhkan untuk proses pendaftaran? </span>
-                            <span class="accicon"><i class="fa fa-angle-down rotate-icon"></i></span>
-                        </div>
-                        <div id="collapseThree" class="collapse" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <p>Jenjang SD :</p>
-                                <ol class="biasa">
-                                    <li>KTP Ayah</li>
-                                    <li>KTP Ibu</li>
-                                    <li>Akta Kelahiran</li>
-                                    <li>Kartu Keluarga</li>
-                                    <li>Ijazah TK (menyusul)</li>
-                                    <li>Rapor TK (menyusul)</li>
-                                </ol>
-                                <p class="mt-30">Jenjang SMP & SMA :</p>
-                                <ol class="biasa">
-                                    <li>KTP Ayah</li>
-                                    <li>KTP Ibu</li>
-                                    <li>Akta Kelahiran</li>
-                                    <li>Kartu Keluarga</li>
-                                    <li>Surat Keterangan Kelakuan Baik dari sekolah asal</li>
-                                    <li>Rapor SD/SMP (menyusul)</li>
-                                    <li>Ijazah SD/SMP (menyusul)</li>
-                                </ol>
-                            </div>
-                        </div>
+                    </div>                        
+                    @endforeach
                     </div>
                 </div>
             </div>

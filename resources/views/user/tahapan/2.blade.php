@@ -1,40 +1,41 @@
 <div class="mt-4">
-    @if($calon->jadwal->seleksi_online === '-')
-        <h5 class="timeline-header">Tes Seleksi ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Silahkan hubungi Panitia"}}</b> )</h5>
-    @else
-        <h5 class="timeline-header">Tes Seleksi - Offline ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Silahkan hubungi Panitia"}}</b> )</h5>
-        @if(is_null($calon->jadwal->seleksi_online))
-            <h5 class="timeline-header">Tes Seleksi - Online ( <b>Silahkan hubungi Panitia</b> )</h5>
-        @else
-            <h5 class="timeline-header">Tes Seleksi - Online ( <b>{{ $calon->jadwal->seleksi_online->isoFormat('D MMMM Y')}}</b> )</h5>
-        @endif
-    @endif
+    <h4>Kelengkapan Data dan Berkas</h4>
     <hr>
-    <p>
-        Tahapan Tes terdiri dari :
-        <ol>
-            @if($calon->gelnya->unitnya->catnya->name == 'TK' || $calon->gelnya->unitnya->catnya->name == 'SD')
-                <li>Tes Psikologi</li>
-                <li>Wawancara Orangtua</li>
-                <li>Wawancara administrasi sekolah</li>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th style="width: 30%">Keterangan</th>
+            <th>Status</th>
+            <th style="width: 40%">Aksi</th>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Data Calon Siswa</td>
+            <td>
+                Data Belum Lengkap
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="min-width: 2rem; width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+            </td>
+            <td><a href="/editcalon/{{ $calon->id }}" class="btn btn-info btn-block text-white"><i class="fas fa-user-edit"> </i><b> Lengkapi Data</b></a></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold">Dokumen</td>
+            @if($calon->dokumen[0] >= $calon->dokumen[1])
+            <td>
+                Dokumen sudah Lengkap
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                </div>
+            </td>
+            @else
+                <td>
+                    Dokumen belum Lengkap <br>{{ $calon->dokumen[0] }} dari {{ $calon->dokumen[1] }} dokumen
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="min-width: 2rem; width: {{ ($calon->dokumen[0]*100)/$calon->dokumen[1] }}%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ ($calon->dokumen[0]*100)/$calon->dokumen[1] }}%</div>
+                    </div>
+                </td>
+                Belum Lengkap hanya {{ $calon->dokumen[0] }} dari {{ $calon->dokumen[1] }} dokumen
             @endif
-            @if($calon->gelnya->unitnya->catnya->name == 'SMP')
-                <li>Tes akademik siswa (<i>Online</i>) pada pukul 07.00 - 08.15</li>
-                <li>Tes psikologi (<i>Online</i>) pada pukul 08.30 - 12.00</li>
-                <li class="mb-3">Wawancara administrasi sekolah (<i>Online</i>) pada pukul 08.00 - 12.00 (perSesi <u>+</u>30 menit sesuai jadwal)</li>
-                <li>Wawancara untuk orangtua calon siswa (<i>Offline</i>) pada pukul 08.00 - 15.00 (perSesi <u>+</u>30 menit sesuai jadwal)</li>
-                <li>Wawancara calon siswa (<i>Offline</i>) pada pukul 08.00 - 15.00 (perSesi <u>+</u>30 menit sesuai jadwal)</li>
-            @endif
-            @if($calon->gelnya->unitnya->catnya->name == 'SMA')
-                <li>Tes akademik siswa (<i>Online</i>) pada pukul 07.00 - 08.30</li>
-                <li>Tes psikologi (<i>Online</i>) pada pukul 08.45 - 12.00</li>
-                <li class="mb-3">Wawancara administrasi sekolah (<i>Online</i>) pada pukul 08.00 - 12.00 (perSesi 30 menit sesuai jadwal)</li>
-                <li>Wawancara orangtua calon siswa (<i>Offline</i>) pada pukul 08.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
-                <li>Wawancara calon siswa (<i>Offline</i>) pada pukul 08.00 - 15.00 (perSesi 30 menit sesuai jadwal)</li>
-            @endif
-        </ol>
-    </p>
-    <hr>
-    <h5 class="timeline-header">Pengumuman - Online ( <b>{{ $calon->jadwal->seleksi !== '-'  ? $calon->jadwal->pengumuman->isoFormat('D MMMM Y') : "Silahkan hubungi Panitia"}}</b> )</h5>
-    <a href='/seleksiPDF/{{ $calon->id }}' class="btn btn-success mt-3" target="_blank">Cetak Kartu Peserta</a>
+            <td><a href='/dokumen/{{ $calon->id }}' class="btn btn-danger btn-block "><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a></td>
+        </tr>
+    </table>
 </div>

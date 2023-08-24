@@ -1,4 +1,4 @@
-<style>
+<style type="text/css">
     .global {
         width: 100%;
         border-collapse: collapse;

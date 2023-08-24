@@ -20,8 +20,8 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-    protected $maxAttempts = 3; // Default is 5
-    protected $decayMinutes = 2; // Default is 1
+    protected $maxAttempts = 2;
+    protected $decayMinutes = 5;
 
     /**
      * Where to redirect users after login.
@@ -30,7 +30,8 @@ class LoginController extends Controller
      */
     //protected $redirectTo = '/home';
 
-    public function redirectTo(){
+    public function redirectTo()
+    {
 
         // User role
         $role = Auth::user()->level;
@@ -58,5 +59,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
 }

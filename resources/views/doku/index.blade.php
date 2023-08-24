@@ -47,19 +47,24 @@
                             $no = 1;
                         @endphp
                             @foreach(App\JDoku::Dokumen($calon->gel_id) as $j)
+                                @isset($doku[$j->code])
                                 <tr>
                                     <th>{{ $no++ }}</th>
                                     <td>{{ $j->name }}</td>
-                                    @isset($doku[$j->code])
-                                        <th>
-                                            <span><i class="fas fa-thumbs-up"></i><strong> Sudah Terupload</strong></span>
-                                        </th>
-                                    @endisset
-                                    @empty($doku[$j->code])
-                                        <th><code>Belum Terupload</code></th>
-                                    @endempty
+                                    <th>
+                                        <span><i class="fas fa-thumbs-up"></i><strong> Sudah Terupload</strong></span>
+                                    </th>
+                                    <th><a class="btn btn-success" href="{{ route('doku.upload', ['calon' => $calon->id, 'code' => $j->code ]) }}">Upload Ulang</a></th>
+                                </tr>
+                                @endisset
+                                @empty($doku[$j->code])
+                                <tr>    
+                                    <th>{{ $no++ }}</th>
+                                    <td>{{ $j->name }}</td>
+                                    <th><code>Belum Terupload</code></th>
                                     <th><a class="btn btn-warning" href="{{ route('doku.upload', ['calon' => $calon->id, 'code' => $j->code ]) }}">Upload</a></th>
                                 </tr>
+                                @endempty
                             @endforeach
                         </tbody>
                     </table>

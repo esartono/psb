@@ -33,14 +33,14 @@ Route::get('/edupay', 'HomeController@edupay')->name('edupay');
 Route::get('/jadwal', 'HomeController@jadwal')->name('jadwal');
 Route::get('/syarat', 'HomeController@syarat')->name('syarat');
 Route::get('/daftarulang', 'HomeController@daftarulang')->name('daftarulang');
-Route::get('/faq', 'HomeController@faq')->name('faq');
-Route::get('/biayapendaftaran', 'HomeController@biayapendaftaran')->name('biayapendaftaran');
+Route::get('/qna', 'HomeController@faq')->name('qna');
+Route::get('/tatacara', 'HomeController@tatacara')->name('tatacara');
 Route::get('/jadwalkesehatan1', 'HomeController@jadwalkesehatan')->name('jadwalkesehatan');
 Route::get('/download', 'HomeController@download')->name('download');
 Route::get('/hasil', 'HomeController@hasil')->name('hasilTes');
 Route::get('/ukuranseragam', 'HomeController@ukuranseragam')->name('ukuranseragam');
-Route::get('/waitinglist', 'HomeController@waitinglist')->name('wl');
-Route::post('/waitinglist', 'HomeController@simpanwaitinglist')->name('waitinglist');
+// Route::get('/waitinglist', 'HomeController@waitinglist')->name('wl');
+// Route::post('/waitinglist', 'HomeController@simpanwaitinglist')->name('waitinglist');
 
 Route::post('/gethasil', 'HomeController@gethasil')->name('gethasilTes');
 // Route::get('api/waktu','DokuController@getWaktu');
@@ -52,6 +52,11 @@ Route::get('auth/google/callback', 'SocialiteController@handleGoogleCallback');
 
 Auth::routes();
 Route::get('login/admin', 'HomeController@adminLogin');
+Route::resource('waiting', 'WaitingController');
+Route::resource('faqs', 'FaqController');
+
+// Untuk Webhook Maja
+Route::post('/webhook/maja', 'WebHookController@webhookHandler');
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
@@ -132,6 +137,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/config/biayaSPP', 'HomeController@front');
     Route::get('/config/agreement', 'HomeController@front');
     Route::get('/config/berita', 'HomeController@front');
+    Route::get('/config/faq', 'HomeController@front');
 
     //Route untuk eksport Data
     Route::get('/EksportUser', 'API\UserController@export');
@@ -153,6 +159,7 @@ Route::middleware('auth', 'admin')->group(function () {
     //Route::get('/cpdBaru', 'HomeController@front');
     //Route::get('/cpdAktif', 'HomeController@front');
     Route::get('/cpdHasil/{id}', 'HomeController@front');
+    Route::get('/waitingList', 'HomeController@front');
 
     //Route untuk Jadwal Tes
     //Route::get('/tes', 'HomeController@tes');

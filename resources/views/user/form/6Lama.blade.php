@@ -49,11 +49,11 @@
                             <has-error :form="form" field="ayah_pekerjaan"></has-error>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-md-5 col-form-label">Penghasilan</label>
-                        <div class="col-md-7">
+                    {{-- <div class="form-group row"> --}}
+                        {{-- <label class="col-md-5 col-form-label">Penghasilan</label> --}}
+                        {{-- <div class="col-md-7"> --}}
                             {{-- <input type="text" name="ayah_penghasilan" class="form-control" id="ayah_penghasilan" required
-                            onkeypress="return event.charCode >= 48 && event.charCode <= 57"> --}}
+                            onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             <select name="ayah_penghasilan" class="form-control" id="ayah_penghasilan" required>
                                 <option selected="true" disabled="disabled">Pilih Penghasilan Ayah</option>
                                 @foreach ($penghasilan as $p)
@@ -62,7 +62,7 @@
                             </select>
                             <has-error :form="form" field="ayah_penghasilan"></has-error>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group row">
                         <label class="col-md-5 col-form-label">No. Ponsel</label>
                         <div class="col-md-7">
@@ -128,21 +128,20 @@
                             <has-error :form="form" field="ibu_pekerjaan"></has-error>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label class="col-md-5 col-form-label">Penghasilan</label>
                         <div class="col-md-7">
                             {{-- <input type="text" name="ibu_penghasilan" class="form-control" id="ibu_penghasilan" required
                             onkeypress="return event.charCode >= 48 && event.charCode <= 57"> --}}
-                            <select name="ibu_penghasilan" class="form-control" id="ibu_penghasilan" required>
-                                <option selected="true" disabled="disabled">Pilih Penghasilan Ibu</option>
-                                @foreach ($penghasilan as $p)
-                                    <option value="{{ $p->id }}" {{ $calon->ibu_penghasilan == $p->id ? 'selected="true"' : '' }}>{{ $p->name }}
-                                @endforeach
-                            </select>
-                            <has-error :form="form" field="ibu_penghasilan"></has-error>
-
-                        </div>
-                    </div>
+                            {{-- <select name="ibu_penghasilan" class="form-control" id="ibu_penghasilan" required> --}}
+                                {{-- <option selected="true" disabled="disabled">Pilih Penghasilan Ibu</option> --}}
+                                {{-- @foreach ($penghasilan as $p) --}}
+                                    {{-- <option value="{{ $p->id }}" {{ $calon->ibu_penghasilan == $p->id ? 'selected="true"' : '' }}>{{ $p->name }} --}}
+                                {{-- @endforeach --}}
+                            {{-- </select> --}}
+                            {{-- <has-error :form="form" field="ibu_penghasilan"></has-error> --}}
+                        {{-- </div> --}}
+                    {{-- </div> --}}
                     <div class="form-group row">
                         <label class="col-md-5 col-form-label">No. Ponsel</label>
                         <div class="col-md-7">

@@ -1,4 +1,4 @@
-<style>
+<style type="text/css">
     .form_refund {
         font-size: 11px !important;
     }

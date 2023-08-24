@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Controllers\Controller;
-use App\Facades\Edupay;
+use App\Facades\Maja;
 
 class CalonBiayaTesController extends Controller
 {
@@ -64,7 +64,8 @@ class CalonBiayaTesController extends Controller
         $end = date("Y-m-d", strtotime("+3 days"));
 
         $biayates = CalonBiayaTes::with('calonnya', 'biayanya')->where('calon_id', $id)->first();
-        $biayates->update([
+        $biayates->update(
+            [
                 'expired' => $end,
                 // 'expired' => date("Y-m-d")
             ]
@@ -73,19 +74,10 @@ class CalonBiayaTesController extends Controller
         $idtagihan = $biayates->calonnya->uruts;
         $total = $biayates->biayanya->biaya;
         $nama = $biayates->calonnya->name;
+        $idTransaction = $biayates->idTransaction;
 
-        $bayar = Edupay::view($biayates->calonnya->uruts);
-        if(isset($bayar['status_bayar'])){
-            Edupay::edit($idtagihan, $total, $nama, $end);
-        } else {
-            Edupay::create($idtagihan, $total, $nama, $start, $end);
-        }
-        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya','usernya')->where('id',$id)->first();
-        // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
-        //     {
-        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Biaya Tes SIT Nurul Fikri');
-        //     }
-        // );
+        Maja::edit($idtagihan, $total, $nama, $end, $idTransaction);
+        $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $id)->first();
     }
 
     /**

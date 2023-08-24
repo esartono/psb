@@ -12,11 +12,11 @@ use GuzzleHttp\Psr7\Request;
 class Maja
 {
     private $client = null;
-    // const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi/protocol/openid-connect/token';
-    // const API_URL = 'https://billing-bpi.maja.id';
+    const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi/protocol/openid-connect/token';
+    const API_URL = 'https://billing-bpi.maja.id';
 
-    const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi-dev/protocol/openid-connect/token';
-    const API_URL = 'https://billing-bpi-dev.maja.id';
+    // const API_TOKEN = 'https://account.makaramas.com/auth/realms/bpi-dev/protocol/openid-connect/token';
+    // const API_URL = 'https://billing-bpi-dev.maja.id';
 
     var $accessToken;
 
@@ -42,7 +42,7 @@ class Maja
                 'client_id' => config('edupay.id'),
                 'client_secret' => config('edupay.secret'),
                 'username' => config('edupay.user'),
-                'password' => 'api3292'
+                'password' => config('edupay.password'),
             ];
 
             if (!$cekToken) {
@@ -164,9 +164,9 @@ class Maja
         try {
             $url = self::API_URL . '/api/v2/register';
             $data = [
-                'date' => $start,
-                'activeDate' => $start,
-                'inactiveDate' => end,
+                'date' => date_format($start, "Y-m-d"),
+                'activeDate' => date_format($start, "Y-m-d"),
+                'inactiveDate' => $end . " 23:59:59",
                 'amount' => $total,
                 'name' => $nama,
                 'email' => $email,
@@ -197,16 +197,16 @@ class Maja
         }
     }
 
-    public function edit($idtagihan, $total, $nama, $end, $email, $idTransaction)
+    public function edit($idtagihan, $total, $nama, $end, $idTransaction)
     {
         try {
             $url = self::API_URL . '/api/v2/update/' . $idTransaction;
             $data = [
-                'date' => $start,
-                'inactiveDate' => end,
+                'date' => date('Y-m-d'),
+                'activeDate' => date('Y-m-d'),
+                'inactiveDate' => $end . " 23:59:59",
                 'amount' => $total,
                 'name' => $nama,
-                'email' => $email,
                 'va' =>  $idtagihan,
                 'openPayment' => false,
                 'attribute1' => 'PPDB SIT Nurul Fikri',

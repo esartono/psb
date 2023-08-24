@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Biaya PPDB Calon Siswa - SIT Nurul Fikri</title>
-    <style>
+    <style type="text/css">
             /** Define the margins of your page **/
             @page {
                 margin: 20px 50px 40px 50px;

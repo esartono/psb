@@ -1,4 +1,4 @@
-<style>
+<style type="text/css">
     .datepicker tr td-:last-of-type {
         width: 20px !important;
     }
@@ -86,7 +86,8 @@
         <div class="form-group row">
             <label class="col-md-3 col-form-label">Sumber Informasi PPDB</label>
             <div class="col-md-4">
-                <select name="info" class="form-control" id="info">
+                <select name="info" class="form-control" id="info" required>
+                    <option value='' selected disabled>Pilih sumber informasi PPDB</option>
                     @foreach($infos as $a)
                         <option value="{{ $a->id }}" {{ $calon->info == $a->id ? 'selected="true"' : '' }}>{{ $a->name }}</option>
                     @endforeach
@@ -96,9 +97,14 @@
         </div>
         <hr>
         <button type="submit" class="btn bg-blue float-right">
-            Selanjutnya
+            Simpan dan Lanjutkan
             <i class="fa fa-chevron-circle-right"></i>
         </button>
     </form>
 </div>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>
+@push('js')
+
+@endpush
+

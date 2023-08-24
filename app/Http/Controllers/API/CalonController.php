@@ -6,7 +6,7 @@ use App\BiayaTes;
 use App\Calon;
 use App\CalonBiayaTes;
 use App\CalonJadwal;
-use App\Facades\Edupay;
+use App\Facades\Maja;
 use App\Gelombang;
 
 use Illuminate\Http\Request;
@@ -132,7 +132,7 @@ class CalonController extends Controller
                 'expired' => date("Y-m-d", strtotime("+3 days"))
             ]);
 
-            Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
+            // Maja::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
             $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
             // Mail::send('emails.biayates', compact('calonsnya'), function ($m) use ($calonsnya)
             //     {
@@ -408,6 +408,9 @@ class CalonController extends Controller
     {
         $calon = Calon::findOrFail($id);
         $calon->update(['aktif' => false]);
+
+        $calonBiaya = CalonBiayaTes::where('calon_id', $id)->first();
+        Maja::delete($calon->uruts, $calonBiaya->idTransaction);
     }
 
     public function exportsiswabaru()

@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PPDB SIT Nurul Fikri - Seragam</title>
-    <style>
+    <style type="text/css">
             /** Define the margins of your page **/
             @page {
                 margin: 20px 50px 110px 50px;

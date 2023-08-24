@@ -3,7 +3,7 @@
 @section('content')
 <p class="login-box-msg" style="color: red">
     <span><i class="fas fa-shield-alt fa-5x"></i></span><br>
-    Khusus ADMINISTRATOR<br>
+    Khusus PANITIA<br>
 </p>
 <form method="POST" action="{{ route('login') }}">
     @csrf

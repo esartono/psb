@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Telegram;
 
 class CalonBiayaTes extends Model
 {
@@ -32,16 +33,15 @@ class CalonBiayaTes extends Model
 
     public function lunas($id)
     {
-        // $calonbiayates = $this;
         $calon = Calon::with('gelnya')->where('id', $id)->first();
         $calon->update(['status' => 1]);
 
+        Telegram::sendMessage([
+            'chat_id' => '643982879',
+            'text' => $calon->uruts . ' sudah aktif',
+        ]);
+
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
-        // Mail::send('emails.bayartes', compact('calonsnya'), function ($m) use ($calonsnya)
-        //     {
-        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Terima Kasih');
-        //     }
-        // );
 
         $jd = $this->pilihjadwal($calon->gel_id, $calon->asal_nf);
 
@@ -49,12 +49,6 @@ class CalonBiayaTes extends Model
             ['calon_id' => $calon->id],
             ['jadwal_id' => $jd]
         );
-
-        // Mail::send('emails.seleksi', compact('calonsnya'), function ($m) use ($calonsnya)
-        //     {
-        //         $m->to($calonsnya->usernya->email, $calonsnya->name)->from('psb@nurulfikri.sch.id', 'Panitia PPDB SIT Nurul Fikri')->subject('Kartu Seleksi');
-        //     }
-        // );
 
         $jadwal = Jadwal::get();
         foreach ($jadwal as $j) {

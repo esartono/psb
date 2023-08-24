@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Stmt\Do_;
 
 class Calon extends Model
 {
@@ -73,7 +74,7 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bayarppdb', 'biayappdb', 'bt', 'seragam', 'tahap', 'registrasi'
+        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bayarppdb', 'biayappdb', 'bt', 'seragam', 'tahap', 'registrasi', 'dokumen'
     ];
 
     public function getTahapAttribute()
@@ -84,9 +85,15 @@ class Calon extends Model
             $tahap = 2;
         }
 
+        $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->count();
+        $itungdataygharus = JDoku::where('unit', 'like', '%TK%')->count();
+
+        if ($cekLengkapDokumen >= $itungdataygharus) {
+            $tahap = 3;
+        }
         $cek_wawancara_keu = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
         if ($cek_wawancara_keu) {
-            $tahap = 3;
+            $tahap = 4;
         }
 
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
@@ -94,19 +101,19 @@ class Calon extends Model
 
         $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
         if ($hasil) {
-            $tahap = 4;
+            $tahap = 5;
 
             $daul = BayarTagihan::where('calon_id', $this->attributes['id'])->first();
             if ($daul) {
-                $tahap = 5;
+                $tahap = 6;
                 if ($cek_wawancara_keu->lunas == 1) {
-                    $tahap = 6;
+                    $tahap = 7;
                     $ambilSeragam = AmbilSeragam::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
                     if ($ambilSeragam) {
-                        $tahap = 7;
+                        $tahap = 8;
                         $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
                         if ($ambilBuku) {
-                            $tahap = 7.5;
+                            $tahap = 8.5;
                         }
                     }
                 }
@@ -250,6 +257,13 @@ class Calon extends Model
         return compact('biayates', 'biayanya');
     }
 
+    public function getDokumenAttribute()
+    {
+        $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->count();
+        $itungdataygharus = JDoku::where('unit', 'like', '%TK%')->count();
+
+        return array($cekLengkapDokumen, $itungdataygharus);
+    }
     public function gelnya()
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');

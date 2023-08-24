@@ -1,7 +1,7 @@
 @extends('pdf.template')
 
 @section('isi')
-    <style>
+    <style type="text/css">
     th {
         text-align: left !important;
     }
@@ -86,7 +86,7 @@
             Rp. {{ number_format($calonsnya->biayates->biayanya->biaya) }},-, 
             batas waktu pembayaran sampai tanggal : <b>{{ date('d M Y', strtotime($calonsnya->biayates->expired)) }}</b></p>
     </div>
-    @if(date("Y-m-d", strtotime($calonsnya->tgl_daftar)) > "2023-03-01")
+    @if(date("Y-m-d", strtotime($calonsnya->tgl_daftar)) > "2023-03-01" && date("Y-m-d", strtotime($calonsnya->tgl_daftar)) < "2023-08-20")
         <p>Pembayaran Biaya Pendaftaran silahkan melalui rekening bank :</p>
         <p><b>BSI (Bank Syariah Indonesia) 7000326668</b> a.n. YAY PEND DAN PEMB NURUL FIKRI</p>
         <p>Jika sudah melakukan pembayaran, silakan konfirmasi dengan mengirimkan bukti transfer ke nomor Whatsapp <b>0822 1133 3434</b></p>

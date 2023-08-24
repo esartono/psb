@@ -1,7 +1,8 @@
 @extends('front.template1')
 
 @section('isi')
-<style>
+<style type="text/css">
+
     body {
         color: black
     }

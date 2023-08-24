@@ -1,29 +1,31 @@
-<style>
-    ul.jam {
-        padding: 0px !important;
-    }
-	ul.jam li {
-		display: inline-block;
-		font-size: 1.25em;
-		list-style-type: none;
-		padding: 0.5em 1.5em;
-        margin: 0 0.5em;
-		text-transform: uppercase;
-		color: red;
-        background-color: yellowgreen;
-        border-radius: 0.25em;
+<style type="text/css">
+    .countdown ul {
+		color: #024A81;
+		display: inline;
 	}
-
-	ul.jam li span {
-		display: block;
-		font-size: 3em;
+	.countdown ul li {
+		margin: 0px 5px;
+		display: inline-block;
+		width: 100px;
+		border: #024A81 2px solid;
+		background-color: #fff;
+		padding: 15px 20px;
+		border-radius: 15px;
+	}
+	.countdown ul li span {
+		font-size: 40px;
+	}
+	.countdown ul li span::after {
+		content: "\a";
+		white-space: pre;
 	}
     @media only screen and (max-width: 800px) {
         ul.jam li {
+            width: 80px;
             font-size: 1em;
             padding: 0.25em 1em;
             margin: 0 0.25em;
-            border-radius: 0.25em;
+            border-radius: 0.5em;
         }
 
         ul.jam li span {
@@ -32,6 +34,7 @@
     }
     @media only screen and (max-width: 450px) {
         ul.jam li {
+            width: 50px;
             font-size: 0.75em;
             padding: 0.1em 0.5em;
             margin: 0 0.25em;
@@ -45,14 +48,16 @@
 </style>
 <div class="text-center">
     <h4 class="mb-3">Pendaftaran Peserta Didik Baru - SIT Nurul Fikri akan dimulai :</h4>
-    <div class="card col-sm-8 offset-sm-2 border-warning countdown mt-4">
+    <div class="col-sm-8 offset-sm-2 border-warning countdown mt-4">
         <ul class="jam mt-2">
-            <li><span id="days" class="mb-1"></span>hari</li>
-            <li><span id="hours" class="mb-1"></span>jam</li>
-            <li><span id="minutes" class="mb-1"></span>menit</li>
-            <li><span id="seconds" class="mb-1"></span>detik</li>
+            <li><span id="days"></span>hari</li>
+            <li><span id="hours"></span>jam</li>
+            <li><span id="minutes"></span>menit</li>
+            <li><span id="seconds"></span>detik</li>
         </ul>
     </div>
+    <br>
+
     <a href="/ppdb" type="button" class="btn bg-danger btn-lg">
         <i class="fas fa-home"></i> &nbsp; Kembali ke Dashboard
     </a>

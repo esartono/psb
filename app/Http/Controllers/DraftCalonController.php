@@ -24,6 +24,7 @@ use App\SchoolCategory;
 use App\TahunPelajaran;
 
 use App\Facades\Edupay;
+use App\Facades\Maja;
 use App\Notifications\Wa;
 
 use Illuminate\Support\Facades\Mail;
@@ -66,12 +67,9 @@ class DraftCalonController extends Controller
         $age = date('d', strtotime($ages)) . ' ' . $bulan[(date('m', strtotime($ages)) - 1)] . ' ' . date('Y', strtotime($ages));
 
         $pilihan = [
-            ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
+            ['name' => 'Pilih Unit/Kelas', 'icon' => 'fas fa-school'],
             ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
             ['name' => 'Data Pribadi', 'icon' => 'fas fa-user'],
-            ['name' => 'Data Alamat', 'icon' => 'fas fa-home'],
-            ['name' => 'Data Orang Tua', 'icon' => 'fas fa-users'],
-            ['name' => 'Data Asal Sekolah', 'icon' => 'fas fa-school'],
             ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
 
@@ -305,14 +303,16 @@ class DraftCalonController extends Controller
                 'tgl_lahir' => $pecah_tgl[2] . '-' . $m . '-' . $pecah_tgl[0],
                 'jk' => $request->jk,
                 'agama' => $request->agama,
-                'nisn' => $request->nisn,
-                'nik' => $request->nik,
-                'info' => $request->info,
-                'rencana_masuk' => $request->rencana_masuk,
-                'step' => 5,
+                // 'nisn' => $request->nisn,
+                // 'nik' => $request->nik,
+                // 'info' => $request->info,
+                // 'rencana_masuk' => $request->rencana_masuk,
+                // 'step' => 5,
+                'step' => 8,
             ]);
 
-            $step = 5;
+            // 'step' => 5,
+            $step = 8;
         }
 
         if ($request->step == 5) {
@@ -377,50 +377,51 @@ class DraftCalonController extends Controller
                 'status' => false,
                 'setuju' => $draft['setuju'],
                 'user_id' => auth()->user()->id,
-                'alamat' => $draft['alamat'],
-                'rt' => $draft['rt'],
-                'rw' => $draft['rw'],
-                'kodepos' => $draft['kodepos'],
-                'provinsi' => $draft['provinsi'],
-                'kota' => $draft['kota'],
-                'kecamatan' => $draft['kecamatan'],
-                'kelurahan' => $draft['kelurahan'],
-                'phone' => $draft['phone'],
-                'ayah_nama' => $draft['ayah_nama'],
-                'ayah_pendidikan' => $draft['ayah_pendidikan'],
-                'ayah_pekerjaan' => $draft['ayah_pekerjaan'],
-                'ayah_penghasilan' => $draft['ayah_penghasilan'],
-                'ayah_hp' => $draft['ayah_hp'],
-                'ayah_email' => $draft['ayah_email'],
-                'ibu_nama' => $draft['ibu_nama'],
-                'ibu_pendidikan' => $draft['ibu_pendidikan'],
-                'ibu_pekerjaan' => $draft['ibu_pekerjaan'],
-                'ibu_penghasilan' => $draft['ibu_penghasilan'],
-                'ibu_hp' => $draft['ibu_hp'],
-                'ibu_email' => $draft['ibu_email'],
+                // 'alamat' => $draft['alamat'],
+                // 'rt' => $draft['rt'],
+                // 'rw' => $draft['rw'],
+                // 'kodepos' => $draft['kodepos'],
+                // 'provinsi' => $draft['provinsi'],
+                // 'kota' => $draft['kota'],
+                // 'kecamatan' => $draft['kecamatan'],
+                // 'kelurahan' => $draft['kelurahan'],
+                // 'phone' => $draft['phone'],
+                // 'ayah_nama' => $draft['ayah_nama'],
+                // 'ayah_pendidikan' => $draft['ayah_pendidikan'],
+                // 'ayah_pekerjaan' => $draft['ayah_pekerjaan'],
+                // 'ayah_penghasilan' => $draft['ayah_penghasilan'],
+                // 'ayah_hp' => $draft['ayah_hp'],
+                // 'ayah_email' => $draft['ayah_email'],
+                // 'ibu_nama' => $draft['ibu_nama'],
+                // 'ibu_pendidikan' => $draft['ibu_pendidikan'],
+                // 'ibu_pekerjaan' => $draft['ibu_pekerjaan'],
+                // 'ibu_penghasilan' => $draft['ibu_penghasilan'],
+                // 'ibu_hp' => $draft['ibu_hp'],
+                // 'ibu_email' => $draft['ibu_email'],
                 'asal_nf' => $draft['asal_nf'],
                 'pindahan' => $draft['pindahan'],
                 'tahun_sekarang' => $draft['tahun_sekarang'],
-                'asal_sekolah' => $draft['asal_sekolah'],
-                'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
-                'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
-                'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
-                'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
-                'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
+                // 'asal_sekolah' => $draft['asal_sekolah'],
+                // 'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
+                // 'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
+                // 'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
+                // 'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
+                // 'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
             ]);
 
             $biaya = BiayaTes::where('gel_id', $draft['gel_id'])
                 ->where('ck_id', $draft['ck_id'])
                 ->get()->first();
             if ($biaya) {
+                $maja = Maja::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")), auth()->user()->email);
                 $calonbiaya = CalonBiayaTes::updateOrCreate([
                     'calon_id' => $calon->id
                 ], [
                     'biaya_id' => $biaya->id,
+                    'idTransaction' => $maja->data->transactionId,
                     'expired' => date("Y-m-d", strtotime("+3 days"))
                 ]);
 
-                Edupay::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
                 $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
                 // Wa::kirim(auth()->user()->phone,'Terima kasih Bapak/Ibu '.auth()->user()->name.', Data calon siswa telah kami simpan.
                 // Silahkan melakukan proses pembayaran ke rekening Bank Syariah Indonesia (BSI) dengan nomor pendaftaran '.$calon->uruts.'.
@@ -465,13 +466,13 @@ class DraftCalonController extends Controller
         $min_age = $gel->minimum_age;
 
         $pilihan = [
-            ['name' => 'Pilih Unit', 'icon' => 'fas fa-school'],
-            ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
+            // ['name' => 'Pilih Unit/Kelas', 'icon' => 'fas fa-school'],
+            // ['name' => 'Orang Tua', 'icon' => 'fas fa-users'],
             ['name' => 'Data Pribadi', 'icon' => 'fas fa-user'],
             ['name' => 'Data Alamat', 'icon' => 'fas fa-home'],
             ['name' => 'Data Orang Tua', 'icon' => 'fas fa-users'],
             ['name' => 'Data Asal Sekolah', 'icon' => 'fas fa-school'],
-            ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
+            // ['name' => 'Form Persetujuan', 'icon' => 'fas fa-handshake'],
         ];
 
         if (!$calon) {
@@ -479,7 +480,7 @@ class DraftCalonController extends Controller
         }
 
         if ($step == 4) {
-            $infos = SumberInfo::orderBy('id', 'asc')->get();
+            $infos = SumberInfo::where('status', 1)->orderBy('id', 'asc')->get();
             $agama = Agama::orderBy('id', 'asc')->get();
 
             return view('user.edit', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'infos', 'agama'));
@@ -615,7 +616,6 @@ class DraftCalonController extends Controller
     public function photopp(Request $request)
     {
         $response = $this->FileController->upload($request->file('file'), 'pp', $request->id);
-
         return redirect()->route('ppdb');
     }
 }

@@ -1,5 +1,5 @@
 @extends('layouts.keu')
-<style>
+<style type="text/css">
 
 table.table-invoice {
     width: 100%;

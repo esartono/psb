@@ -14,7 +14,7 @@
             </tr>
             <tr>
                 <td style="text-transform: none">
-                    Melakukan Pembayaran jenis Edupay dengan nama lembaga <b>Yayasan Pendidikan dan Pemberdayaan Umat Nurul Fikri</b> dengan nomor pembayaran menggunakan nomor pendaftaran <b>{{ $calonsnya->uruts ?? $kode }}</b> (Sesuai nomor pendaftaran)
+                    Melakukan Pembayaran jenis Maja dengan nama lembaga <b>Yayasan Pendidikan dan Pemberdayaan Umat Nurul Fikri</b> dengan nomor pembayaran menggunakan nomor pendaftaran <b>{{ $calonsnya->uruts ?? $kode }}</b> (Sesuai nomor pendaftaran)
                 </td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@
                     <ol class="biasa">
                         <li>Masuk ke Menu Bayar</li>
                         <li>Pilih jenis pembayaran Akademik</li>
-                        <li>Pilih Nama Lembaga Edupay - <b>3292 - Yayasan Pendidikan dan Pemberdayaan Umat Nurul Fikri</b></li>
+                        <li>Pilih Nama Lembaga Maja - <b>3292 - Yayasan Pendidikan dan Pemberdayaan Umat Nurul Fikri</b></li>
                         <li>Masukkan nomor pendaftar sebagai kode pembayaran <b>{{ $calonsnya->uruts ?? $kode }}</b> (sesuai nomor pendaftaran).</li>
                         <li>Konfirmasi pembayaran</li>
                         <li>Masukan TAN dan Password otorisasi untuk melanjutkan pembayaran</li>

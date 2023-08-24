@@ -1,7 +1,8 @@
 @extends('front.template1')
 
 @section('isi')
-<style>
+<style type="text/css">
+
     .formBox{
         padding: 20px;
     }
@@ -49,7 +50,7 @@
 				<div class="progress-table-wrap mt-60">
                     <div class="progress-table" style="padding: 30px 0px">
                         <div class="formBox col-8 offset-2 col-sm-10 offset-sm-1 mt-20">
-                            <form method="POST" action="{{ route('waitinglist') }}"">
+                            <form method="POST" action="{{ route('waiting.store') }}"">
                                 @csrf
                                 <div class="row mb-30">
                                     <div class="col-sm-12">
@@ -105,8 +106,8 @@
                                             <div class="inputText required">Pilih Tahun Ajaran</div>
                                             <select name="ta" class="input" required>
                                                 <option selected disabled style="color: red">Pilih Tahun Ajaran</option>
-                                                @for ($i = 0; $i < 3; $i++)
-                                                    <option value="{{ $patokan+1+$i }}">{{ $patokan+1+$i }}/{{ $patokan+2+$i }}</option>
+                                                @for ($i = 0; $i < 4; $i++)
+                                                    <option value="{{ $patokan+$i }}">{{ $patokan+$i }}/{{ $patokan+1+$i }}</option>
                                                 @endfor
                                             </select>
                                         </div>

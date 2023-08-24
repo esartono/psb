@@ -1,14 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+    .col-form-label {
+        text-align: right;
+    }
+
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="mt-2 col-md-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-primary card-outline" style="margin-bottom: 10rem !important">
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
                         <i class="fas fa-upload"></i>
-                        Form Pendaftaran
+                        Form Kelengkapan Data
                     </h3>
                     <div class="card-tools">
                         <a href="/ppdb" type="button" class="btn bg-danger btn-sm">
@@ -23,40 +29,18 @@
                                 <div class="wizard-progress-bar green bg-green" style="width: 100%;"></div>
                             </div>
                             <ul class="wizard-nav wizard-nav-pills">
-                                <li>
-                                    <a>
-                                        <div role="tab" class="wizard-icon-circle md bg-grey">
-                                            <div class="wizard-icon-container bg-grey">
-                                                <i class="wizard-icon fas fa-user"></i>
-                                            </div>
-                                        </div>
-                                        <span class="stepTitle green">Baru/Pindahan</span>
-                                    </a>
-                                </li>
                                 @foreach ($pilihan as $k => $p)
-                                    @if($k < 2 || $k > 5)
                                     <li>
-                                        <a disabled>
-                                            <div role="tab" class="wizard-icon-circle md bg-grey">
-                                                <div class="wizard-icon-container bg-grey">
-                                                    <i class="wizard-icon {{ $p['icon'] }}"></i>
-                                                </div>
-                                            </div>
-                                            <span class="stepTitle green">{{ $p['name'] }}</span>
-                                        </a>
-                                    </li>
-                                    @else
-                                    <li>
-                                        <a href="/editcalon/{{ $calon->id }}/{{ $k+2 }}">
+                                        <a href="/editcalon/{{ $calon->id }}/{{ $k+4 }}">
                                             <div role="tab" class="wizard-icon-circle md bg-green">
                                                 <div class="wizard-icon-container bg-green">
                                                     <i class="wizard-icon {{ $p['icon'] }}"></i>
                                                 </div>
                                             </div>
                                             <span class="stepTitle green">{{ $p['name']}}</span>
+                                            <span class="stepTitle red"></span>
                                         </a>
                                     </li>
-                                    @endif
                                 @endforeach
                             </ul>
                             <hr>
@@ -75,6 +59,7 @@
 
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script type="text/javascript">
     $.fn.datepicker.dates['id'] = {
@@ -99,3 +84,4 @@
     });
 </script>
 @endpush
+

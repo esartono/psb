@@ -1,7 +1,7 @@
 @extends('pdf.template_keu')
 
 @section('isi')
-<style>
+<style type="text/css">
     .rincian {
       width: 100%;
       border-collapse: collapse;

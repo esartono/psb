@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
+<style type="text/css">
     @media only screen and (max-width: 450px) {
         .stepTitle {
             display: none;
         }
     }
+    .required:after {
+        content:" *";
+        color: red;
+    }
 </style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="mt-2 col-md-12">
-            <div class="card card-primary card-outline">
+            <div class="card card-primary card-outline" style="margin-bottom: 10rem !important">
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
                         <i class="fas fa-upload"></i>
@@ -27,7 +31,11 @@
                     <div class="vue-form-wizard xs">
                         <div class="wizard-navigation">
                             <div class="wizard-progress-with-circle">
-                                <div class="wizard-progress-bar green bg-green" style="width: {{ ($step*12.50)-6.25 }}%;"></div>
+                                @if($step > 8)
+                                    <div class="wizard-progress-bar green bg-green" style="width: {{ ($step*20)-10 }}%;"></div>
+                                @else
+                                    <div class="wizard-progress-bar green bg-green" style="width: 100%;"></div>
+                                @endif
                             </div>
                             <ul class="wizard-nav wizard-nav-pills">
                                 <li>

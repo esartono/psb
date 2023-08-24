@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <th>Jadwal Seleksi</th>
-                <td>{{ $calonsnya->jadwal->seleksi->isoFormat('D MMMM Y') }}</td>
+                <td><b>{{ $calonsnya->jadwal->seleksi !== '-'  ? $calonsnya->jadwal->seleksi>isoFormat('D MMMM Y') : "Jadwal belum tersedia" }}</b></td>
             </tr>
         </table>
     </div>

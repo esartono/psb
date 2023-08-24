@@ -13,18 +13,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <title>{{ config('app.name') }} | {{ auth()->user()->tpname }}</title>
     <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
-    <link rel="stylesheet" href="/css/app.css">
-    <style>
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
+    @stack('style')
+    <style type="text/css">
       .datepicker tr td-:last-of-type {
           width: 20px !important;
       }
-  </style>
+    </style>
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper" id="app">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-light bg-teal">
+  <nav class="main-header navbar fixed-top navbar-expand navbar-light bg-teal">
     <div class="container">
       <a href="/home" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU &nbsp;&nbsp;| &nbsp; PPDB SIT Nurul Fikri - Depok, TP. {{ Auth::user()->tp_name }}</a>
       {{-- <a href="https://bit.ly/Kesehatan-PPDB" target="_blank" class="btn bg-yellow"> Health Screening Form - PPDB SIT Nurul Fikri </a> --}}
@@ -58,20 +59,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </nav>
 
   <div class="content-wrapper">
-    <div class="content">
+    <div class="content" style="padding-top: 5rem;">
       @yield('content')
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer fixed-bottom">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
             IT Team - SIT Nurul Fikri
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2021 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+        <strong>Copyright &copy; {{ date("Y") }} - <a href="https://nurulfikri.sch.id">SIT Nurul Fikri - Depok</a>.</strong>
     </footer>
 </div>
 <!-- ./wrapper -->

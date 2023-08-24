@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class SumberInfo extends Model
 {
     protected $fillable = [
-        'name'
+        'name', 'status'
     ];
 
     protected $hidden = [
