@@ -10,25 +10,21 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class CpdBaruExport implements FromView
 {
-    public function view() : view
+    public function view(): view
     {
-        if(auth()->user()->isAdmin()) {
+        if (auth()->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
-            $calons = Calon::with('gelnya.unitnya', 'cknya', 'kelasnya')
-                    ->whereIn('gel_id', $gelombang)
-                    ->where('status',0)
-                    ->get();
         }
 
-        if(auth()->user()->isAdminUnit()) {
+        if (auth()->user()->isAdminUnit()) {
             $unit = auth()->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth()->user()->tpid)->get()->pluck('id');
-
-            $calons = Calon::with('gelnya.unitnya', 'cknya', 'kelasnya')
-                    ->where('gel_id', $gelombang)
-                    ->where('status',0)
-                    ->get();
         }
+
+        $calons = Calon::with('gelnya.unitnya', 'cknya', 'kelasnya', 'usernya')
+            ->whereIn('gel_id', $gelombang)
+            ->where('status', 0)
+            ->get();
 
         return view('exports.cpd', [
             'calons' => $calons,

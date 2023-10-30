@@ -31,14 +31,14 @@
                         {{ $unit->name }} <br> <span style="padding: 2px 27px"></span>
                     </button>
                 @endif
-                @if($unit->catnya->name == 'SD' || $unit->catnya->name == 'SMP')
+                @if($unit->catnya->name == 'SD' || $unit->catnya->name == 'SMP' || $unit->catnya->name == 'SMA')
                     <button type="submit" name="unit" value="{{ $unit->id }}" class="btn btn-app btn-lg white {{ $unit->catnya->name }}">
                         <p class="@if(\App\Kelasnya::cjk($unit->catnya->name) === 0) jk-bening @else jk-warna @endif">@include('user.form.cekjk',['cek' => $unit->catnya->name])</p>
                         <i class="fas fa-address-card"></i>
                         {{ $unit->name }} <br> <span style="padding: 2px 27px"></span>
                     </button>
                 @endif
-                @if($unit->catnya->name == 'SMA')
+                {{-- @if($unit->catnya->name == 'SMA')
                     @if($csma == 'TIDAK' || $csma == 'MIPA')
                         <button type="submit" name="unit" value="{{ $unit->id }}-MIPA" class="btn btn-app btn-lg white {{ $unit->catnya->name }}">
                             <p class="@if(\App\Kelasnya::cjk($unit->catnya->name) === 0) jk-bening @else jk-warna @endif">@include('user.form.cekjk',['cek' => $unit->catnya->name])</p>
@@ -53,7 +53,7 @@
                             {{ $unit->name }} <br> <span class="bg-blue" style="padding: 2px 27px">Jurusan IPS</span>
                         </button>
                     @endif
-                @endif
+                @endif --}}
             @empty
                 <h2 class="bg-red" style="padding: 20px;">MAAF BELUM ADA KELAS YANG TERSEDIA</h2>
             @endforelse

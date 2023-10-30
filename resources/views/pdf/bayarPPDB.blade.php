@@ -27,9 +27,9 @@
 <br>
 <table style="width: 100%">
     <tr>
-        <td style="width: 16%">No. Pendaftaran</td>
-        <td style="width: 49%">: {{ $calon->uruts }}</td>
-        <td style="width: 14%">Unit</td>
+        <td style="width: 16.2%">No. Pendaftaran</td>
+        <td style="width: 48.8%">: {{ $calon->uruts }}</td>
+        <td style="width: 13.5%">Unit</td>
         <td>: {{ $calon->gelnya->unitnya->name }}</td>
     </tr>
     <tr>

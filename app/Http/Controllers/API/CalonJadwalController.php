@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API;
 use App\CalonJadwal;
 use App\Gelombang;
 use App\Jadwal;
+use App\Calon;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
@@ -28,20 +31,50 @@ class CalonJadwalController extends Controller
 
     public function index()
     {
-        if(auth('api')->user()->isAdmin()) {
+        if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-            $jadwal = Jadwal::whereIn('gel_id',$gelombang)->get()->pluck('id');
+            $jadwal = Jadwal::whereIn('gel_id', $gelombang)->get()->pluck('id');
         }
 
-        if(auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-            $jadwal = Jadwal::whereIn('gel_id',$gelombang)->get()->pluck('id');
+            $jadwal = Jadwal::whereIn('gel_id', $gelombang)->get()->pluck('id');
         }
         $calons = CalonJadwal::with('jadwalnya')->whereIn('jadwal_id', $jadwal)->orderBy('jadwal_id', 'asc')->get();
         return compact('calons');
     }
 
+    public function belum()
+    {
+        if (auth('api')->user()->isAdmin()) {
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+            $jadwal = Jadwal::whereIn('gel_id', $gelombang)->get()->pluck('id');
+            $jadwal->prepend(0);
+
+            $calonadajadwal = CalonJadwal::whereIn('jadwal_id', $jadwal)->pluck('calon_id');
+            $calonnya = Calon::whereNotIn('id', $calonadajadwal)->whereIn('gel_id', $gelombang)->where('status', 1)->pluck('id');
+
+            // $calons = Calon::whereIn('id', $calonnya)->get();
+            $calons = DB::table('calons')
+                ->select(
+                    'calons.id',
+                    'calons.name',
+                    'jk',
+                    'gelombangs.kode_va',
+                    'units.name as unit',
+                    'urut',
+                    DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                )
+                ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                ->whereIn('calons.id', $calonnya)
+                ->orderBy('units.name', 'asc')
+                ->orderBy('calons.name', 'asc')
+                ->get();
+        }
+        return compact('calons');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +83,6 @@ class CalonJadwalController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -61,8 +93,8 @@ class CalonJadwalController extends Controller
      */
     public function show($id)
     {
-        if(auth('api')->user()->isAdmin()) {
-            return CalonJadwal::with('calonnya', 'jadwalnya.gelnya.unitnya.catnya')->where('jadwal_id',$id)->get()->toArray();
+        if (auth('api')->user()->isAdmin()) {
+            return CalonJadwal::with('calonnya', 'jadwalnya.gelnya.unitnya.catnya')->where('jadwal_id', $id)->get()->toArray();
         }
     }
 
@@ -101,5 +133,4 @@ class CalonJadwalController extends Controller
     {
         return Excel::download(new CpdPsikoTesExport($id), 'cpdPsikotes.xlsx');
     }
-
 }

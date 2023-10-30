@@ -10,7 +10,16 @@
                                 <i class="fas fa-file-excel"></i>
                                 Export
                             </a> -->
-                            <div class="input-group input-group-sm" style="width: 200px;">
+                            <div class="input-group input-group-sm float-right mt-1" style="width: auto;">
+                                <select class="ml-1 form-control" v-model="filters.unit.value">
+                                    <option value="" selected disabled> -- Pilih Unit -- </option>
+                                    <option value="TK">Unit TK</option>
+                                    <option value="SD">Unit SD</option>
+                                    <option value="SMP">Unit SMP</option>
+                                    <option value="SMA">Unit SMA</option>
+                                </select>
+                            </div>
+                            <div class="mt-1 input-group input-group-sm" style="width: 200px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -71,6 +80,10 @@
                     name: {
                         value: "",
                         keys: ["nama", "ta", "asal_sekolah", "wa", "email"]
+                    },
+                    unit: {
+                        value: "",
+                        keys: ['unit']
                     }
                 },
                 currentPage: 1,

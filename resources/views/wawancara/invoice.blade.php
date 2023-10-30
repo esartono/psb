@@ -1,15 +1,4 @@
 @extends('layouts.keu')
-<style type="text/css">
-
-table.table-invoice {
-    width: 100%;
-}
-table.table-invoice th, table.table-invoice td {
-    padding: 5px;
-    font-size: 13px;
-    border: 1px solid #dee2e6;
-}
-</style>
 
 @section('content')
 <section class="content">
@@ -23,7 +12,7 @@ table.table-invoice th, table.table-invoice td {
                         <div class="col-12">
                             <h5>
                                 <b>Detail Data Tagihan Siswa Baru SIT Nurul Fikri Cimanggis Depok {{ auth()->user()->tpname }}</b>
-                                <small class="float-right">Tanggal: {{ date('d/m/Y')}}</small>
+                                <small class="float-right">Tanggal: {{ date('d / M / Y')}}</small>
                             </h5>
                         </div>
                         <!-- /.col -->
@@ -58,8 +47,15 @@ table.table-invoice th, table.table-invoice td {
                                     <tr>
                                         <td>Kelas</td>
                                         <td>:</td>
-                                        <td>{{ $calon->kelasnya->name }}</td>
+                                        <td style="color: {{ $calon->pindahan > 0 ? 'red' : '' }}">{{ $calon->kelasnya->name }} {{ $calon->pindahan > 0 ? ' -- (Pindahan)' : '' }}</td>
                                     </tr>
+                                    @if($calon->pindahan > 0)
+                                        <tr>
+                                            <td>Rencana Masuk</td>
+                                            <td>:</td>
+                                            <td style="color: red; font-weight: 800">{{ $calon->masuk }}</td>
+                                        </tr>
+                                    @endif
                                     <tr>
                                         <td>Nama Ayah</td>
                                         <td>:</td>
@@ -104,7 +100,7 @@ table.table-invoice th, table.table-invoice td {
                             </button>
                         </div>
                         <div class="modal-body">
-                            @include('front.ketentuan')
+                            @include('wawancara.'.substr($tp,0,4).'.ketentuan')
                         </div>
                     </div>
                 </div>

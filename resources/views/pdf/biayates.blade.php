@@ -11,9 +11,9 @@
     .biaya {
         width: 100%;
     }
-    .biaya_pisah {
-        margin-top: 130px;
-        margin-bottom: 50px;
+    .pisah {
+        margin-top: 0px;
+        margin-bottom: 206px;
     }
     .biaya, .biaya th, .biaya td {
         border: 1px solid black !important;

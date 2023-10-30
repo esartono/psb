@@ -38,9 +38,21 @@ table.table-invoice th, table.table-invoice td {
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-md-3 col-form-label">RT</label>
+                            <div class="col-md-3">
+                                <input type="text" name="rt" class="form-control" id="alamat"
+                                    value="{{ $calon->rt }}" required>
+                            </div>
+                            <label class="col-md-3 col-form-label">RW</label>
+                            <div class="col-md-3">
+                                <input type="text" name="rw" class="form-control" id="alamat"
+                                    value="{{ $calon->rw }}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-md-3 col-form-label">Provinsi</label>
                             <div class="col-md-3">
-                                <select onchange="listKota(this)" name="provinsi" class="form-control" id="provinsi" required>
+                                <select onchange="listKota(this.value)" name="provinsi" class="form-control" id="provinsi" required>
                                     <option selected='true' disabled='disabled' value="">Pilih Provinsi</option>
                                     @foreach ($provinsi as $prov)
                                         <option value="{{ $prov->id }}" {{ $calon->provinsi == $prov->id ? 'selected="true"' : '' }}>{{ $prov->name }}</option>
@@ -49,7 +61,7 @@ table.table-invoice th, table.table-invoice td {
                             </div>
                             <label class="col-md-2 offset-md-1 col-form-label">Kabupaten</label>
                             <div class="col-md-3">
-                                <select onchange="listCamat(this)" name="kota" class="form-control" id="kota" required>
+                                <select onchange="listCamat(this.value)" name="kota" class="form-control" id="kota" required>
                                     <option selected='true' disabled='disabled' value="">Pilih Kota/Kabupaten</option>
                                     @if($kota != '')
                                         @foreach ($kota as $prov)
@@ -62,7 +74,7 @@ table.table-invoice th, table.table-invoice td {
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">Kecamatan</label>
                             <div class="col-md-3">
-                                <select onchange="listLurah(this)" name="kecamatan" class="form-control" id="kecamatan" required>
+                                <select onchange="listLurah(this.value)" name="kecamatan" class="form-control" id="kecamatan" required>
                                     <option selected='true' disabled='disabled'>Pilih Kecamatan</option>
                                     @if($kecamatan != '')
                                         @foreach ($kecamatan as $prov)
@@ -127,4 +139,120 @@ table.table-invoice th, table.table-invoice td {
 </section>
 @endsection
 
-<script type="application/javascript" src="/js/daerah.js"></script>
+@push('js')
+<script>
+    var url = window.location.origin;
+    var kotaasal = "{{ $calon->kota }}"
+    var camatasal = "{{ $calon->kecamatan }}"
+    var lurahasal = "{{ $calon->kelurahan }}"
+
+    $(document).ready(function() {
+        var provinceID = $("#provinsi").find(":selected").val();
+        if(provinceID){
+            if(kotaasal){
+                listKota(provinceID, kotaasal)
+                if(camatasal){
+                    listCamat(kotaasal, camatasal)
+                    if(lurahasal){
+                        listLurah(camatasal, lurahasal)
+                    } else {
+                        listLurah(camatasal)
+                    }
+                } else {
+                    listCamat(kotaasal)
+                }
+            } else {
+                listKota(provinceID)
+            }
+        }
+    });
+
+    var listKota = function(e, a) {
+        if(e){
+            axios
+            .get( url + "/api/kotas/" + e)
+            .then((data) => {
+                if(data){
+                    $("#kota").empty();
+                    $("#kecamatan").empty();
+                    $("#kelurahan").empty();
+                    if(a){
+                        $("#kota").append('<option disabled="disabled" value="">Pilih Kota/Kabupaten</option>');    
+                    } else {
+                        $("#kota").append('<option selected="true" disabled="disabled" value="">Pilih Kota/Kabupaten</option>');
+                    }
+                    $.each(data.data,function(key,value){
+                        if(a == key){
+                            $("#kota").append('<option selected="true" value="'+key+'">'+value+'</option>');
+                        } else{
+                            $("#kota").append('<option value="'+key+'">'+value+'</option>');
+                        }
+                    });
+                } else {
+                    $("#kota").empty();
+                    $("#kecamatan").empty();
+                    $("#kelurahan").empty();
+                }
+            });
+        }
+    };
+
+    var listCamat = function(e, a) {
+        var url = window.location.origin;
+        if(e){
+            axios
+            .get( url + "/api/camats/" + e)
+            .then((data) => {
+                if(data){
+                    $("#kecamatan").empty();
+                    $("#kelurahan").empty();
+                    if(a) {
+                        $("#kecamatan").append('<option disabled="disabled" value="">Pilih Kecamatan</option>');
+                    } else {
+                        $("#kecamatan").append('<option selected="true" disabled="disabled" value="">Pilih Kecamatan</option>');
+                    }
+                    $.each(data.data,function(key,value){
+                        if(a == key) {
+                            $("#kecamatan").append('<option selected="true" value="'+key+'">'+value+'</option>');
+                        } else {
+                            $("#kecamatan").append('<option value="'+key+'">'+value+'</option>');
+                        }
+                        
+                    });
+                } else {
+                    $("#kecamatan").empty();
+                    $("#kelurahan").empty();
+                }
+            });
+        }
+    };
+  
+    var listLurah = function(e, a) {
+        var url = window.location.origin;
+        if(e){
+            axios
+            .get( url + "/api/lurahs/" + e)
+            .then((data) => {
+                if(data){
+                    $("#kelurahan").empty();
+                    if(a) {
+                        $("#kelurahan").append('<option disabled="disabled" value="">Pilih Kelurahan</option>');
+                    } else {
+                        $("#kelurahan").append('<option selected="true" disabled="disabled" value="">Pilih Kelurahan</option>');
+                    }
+                    $.each(data.data,function(key,value){
+                        if(a == key) {
+                            $("#kelurahan").append('<option selected="true" value="'+key+'">'+value+'</option>');
+                        } else {
+                            $("#kelurahan").append('<option value="'+key+'">'+value+'</option>');
+                        }
+                    });
+                } else {
+                    $("#kelurahan").empty();
+                }
+            });
+        }
+    };
+
+</script>
+@endpush

@@ -20,11 +20,11 @@ class SiswaNF extends Model
 
     public function getKelaminAttribute()
     {
-        if($this->attributes['jk'] === 1) {
+        if ($this->attributes['jk'] === 1) {
             return 'Laki-Laki';
         }
 
-        if($this->attributes['jk'] === 2) {
+        if ($this->attributes['jk'] === 2) {
             return 'Perempuan';
         }
     }
@@ -32,15 +32,31 @@ class SiswaNF extends Model
     public function getUnitnyaAttribute()
     {
         $unit = Unit::where('id', $this->attributes['unit'])->first();
-        if($unit){
+        if ($unit) {
             return $unit;
-        } else {
+        }
+
+        if ($this->attributes['unit'] == 0) {
+            return [
+                'id' => 0,
+                'cat_id' => 1,
+                'name' => 'CCEC Nurul Fikri'
+            ];
+        }
+
+        if ($this->attributes['unit'] == 6) {
             return [
                 'id' => 6,
                 'cat_id' => 3,
                 'name' => 'NFBS Bogor'
             ];
         }
+
+        return [
+            'id' => 1000,
+            'cat_id' => 1,
+            'name' => '-'
+        ];
     }
 
     public function tpnya()

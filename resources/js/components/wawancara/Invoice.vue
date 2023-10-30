@@ -198,7 +198,7 @@
 </template>
 
 <script type="module">
-  import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js'
+  // import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js'
 </script>
 
 <script>
@@ -339,14 +339,14 @@ export default {
           });
     },
 
-    fuseSearch(options, search) {
-      const fuse = new Fuse(siswanf, {
-        shouldSort: true,
-      })
-      return search.length
-        ? fuse.search(search).map(({ item }) => item)
-        : fuse.list
-    },
+    // fuseSearch(options, search) {
+    //   const fuse = new Fuse(siswanf, {
+    //     shouldSort: true,
+    //   })
+    //   return search.length
+    //     ? fuse.search(search).map(({ item }) => item)
+    //     : fuse.list
+    // },
 
     cekNotif($e) {
       var cek = this.pots[$e.target.value].notif

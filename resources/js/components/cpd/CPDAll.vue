@@ -10,7 +10,7 @@
                                 <i class="fas fa-file-excel"></i>
                                 Export
                             </a>
-                            <div class="input-group input-group-sm" style="width: 200px;">
+                            <div class="mt-1 input-group input-group-sm" style="width: 200px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -47,7 +47,7 @@
                                     <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
                                     <td class="text-center">{{ row.asal_sekolah }}</td>
                                     <td>{{ row.ayah_nama }}<hr>{{ row.ibu_nama }}</td>
-                                    <td>{{ row.email }}</td>
+                                    <td>{{ row.email }}<hr>{{ row.phone }}</td>
                                     <td>{{ (row.status == 0 ? 'Belum Aktif' : 'Aktif') }}</td>
                                 </tr>
                             </tbody>

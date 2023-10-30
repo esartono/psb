@@ -10,7 +10,7 @@
                             <a class="btn btn-sm btn-danger" @click="addModal">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="mt-1 input-group input-group-sm" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">

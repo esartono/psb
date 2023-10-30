@@ -38,7 +38,7 @@
                                     <v-th sortKey="name">Nama Lengkap</v-th>
                                     <v-th sortKey="tgl_lahir">Tanggal Lahir</v-th>
                                     <th>Usia</th>
-                                    <th>Jurusan</th>
+                                    <v-th sortKey="kelas">Kelas Tujuan</v-th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="ayah_nama">Orang Tua</v-th>
                                     <th>No. Ponsel</th>
@@ -47,7 +47,7 @@
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
-                                <tr v-for="(row, index) in displayData" :key="row.id">
+                                <tr v-for="(row, index) in displayData" :key="row.id" v-bind:style= "[row.pindahan > 0 ? {'background': '#FFE07D'} : '']">
                                     <td class="text-center">
                                         {{ index+((currentPage-1) * 7)+1 }}
                                         <a @click="deleteData(row.id)" class="btn btn-sm btn-danger text-white" v-if='$route.params.id == 0'>
@@ -59,10 +59,11 @@
                                     <td>{{ row.name }}</td>
                                     <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
                                     <td>{{ row.tgl_lahir | Usia}}</td>
-                                    <td>{{ row.jurusan }}</td>
+                                    <td class="text-center">{{ row.kelas }} {{ row.pindahan > 0 ? '(Pindahan)' : '' }}</td>
                                     <td class="text-center">{{ row.asal_sekolah }}</td>
                                     <td>{{ row.ayah_nama }}<hr>{{ row.ibu_nama }}</td>
-                                    <td>{{ row.ayah_hp }}<hr>{{ row.ibu_hp }}</td>
+                                    <td v-if="row.ayah_hp && row.ibu_hp">{{ row.ayah_hp }}<hr>{{ row.ibu_hp }}</td>
+                                    <td v-else>{{ row.phone }}<hr>No. HP Pendaftar</td>
                                     <td class="text-center" v-if='$route.params.id == 0'>Daftar : {{ row.tgl_daftar | TanggalKecil }} <hr>
                                         Expired : {{ row.expired | TanggalKecil }}
                                     </td>

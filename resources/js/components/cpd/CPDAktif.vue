@@ -10,7 +10,7 @@
                                 <i class="fas fa-file-excel"></i>
                                 Export
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="mt-1 input-group input-group-sm" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -36,7 +36,7 @@
                                     <th>Usia</th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="ayah_nama">Orang Tua</v-th>
-                                    <th>Jurusan</th>
+                                    <th>Kelas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

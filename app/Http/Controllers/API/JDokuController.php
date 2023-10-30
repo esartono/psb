@@ -23,19 +23,21 @@ class JDokuController extends Controller
     public function store(Request $request)
     {
         $unit = implode(",", $request->unit);
+        $khusus = implode(",", $request->khusus);
         JDoku::create([
             'code' => $request['code'],
             'name' => $request['name'],
             'unit' => $unit,
-            'khusus' => $request['khusus']
+            'khusus' => $khusus
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $unit = implode(",", $request->unit);
+        $khusus = implode(",", $request->khusus);
         $jd = JDoku::findOrFail($id);
-        $jd->update($request->only('code', 'name', 'khusus') + ['unit' => $unit]);
+        $jd->update($request->only('code', 'name') + ['unit' => $unit, 'khusus' => $khusus]);
     }
 
     public function show($id)

@@ -70,7 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
     Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
     Route::resource('doku', 'DokuController');
-    Route::get('uploaddokumen/{calon}/{code?}', 'DokuController@upload')->name('doku.upload');
+    Route::get('uploaddokumen/{calon}/{code}', 'DokuController@upload')->name('doku.upload');
     Route::resource('uniform', 'UniformController');
     //Route::get('uniform/{calon}/{code?}', 'UniformController@upload')->name('uniform.isi');
     Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
@@ -167,6 +167,7 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/suratseragam', 'HomeController@front');
     Route::get('/suratbuku', 'HomeController@front');
     Route::get('/tes', 'HomeController@front');
+    Route::get('/non-tes', 'HomeController@front');
     Route::get('/berkas', 'HomeController@front');
     Route::get('/wawancara-keu', 'WawancaraController@wawancaraKeuangan')->name('wawancara-keu');
     Route::get('/keuangan/{id}', 'WawancaraController@getCalon')->name('getCalon');

@@ -10,7 +10,7 @@
                             <a class="btn btn-sm btn-danger" @click="addModal">
                                 <i class="fas fa-plus"></i> Tambah Data
                             </a>
-                            <div class="input-group input-group-sm" style="width: 150px;">
+                            <div class="mt-1 input-group input-group-sm" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -39,7 +39,7 @@
                                     <td class="text-center">{{ row.code }}</td>
                                     <td class="text-center">{{ row.name }}</td>
                                     <td class="text-center">{{ row.unit }}</td>
-                                    <td class="text-center">{{ row.doku_khusus }}</td>
+                                    <td class="text-center">{{ row.khusus }}</td>
                                     <td class="text-center">
                                         <a href="#" @click="editModal(row)">
                                             <i class="fas fa-edit blue"></i>
@@ -102,10 +102,9 @@
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Calon Kategori</label>
                                     <div class="col-sm-8">
-                                        <select v-model="form.khusus" name="khusus" class="form-control" id="khusus">
-                                            <option>Semua Asal Calon</option>
+                                        <select v-model="form.khusus" name="khusus" class="form-control" id="khusus" multiple="true">
                                             <option v-for="cats in category" :key="cats.id"
-                                                v-bind:value="cats.id">{{ cats.name }}</option>
+                                                v-bind:value="cats.name">{{ cats.name }}</option>
                                         </select>
                                         <has-error :form="form" field="khusus"></has-error>
                                     </div>
@@ -144,7 +143,7 @@
                     code: "",
                     name: "",
                     unit: [],
-                    khusus: null
+                    khusus: []
                 })
             };
         },
@@ -188,6 +187,7 @@
                 $("#addModal").modal("show");
                 this.form.fill(jdoku);
                 this.form.unit = jdoku.unit.split(",");
+                this.form.khusus = jdoku.khusus.split(",");
             },
 
             updateData() {

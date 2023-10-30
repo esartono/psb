@@ -14,7 +14,7 @@
                 <i class="fas fa-file-excel"></i>
                 Ekspor
               </a>
-              <div class="input-group input-group-sm" style="width: 150px;">
+              <div class="mt-1 input-group input-group-sm" style="width: 150px;">
                 <input
                   v-model="filters.name.value"
                   type="text"

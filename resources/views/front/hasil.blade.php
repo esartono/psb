@@ -14,7 +14,7 @@
 						<form action="/gethasil" class="mt-3" method="POST">
 						{{ csrf_field() }} 
 							<div class="mt-10">
-								<input style="width: 30%; padding: 10px" type="text" name="id" placeholder="No. Pendaftaran" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukan No. Pendaftaran'" required>
+								<input style="text-align: center; width: 30%; padding: 10px" type="text" name="id" placeholder="No. Pendaftaran" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Masukan No. Pendaftaran'" required>
 							</div>
 						</form>
 					@endif

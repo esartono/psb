@@ -1,11 +1,11 @@
 <center><h3>SURAT PERSETUJUAN ADMINISTRASI SEKOLAH</h3></center>
 <p>Yang bertanda tangan di bawah ini :</p>
 <br>
-<table>
+<table style="width: 100%">
     <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td> Nama Ayah </td>
-        <td> : </td>
+        <td style="width: 7%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="width: 22%"> Nama Ayah </td>
+        <td style="width: 2%"> : </td>
         <td> {{ Str::title($calon->ayah_nama) }} </td>
     </tr>
     <tr>
@@ -50,11 +50,11 @@
     </tr>
 </table>
 <p>Adalah orangtua / wali dari calon peserta didik <b>Kelas {{ App\Kelasnya::unit($calon->kelas_tujuan) }} Unit {{ App\Gelombang::unit($calon->gel_id) }} </b>:</p>
-<table>
+<table style="width: 100%">
     <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        <td> Nama </td>
-        <td> : </td>
+        <td style="width: 7%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td style="width: 22%"> Nama </td>
+        <td style="width: 2%"> : </td>
         <td> {{ Str::title($calon->name) }} </td>
     </tr>
     <tr>
@@ -117,10 +117,10 @@
         <td colspan="4" align="center"><u> Depok, {{ $ctg->created_at->isoFormat('D MMMM Y') }} </u></td>
     </tr>
     <tr>
-        <td align="center" width="25%"></td>
-        <td align="center" width="25%">Ayah</td>
-        <td align="center" width="25%">Ibu</td>
-        <td align="center" width="25%"></td>
+        <td align="center" width="10%"></td>
+        <td align="center" width="40%">Ayah</td>
+        <td align="center" width="40%">Ibu</td>
+        <td align="center" width="10%"></td>
     </tr>
     <tr>
         <td><br><br><br><br></td>

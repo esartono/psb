@@ -32,13 +32,28 @@ class CalonJadwal extends Model
     public function getCalonnyaAttribute()
     {
         return DB::table('calons')
-                ->select('calons.name', 'gel_id', 'jk', 'tempat_lahir', 'tgl_lahir', 'ayah_nama', 'ayah_hp',
-                    'ibu_nama', 'ibu_hp', 'asal_sekolah', 'calon_kategoris.name as ck', 'units.name as unitnya',
-                    DB::raw('concat(gelombangs.kode_va, LPAD(calons.urut, 3, "0")) as uruts'))
-                ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
-                ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
-                ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
-                ->where('calons.id', $this->attributes['calon_id'])
-                ->first();
+            ->select(
+                'calons.name',
+                'gel_id',
+                'jk',
+                'tempat_lahir',
+                'tgl_lahir',
+                'ayah_nama',
+                'ayah_hp',
+                'ibu_nama',
+                'ibu_hp',
+                'asal_sekolah',
+                'pindahan',
+                'calon_kategoris.name as ck',
+                'units.name as unitnya',
+                'kelasnyas.name as kelasnya',
+                DB::raw('concat(gelombangs.kode_va, LPAD(calons.urut, 3, "0")) as uruts')
+            )
+            ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+            ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+            ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+            ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
+            ->where('calons.id', $this->attributes['calon_id'])
+            ->first();
     }
 }

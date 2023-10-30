@@ -35,7 +35,6 @@
                     </ul>
                 </li>
                 <li>Masukan nominal pembayaran, <b>harus sesuai dengan jumlah tagihan</b></li>
-                <li>Pilih jenis Rekening Tujuan - <b>GIRO</b></li>
                 <li>Akan muncul konfirmasi transfer</li>
             </ol>
             <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-primary mt-3 white" target="_blank">Tata Cara Pembayaran</a>

@@ -10,7 +10,14 @@
                                 <i class="fas fa-file-excel"></i>
                                 Export
                             </a>
-                            <div class="input-group input-group-sm mt-1" style="width: 150px;">
+                            <div class="input-group input-group-sm float-right mt-1" style="width: auto;">
+                                <select class="ml-1 form-control" v-model="filters.unit.value">
+                                    <option value="" selected disabled> -- Pilih Unit -- </option>
+                                    <option v-for="unit in units" :key="unit.id"
+                                        v-bind:value="unit.name">{{ unit.name }}</option>
+                                </select>
+                            </div>
+                            <div class="input-group input-group-sm mt-1" style="width: 200px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -28,14 +35,14 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="unitnya.name">Unit</v-th>
-                                    <v-th sortKey="cknya.name">Kategori</v-th>
-                                    <v-th sortKey="pendaftaran">No. ID</v-th>
-                                    <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
-                                    <th>JK</th>
-                                    <v-th sortKey="calonnya.tgl_lahir">Tanggal Lahir</v-th>
-                                    <!-- <v-th sortKey="calonnya.asal_sekolah">Asal Sekolah</v-th> -->
+                                    <v-th sortKey="unit">Unit</v-th>
+                                    <v-th sortKey="ck">Kategori</v-th>
+                                    <v-th sortKey="uruts">No. ID</v-th>
+                                    <v-th sortKey="name">Nama Lengkap</v-th>
+                                    <v-th sortKey="jk">JK</v-th>
+                                    <v-th sortKey="tgl_lahir">Tanggal Lahir</v-th>
                                     <th>Daftar Ulang</th>
+                                    <th>Lunas</th>
                                     <th>Seragam</th>
                                 </tr>
                             </thead>
@@ -45,17 +52,23 @@
                                 </tr>
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
-                                    <td class="text-center">{{ row.gelnya.unitnya.name }}</td>
-                                    <td class="text-center">{{ row.cknya.name }}</td>
+                                    <td class="text-center">{{ row.unit }}</td>
+                                    <td class="text-center">{{ row.ck }}</td>
                                     <td class="text-center">{{ row.uruts }}</td>
-                                    <td>{{ row.name }}</td>
+                                    <td>{{ row.name | Judul}}</td>
                                     <td class="text-center">{{ (row.jk == 1 ? 'L' : 'P') }}</td>
                                     <td>{{ row.tempat_lahir }}, {{ row.tgl_lahir | Tanggal}}</td>
-                                    <!-- <td class="text-center">{{ row.asal_sekolah }}</td> -->
-                                    <th>
+                                    <!-- <th>
                                         <a :href="'DaftarUlangPDF/'+row.id" target="_blank">
                                             <i class="fas fa-2x fa-file-pdf red"> </i><br>Daul
                                         </a>
+                                    </th> -->
+                                    <th><a><i class="fas fa-check-circle green"></i></a></th>
+                                    <th v-if="row.lunas != 0">
+                                        <a><i class="fas fa-check-circle green"></i></a>
+                                    </th>
+                                    <th v-else>
+                                        <a><i class="fas fa-times-circle red"></i></a>
                                     </th>
                                     <th>
                                         <a :href="'AmbilSeragamPDF/'+row.id" target="_blank">
@@ -79,11 +92,16 @@
         data() {
             return {
                 calons: [],
+                units: [],
                 cks: {},
                 filters: {
                     name: {
                         value: "",
-                        keys: ["unitnya.name", "calonnya.uruts", "calonnya.name", "calonnya.tgl_lahir", "calonnya.asal_sekolah"]
+                        keys: ["uruts", "name"]
+                    },
+                    unit: {
+                        value: "",
+                        keys: ["unit"]
                     }
                 },
                 currentPage: 1,
@@ -94,8 +112,8 @@
         methods: {
             listData() {
                 this.$Progress.start();
-                axios.get("../api/calontagihans/1")
-                    .then(({ data }) => (this.calons = data));
+                axios.get("../api/calontagihans/1").then(({ data }) => (this.calons = data));
+                axios.get("../api/units").then(({ data }) => (this.units = data));
                 this.$Progress.finish();
             },
         },

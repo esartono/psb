@@ -11,11 +11,9 @@
             <table class="table table-bordered table-hover">
               <col width="250" />
               <col width="100" />
-              <col width="100" />
               <thead>
                 <tr>
                   <th rowspan="2" class="align-middle">Unit</th>
-                  <th rowspan="2" class="align-middle">Gelombang</th>
                   <th colspan="3">Total</th>
                   <th colspan="3">Baru</th>
                   <th colspan="3">Aktif</th>
@@ -38,7 +36,6 @@
                 </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
-                  <td class="text-center">{{ unit.name }}</td>
                   <th>{{ unit.jlhrekap.lbaru + unit.jlhrekap.laktif }}</th>
                   <th>{{ unit.jlhrekap.pbaru + unit.jlhrekap.paktif }}</th>
                   <th class="bg-cyan">{{ unit.jlhrekap.lbaru + unit.jlhrekap.laktif + unit.jlhrekap.pbaru + unit.jlhrekap.paktif}}</th>
@@ -65,11 +62,9 @@
             <table class="table table-bordered table-hover">
               <col width="250" />
               <col width="100" />
-              <col width="100" />
               <thead>
                 <tr>
                   <th rowspan="2" class="align-middle">Unit</th>
-                  <th rowspan="2" class="align-middle">Gelombang</th>
                   <th colspan="3">Baru</th>
                   <th rowspan="2" class="bg-green align-middle">TOTAL</th>
                   <th colspan="3">Aktif</th>
@@ -90,7 +85,6 @@
                 </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
-                  <td class="text-center">{{ unit.name }}</td>
                   <th>{{ unit.jlhrekap.umumbaru }}</th>
                   <th>{{ unit.jlhrekap.nfbaru }}</th>
                   <th>{{ unit.jlhrekap.pegbaru}}</th>
@@ -106,7 +100,7 @@
           <!-- /.card-body -->
         </div>
       </div>
-            <div class="col-md-12">
+      <div class="col-md-12">
         <div class="card border-warning">
           <div class="card-header bg-warning">
             <h3 class="card-title">Data Siswa yang sudah Daftar Ulang</h3>
@@ -116,18 +110,30 @@
             <table class="table table-bordered table-hover">
               <col width="250" />
               <col width="100" />
-              <col width="100" />
               <thead>
                 <tr>
-                  <th rowspan="2" class="align-middle">Unit</th>
-                  <th rowspan="2" class="align-middle">Gelombang</th>
-                  <th colspan="3">Kategori</th>
-                  <th rowspan="2" class="bg-yellow align-middle">TOTAL</th>
+                  <th rowspan="3" class="align-middle">Unit</th>
+                  <th colspan="3" rowspan="2" class="align-middle">TOTAL</th>
+                  <th colspan="9">Kategori</th>
                 </tr>
                 <tr>
-                  <th>Umum</th>
-                  <th>SIT NF</th>
-                  <th>Pegawai</th>
+                  <th colspan="3">Umum</th>
+                  <th colspan="3">SIT NF</th>
+                  <th colspan="3">Pegawai</th>
+                </tr>
+                <tr>
+                  <th>L</th>
+                  <th>P</th>
+                  <th class="bg-yellow align-middle">TOTAL</th>
+                  <th>L</th>
+                  <th>P</th>
+                  <th class="bg-yellow align-middle">TOTAL</th>
+                  <th>L</th>
+                  <th>P</th>
+                  <th class="bg-yellow align-middle">TOTAL</th>
+                  <th>L</th>
+                  <th>P</th>
+                  <th class="bg-yellow align-middle">TOTAL</th>
                 </tr>
               </thead>
               <tbody>
@@ -136,11 +142,18 @@
                 </tr>
                 <tr v-for="unit in units" :key="unit.id">
                   <td class="text-center">{{ unit.unitnya.name }}</td>
-                  <td class="text-center">{{ unit.name }}</td>
-                  <th>{{ unit.jlhrekap.umumdaul }}</th>
-                  <th>{{ unit.jlhrekap.nfdaul }}</th>
-                  <th>{{ unit.jlhrekap.pegdaul}}</th>
-                  <th class="bg-yellow">{{ unit.jlhrekap.umumdaul + unit.jlhrekap.nfdaul + unit.jlhrekap.pegdaul }}</th>
+                  <th>{{ unit.jlhrekap.lumumdaul + unit.jlhrekap.lnfdaul + unit.jlhrekap.lpegdaul }}</th>
+                  <th>{{ unit.jlhrekap.pumumdaul + unit.jlhrekap.pnfdaul + unit.jlhrekap.ppegdaul }}</th>
+                  <th class="bg-yellow">{{ unit.jlhrekap.lumumdaul + unit.jlhrekap.lnfdaul + unit.jlhrekap.lpegdaul + unit.jlhrekap.pumumdaul + unit.jlhrekap.pnfdaul + unit.jlhrekap.ppegdaul }}</th>
+                  <th>{{ unit.jlhrekap.lumumdaul }}</th>
+                  <th>{{ unit.jlhrekap.pumumdaul }}</th>
+                  <th class="bg-yellow">{{ unit.jlhrekap.lumumdaul + unit.jlhrekap.pumumdaul }}</th>
+                  <th>{{ unit.jlhrekap.lnfdaul }}</th>
+                  <th>{{ unit.jlhrekap.pnfdaul }}</th>
+                  <th class="bg-yellow">{{ unit.jlhrekap.lnfdaul + unit.jlhrekap.pnfdaul }}</th>
+                  <th>{{ unit.jlhrekap.lpegdaul}}</th>
+                  <th>{{ unit.jlhrekap.ppegdaul}}</th>
+                  <th class="bg-yellow">{{ unit.jlhrekap.lpegdaul + unit.jlhrekap.ppegdaul }}</th>
                 </tr>
               </tbody>
             </table>

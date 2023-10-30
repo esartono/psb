@@ -112,6 +112,7 @@ let routes = [
      * Data Jadwal
      */
     { path: '/tes', component: require('./components/cpd/Tes.vue').default},
+    { path: '/non-tes', component: require('./components/cpd/NonTes.vue').default},
 
     /**
      * Data Kelengkapan Berkas

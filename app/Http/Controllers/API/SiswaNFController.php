@@ -34,6 +34,7 @@ class SiswaNFController extends Controller
     {
         SiswaNF::create([
             'nis' => $request['nis'],
+            'nisn' => '',
             'jk' => $request['jk'],
             'tp' => $request['tp'],
             'unit' => $request['unit'],
@@ -54,26 +55,30 @@ class SiswaNFController extends Controller
         $siswas = SiswaNF::where('nis', $id)->orderBy('tp', 'desc')->get();
         $cek = $siswas->count();
         // return compact('siswa', 'cek');
-        if($cek > 0){
+        if ($cek > 0) {
             $siswa = $siswas->first();
-            if($siswa->unit === 1 || $siswa->unit === 2 || $siswa->unit === 3) {
+            if ($siswa->unit === 0 || $siswa->unit === 1 || $siswa->unit === 2 || $siswa->unit === 3) {
                 $alamat = 'Jl. Tugu Raya No. 61 Kelapa Dua';
                 $propinsi = 32;
                 $kota = 3276;
                 $kecamatan = 3276040;
                 $kelurahan = 3276040012;
-                if($siswa->unit === 1) {
+                if ($siswa->unit === 0) {
+                    $sekolah = 'CCEC Nurul Fikri';
+                    $alamat = 'Jalan Haji Rijin No. 100';
+                }
+                if ($siswa->unit === 1) {
                     $sekolah = 'TKIT Nurul Fikri';
                     $alamat = 'Jalan Haji Rijin No. 100';
                 }
-                if($siswa->unit === 2) {
+                if ($siswa->unit === 2) {
                     $sekolah = 'SDIT Nurul Fikri';
                 }
-                if($siswa->unit === 3) {
+                if ($siswa->unit === 3) {
                     $sekolah = 'SMPIT Nurul Fikri';
                 }
             }
-            if($siswa->unit === 6) {
+            if ($siswa->unit === 6) {
                 $sekolah = 'NFBS Bogor';
                 $alamat = 'Jl. Jami RT002/008';
                 $propinsi = 32;
@@ -83,7 +88,7 @@ class SiswaNFController extends Controller
             }
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
             $cek = 2;
-            if($calon->ck_id === 3){
+            if ($calon->ck_id === 3) {
                 $cek = 3;
             }
             $calon->update([

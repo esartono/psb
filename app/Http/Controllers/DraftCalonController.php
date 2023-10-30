@@ -116,7 +116,7 @@ class DraftCalonController extends Controller
                     ->groupBy('unit_id')->keys()->toArray();
             } else {
                 $cekkelas = Kelasnya::where('status', 1)
-                    ->whereIn('tahun_ajaran', [0, 1])
+                    ->whereIn('tahun_ajaran', [0])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
 
@@ -281,11 +281,57 @@ class DraftCalonController extends Controller
                     $cek = 3;
                 }
             }
-            $calon->update([
-                'ck_id' => $cek,
-                'asal_nf' => ($request->asal_nf) ? true : false,
-                'step' => 4,
-            ]);
+            if ($request->asal_nf) {
+                $calon->update([
+                    'ck_id' => $cek,
+                    'asal_nf' => true,
+                    'step' => 4,
+                ]);
+
+                $unit = Unit::where('id', $calon->unit)->first()->cat_id;
+                $cat = SchoolCategory::where('id', $unit)->first()->name;
+                if ($cat === 'SD') {
+                    $calon->update([
+                        'asal_sekolah' => 'TKIT Nurul Fikri',
+                        'asal_alamat_sekolah' => 'Jalan Haji Rijin No. 100',
+                        'asal_provinsi_sekolah' => 32,
+                        'asal_kota_sekolah' => 3276,
+                        'asal_kecamatan_sekolah' => 3276040,
+                        'asal_kelurahan_sekolah' => 3276040012,
+                    ]);
+                }
+                if ($cat === 'SMP') {
+                    $calon->update([
+                        'asal_sekolah' => 'SDIT Nurul Fikri',
+                        'asal_alamat_sekolah' => 'Jl. Tugu Raya No. 61 Kelapa Dua',
+                        'asal_provinsi_sekolah' => 32,
+                        'asal_kota_sekolah' => 3276,
+                        'asal_kecamatan_sekolah' => 3276040,
+                        'asal_kelurahan_sekolah' => 3276040012,
+                    ]);
+                }
+                if ($cat === 'SMA') {
+                    $calon->update([
+                        'asal_sekolah' => 'SMPIT Nurul Fikri',
+                        'asal_alamat_sekolah' => 'Jl. Tugu Raya No. 61 Kelapa Dua',
+                        'asal_provinsi_sekolah' => 32,
+                        'asal_kota_sekolah' => 3276,
+                        'asal_kecamatan_sekolah' => 3276040,
+                        'asal_kelurahan_sekolah' => 3276040012,
+                    ]);
+                }
+                $calon->update([
+                    'ck_id' => $cek,
+                    'asal_nf' => true,
+                    'step' => 4,
+                ]);
+            } else {
+                $calon->update([
+                    'ck_id' => $cek,
+                    'asal_nf' => false,
+                    'step' => 4,
+                ]);
+            }
 
             $step = 4;
         }
@@ -401,12 +447,12 @@ class DraftCalonController extends Controller
                 'asal_nf' => $draft['asal_nf'],
                 'pindahan' => $draft['pindahan'],
                 'tahun_sekarang' => $draft['tahun_sekarang'],
-                // 'asal_sekolah' => $draft['asal_sekolah'],
-                // 'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
-                // 'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
-                // 'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
-                // 'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
-                // 'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
+                'asal_sekolah' => $draft['asal_sekolah'],
+                'asal_alamat_sekolah' => $draft['asal_alamat_sekolah'],
+                'asal_propinsi_sekolah' => $draft['asal_propinsi_sekolah'],
+                'asal_kota_sekolah' => $draft['asal_kota_sekolah'],
+                'asal_kecamatan_sekolah' => $draft['asal_kecamatan_sekolah'],
+                'asal_kelurahan_sekolah' => $draft['asal_kelurahan_sekolah'],
             ]);
 
             $biaya = BiayaTes::where('gel_id', $draft['gel_id'])
@@ -556,7 +602,7 @@ class DraftCalonController extends Controller
         }
 
         if ($request->step == 6) {
-            $data = $request->only('ayah_nama', 'ayah_pendidikan', 'ayah_pekerjaan', 'ayah_penghasilan', 'ayah_hp', 'ayah_email', 'ibu_nama', 'ibu_pendidikan', 'ibu_pekerjaan', 'ibu_penghasilan', 'ibu_hp', 'ibu_email');
+            $data = $request->only('ayah_nama', 'ayah_nik', 'ayah_pendidikan', 'ayah_pekerjaan', 'ayah_penghasilan', 'ayah_hp', 'ayah_email', 'ibu_nama', 'ibu_nik', 'ibu_pendidikan', 'ibu_pekerjaan', 'ibu_penghasilan', 'ibu_hp', 'ibu_email');
             $step = 7;
         }
 

@@ -45,22 +45,22 @@ class CalonHasilController extends Controller
      */
     public function show($id)
     {
-        if(auth('api')->user()->isAdmin()) {
+        if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        if(auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdminUnit()) {
             $unit = auth('api')->user()->unit_id;
             $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
         }
 
-        if(auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
+        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
             return CalonHasil::where('lulus', $id)
-                ->Where(function ($query) use($gelombang) {
-                for ($i = 0; $i < count($gelombang); $i++){
-                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] .'%');
-                }
-            })->get()->toArray();
+                ->Where(function ($query) use ($gelombang) {
+                    for ($i = 0; $i < count($gelombang); $i++) {
+                        $query->orwhere('pendaftaran', 'like',  $gelombang[$i] . '%');
+                    }
+                })->get()->toArray();
         }
     }
 
@@ -75,7 +75,8 @@ class CalonHasilController extends Controller
     {
         $ids = explode(":", $id);
         $hasils = CalonHasil::where('id', $ids[0])->first();
-        $hasils->update([
+        $hasils->update(
+            [
                 'lulus' => $ids[1],
                 'catatan' => $ids[2]
             ]
@@ -85,7 +86,8 @@ class CalonHasilController extends Controller
     public function mundur(Request $request)
     {
         $hasils = CalonHasil::where('pendaftaran', $request->idpeserta)->first();
-        $hasils->update([
+        $hasils->update(
+            [
                 'lulus' => 4,
                 'catatan' => $request->alasan
             ]
@@ -102,5 +104,4 @@ class CalonHasilController extends Controller
     {
         //
     }
-
 }

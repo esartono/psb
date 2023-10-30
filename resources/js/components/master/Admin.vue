@@ -7,7 +7,7 @@
             <h3 class="card-title">Daftar Nama Administrator</h3>
 
             <div class="card-tools">
-              <div class="input-group input-group-sm" style="width: 150px;">
+              <div class="mt-1 input-group input-group-sm" style="width: 150px;">
                 <input
                   v-model="filters.name.value"
                   type="text"

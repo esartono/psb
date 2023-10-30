@@ -23,6 +23,8 @@
         <th>No. Telepon</th>
         <th>Asal Sekolah</th>
         <th>Alamat</th>
+        <th>Nama Pendaftar</th>
+        <th>Telepon Pendaftar</th>
     </tr>
     </thead>
     <tbody>
@@ -50,6 +52,8 @@
             <td>{{ $calon->ayah_hp }}, {{ $calon->ibu_hp }}</td>
             <td>{{ $calon->asal_sekolah }}</td>
             <td>{{ $calon->alamat }}, Kel. {{ App\Kelurahan::nama($calon->kelurahan) }} Kec. {{ App\Kecamatan::nama($calon->kecamatan) }} {{ App\Kota::nama($calon->kota) }} {{ App\Provinsi::nama($calon->provinsi) }}</td>
+            <td>{{ $calon->usernya->name }}</td>
+            <td>{{ $calon->usernya->phone }}</td>
         </tr>
     @endforeach
     </tbody>

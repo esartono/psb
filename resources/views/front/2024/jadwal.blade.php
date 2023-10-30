@@ -59,15 +59,15 @@
                             <tr>
                                 <td></td>
                                 <td>Seleksi</td>
-                                <td></td>
+                                <td style="text-align: center !important"> - </td>
                                 <td>30 September 2023</td>
                                 <td>23 September 2023</td>
-                                <td>24 September 2023</td>
+                                <td>23 dan 24 September 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
                                 <td>Pengumuman</td>
-                                <td></td>
+                                <td style="text-align: center !important"> - </td>
                                 <td>10 Oktober 2023</td>
                                 <td>3 Oktober 2023</td>
                                 <td>4 Oktober 2023</td>
@@ -75,7 +75,7 @@
                             <tr>
                                 <td></td>
                                 <td>Daftar Ulang</td>
-                                <td></td>
+                                <td style="text-align: center !important"> - </td>
                                 <td>10 - 15 Oktober 2023</td>
                                 <td>3 - 8 Oktober 2023</td>
                                 <td>4 - 9 Oktober 2023</td>
@@ -88,9 +88,9 @@
                                 <td></td>
                                 <td>Seleksi</td>
                                 <td>14 Oktober 2023</td>
-                                <td>7 Oktober 2023</td>
+                                <td>7 dan 21 Oktober 2023</td>
                                 <td>21 dan 22 Oktober 2023</td>
-                                <td>14 dan 15 Oktober 2023</td>
+                                <td>8, 14 dan 15 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -105,12 +105,12 @@
                                 <td>Daftar Ulang</td>
                                 <td>24 - 29 Oktober 2023</td>
                                 <td>17 - 22 Oktober 2023</td>
-                                <td>25 - 30 Oktober 2023</td>
+                                <td>31 Oktober - 5 November 2023</td>
                                 <td>24 - 29 Oktober 2023</td>
                             </tr>
                             <tr>
                                 <td>4.</td>
-                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - II (Eksternal)</td>
+                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - II (Eksternal) <span style="font-weight: 700; color: red">* Akan Dibuka Jika Kuota Tersedia</span></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -138,7 +138,7 @@
                             </tr>
                             <tr>
                                 <td>5.</td>
-                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - III (Eksternal)</td>
+                                <td class="tebal" colspan="5">Calon siswa NON Sekolah Islam Terpadu Nurul Fikri - III (Eksternal) <span style="font-weight: 700; color: red">* Akan Dibuka Jika Kuota Tersedia</span></td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -211,24 +211,24 @@
                             <tr>
                                 <td rowspan="4">10.</td>
                                 <td class="tebal" colspan="5">
-                                    Seleksi susulan setelah seleksi Eksternal III, dilaksanakan sepekan sekali dengan jadwal sebagai berikut:
+                                    Seleksi susulan setelah seleksi Eksternal III, dilaksanakan sepekan sekali dengan jadwal sebagai berikut: <br><span style="font-weight: 700; color: red">* Akan Dibuka Jika Kuota Tersedia</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>TK</td>
-                                <td>Jumat</td>
+                                <td style="text-align: left !important">TK</td>
+                                <td style="text-align: center !important">Jumat</td>
                                 <td>Jam 10.00 - 12.00</td>
                                 <td colspan="2">Di TKIT Nurul Fikri atau Online</td>
                             </tr>
                             <tr>
-                                <td>SD</td>
-                                <td>Kamis</td>
+                                <td style="text-align: left !important">SD</td>
+                                <td style="text-align: center !important">Kamis</td>
                                 <td>Jam 08.00 - 12.00</td>
                                 <td colspan="2">Di SDIT Nurul Fikri atau Online</td>
                             </tr>
                             <tr>
-                                <td>SMP dan SMA</td>
-                                <td>Jumat</td>
+                                <td style="text-align: left !important">SMP dan SMA</td>
+                                <td style="text-align: center !important">Jumat</td>
                                 <td>Jam 08.00 - 12.00</td>
                                 <td colspan="2">Di SMPIT Nurul Fikri atau Online</td>
                             </tr>

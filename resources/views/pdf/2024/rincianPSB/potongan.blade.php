@@ -37,22 +37,23 @@
                 $d2 = 0;
                 $d3 = 0;
                 $n = $biaya1[$b];
+                
                 if($ctg->potongan > 0) {
                   if($batas == 2) {
-                    $d1 = ($biaya1[$b]-$diskon[1]['diskon'])*($ctg->potongan/100);
+                    $d1 = ($n-$diskon[1]['diskon'])*($ctg->potongan/100);
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
                     }
                   }
                   if($batas == 1) {
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
                     }
-                    $d3 = $biaya1[$b]*($ctg->potongan/100);
+                    $d3 = $n*($ctg->potongan/100);
                   }
                   if($batas == 0) {
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($biaya1[$b]-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
                     }
                   }
                 }
@@ -61,6 +62,12 @@
                   $d2 = 5000000;
                   $d3 = 5000000;
                 }
+                if($calon->gel_id == 11 && $calon->asal_nf == 1) {
+                  $d1 = 5000000;
+                  $d2 = 5000000;
+                  $d3 = 5000000;
+                }
+
               }
               // if($b == 'Dana Pendidikan') {
               //   if($diskon[1]['diskon'] == 0 {
@@ -89,12 +96,12 @@
           </tr>
           @endforeach
           <tr>
-            <td> 6 </td>
+            <td> 4 </td>
             <td>  Infaq SIT Nurul Fikri </td>
             <td> {{ number_format($ctg->infaq) }} </td>
           </tr>
           <tr>
-            <td> 7 </td>
+            <td> 5 </td>
             <td width="60%">  Infaq NF Peduli </td>
             <td> {{ number_format($ctg->infaqnfpeduli) }} </td>
           </tr>
@@ -118,16 +125,16 @@
                 <tr>
                   <td>1</td>
                   <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-                  <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
-                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
+                  <td> {{ number_format($diskon[1]['diskon']) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon'])) }} </td>
                 </tr>
               @endisset
               @isset($diskon[2])
                 <tr>
                   <td>2</td>
                   <td>Diskon Pelunasan untuk pembayaran maksimal tanggal <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
-                  <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
-                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])+$d2) }} </td>
+                  <td> {{ number_format($diskon[2]['diskon']) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon'])) }} </td>
                 </tr>
               @endisset
             @endif

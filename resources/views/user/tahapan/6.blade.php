@@ -12,7 +12,8 @@
     @if($calon->bayarppdb['cpsb']->lunas == 0 && $calon->ck_id == 3)
         <div class="callout callout-danger">
             <h5 class="mb-3">Input Ukuran Seragam</h5>
-            <a href='/uniform/{{ $calon->id }}' class="btn btn-success mb-2" style="color: white; text-decoration: none;"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>
+            <p>Input Ukutan Seragam Mulai Januari 2024</p>
+            {{-- <a href='/uniform/{{ $calon->id }}' class="btn btn-success mb-2" style="color: white; text-decoration: none;"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>
             <table class="table table-bordered">
                 <tr>
                     <td style="width:70% !important">Ukuran Baju atau Blouse</td>
@@ -34,7 +35,7 @@
                         @endif
                     </th>
                 </tr>
-            </table>
+            </table> --}}
         </div>
     @endif
     <br>

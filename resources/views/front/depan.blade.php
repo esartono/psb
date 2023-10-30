@@ -34,7 +34,7 @@
 								@else
 									<a href="{{ route('login') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 danger circle mr-10 mb-10 wow fadeInDown">DAFTAR/LOGIN</a>
 									<br>
-									<a href="{{ route('waiting.create') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 info circle mr-10 mb-10 wow fadeInDown" style="border: 1px solid white">WAITING LIST</a>
+									<a href="{{ route('waiting.create') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-8 info circle mr-10 mb-10 wow fadeInDown" style="border: 1px solid white">WAITING LIST/INDENT</a>
 									{{-- <a href="{{ route('register') }}" data-wow-duration="1s" data-wow-delay=".3s" class="genric-btn col-md-4 success circle mr-10 mb-10 wow fadeInDown">Daftar Akun</a> --}}
 								@endauth
 							</div>

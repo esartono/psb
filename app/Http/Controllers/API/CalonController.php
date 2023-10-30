@@ -204,6 +204,8 @@ class CalonController extends Controller
                         'calons.id',
                         'calons.name',
                         'jk',
+                        'pindahan',
+                        'kelasnyas.name as kelas',
                         'gelombangs.kode_va',
                         'users.name as ygwawancara',
                         'urut',
@@ -211,6 +213,7 @@ class CalonController extends Controller
                     )
                     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
                     ->leftJoin('calon_tagihan_p_s_b_s', 'calons.id', '=', 'calon_tagihan_p_s_b_s.calon_id')
+                    ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
                     ->leftJoin('users', 'calon_tagihan_p_s_b_s.pewawancara', '=', 'users.id')
                     ->whereIn('gel_id', $gelombang)
                     ->where('calons.status', 1)
@@ -326,6 +329,7 @@ class CalonController extends Controller
                         'ayah_nama',
                         'ibu_nama',
                         'users.email as email',
+                        'users.phone as phone',
                         'jurusan',
                         'asal_sekolah',
                         'calon_kategoris.name as ck',
@@ -349,25 +353,30 @@ class CalonController extends Controller
                         'jk',
                         'tempat_lahir',
                         'tgl_lahir',
+                        'kelasnyas.name as kelas',
                         'ayah_nama',
                         'ayah_hp',
                         'ibu_nama',
                         'ibu_hp',
-                        'jurusan',
                         'asal_sekolah',
                         'calon_kategoris.name as ck',
                         'gelombangs.kode_va',
                         'urut',
+                        'pindahan',
                         'tgl_daftar',
                         'expired',
+                        'users.phone as phone',
                         DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
                     )
                     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
                     ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                    ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
+                    ->leftJoin('users', 'calons.user_id', '=', 'users.id')
                     ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
                     ->whereIn('gel_id', $gelombang)
                     ->where('calons.status', $id)
                     ->where('aktif', true)
+                    ->orderBy('calon_biaya_tes.expired', 'desc')
                     ->get()->toArray();
                 // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
                 //     ->whereIn('gel_id', $gelombang)

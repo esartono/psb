@@ -18,6 +18,7 @@ use App\Unit;
 use App\Jadwal;
 use App\Gelombang;
 use App\CalonJadwal;
+use App\CalonKategori;
 
 class DokuController extends Controller
 {
@@ -33,8 +34,8 @@ class DokuController extends Controller
     public function detail($id)
     {
         if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            $calon = Calon::where('id', $id)->first()->gel_id;
-            $gelombang = Gelombang::where('id', $calon)->first()->unit_id;
+            $calon = Calon::where('id', $id)->first();
+            $gelombang = Gelombang::where('id', $calon->gel_id)->first()->unit_id;
             $unitnya = Unit::where('id', $gelombang)->first()->name;
             $unit = trim(str_replace('IT Nurul Fikri', '', $unitnya));
 
@@ -54,7 +55,8 @@ class DokuController extends Controller
                 $oke[] = [
                     'id' => $ids,
                     'name' => $j->name,
-                    'file' => $file
+                    'file' => $file,
+                    'ck' => $ck
                 ];
             }
 
@@ -120,7 +122,7 @@ class DokuController extends Controller
             'file' => $namefile
         ]);
 
-        return redirect()->route('dokumen', compact('calon'));
+        return redirect()->route('dokumen', $calon->id);
     }
 
     public function pilihJadwal($calon)

@@ -38,7 +38,7 @@ class CalonBiayaTes extends Model
 
         Telegram::sendMessage([
             'chat_id' => '643982879',
-            'text' => $calon->uruts . ' sudah aktif',
+            'text' => $calon->name . ' (' . $calon->uruts . ')' . ' sudah aktif',
         ]);
 
         $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();
@@ -64,16 +64,19 @@ class CalonBiayaTes extends Model
                 ->where('gel_id', $gel)
                 ->where('internal', 1)
                 ->whereColumn('kuota', '>=', 'ikut')
+                ->orderBy('seleksi', 'asc')
                 ->first();
             if ($jadwal) {
                 return $jadwal->id;
             }
+            // return 0;
         }
 
         $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
             ->where('gel_id', $gel)
             ->where('internal', 0)
             ->whereColumn('kuota', '>=', 'ikut')
+            ->orderBy('seleksi', 'asc')
             ->first();
 
         if ($jadwal) {

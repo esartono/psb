@@ -27,24 +27,25 @@
         <thead slot="head">
           <th>No.</th>
           <v-th sortKey="uruts">No. Pendaftaran</v-th>
-          <th sortKey="uruts">No. VA BJB Syariah</th>
+          <th width="16%">No. VA BJB Syariah</th>
           <v-th sortKey="name">Nama</v-th>
+          <v-th sortKey="name">Kelas</v-th>
           <v-th sortKey="name">Pewawancara</v-th>
-          <th>Aksi</th>
-          <th></th>
+          <th width="12%">Aksi</th>
         </thead>
         <tbody slot="body" slot-scope="{displayData}">
-          <tr v-for="(row, index) in displayData" :key="row.id">
+          <tr v-for="(row, index) in displayData" :key="row.id" v-bind:style= "[row.pindahan > 0 ? {'background': '#FFE07D'} : '']">
             <th>{{ index+((currentPage-1) * 7)+1 }}</th>
             <td class="text-center">{{ row.uruts }}</td>
             <td class="text-center">888 276 {{ row.uruts }} 0</td>
-            <td>{{ row.name }}</td>
+            <td>{{ row.name | Judul }}</td>
+            <td class="text-center">{{ row.kelas }}</td>
             <td>{{ row.ygwawancara }}</td>
             <td class="text-center">
               <a v-if="!row.ygwawancara" class="btn btn-success" :href="'/keuangan/' + row.id">Wawancara</a>
-              <a v-if="row.ygwawancara" class="btn btn-danger" :href="'/PDFkeuangan/' + row.id">Print</a>
+              <a v-if="row.ygwawancara" class="btn btn-danger btn-sm" :href="'/PDFkeuangan/' + row.id">Print</a>
+              <a  v-if="row.ygwawancara" class="btn btn-info btn-sm" :href="'/editKeuangan/' + row.id">Edit</a>
             </td>
-            <td v-if="row.ygwawancara"><a class="btn btn-info" :href="'/editKeuangan/' + row.id">Edit</a></td>
           </tr>
         </tbody>
       </v-table>

@@ -47,6 +47,7 @@
                 </td>
             </tr>
         </table>
+        <div class="pisah"></div>
         <table class="table table-bordered table-striped biaya biaya_pisah">
             <tr>
                 <th>4. Melalui Internet Banking Bank Syariah Indonesia (BSI)</th>
@@ -82,7 +83,6 @@
                             </ol>
                         </li>
                         <li>Masukan nominal pembayaran, <b>harus sesuai dengan jumlah tagihan</b></li>
-                        <li>Pilih jenis Rekening Tujuan - <b>GIRO</b></li>
                         <li>Akan muncul konfirmasi transfer</li>
                     </ol>
                 </td>
@@ -95,6 +95,7 @@
                     <ol class="biasa">
                         <li>Pilih Menu Transfer ke Bank Lain</li>
                         <li>Pilih Bank Tujuan : Bank Syariah Indonesia (kode : 451)</li>
+                        <li>Pilih metode transfer antar bank (<b>Tidak menggunakan metode Bi Fast dan SKN</b>)</li>
                         <li>Masukan Nomor Rekening Tujuan
                             <ol class="step1">
                                 <li>Kode Pembayaran Pendidikan : <b>900</b></li>
@@ -106,7 +107,6 @@
                             </ol>
                         </li>
                         <li>Masukan nominal pembayaran, <b>harus sesuai dengan jumlah tagihan</b></li>
-                        <li>Pilih jenis Rekening Tujuan - <b>GIRO</b></li>
                         <li>Akan muncul konfirmasi transfer</li>
                     </ol>
                 </td>

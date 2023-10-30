@@ -58,6 +58,7 @@ Route::middleware('auth:api')->get('simmsit', 'API\TagihanPSBController@simmsit'
 Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');
 Route::post('gpass/{id}', 'API\UserController@gantiPassword');
+Route::get('belumadajadwals', 'API\CalonJadwalController@belum');
 Route::get('kelasnya/{unit}', 'API\KelasnyaController@dataKelas');
 Route::get('kelasGel/{gel}', 'API\KelasnyaController@dataKelGel');
 Route::get('provinsi', 'API\ProvinsiController@index');

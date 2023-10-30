@@ -67,7 +67,7 @@
                             <ol class="biasa">
                                 <li>Melakukan pendaftaran online pada laman ppdb.nurulfikri.sch.id</li>
                                 <li>Membayar biaya pendaftaran sesuai ketentuan</li>
-                                <li>Melakukan upload dokumen :
+                                <li>Melakukan upload dokumen (Maksimal 5 hari setelah pelunasan):
                                     <ol class="step1">
                                         <li>Scan KTP orangtua</li>
                                         <li>Scan kartu Keluarga</li>
@@ -103,17 +103,17 @@
                                                         <tr>
                                                             <td>PG</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni {{ $patokan-4 }} - Juli {{ $patokan-3 }}</td>
+                                                            <td>Kelahiran Juli {{ $patokan-4 }} - Juni {{ $patokan-3 }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TK A</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni {{ $patokan-5 }} - Juli {{ $patokan-4 }}</td>
+                                                            <td>Kelahiran Juli {{ $patokan-5 }} - Juni {{ $patokan-4 }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>TK B</td>
                                                             <td>:</td>
-                                                            <td>Kelahiran Juni {{ $patokan-6 }} - Juli {{ $patokan-5 }}</td>
+                                                            <td>Kelahiran Juli {{ $patokan-6 }} - Juni {{ $patokan-5 }}</td>
                                                         </tr>
                                                     </table>
                                                 </li>
@@ -127,7 +127,7 @@
                                                 <li>Psikotes</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
-                                                <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-5 }}</li>
+                                                <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-6 }}</li>
                                                 <li>Tes Akademik (bagi Siswa mutasi/pindahan)</li>
                                             </ol>
                                         </td>
@@ -137,7 +137,7 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Potensi Akademik (Kemampuan Numerik dan Literasi)</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Matematika dan Literasi)</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
@@ -149,7 +149,7 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Potensi Akademik (Kemampuan Numerik dan Literasi)</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Matematika dan Literasi)</li>
                                                 <li>Menyerahkan Hasil Tes Bebas Narkoba dari Rumah Sakit, Klinik atau Laboratorium dengan komponen minimal : Amphetamine (AMP), Metamphitamine ( MET), Cocaine (COC), Ganja (THC)</li>
                                                 <li>Mengisi form surat Keterangan Sehat</li>
                                                 <li>Wawancara Orang tua</li>

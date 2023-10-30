@@ -7,7 +7,7 @@
     <style type="text/css">
             /** Define the margins of your page **/
             @page {
-                margin: 10px 80px 45px 80px;
+                margin: 10px 60px 40px 60px;
             }
 
             header {
@@ -24,29 +24,26 @@
                 left: 0px;
                 right: 0px;
                 height: 60px;
-                text-align: center;
                 border-top: solid black 1px;
                 padding-bottom: 5px;
                 font-size: 14px;
             }
 
-            .security {
-                position: fixed;
-                float: right;
-                margin-top: 30px;
-                margin-right: -40px;
+            .qrsecurity {
+                position: absolute;
+                float: left;
+                bottom: 35px;
             }
 
             .halaman {
                 position: fixed;
                 float: right;
-                bottom: 87px;
-                /* margin-right: -20px; */
+                bottom: 85px;
             }
 
             .page-break {
                 page-break-before: always;
-                margin-top: 130px;
+                margin-top: 125px;
             }
 
             main {
@@ -92,16 +89,16 @@
         </table>
     </header>
     <footer>
-        <div class="halaman">{{ Str::title($calon->name) }} ({{ $calon->uruts }}) - hal. <span class="pagenum"></span></div>
-        <div class="panitia">
+        <div class="panitia" style= "padding-left: 100px">
             <b>Panitia Penerimaan Peserta Didik Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b>
             <br>informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)
             <br>Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070
             <br>Website: ppdb.nurulfikri.sch.id -- Email: psb@nurulfikri.sch.id
         </div>
-        {{-- <div class="qrsecurity">
-            <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.1)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
-        </div> --}}
+        <div class="halaman">{{ Str::title($calon->name) }} ({{ $calon->uruts }}) - hal. <span class="pagenum"></span></div>
+        <div class="qrsecurity">
+            <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.7)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
+        </div>
     </footer>
     <main>
         @yield('isi')

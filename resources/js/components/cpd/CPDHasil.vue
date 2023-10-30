@@ -58,17 +58,21 @@
                                     </th>
                                     <th v-else-if="row.lulus === 2">
                                         Status : Cadangan
-                                        <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>
-                                        <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPA')" class="btn btn-sm btn-success">Diterima IPA</a>
-                                        <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPS')" class="btn btn-sm btn-info mt-2 mb-2">Diterima IPS</a><br>
+                                        <a @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>
+                                        <a @click="updateHasil(row.id+':4:')" class="btn btn-sm btn-primary mb-2">Diterima dengan Catatan</a>
+                                        <!-- <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a> -->
+                                        <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPA')" class="btn btn-sm btn-success">Diterima IPA</a> -->
+                                        <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPS')" class="btn btn-sm btn-info mt-2 mb-2">Diterima IPS</a><br> -->
                                         <a @click="updateHasil(row.id+':3:')" class="btn btn-sm btn-danger">Tidak Diterima</a>
                                     </th>
                                     <th v-else-if="row.lulus === 3">Status : Tidak Diterima</th>
                                     <th v-else-if="row.lulus === 4">Status : Mengundurkan Diri</th>
                                     <th v-else>
-                                        <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>
-                                        <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPA')" class="btn btn-sm btn-success">Diterima IPA</a>
-                                        <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPS')" class="btn btn-sm btn-info mt-2 mb-2">Diterima IPS</a><br>
+                                        <a @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>
+                                        <a @click="updateHasil(row.id+':1:'+catatannya)" class="btn btn-sm btn-primary mb-2">Diterima dengan Catatan</a>
+                                        <!-- <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a> -->
+                                        <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPA')" class="btn btn-sm btn-success">Diterima IPA</a> -->
+                                        <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPS')" class="btn btn-sm btn-info mt-2 mb-2">Diterima IPS</a><br> -->
                                         <a @click="updateHasil(row.id+':2:')" class="btn btn-sm btn-warning mb-2">Cadangan</a><br>
                                         <a @click="updateHasil(row.id+':3:')" class="btn btn-sm btn-danger">Tidak Diterima</a>
                                     </th>

@@ -46,12 +46,12 @@ Lampiran 1
         </tr>
         @endforeach
         <tr>
-          <td width="5%"> 6 </td>
+          <td width="5%"> 4 </td>
           <td>  Infaq SIT Nurul Fikri </td>
           <td align="right"> {{ number_format($ctg->infaq) }} </td>
         </tr>
         <tr>
-          <td width="5%"> 7 </td>
+          <td width="5%"> 5 </td>
           <td>  Infaq NF Peduli </td>
           <td align="right"> {{ number_format($ctg->infaqnfpeduli) }} </td>
         </tr>
@@ -69,9 +69,8 @@ Lampiran 1
 </td>
 <td valign="top" >
 <h5  style="margin-top: -5px">B. Pembiayaan selama bersekolah di SIT Nurul Fikri </h5>
-  <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Total pembiayaan selama di SIT Nurul Fikri
-    <strong>Rp. {{ number_format($totalAll[1]+$total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong><br>
-    &nbsp;&nbsp;&nbsp;dengan rincian sebagai berikut :
+  <p style="font-size: 14px">&nbsp;&nbsp;&nbsp;Total pembiayaan selama di SIT Nurul Fikri<br>
+    &nbsp;&nbsp;&nbsp;<strong>Rp. {{ number_format($totalAll[1]+$total1+$ctg->infaq+$ctg->infaqnfpeduli) }}</strong> dengan rincian sebagai berikut :
   </p>
 <table class="global">
   <tr>
@@ -97,6 +96,9 @@ Lampiran 1
 </td>
 </tr>
 </table>
+@if($calon->rencana_masuk == 7)
+  <p style="font-size: 80%; font-weight: bold"><i>*Pembayaran SPP Juli 2024 dibayarkan pada tanggal 5 - 15 Juni 2024</i></p>
+@endif
         <br>
         <table align="center" width="100%" style="font-size: 14px;">
             <tr>
@@ -105,10 +107,10 @@ Lampiran 1
                 <td></td>
             </tr>
             <tr>
-                <td align="center" width="20%">Ayah</td>
-                <td align="center" width="20%">Ibu</td>
-                <td align="center" width="30%"></td>
-                <td align="center" width="30%">Pewawancara</td>
+                <td align="center" width="30%">Ayah</td>
+                <td align="center" width="30%">Ibu</td>
+                <td align="center" width="15%"></td>
+                <td align="center" width="25%">Pewawancara</td>
             </tr>
             <tr>
                 <td><br><br><br><br></td>

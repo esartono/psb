@@ -51,6 +51,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Jenis Pendaftar</th>
+                                <th>CCEC</th>
                                 <th>TK</th>
                                 <th>SD</th>
                                 <th>SMP</th>
@@ -61,15 +62,17 @@
                             <tr>
                                 <td>1.</td>
                                 <td>Asal Non SIT Nurul Fikri</td>
-                                <td>Rp. 450,000</td>
-                                <td>Rp. 600,000</td>
+                                <td>Rp. 200,000</td>
+                                <td>Rp. 500,000</td>
                                 <td>Rp. 650,000</td>
-                                <td>Rp. 700,000</td>
+                                <td>Rp. 800,000</td>
+                                <td>Rp. 850,000</td>
                             </tr>
                             <tr>
                                 <td>2.</td>
                                 <td>Asal SIT Nurul Fikri</td>
-                                <td style="background-color: grey">-</td>
+                                <td>Rp. 200,000</td>
+                                <td>Rp. 500,000</td>
                                 <td>Rp. 500,000</td>
                                 <td>Rp. 500,000</td>
                                 <td>Rp. 500,000</td>
@@ -77,10 +80,11 @@
                             <tr>
                                 <td>3.</td>
                                 <td>Anak Pegawai SIT Nurul Fikri</td>
-                                <td>Rp. 300,000</td>
-                                <td>Rp. 300,000</td>
-                                <td>Rp. 300,000</td>
-                                <td>Rp. 300,000</td>
+                                <td>Rp. 200,000</td>
+                                <td>Rp. 250,000</td>
+                                <td>Rp. 325,000</td>
+                                <td>Rp. 400,000</td>
+                                <td>Rp. 425,000</td>
                             </tr>
                         </tbody>
                     </table>
@@ -111,7 +115,7 @@
                             @endforeach
                             @foreach ($seragam as $k=>$b)
                             <tr>
-                                <td>{{ $k+5 }}</td>
+                                <td>{{ $k+3 }}</td>
                                 <td>{{ $b['komponen'] }}</td>
                                 <td>{{ number_format($b['tka']) }}</td>
                                 <td>{{ number_format($b['tkb']) }}</td>

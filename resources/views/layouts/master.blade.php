@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -325,6 +322,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          @if(Auth::user()->isAdministrator())
+          <li class="nav-item has-treeview">
+            <router-link to="/non-tes" class="nav-link">
+              <i class="nav-icon fas fa-calendar-times TK"></i>
+              <p>
+                Non Jadwal Tes
+              </p>
+            </router-link>
+          </li>
+          @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-user-graduate blue"></i>

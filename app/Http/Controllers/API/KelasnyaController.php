@@ -21,7 +21,7 @@ class KelasnyaController extends Controller
 
     public function index()
     {
-        return Kelasnya::with('unitnya')->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::with('unitnya')->where('name', 'not like', '%Toddler%')->orderBy('id', 'asc')->get()->toArray();
     }
 
     public function store(Request $request)
@@ -29,7 +29,7 @@ class KelasnyaController extends Controller
         $status = $request['status'];
         $ta = $request['tahun_ajaran'];
 
-        if($status == 0 || $ta == 3){
+        if ($status == 0 || $ta == 3) {
             $status = false;
             $ta = 3;
         }
@@ -51,7 +51,7 @@ class KelasnyaController extends Controller
         $status = $request['status'];
         $ta = $request['tahun_ajaran'];
 
-        if($status == 0 || $ta == 3){
+        if ($status == 0 || $ta == 3) {
             $status = false;
             $ta = 3;
         }
@@ -75,12 +75,12 @@ class KelasnyaController extends Controller
     public function dataKelas($unit)
     {
         // return Kelasnya::where('unit_id',$unit)->where('status',true)->orderBy('id', 'asc')->get()->toArray();
-        return Kelasnya::where('unit_id',$unit)->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::where('unit_id', $unit)->orderBy('id', 'asc')->get()->toArray();
     }
 
     public function dataKelGel($gel)
     {
         $unit = Gelombang::whereId($gel)->first()->unit_id;
-        return Kelasnya::where('unit_id',$unit)->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::where('unit_id', $unit)->orderBy('id', 'asc')->get()->toArray();
     }
 }

@@ -74,7 +74,22 @@ class Calon extends Model
     ];
 
     protected $appends = [
-        'kelamin', 'usia', 'lahir', 'uruts', 'jadwal', 'wawancara', 'hasil', 'bayarppdb', 'biayappdb', 'bt', 'seragam', 'tahap', 'registrasi', 'dokumen'
+        'kelamin',
+        'usia',
+        'lahir',
+        'uruts',
+        'jadwal',
+        'wawancara',
+        'hasil',
+        'bayarppdb',
+        'biayappdb',
+        'bt',
+        'seragam',
+        'tahap',
+        'registrasi',
+        'dokumen',
+        'lengkapdata',
+        'masuk'
     ];
 
     public function getTahapAttribute()
@@ -85,35 +100,40 @@ class Calon extends Model
             $tahap = 2;
         }
 
-        $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->count();
-        $itungdataygharus = JDoku::where('unit', 'like', '%TK%')->count();
+        $cekdokumen = $this->getDokumenAttribute();
+        $ceklengkapdata = $this->getLengkapdataAttribute();
 
-        if ($cekLengkapDokumen >= $itungdataygharus) {
-            $tahap = 3;
+        if ($ceklengkapdata[0] >= $ceklengkapdata[1]) {
+            if ($cekdokumen[0] >= $cekdokumen[1]) {
+                $tahap = 3;
+            }
         }
+        // if ($tahap >= 3) {
+        //     return 3;
+        // }
         $cek_wawancara_keu = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
         if ($cek_wawancara_keu) {
             $tahap = 4;
-        }
 
-        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
-        $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+            $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+            $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
 
-        $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
-        if ($hasil) {
-            $tahap = 5;
+            $hasil = CalonHasil::where('pendaftaran', $daftar)->where('lulus', '>', 0)->first();
+            if ($hasil) {
+                $tahap = 5;
 
-            $daul = BayarTagihan::where('calon_id', $this->attributes['id'])->first();
-            if ($daul) {
-                $tahap = 6;
-                if ($cek_wawancara_keu->lunas == 1) {
-                    $tahap = 7;
-                    $ambilSeragam = AmbilSeragam::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
-                    if ($ambilSeragam) {
-                        $tahap = 8;
-                        $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
-                        if ($ambilBuku) {
-                            $tahap = 8.5;
+                $daul = BayarTagihan::where('calon_id', $this->attributes['id'])->first();
+                if ($daul) {
+                    $tahap = 6;
+                    if ($cek_wawancara_keu->lunas == 1) {
+                        $tahap = 7;
+                        $ambilSeragam = AmbilSeragam::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                        if ($ambilSeragam) {
+                            $tahap = 8;
+                            $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                            if ($ambilBuku) {
+                                $tahap = 8.5;
+                            }
                         }
                     }
                 }
@@ -132,6 +152,19 @@ class Calon extends Model
         if ($this->attributes['jk'] === 2) {
             return 'Perempuan';
         }
+    }
+    public function getMasukAttribute()
+    {
+        $bulan = ['', 'Januari', 'Pebruari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        $tp = (int) substr(TahunPelajaran::where('id', $gel->tp)->first()->name, 0, 4);
+
+        if ($this->attributes['rencana_masuk'] == 7) {
+            $tpnya = $tp;
+        } else {
+            $tpnya = $tp - 1;
+        }
+        return $bulan[$this->attributes['rencana_masuk']] . ' ' . $tpnya;
     }
 
     public function getUsiaAttribute()
@@ -256,13 +289,78 @@ class Calon extends Model
 
         return compact('biayates', 'biayanya');
     }
-
     public function getDokumenAttribute()
     {
-        $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->count();
-        $itungdataygharus = JDoku::where('unit', 'like', '%TK%')->count();
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+
+        if ($gel) {
+            $unit = Unit::whereId($gel->unit_id)->first();
+            if ($unit) {
+                $cekunitnya = substr($unit->name, 0, 3);
+                if ($cekunitnya === 'SDI' || $cekunitnya === 'TKI') {
+                    $cekunitnya = substr($cekunitnya, 0, 2);
+                }
+                $ck = CalonKategori::where('id', $this->attributes['ck_id'])->first()->name;
+                if ($this->attributes['asal_nf'] > 0) {
+                    $ck = "Siswa SIT NF";
+                }
+                $jlhdoku = JDoku::where('unit', 'like', '%' . $cekunitnya . '%')->where('khusus', 'LIKE', '%' . $ck . '%')->pluck('code');
+                $itungdataygharus = $jlhdoku->count();
+            }
+        }
+
+        $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->whereIn('jdoku', $jlhdoku)->count();
 
         return array($cekLengkapDokumen, $itungdataygharus);
+    }
+    public function getLengkapdataAttribute()
+    {
+        $komponen = [
+            1 => ['name', 'nik', 'panggilan', 'tempat_lahir', 'agama', 'info'],
+            2 => ['alamat', 'provinsi', 'kota', 'kecamatan', 'kelurahan', 'rt', 'rw'],
+            3 => ['ayah_nama', 'ayah_nik', 'ayah_pendidikan', 'ayah_pekerjaan', 'ibu_nama', 'ibu_nik', 'ibu_pendidikan', 'ibu_pekerjaan'],
+            4 => ['asal_sekolah']
+        ];
+
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        if ($gel->unit_id > 2) {
+            array_push($komponen[1], 'nisn');
+        }
+        $lengkapdata = 1;
+        foreach ($komponen[1] as $v) {
+            if (empty($this->attributes[$v] || $this->attributes[$v] == "-")) {
+                $lengkapdata = 0;
+            }
+        }
+
+        if ($lengkapdata > 0) {
+            $lengkapdata = 2;
+            foreach ($komponen[2] as $v) {
+                if (empty($this->attributes[$v] || $this->attributes[$v] == "-")) {
+                    $lengkapdata = 1;
+                }
+            }
+        }
+
+        if ($lengkapdata > 1) {
+            $lengkapdata = 3;
+            foreach ($komponen[3] as $v) {
+                if (empty($this->attributes[$v] || $this->attributes[$v] == "-")) {
+                    $lengkapdata = 2;
+                }
+            }
+        }
+
+        if ($lengkapdata > 2) {
+            $lengkapdata = 4;
+            foreach ($komponen[3] as $v) {
+                if (empty($this->attributes[$v] || $this->attributes[$v] == "-")) {
+                    $lengkapdata = 3;
+                }
+            }
+        }
+
+        return array($lengkapdata, count($komponen));
     }
     public function gelnya()
     {

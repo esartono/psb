@@ -6,7 +6,7 @@
                     <div class="card-header bg-info">
                         <h3 class="card-title">Daftar Peserta PPDB Online - SIT Nurul Fikri</h3>
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 200px;">
+                            <div class="mt-1 input-group input-group-sm" style="width: 200px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control float-right" placeholder="Cari data ..." />
                                 <div class="input-group-append">

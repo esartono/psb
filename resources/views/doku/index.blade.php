@@ -4,11 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="mt-2 col-md-6">
-            <div class="card card-primary card-outline">
+            <div class="card card-primary card-outline" style="margin-bottom: 5rem !important">
                 <div class="card-header bg-primary">
                     <h3 class="card-title">
                         <i class="fas fa-user-edit"></i>
-                        Form Upload Dokumen
+                        Form Upload Dokumen Calon Siswa
                     </h3>
                     <div class="card-tools">
                         <a href="/psb" type="button" class="btn bg-danger btn-sm">
@@ -29,7 +29,8 @@
                     </table>
                     <hr>
                     <div class="alert alert-danger">
-                        File yang diupload hanya file dokumen dalam bentuk <strong>PDF atau Gambar</strong>. 
+                        File yang diupload hanya file dokumen dalam bentuk <strong>PDF atau Gambar</strong>
+                        dan <strong>maksimal file sebesar 15 Mbyte</strong>.
                         Dan apabila ingin mengganti file dokumen yang sudah diupload, dapat dilakukan dengan 
                         cara mengupload ulang dokumen tersebut.
                     </div>
@@ -46,7 +47,7 @@
                         @php
                             $no = 1;
                         @endphp
-                            @foreach(App\JDoku::Dokumen($calon->gel_id) as $j)
+                            @foreach(App\JDoku::Dokumen($calon->gel_id, $calon->ck_id) as $j)
                                 @isset($doku[$j->code])
                                 <tr>
                                     <th>{{ $no++ }}</th>

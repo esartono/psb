@@ -4,12 +4,17 @@
 			<h4>{{ $calon->name }}</h4>
 		</div>
 		<div class="card-body bg-secondary">
-			Berdasarkan keputusan panitia PPDB SIT Nurul Fikri dinyatakan:
-			<h2 class="mt-3 text-white"> {{ $arrayhasil[$hasils->lulus] }} </h2>
-			<hr>
-			<p>{{ $hasils->catatan }}</p>
-			<hr>
-			<a href="psb" class="btn btn-primary">Detail</a>
+			@if($hasils->lulus == 0)
+				<h2 class="mt-3 text-white">Belum Ada Pengumuman</h2>
+			@endif
+			@if($hasils->lulus > 0)
+				Berdasarkan keputusan panitia PPDB SIT Nurul Fikri dinyatakan:
+				<h2 class="mt-3 text-white"> {{ $arrayhasil[$hasils->lulus] }} </h2>
+				<hr>
+				<p>{{ $hasils->catatan }}</p>
+				<hr>
+				<a href="ppdb" class="btn btn-danger"> Login </a>
+			@endif
 		</div>
 	</div>
 </div>

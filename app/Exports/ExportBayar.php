@@ -16,9 +16,9 @@ class ExportBayar implements FromView
         $this->data = $data;
     }
 
-    public function view() : view
+    public function view(): view
     {
-        if(auth()->user()->isHaveAccess([1,4])) {
+        if (auth()->user()->isHaveAccess([1, 4])) {
             $calons = BayarTagihan::with('calonnya')->get();
             return view('exports.bayartagihanPSB', [
                 'calons' => $calons,

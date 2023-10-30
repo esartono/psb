@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -27,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Navbar -->
   <nav class="main-header navbar fixed-top navbar-expand navbar-light bg-teal">
     <div class="container">
-      <a href="/home" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU &nbsp;&nbsp;| &nbsp; PPDB SIT Nurul Fikri - Depok, TP. {{ Auth::user()->tp_name }}</a>
+      <a href="/home" class="navbar-brand" style="color: #fff !important"> Dashboard ORTU</a>
       {{-- <a href="https://bit.ly/Kesehatan-PPDB" target="_blank" class="btn bg-yellow"> Health Screening Form - PPDB SIT Nurul Fikri </a> --}}
 
       <!-- Right navbar links -->

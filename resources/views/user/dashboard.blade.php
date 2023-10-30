@@ -45,7 +45,7 @@
                 <div class="card-body box-profile">
                     <div class="pp">
                         <img class="img-thumbnail rounded mx-auto d-block" src="{{ $pp[$calon->uruts] }}" style="max-height: 160px; width: auto">
-                        <a href="/photo/{{ $calon->id }}" class="btn btn-sm btn-warning">Edit Photo</a>
+                        {{-- <a href="/photo/{{ $calon->id }}" class="btn btn-sm btn-warning">Edit Photo</a> --}}
                     </div>
                     <h3 class="profile-username text-center text-uppercase">{{ $calon->name }}</h3>
                     <h4 class="text-muted text-center">{{ $calon->uruts }}</h4>
@@ -78,6 +78,7 @@
                     </ul>
                     @if($calon->tahap >= 2)<a href="/editcalon/{{ $calon->id }}" class="btn btn-info text-white"><i class="fas fa-user-edit"> </i><b> Edit Data Calon Siswa</b></a>@endif
                     @if($calon->tahap >= 3)<a href='/dokumen/{{ $calon->id }}' class="btn btn-danger col-md-6"><i class="fa fa-book"> </i> &nbsp;Edit Dokumen</a>@endif
+                    <hr>
                     {{-- @if($calon->tahap >= 5)
                         @if($calon->bayarppdb['cpsb']->lunas == 1)
                             <hr>

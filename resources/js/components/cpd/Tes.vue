@@ -14,7 +14,7 @@
                                 <i class="fas fa-file-excel"></i>
                                 Export untuk Psikotes
                             </a>
-                            <div class="input-group input-group-sm float-right ml-3" style="width: auto;">
+                            <div class="mt-1 input-group input-group-sm float-right ml-3" style="width: auto;">
                                 <div class="input-group-prepend" style="margin-right: -46px;">
                                     <span class="input-group-text">Pilih Jadwal Tes :</span>
                                 </div>
@@ -23,7 +23,7 @@
                                         v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.gelnya.unitnya.catnya.name }}</option>
                                 </select>
                             </div>
-                            <div class="input-group input-group-sm float-right" style="width: 150px;">
+                            <div class="mt-1 input-group input-group-sm float-right" style="width: 150px;">
                                 <input v-model="filters.name.value" type="text" name="search"
                                     class="form-control" placeholder="Cari data ..." />
                                 <div class="input-group-append">
@@ -45,18 +45,20 @@
                                     <v-th sortKey="calonnya.cknya.name">Kategori</v-th>
                                     <v-th sortKey="calonnya.urut">No. ID</v-th>
                                     <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
+                                    <v-th sortKey="calonnya.kelasnya">Kelas Tujuan</v-th>
                                     <v-th sortKey="calonnya.asal_sekolah">Asal Sekolah</v-th>
                                     <v-th sortKey="jadwalnya.seleksi">Jadwal Tes</v-th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
-                                <tr v-for="(row, index) in displayData" :key="row.id">
+                                <tr v-for="(row, index) in displayData" :key="row.id" v-bind:style= "[row.calonnya.pindahan > 0 ? {'background': '#FFE07D'} : '']">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
                                     <td class="text-center">{{ row.calonnya.unitnya }}</td>
                                     <td class="text-center">{{ row.calonnya.ck }}</td>
                                     <td class="text-center">{{ row.calonnya.uruts }}</td>
                                     <td>{{ row.calonnya.name }}</td>
+                                    <td class="text-center">{{ row.calonnya.kelasnya }}</td>
                                     <td class="text-center">{{ row.calonnya.asal_sekolah }}</td>
                                     <td class="text-center">{{ row.jadwalnya.seleksi | Tanggal }}</td>
                                     <td class="text-center aksi" style="width: 100px !important">

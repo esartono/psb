@@ -286,6 +286,17 @@ class HomeController extends Controller
             ];
         }
 
+        if ($tp === '2024/2025') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka' => 8500000, 'tkb' => 6000000, 'sd' => 22500000, 'smp' => 22500000, 'sma' => 22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 8500000, 'tkb' => 8000000, 'sd' => 14000000, 'smp' => 15000000, 'sma' => 15000000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka' => 1200000, 'tkb' => 1200000, 'sd' => 1800000, 'smp' => 1900000, 'sma' => 2000000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1400000, 'tkb' => 1400000, 'sd' => 2400000, 'smp' => 2650000, 'sma' => 2700000],
+            ];
+        }
+
         $patokan = (int)substr($tp, 0, 4);
 
         if (isset($biaya)) {
