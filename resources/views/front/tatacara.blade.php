@@ -20,7 +20,6 @@
         background-color: aquamarine;
         font-weight: 800;
         color: black;
-        text-align: center;
     }
     .roman li {
         list-style: upper-roman;
@@ -48,9 +47,7 @@
 <section class="banner-area relative">
     <div class="container">
         <div class="section-top-border justify-content-center">
-            <h3 class="mt-60 mb-2 text-white">Tata Cara Pembayaran Pendaftaran Biaya PPDB SIT Nurul Fikri</h3>
-            <h4 class="mb-20 text-white">Tahun Ajaran {{ $tp }}</h4>
-            <div class="progress-table-wrap">
+            <div class="section-top-border justify-content-center">
                 <div class="progress-table" style="padding: 25px 50px">
                     @include('wawancara.tatacara')
                 </div>
@@ -58,3 +55,4 @@
         </div>
     </div>
 </section>
+@endsection

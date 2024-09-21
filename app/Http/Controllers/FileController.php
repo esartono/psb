@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 use App\Calon;
 use App\FileGdrive;
@@ -60,6 +63,26 @@ class FileController extends Controller
         } catch (RequestException $e) {
             return $e;
         }
+    }
+
+    public function lihatSpp($calon)
+    {
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            $path = storage_path('dokumen/' . $calon . '/Bayar SPP Juli - ' . $calon . '.jpg');
+        }
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $file = File::get($path);
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+        $response->header("Content-Type", $type);
+
+        ob_end_clean();
+        return $response;
     }
 
     public function show($id)

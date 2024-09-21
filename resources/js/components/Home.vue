@@ -101,6 +101,49 @@
         </div>
       </div>
       <div class="col-md-12">
+        <div class="card border-danger">
+          <div class="card-header bg-danger">
+            <h3 class="card-title">Data Kesediaan Ikut Impruf</h3>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body p-0">
+            <table class="table table-bordered table-hover">
+              <col width="250" />
+              <col width="100" />
+              <thead>
+                <tr>
+                  <th class="align-middle">Unit</th>
+                  <th class="align-middle">NULL</th>
+                  <th class="align-middle">BELUM BERSEDIA</th>
+                  <th class="align-middle">BULANAN</th>
+                  <th class="align-middle">TAHUNAN</th>
+                  <th class="align-middle">TOTAL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">SMPIT Nurul Fikri	</td>
+                  <th>{{ impruf['null']['smp'] }}</th>
+                  <th>{{ impruf['belum']['smp'] }}</th>
+                  <th>{{ impruf['bulanan']['smp'] }}</th>
+                  <th>{{ impruf['tahunan']['smp'] }}</th>
+                  <th>{{ impruf['total']['smp'] }}</th>
+                </tr>
+                <tr>
+                  <td class="text-center">SMAIT Nurul Fikri	</td>
+                  <th>{{ impruf['null']['sma'] }}</th>
+                  <th>{{ impruf['belum']['sma'] }}</th>
+                  <th>{{ impruf['bulanan']['sma'] }}</th>
+                  <th>{{ impruf['tahunan']['sma'] }}</th>
+                  <th>{{ impruf['total']['sma'] }}</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+      </div>
+      <div class="col-md-12">
         <div class="card border-warning">
           <div class="card-header bg-warning">
             <h3 class="card-title">Data Siswa yang sudah Daftar Ulang</h3>
@@ -170,6 +213,7 @@ export default {
   data() {
     return {
       units: {},
+      impruf: [],
     };
   },
   
@@ -179,6 +223,9 @@ export default {
     axios
       .get("../api/gelombangs")
       .then(({ data }) => (this.units = data));
+      axios
+      .get("../api/gelImpruf")
+      .then(({ data }) => (this.impruf = data));
   }
 };
 </script>

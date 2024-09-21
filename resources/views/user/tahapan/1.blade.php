@@ -1,11 +1,13 @@
 @isset($calon->bt['biayanya']->biaya)
     <div class="mt-4">
-        <h3>Biaya Pendaftaran PPDB : &nbsp; <b>Rp. {{ number_format($calon->bt['biayanya']->biaya) }}</b></h3>
+        Biaya Pendaftaran PPDB :
+        <h5>Rp. {{ number_format($calon->bt['biayanya']->biaya) }}</h5>
         <hr>
-        <p>Dibayarkan melalui rekening Virtual Account Bank Syariah Indonesia (BSI):</p>
-        <h3><b>{{ $calon->uruts }}</b></h3>
+        Dibayarkan melalui rekening Virtual Account Bank Syariah Indonesia (BSI):
+        <h4><b>{{ $calon->uruts }}</b></h4>
+        <hr>
         Paling lambat pembayaran dilakukan pada tanggal : 
-        <br><span style="font-size: 1.35rem; font-weight: bold">{{ $calon->bt['biayates']->expired->isoFormat("D MMMM Y") }}</span> <br>
+        <h5>{{ $calon->bt['biayates']->expired->isoFormat("D MMMM Y") }}</h5>
         @php
             $currentDate = date('Y-m-d');
             $currentDate = date('Y-m-d', strtotime($currentDate));
@@ -18,10 +20,10 @@
             </p>
             <p>Jika sudah melakukan pembayaran, silakan konfirmasi dengan mengirimkan bukti transfer ke nomor Whatsapp <b>0822 1133 3434</b></p>
         @else
-            <i>Verifikasi pembayaran akan dilakukan secara otomatis oleh system dan memerlukan waktu 5 - 10 menit setelah pembayaran</i>
+            <i>Verifikasi pembayaran akan dilakukan secara otomatis oleh system dan memerlukan waktu &plusmn;10 menit setelah pembayaran</i>
             <hr>
             Tata cara pembayaran melalui Mobile Banking atau Net Banking Bank selain Bank Syariah Indonesia (BSI)
-            <ol>
+            <ol style="margin-left: 20px;">
                 <li>Pilih Menu Transfer ke Bank Lain</li>
                 <li>Pilih Bank Tujuan : Bank Syariah Indonesia (kode : 451)</li>
                 <li>Masukan Nomor Rekening Tujuan
@@ -37,7 +39,7 @@
                 <li>Masukan nominal pembayaran, <b>harus sesuai dengan jumlah tagihan</b></li>
                 <li>Akan muncul konfirmasi transfer</li>
             </ol>
-            <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-primary mt-3 white" target="_blank">Tata Cara Pembayaran</a>
+            <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-primary mt-2 mb-5 text-white" target="_blank">Tata Cara Pembayaran</a>
         @endif
     </div>
 @endisset

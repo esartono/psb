@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Calon;
+use App\Jadwal;
+use App\CalonJadwal;
 use App\Gelombang;
 use App\Tagihan;
 use App\CalonTagihan;
@@ -71,6 +73,28 @@ class CalonPDFController extends Controller
                 return redirect('home');
             }
         }
+    }
+
+    public function PrintKartuTes($id)
+    {
+        ini_set('max_execution_time', 1200);
+        if ($id == 0) {
+            return redirect('home');
+        }
+        if (auth()->user()->isAdmin() || auth()->user()->isAdminUnit()) {
+            //query Jadwal yg dipilih
+            $jadwalnya = Jadwal::whereId($id)->first();
+
+            $jadwal = CalonJadwal::where('jadwal_id', $id)->get();
+            $nis = $jadwal->pluck('calon_id');
+            $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya')
+                ->whereIn('id', $nis)->where('status', 1)->get();
+
+            // $pdf = PDF::loadView('pdf.seleksiAdmin', compact('calons'))->setPaper('a6', 'potrait');
+            $pdf = PDF::loadView('pdf.seleksiAdmin', compact('calons'));
+            return $pdf->stream('Kartu Tes - ' . formatIndo($jadwalnya->seleksi));
+        }
+        return redirect('home');
     }
 
     public function bayarPPDB($id)

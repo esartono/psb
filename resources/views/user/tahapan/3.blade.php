@@ -1,8 +1,16 @@
 <div class="mt-4">
+    <h5 style="font-size: large">Edit Dokumen &nbsp; : &nbsp;&nbsp;&nbsp;
+        <a href='/dokumen/{{ $calon->id }}' class="btn btn-sm btn-danger btn-block "><i class="fa fa-book"> </i> &nbsp;Edit Dokumen</a>
+    </h5>
+    
+    <hr>
     @if($calon->jadwal->seleksi_online === '-')
-        <h5 class="timeline-header">Tes Seleksi ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum Tersedia"}}</b> )</h5>
+        <h5>Tes Seleksi ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum Tersedia"}}</b> )</h5>
     @else
         <h5 class="timeline-header">Tes Seleksi - Offline ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum Tersedia"}}</b> )</h5>
+        @if($calon->jadwal->akademik_link)
+            <a target="_blank" class="btn btn-outline-success" href="{{ $calon->jadwal->akademik_link }}">Silahkan klik di sini untuk gabung ke Whatsapp Grup Tes </a>
+        @endif
         @if(is_null($calon->jadwal->seleksi_online))
             {{-- <h5 class="timeline-header">Tes Seleksi - Online ( <b>Jadwal belum Tersedia</b> )</h5> --}}
         @else
@@ -12,7 +20,7 @@
     <hr>
     <p>
         Tahapan Tes terdiri dari :
-        <ol>
+        <ol style="margin-left: 20px;">
             @if($calon->gelnya->unitnya->catnya->name == 'TK' || $calon->gelnya->unitnya->catnya->name == 'SD')
                 <li>Tes Psikologi</li>
                 <li>Wawancara Orangtua</li>

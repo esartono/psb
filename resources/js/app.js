@@ -82,6 +82,7 @@ let routes = [
     { path: '/config/agreement', component: require('./components/config/Agreement.vue').default},
     { path: '/config/berita', component: require('./components/config/Berita.vue').default},
     { path: '/config/faq', component: require('./components/config/Faq.vue').default},
+    { path: '/config/immersion', component: require('./components/config/Immersion.vue').default},
 
     /**
      * Dashboard Ortu
@@ -131,21 +132,33 @@ let routes = [
     { path: '/suratbuku', component: require('./components/cpd/CPDSuratBuku.vue').default},
 
     /**
-     * Wawancara
+     * Wawancara Keuangan
      */
     { path: '/wawancara-keu', component: require('./components/wawancara/Keuangan.vue').default},
     { path: '/keuangan/:id', component: require('./components/wawancara/Invoice.vue').default},
+    { path: '/impruf', component: require('./components/cpd/CPDImpruf.vue').default},
+
+    /**
+     * Wawancara Ortu dan Siswa
+     */
+    { path: '/wawancara/instrumen-wawancara', component: require('./components/tes_wawancara/Instrumen.vue').default},
+    { path: '/wawancara/rubrik-wawancara', component: require('./components/tes_wawancara/Rubrik.vue').default},
+    { path: '/wawancara/pewawancara', component: require('./components/tes_wawancara/Pewawancara.vue').default},
+    { path: '/wawancara/rekap', component: require('./components/tes_wawancara/OrtunSiswa.vue').default},
 
     /**
      * Data Tagihan
      */
     { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},
     { path: '/bayartagihan', component: require('./components/cpd/CPDBayarTagihan.vue').default},
+    { path: '/bayarspps', component: require('./components/wawancara/BayarSPP.vue').default},
 
     /**
      * Component untuk page yang blank
      */
     { path: '/waw-keu', component: require('./components/Blank.vue').default},
+    { path: '/graph', component: require('./components/Blank.vue').default},
+    { path: '/tes-wawancara', component: require('./components/Blank.vue').default},
 
     /**
      * Component untuk page yang belum dibuat/tidak ada
@@ -181,6 +194,7 @@ Vue.use(SmartTable)
 
 //Plugins Select2
 import vSelect from 'vue-select'
+//import { component } from 'vue/types/umd.js';
 Vue.component('v-select', vSelect)
 
 //Membuat Filter agar setting tampilan sesuai yang diinginkan (Tanggal dengan format Indonesia)

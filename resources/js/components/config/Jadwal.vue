@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-info">
@@ -30,7 +29,7 @@
                                 <v-th sortKey="gel_id">Gelombang</v-th>
                                 <v-th sortKey="gelnya.unitnya.name">Unit</v-th>
                                 <v-th sortKey="seleksi">Seleksi Offline</v-th>
-                                <v-th sortKey="seleksi">Seleksi Online</v-th>
+                                <v-th sortKey="seleksi">Link WA Grup</v-th>
                                 <v-th sortKey="seleksi">Pengumuman</v-th>
                                 <v-th sortKey="internal">Internal</v-th>
                                 <th>Kuota</th>
@@ -40,11 +39,11 @@
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <th>{{ index+((currentPage-1) * 7)+1 }}</th>
-                                    <td class="text-center">{{ row.gelnya.tpnya.name }}</td>
-                                    <td class="text-center">{{ row.gelnya.name }}</td>
-                                    <td class="text-center" width="150px">{{ row.gelnya.unitnya.name }}</td>
+                                    <td class="text-center">{{ row.tp_name }}</td>
+                                    <td class="text-center">{{ row.gel_name }}</td>
+                                    <td class="text-center" width="150px">{{ row.unit_name }}</td>
                                     <td class="text-center">{{ row.seleksi | Tanggal }}</td>
-                                    <td class="text-center">{{ row.seleksi_online | Tanggal }}</td>
+                                    <td class="text-center">{{ row.akademik_link }}</td>
                                     <td class="text-center">{{ row.pengumuman | Tanggal }}</td>
                                     <td class="text-center">{{ row.internal | YaTidak}}</td>
                                     <td class="text-center">{{ row.kuota }}</td>
@@ -105,6 +104,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Link WA Grup</label>
+                                    <div class="col-sm-8">
+                                        <input v-model="form.akademik_link" type="text" name="akademik_link" class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('akademik_link') }" id="akademik_link"
+                                            />
+                                        <has-error :form="form" field="akademik_link"></has-error>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Seleksi Online</label>
                                     <div class="col-sm-8">
                                         <input v-model="form.seleksi_online" type="date" name="seleksi_online" class="form-control"
@@ -112,7 +120,7 @@
                                             />
                                         <has-error :form="form" field="seleksi_online"></has-error>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Pengumuman</label>
                                     <div class="col-sm-8">
@@ -213,7 +221,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -226,7 +233,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["gel_id", "gelnya.unitnya.name", "seleksi", "pengumuman", "internal"]
+                        keys: ["gel_id", "unit_name", "seleksi", "pengumuman", "internal"]
                     }
                 },
                 currentPage: 1,
@@ -235,7 +242,7 @@
                     id: "",
                     gel_id: 0,
                     seleksi: "",
-                    seleksi_online: "",
+                    akademik_link: "",
                     pengumuman: "",
                     internal: 0,
                     kuota: 0,

@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const ACCESS_ADMINKEU = 4;
     const ACCESS_PSIKOTES = 5;
     const ACCESS_PENGADAAN = 6;
+    const ACCESS_PEWAWANCARA = 7;
 
     use HasApiTokens, Notifiable;
 
@@ -40,7 +41,14 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'level', 'unit', 'force_change', 'email_verified_at'
+        'name',
+        'email',
+        'phone',
+        'password',
+        'level',
+        'unit',
+        'force_change',
+        'email_verified_at'
     ];
 
     /**
@@ -49,7 +57,13 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'password', 'remember_token', 'level', 'unit', 'force_change'
+        'created_at',
+        'updated_at',
+        'password',
+        'remember_token',
+        'level',
+        'unit',
+        'force_change'
     ];
 
     /**
@@ -62,7 +76,8 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $appends = [
-        'tpid', 'tpname'
+        'tpid',
+        'tpname'
     ];
 
     public function getTpIdAttribute()
@@ -125,6 +140,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isPengadaan()
     {
         return $this->level == static::ACCESS_PENGADAAN;
+    }
+
+    public function isPewawancara()
+    {
+        return $this->level == static::ACCESS_PEWAWANCARA;
     }
 
     public function calons()

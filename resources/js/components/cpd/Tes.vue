@@ -6,13 +6,17 @@
                     <div class="card-header bg-info">
                         <h3 class="card-title">Daftar Peserta ALL</h3>
                         <div class="card-tools">
-                            <a :href="/EksportCpd/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-2 ml-2">
+                            <a :href="/EksportCpd/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-2 ml-1">
                                 <i class="fas fa-file-excel"></i>
                                 Export
                             </a>
-                            <a :href="/EksportPsikotes/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-2 ml-2">
+                            <a :href="/EksportPsikotes/+filters.jadwal.value.jdl" class="btn btn-sm btn-warning mr-1 ml-1">
                                 <i class="fas fa-file-excel"></i>
                                 Export untuk Psikotes
+                            </a>
+                            <a :href="/PrintKartuTes/+filters.jadwal.value.jdl" class="btn btn-sm btn-danger mr-1 ml-1">
+                                <i class="fas fa-file-excel"></i>
+                                Print Kartu Tes khusus Admin
                             </a>
                             <div class="mt-1 input-group input-group-sm float-right ml-3" style="width: auto;">
                                 <div class="input-group-prepend" style="margin-right: -46px;">
@@ -20,7 +24,7 @@
                                 </div>
                                 <select class="ml-5" v-model="filters.jadwal.value.jdl">
                                     <option v-for="jadwal in jadwals" :key="jadwal.id"
-                                        v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.gelnya.unitnya.catnya.name }}</option>
+                                        v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.cat_name }}</option>
                                 </select>
                             </div>
                             <div class="mt-1 input-group input-group-sm float-right" style="width: 150px;">
@@ -121,7 +125,7 @@
                                 <div class="col-sm-7">
                                     <select class="form-control" v-model="form.jadwal_id">
                                         <option v-for="jadwal in jadwals" :key="jadwal.id"
-                                            v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.gelnya.unitnya.catnya.name }}</option>
+                                            v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.cat_name }}</option>
                                     </select>
                                 </div>
                             </div>

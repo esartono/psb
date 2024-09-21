@@ -49,11 +49,10 @@ class CalonJadwalController extends Controller
     {
         if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-            $jadwal = Jadwal::whereIn('gel_id', $gelombang)->get()->pluck('id');
-            $jadwal->prepend(0);
 
-            $calonadajadwal = CalonJadwal::whereIn('jadwal_id', $jadwal)->pluck('calon_id');
-            $calonnya = Calon::whereNotIn('id', $calonadajadwal)->whereIn('gel_id', $gelombang)->where('status', 1)->pluck('id');
+            $calonSesuaiGelombang = Calon::whereIn('gel_id', $gelombang)->where('status', 1)->pluck('id');
+
+            $calonnya = CalonJadwal::whereIn('calon_id', $calonSesuaiGelombang)->where('jadwal_id', 0)->get()->pluck('calon_id');
 
             // $calons = Calon::whereIn('id', $calonnya)->get();
             $calons = DB::table('calons')
@@ -81,9 +80,7 @@ class CalonJadwalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.
@@ -105,9 +102,9 @@ class CalonJadwalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $calon = CalonJadwal::findOrFail($id);
+        $calon = CalonJadwal::where('id', $request->id);
         $calon->update([
             'jadwal_id' => $request->jadwal_id
         ]);

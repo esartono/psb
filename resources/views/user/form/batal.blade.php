@@ -1,3 +1,4 @@
+<hr>
 <a class="btn btn-danger float-left white"
     onclick="event.preventDefault();
     document.getElementById('batal').submit();">

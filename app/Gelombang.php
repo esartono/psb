@@ -7,11 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Gelombang extends Model
 {
     protected $fillable = [
-        'name', 'tp', 'unit_id', 'minimum_age', 'kuota', 'kuota_inklusi', 'kode_va', 'start', 'end'
+        'name',
+        'tp',
+        'unit_id',
+        'minimum_age',
+        'kuota',
+        'kuota_inklusi',
+        'kode_va',
+        'start',
+        'end'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     public function unitnya()

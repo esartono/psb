@@ -66,11 +66,13 @@ class Calon extends Model
     ];
 
     protected $dates = [
-        'tgl_lahir', 'tgl_daftar'
+        'tgl_lahir',
+        'tgl_daftar'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     protected $appends = [
@@ -89,7 +91,9 @@ class Calon extends Model
         'registrasi',
         'dokumen',
         'lengkapdata',
-        'masuk'
+        'masuk',
+        'inggris',
+        // 'bayarspp'
     ];
 
     public function getTahapAttribute()
@@ -108,9 +112,7 @@ class Calon extends Model
                 $tahap = 3;
             }
         }
-        // if ($tahap >= 3) {
-        //     return 3;
-        // }
+
         $cek_wawancara_keu = CalonTagihanPSB::where('calon_id', $this->attributes['id'])->first();
         if ($cek_wawancara_keu) {
             $tahap = 4;
@@ -132,14 +134,22 @@ class Calon extends Model
                             $tahap = 8;
                             $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
                             if ($ambilBuku) {
-                                $tahap = 8.5;
+                                $tahap = 9;
                             }
+                        }
+                        $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                        if ($ambilBuku) {
+                            $tahap = 9;
                         }
                     }
                 }
             }
         }
 
+        // Script saat ujicoba Wawancara keuangan
+        if ($tahap >= 3) {
+            return 3;
+        }
         return $tahap;
     }
 
@@ -172,6 +182,19 @@ class Calon extends Model
         $age = Carbon::create($this->attributes['tgl_lahir']);
         $patok = Carbon::create('2021', '7', '1');
         return $age->diff($patok)->format('%y Tahun, %m Bulan dan %d Hari');
+    }
+
+    public function getInggrisAttribute()
+    {
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+
+        $hasil = Inggris::where('pendaftaran', $daftar)->first();
+        if (!$hasil) {
+            return 'Kosong';
+        }
+        // dd($hasil);
+        return $hasil->toArray();
     }
 
     public function getLahirAttribute()
@@ -262,9 +285,15 @@ class Calon extends Model
 
         $seragam = CalonSeragam::where('calon_id', $this->attributes['id'])->first();
         if ($seragam) {
-            $sudah = TRUE;
             $atas = $seragam->atas;
             $bawah = $seragam->bawah;
+        }
+
+        $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+        $daftar = $gel->kode_va . sprintf("%03d", $this->attributes['urut']);
+        $ambilSeragam = AmbilSeragam::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+        if ($ambilSeragam) {
+            $sudah = TRUE;
         }
 
         return compact('sudah', 'atas', 'bawah');
@@ -304,14 +333,17 @@ class Calon extends Model
                 if ($this->attributes['asal_nf'] > 0) {
                     $ck = "Siswa SIT NF";
                 }
-                $jlhdoku = JDoku::where('unit', 'like', '%' . $cekunitnya . '%')->where('khusus', 'LIKE', '%' . $ck . '%')->pluck('code');
+                $jlhdoku = JDoku::where('unit', 'like', '%' . $cekunitnya . '%')
+                    ->whereNotNull('unit')
+                    ->where('khusus', 'LIKE', '%' . $ck . '%')
+                    ->pluck('code');
                 $itungdataygharus = $jlhdoku->count();
             }
         }
 
         $cekLengkapDokumen = Doku::where('calon_id', $this->attributes['id'])->whereIn('jdoku', $jlhdoku)->count();
 
-        return array($cekLengkapDokumen, $itungdataygharus);
+        return array($cekLengkapDokumen, $itungdataygharus, $ck);
     }
     public function getLengkapdataAttribute()
     {
@@ -322,7 +354,15 @@ class Calon extends Model
             4 => ['asal_sekolah']
         ];
 
+        $bagian = [
+            1 => 'Data Calon Siswa',
+            2 => 'Data Alamat Tempat Tinggal',
+            3 => 'Data Orang tua Calon Siswa',
+            4 => 'Data Asal Sekolah'
+        ];
+
         $gel = Gelombang::where('id', $this->attributes['gel_id'])->first();
+
         if ($gel->unit_id > 2) {
             array_push($komponen[1], 'nisn');
         }
@@ -360,7 +400,15 @@ class Calon extends Model
             }
         }
 
-        return array($lengkapdata, count($komponen));
+        return array($lengkapdata, count($komponen), $bagian);
+    }
+    public function getBayarsppAttribute()
+    {
+        $cek = BayarSpp::where('calon_id', $this->attributes['id'])->first();
+        if ($cek) {
+            return 'Sudah';
+        }
+        return 'Belum';
     }
     public function gelnya()
     {

@@ -101,6 +101,12 @@
                         </div>
                         <div class="modal-body">
                             @include('wawancara.'.substr($tp,0,4).'.ketentuan')
+                            @if((int)substr($tp,0,4) > 2024)
+                            <ol class="roman" start="4">
+                                <li>Pembiayaan Program Immersion</li>
+                                @include('wawancara.'.substr($tp,0,4).'.program')
+                            </ol>
+                            @endif
                         </div>
                     </div>
                 </div>

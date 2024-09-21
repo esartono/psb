@@ -24,7 +24,7 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
-            <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" class="user-image" alt="User Image" style="height: 35px;"/>
+            {{-- <img src="{{ Avatar::create(Auth::user()->name)->toBase64() }}" class="user-image" alt="User Image" style="height: 35px;"/> --}}
             {{ Auth::user()->name }} &nbsp; &nbsp;
             <i class="fas fa-caret-down"></i>
           </a>
@@ -52,7 +52,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-
     <!-- Main Footer -->
     <footer class="main-footer">
         <!-- To the right -->
@@ -64,8 +63,7 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
 <script src="/js/app.js"></script>
-@stack('js')
 </body>
+
 </html>

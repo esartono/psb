@@ -35,11 +35,13 @@ class DokuController extends Controller
     {
         if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
             $calon = Calon::where('id', $id)->first();
+
             $gelombang = Gelombang::where('id', $calon->gel_id)->first()->unit_id;
             $unitnya = Unit::where('id', $gelombang)->first()->name;
             $unit = trim(str_replace('IT Nurul Fikri', '', $unitnya));
 
             $jd = JDoku::where('unit', 'like', '%' . $unit . '%')->get();
+
             $oke = array();
             $idsnya = -1;
 
@@ -49,34 +51,26 @@ class DokuController extends Controller
                     $ids = $doku->id;
                     $file = $doku->file;
                 } else {
-                    $ids = $idsnya--;
+                    $ids = $idsnya;
                     $file = 'kosong';
                 }
                 $oke[] = [
                     'id' => $ids,
                     'name' => $j->name,
                     'file' => $file,
-                    'ck' => $ck
                 ];
             }
 
             return $oke;
-
-            // return DB::table('j_dokus')
-            //     ->select('j_dokus.code', 'j_dokus.name', 'dokus.id', 'dokus.file')
-            //     ->leftJoin('dokus', 'j_dokus.code', '=', 'dokus.jdoku')
-            //     ->where('dokus.calon_id', $id)
-            //     ->where('j_dokus.unit', 'like', '%'.$unit.'%')
-            //     ->orderBy('j_dokus.name', 'asc')
-            //     ->get()->toArray();
         }
 
         return 'EKO';
     }
 
-    public function upload($calon, $code)
+    public function upload($id, $code)
     {
         $jd = JDoku::where('code', $code)->first();
+        $calon = Calon::where('id', $id)->where('user_id', auth()->user()->id)->first();
         return view('doku.create', compact('calon', 'jd'));
     }
 
@@ -115,11 +109,13 @@ class DokuController extends Controller
         $namefile = $file->getClientOriginalName();
 
         Storage::disk('my_upload')->put('/' . $calon->uruts . '/' . $namefile, File::get($file));
-        Doku::create([
+        Doku::updateOrCreate([
             'calon_id' => $calon->id,
-            'user_id' => auth()->user()->id,
             'jdoku' => $request->jdoku,
-            'file' => $namefile
+        ], [
+            'user_id' => auth()->user()->id,
+            'file' => $namefile,
+            'rapot' => $request->rapot,
         ]);
 
         return redirect()->route('dokumen', $calon->id);

@@ -49,7 +49,7 @@
         list-style: lower-roman;
     }
     .jarak {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
 </style>
 <section class="faculty-area">
@@ -62,3 +62,18 @@
         </div>
     </div>
 </section>
+@if((int)substr($tp,0,4) > 2024)
+<section class="faculty-area">
+    <div class="section-title position-relative mb-4 pb-4">
+        <h2 class="mb-2"></h2>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center d-flex align-items-center">
+            <h3 class="mt-40">Pembiayaan Program Immersion</h3>
+            <div class="col-sm-12">
+                @include('wawancara.'.substr($tp,0,4).'.program')
+            </div>
+        </div>
+    </div>
+</section>
+@endif

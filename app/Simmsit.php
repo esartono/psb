@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Simmsit extends Model
 {
     protected $connection = 'mysql2';
-    protected $table = 'view_siswanf';
+    protected $table = 'v_siswanf';
 }

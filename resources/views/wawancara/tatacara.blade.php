@@ -47,7 +47,7 @@
                 </td>
             </tr>
         </table>
-        <div class="pisah"></div>
+        <div class="pisah" style="color: white">-</div>
         <table class="table table-bordered table-striped biaya biaya_pisah">
             <tr>
                 <th>4. Melalui Internet Banking Bank Syariah Indonesia (BSI)</th>

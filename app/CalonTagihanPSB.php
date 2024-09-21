@@ -7,11 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 class CalonTagihanPSB extends Model
 {
     protected $fillable = [
-        'calon_id', 'khusus', 'va1', 'va2', 'potongan', 'keterangan', 'saudara', 'infaq', 'infaqnfpeduli', 'daul', 'lunas', 'pewawancara'
+        'calon_id',
+        'khusus',
+        'va1',
+        'va2',
+        'potongan',
+        'keterangan',
+        'saudara',
+        'infaq',
+        'infaqnfpeduli',
+        'lain',
+        'daul',
+        'lunas',
+        'pewawancara'
+    ];
+
+    protected $casts = [
+        'lain' => 'array'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     public function calonnya()
@@ -20,22 +37,29 @@ class CalonTagihanPSB extends Model
     }
 
     protected $appends = [
-        'tagihan', 'wawancara'
+        'tagihan',
+        'wawancara',
+        // 'impruf'
     ];
 
     public function getTagihanAttribute()
     {
-        $calon = Calon::where('id',$this->attributes['calon_id'])->first();
+        $calon = Calon::where('id', $this->attributes['calon_id'])->first();
         $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
-                ->where('kelas', $calon->kelas_tujuan)
-                ->where('kelamin', $calon->jk)
-                ->first();
+            ->where('kelas', $calon->kelas_tujuan)
+            ->where('kelamin', $calon->jk)
+            ->first();
 
         if (TagihanPSB::where('gel_id', $calon->uruts)->exists()) {
             $biayas = TagihanPSB::where('gel_id', $calon->uruts)->first();
         }
 
         return $biayas->total;
+    }
+
+    public function getImprufAttribute()
+    {
+        // return $this->attributes['lain'];
     }
 
     public function getWawancaraAttribute()

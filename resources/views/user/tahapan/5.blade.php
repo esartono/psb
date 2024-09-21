@@ -1,6 +1,6 @@
 @isset($calon->hasil['hasil'])
     <div class="text-center mt-4">
-        <h3>Pengumuman</h3>
+        <h5>Pengumuman</h5>
         <hr>
         <p>Berdasarkan keputusan panitia PPDB SIT Nurul Fikri menyatakan</p>
         <h3><b>
@@ -19,7 +19,7 @@
         {{-- <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-success mt-3" target="_blank">Cetak Tata Cara Pembayaran</a> --}}
         @if($calon->hasil['hasil']->lulus == 1)
             <ul class="text-left">
-                <li>Pembayaran dilakukan pada tanggal : <b>{{ $calon->jadwal->keterangan }}</b></li>
+                <li class="mb-3">Pembayaran dilakukan pada tanggal : <b>{{ $calon->jadwal->keterangan }}</b></li>
                 <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
                 <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
                 <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:

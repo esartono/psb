@@ -8,15 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     protected $fillable = [
-        'gel_id', 'internal', 'seleksi', 'seleksi_online','pengumuman', 'kuota', 'ikut', 'keterangan'
+        'gel_id',
+        'internal',
+        'seleksi',
+        'seleksi_online',
+        'pengumuman',
+        'kuota',
+        'ikut',
+        'keterangan',
+        'akademik_link'
     ];
 
     protected $dates = [
-        'seleksi', 'seleksi_online','pengumuman'
+        'seleksi',
+        'seleksi_online',
+        'pengumuman'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     protected $appends = [
@@ -33,5 +44,4 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Gelombang::class, 'gel_id');
     }
-
 }

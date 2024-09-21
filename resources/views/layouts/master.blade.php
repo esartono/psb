@@ -12,16 +12,6 @@
   
   <link rel="icon" href="{{ URL::asset('/img/favicon.ico') }}" type="image/x-icon"/>
   <link rel="stylesheet" href="/css/app.css" type="text/css">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-E2EXL2S2X8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-E2EXL2S2X8');
-</script>
-
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -74,6 +64,14 @@
               <i class="nav-icon fas fa-th cyan"></i>
               <p>
                 Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/graph" class="nav-link">
+              <i class="nav-icon fas fa-chart-line yellow"></i>
+              <p>
+                Grafik
               </p>
             </a>
           </li>
@@ -314,23 +312,44 @@
               </li> -->
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <router-link to="/tes" class="nav-link">
-              <i class="nav-icon fas fa-calendar TK"></i>
-              <p>
-                Jadwal Tes
-              </p>
-            </router-link>
-          </li>
           @if(Auth::user()->isAdministrator())
           <li class="nav-item has-treeview">
-            <router-link to="/non-tes" class="nav-link">
-              <i class="nav-icon fas fa-calendar-times TK"></i>
+            <a href="#" class="nav-link">
+              <i class="fas fa-calendar nav-icon TK"></i>
               <p>
-                Non Jadwal Tes
+                Data Jadwal Tes
+                <i class="right fas fa-angle-left"></i>
               </p>
-            </router-link>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/tes" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Jadwal Tes
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/non-tes" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Non Jadwal Tes
+                  </p>
+                </router-link>
+              </li>
+            </ul>
           </li>
+          @endif
+          @if(!Auth::user()->isAdministrator())
+            <li class="nav-item">
+              <router-link to="/tes" class="nav-link">
+                <i class="nav-icon fa fa-calendar TK"></i>
+                <p>
+                  Jadwal Tes
+                </p>
+              </router-link>
+            </li>
           @endif
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -377,6 +396,60 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-comments nav-icon orange"></i>
+              <p>
+                Wawancara Ortu & Siswa
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <router-link to="/wawancara/pewawancara" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Pewawancara
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/wawancara/instrumen-wawancara" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Instrumen
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/wawancara/rubrik-wawancara" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Rubrik
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/wawancara/rekap" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Rekap Wawancara
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <form id="wawancara" class="mb-3" role="form" method="POST" action="{{ route('tesWawancara') }}">
+                  @csrf
+                  <a href="/wawancara" class="nav-link">
+                    <i class="fas fa-caret-right nav-icon"></i>
+                    <p>
+                      Tes Wawancara
+                    </p>
+                  </a>
+                </form>
+              </li>
+            </ul>
+          </li>
           @if(Auth::user()->isHaveAccess([1,4]))
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -397,6 +470,15 @@
                 </router-link>
               </li>
               <li class="nav-item">
+                <router-link to="/bayarspps" class="nav-link">
+                <!-- <router-link to="" class="nav-link"> -->
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Bayar SPP
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
                 <a href="/wawancara-keu" class="nav-link">
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>
@@ -409,6 +491,14 @@
                   <i class="fas fa-caret-right nav-icon"></i>
                   <p>
                     Data Tagihan
+                  </p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/impruf" class="nav-link">
+                  <i class="fas fa-caret-right nav-icon"></i>
+                  <p>
+                    Data Ikut Impruf
                   </p>
                 </router-link>
               </li>
@@ -430,6 +520,12 @@
                     <router-link to="/config/biayaSPP" class="nav-link">
                       <i class="fas fa-caret-right nav-icon"></i>
                       <p>Biaya SPP</p>
+                    </router-link>
+                  </li>
+                  <li class="nav-item">
+                    <router-link to="/config/Immersion" class="nav-link">
+                      <i class="fas fa-caret-right nav-icon"></i>
+                      <p>Biaya Program Immersion</p>
                     </router-link>
                   </li>
                 </ul>
@@ -592,5 +688,6 @@
   window.tp = @json(auth()->user()->tpname)
 </script>
 <script src="/js/app.js"></script>
+@stack('jawa')
 </body>
 </html>

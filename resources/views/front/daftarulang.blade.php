@@ -57,11 +57,11 @@
 <section class="banner-area relative">
     <div class="container">
         <div class="section-top-border justify-content-center">
-            <h3 class="mt-60 mb-2 text-white">Tata Cara Pembayaran SPP Siswa SIT Nurul Fikri</h3>
-            <h4 class="mb-20 text-white">Tahun Ajaran {{ $tp }}</h4>
-            <h5 class="mb-20 text-white">Menggunakan Virtual Account (VA) Bank Jabar Banten Syariah (BJB Syariah)</h5>
             <div class="progress-table-wrap">
                 <div class="progress-table" style="padding: 30px 75px 30px 75px">
+                    <div class="section-title position-relative mb-4 pb-4">
+                        <h4 class="mb-2">Menggunakan Virtual Account (VA) Bank Jabar Banten Syariah (BJB Syariah)</h4>
+                    </div>
                     <ol class="roman">
                         <li>Menggunakan Aplikasi Setoran/Transfer di Bank</li>
                         <ol class="biasa">

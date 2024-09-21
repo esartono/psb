@@ -230,7 +230,9 @@ class CalonController extends Controller
                 $calons = DB::table('calons')
                     ->select(
                         'calons.id',
+                        'calons.ck_id',
                         'calons.name',
+                        'calons.asal_nf',
                         'units.name as unit',
                         DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
                         DB::raw("GROUP_CONCAT(j_dokus.name ORDER BY j_dokus.name SEPARATOR ',') as sudah")
@@ -247,10 +249,19 @@ class CalonController extends Controller
                     ->get();
 
                 return $calons->map(function ($arr) {
+                    // $ck = array('', 'Umum', 'Siswa SIT NF', 'Pegawai SIT NF');
+                    // $cknya = $ck[$arr->ck_id];
+                    // if ($arr->asal_nf == 1) {
+                    //     $cknya = 'Siswa SIT NF';
+                    // }
                     $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
+                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
                     $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
+                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
                     $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
+                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
                     $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
+                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
 
                     $u = trim(str_replace('IT Nurul Fikri', '', $arr->unit));
                     $s = explode(',', $arr->sudah);
@@ -345,7 +356,45 @@ class CalonController extends Controller
                     ->whereIn('gel_id', $gelombang)
                     ->where('aktif', true)
                     ->get()->toArray();
-            } else {
+            }
+            if ($id === '1') {
+                return DB::table('calons')
+                    ->select(
+                        'calons.id',
+                        'calons.name',
+                        'jk',
+                        'tempat_lahir',
+                        'tgl_lahir',
+                        'kelasnyas.name as kelas',
+                        'ayah_nama',
+                        'ayah_hp',
+                        'ibu_nama',
+                        'ibu_hp',
+                        'asal_sekolah',
+                        'calon_kategoris.name as ck',
+                        'gelombangs.kode_va',
+                        'urut',
+                        'pindahan',
+                        'tgl_daftar',
+                        'users.phone as phone',
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
+                    ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
+                    ->leftJoin('users', 'calons.user_id', '=', 'users.id')
+                    // ->rightJoin('calon_biaya_tes', 'calons.id', '=', 'calon_biaya_tes.calon_id')
+                    ->whereIn('gel_id', $gelombang)
+                    ->where('calons.status', $id)
+                    ->where('aktif', true)
+                    // ->orderBy('calon_biaya_tes.expired', 'desc')
+                    ->get()->toArray();
+                // return Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'usernya')
+                //     ->whereIn('gel_id', $gelombang)
+                //     ->where('status',$id)
+                //     ->get()->toArray();
+            }
+            if ($id === '0') {
                 return DB::table('calons')
                     ->select(
                         'calons.id',

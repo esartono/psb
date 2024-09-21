@@ -52,13 +52,13 @@
         padding: 3px !important;
         border: 0px !important;
     }
-
+    tr {
+        vertical-align : middle;"
+    }
 </style>
 <section class="banner-area relative">
     <div class="container">
         <div class="section-top-border justify-content-center">
-            <h3 class="mt-60 mb-2 text-white">Syarat dan Ketentuan PPDB SIT Nurul Fikri</h3>
-            <h4 class="mb-20 text-white">Tahun Ajaran {{ $tp }}</h4>
             <div class="progress-table-wrap">
                 <div class="progress-table" style="padding: 25px">
                     <ol class="roman">

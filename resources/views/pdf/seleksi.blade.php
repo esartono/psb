@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <th>Tempat, Tanggal Lahir</th>
-                <td>{{ $calonsnya->tgl_lahir->isoFormat('D MMMM Y') }}</td>
+                <td>{{ formatIndo($calonsnya->tgl_lahir) }}</td>
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>
@@ -42,7 +42,14 @@
             </tr>
             <tr>
                 <th>Jadwal Seleksi</th>
-                <td><b>{{ $calonsnya->jadwal->seleksi !== '-'  ? $calonsnya->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum tersedia" }}</b></td>
+                <td><b>{{ $calonsnya->jadwal->seleksi !== '-'  ? formatIndo($calonsnya->jadwal->seleksi) : "Jadwal belum tersedia" }}</b></td>
+            </tr>
+            <tr>
+                <th>Lokasi Tes <b>OFFLINE</b></th>
+                <td>
+                    <b>{{ $calonsnya->gelnya->unitnya->name }} </b><br>
+                    {{ $calonsnya->gelnya->unitnya->address }}, Cimanggis Depok
+                </td>
             </tr>
         </table>
     </div>

@@ -42,7 +42,11 @@ Route::apiResources([
     'calontagihanpsbs' => 'API\CalonTagihanPSBController',
     'bayartagihans' => 'API\BayarTagihanController',
     'spps' => 'API\SppController',
-    'diskons' => 'API\DiskonController'
+    'immersions' => 'API\ImmersionController',
+    'diskons' => 'API\DiskonController',
+    'pewawancaras' => 'API\PewawancaraController',
+    'instrumens' => 'API\InstrumenWawancaraController',
+    'rubriks' => 'API\RubrikController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
@@ -54,6 +58,8 @@ Route::middleware('auth:api')->get('registrasi', 'API\CalonTagihanPSBController@
 Route::middleware('auth:api')->get('jtagihans', 'API\TagihanPSBController@jtagihan');
 Route::middleware('auth:api')->get('jtagihaninvoce', 'API\TagihanPSBController@jtagihaninvoce');
 Route::middleware('auth:api')->get('simmsit', 'API\TagihanPSBController@simmsit');
+Route::middleware('auth:api')->get('calonimpruf', 'API\CalonTagihanPSBController@impruf');
+Route::middleware('auth:api')->get('gelImpruf', 'API\GelombangController@impruf');
 
 Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');

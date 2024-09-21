@@ -13,7 +13,7 @@
     }
     .pisah {
         margin-top: 0px;
-        margin-bottom: 206px;
+        margin-bottom: 180px;
     }
     .biaya, .biaya th, .biaya td {
         border: 1px solid black !important;

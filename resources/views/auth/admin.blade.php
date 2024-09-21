@@ -37,5 +37,6 @@
         <button type="submit" class="col-5 offset-1 btn btn-primary btn-flat">{{ __('Login') }}</button>
         <a href="{{ url('login') }}" type="cancel" class="btn col-5 btn-secondary btn-flat">Cancel</a>
     </div>
+
 </form>
 @endsection

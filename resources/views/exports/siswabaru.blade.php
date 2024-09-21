@@ -14,6 +14,7 @@
         <th>No. Telepon Ayah</th>
         <th>Nama Ibu</th>
         <th>No. Telepon Ibu</th>
+        <th>Alamat</th>
     </tr>
     </thead>
     <tbody>
@@ -32,6 +33,7 @@
             <td>{{ $calon->ayah_hp }}</td>
             <td>{{ $calon->ibu_nama }}</td>
             <td>{{ $calon->ibu_hp }}</td>
+            <td>{{ $calon->alamat }}</td>
         </tr>
     @endforeach
     </tbody>

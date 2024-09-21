@@ -23,11 +23,13 @@ use App\Jadwal;
 use App\TagihanPSB;
 use App\FileGdrive;
 use App\Faq;
+use App\BayarSpp;
 
 // use Wa;
 use Auth;
 use Telegram;
 use Avatar;
+use Illuminate\Support\Arr;
 
 class HomeController extends Controller
 {
@@ -58,6 +60,8 @@ class HomeController extends Controller
             'waitinglist',
             'simpanwaitinglist',
             'coba',
+            'sitemap',
+            'tesPPDB',
         );
         $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
     }
@@ -146,6 +150,11 @@ class HomeController extends Controller
         return Calon::where('gel_id', $gelombang)->where('urut', $urt)->where('status', 1)->get()->toArray();
     }
 
+    public function sitemap()
+    {
+        return response()->view('front.sitemap')->header('Content-Type', 'text/xml');
+    }
+
     public function profile()
     {
         return view('profile');
@@ -154,7 +163,8 @@ class HomeController extends Controller
     public function faq()
     {
         $faq = Faq::where('status', 1)->get();
-        return view('front.faq', compact('faq'));
+        $tp = TahunPelajaran::where('status', 1)->first();
+        return view('front.faq', compact('faq', 'tp'));
     }
 
     public function dashboardUser()
@@ -170,35 +180,138 @@ class HomeController extends Controller
         // return view('psb');
     }
 
-    public function psb_old()
+    public function baru()
     {
-        return view('psb_old');
+        return view('user.baru');
     }
 
     public function psb()
     {
-        // Cek user baru atau lama
-        // dd(Avatar::create('Joko Widodo')->toBase64());
+        session()->put('locale', 'id');
+
         $cek = auth()->user()->phone;
         if ($cek === null || $cek === '') {
-            return view('user.baru');
+            // return view('user.baru');
+            return redirect()->route('baru');
         }
 
         $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
         $calons = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
             ->where('user_id', auth()->user()->id)
             ->where('aktif', true)
-            ->whereIn('gel_id', $gelombang)->get();
+            ->whereIn('gel_id', $gelombang)
+            ->orderBy('calons.name', 'asc')
+            ->get();
 
-        if ($calons->count() > 0) {
-            // dd($calons->first()->bayarppdb['bayarppdb']);
-            $pp = array();
-            foreach ($calons as $c) {
-                $pp[$c->uruts] = $this->pProfile($c->id);
-            }
-            return view('user.dashboard', compact('calons', 'pp'));
+        $cekTotalCalons = count($calons);
+
+        if ($cekTotalCalons == 0) {
+            return view('user.kosong');
         }
-        return view('user.awal');
+
+        if ($cekTotalCalons == 1) {
+            return redirect()->route('ppdb_detail', $calons[0]->id);
+        }
+        return view('user.dashboard', compact('calons', 'cekTotalCalons'));
+    }
+
+    public function detailCalon($id)
+    {
+        $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+        $calons = DB::table('calons')
+            ->select(
+                'calons.id',
+                'calons.name',
+                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+            )
+            ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+            ->where('user_id', auth()->user()->id)
+            ->where('aktif', true)
+            ->whereIn('gel_id', $gelombang)
+            ->orderBy('id', 'asc')->get();
+
+        if (!$calons) {
+            return redirect()->route('home');
+        }
+        // $calon = DB::table('calons')
+        //     ->select(
+        //         'calons.id',
+        //         'calons.name',
+        //         'calons.jk',
+        //         'calons.tempat_lahir',
+        //         'calons.tgl_lahir',
+        //         'calons.gel_id',
+        //         'calons.kelas_tujuan',
+        //         'calons.tgl_daftar',
+        //         'kelasnyas.name as kelasnya',
+        //         'gelombangs.unit_id',
+        //         DB::raw('IF(calons.jk=1, "Laki-laki", "Perempuan") as kelamin'),
+        //         DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+        //     )
+        //     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+        //     ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
+        //     ->where('user_id', auth()->user()->id)
+        //     ->where('aktif', true)
+        //     ->where('calons.id', $id)->first();
+
+        $calon = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')
+            ->where('user_id', auth()->user()->id)
+            ->where('aktif', true)
+            ->whereIn('gel_id', $gelombang)
+            ->where('calons.id', $id)->first();
+
+        $bayarspp = 'Belum';
+        if ($calon) {
+            $spp = 100000000;
+            $pp = $this->pProfile($calon->id);
+            $biayas = TagihanPSB::where('gel_id', $calon->gel_id)
+                ->where('kelas', $calon->kelas_tujuan)
+                ->where('kelamin', $calon->jk)
+                ->first();
+            if ($biayas) {
+                $diskonSPP = array(
+                    242531058 => 675000,
+                    242532009 => 1000000,
+                    242532069 => 700000,
+                    242532146 => 1000000,
+                    242532018 => 1000000,
+                    242532079 => 1000000,
+                    242532092 => 1000000,
+                    242532156 => 1000000,
+                    242532118 => 1000000,
+                    242532177 => 1000000,
+                    242533085 => 1050000,
+                    242533114 => 1050000,
+                    242533040 => 1050000,
+                    242533146 => 1680000,
+                    242533064 => 1050000,
+                    242533229 => 1050000,
+                    242533025 => 1050000,
+                    242534100 => 1050000,
+                    242534197 => 1050000,
+                    242534080 => 1050000,
+                    242534057 => 1050000,
+                    242534101 => 1050000,
+                    242534016 => 1050000,
+                    242534312 => 1050000,
+                    242534070 => 1050000,
+                );
+                if (array_key_exists($calon->uruts, $diskonSPP)) {
+                    $spp = $diskonSPP[$calon->uruts];
+                } else {
+                    $spp = $biayas->spp;
+                }
+            }
+            $cekbayarspp = BayarSpp::where('calon_id', $calon->id)->first();
+            if ($cekbayarspp) {
+                $bayarspp = 'Sudah';
+            }
+        } else {
+            return redirect()->route('home');
+        }
+
+        $cekCalons = count($calons);
+        return view('user.dashboard', compact('calons', 'calon', 'pp', 'spp', 'bayarspp', 'cekbayarspp', 'cekCalons'));
     }
 
     public function addUser(Request $request)
@@ -215,6 +328,11 @@ class HomeController extends Controller
     public function password()
     {
         return view('user.password');
+    }
+
+    public function tesPPDB()
+    {
+        return view('tes');
     }
 
     public function changePassword(Request $request)
@@ -294,6 +412,17 @@ class HomeController extends Controller
             $seragam = [
                 ['komponen' => 'Seragam Putra', 'tka' => 1200000, 'tkb' => 1200000, 'sd' => 1800000, 'smp' => 1900000, 'sma' => 2000000],
                 ['komponen' => 'Seragam Putri', 'tka' => 1400000, 'tkb' => 1400000, 'sd' => 2400000, 'smp' => 2650000, 'sma' => 2700000],
+            ];
+        }
+
+        if ($tp === '2025/2026') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka' => 8500000, 'tkb' => 6000000, 'sd' => 22500000, 'smp' => 22500000, 'sma' => 22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 8500000, 'tkb' => 8000000, 'sd' => 14000000, 'smp' => 15000000, 'sma' => 15000000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka' => 1300000, 'tkb' => 1300000, 'sd' => 1900000, 'smp' => 2000000, 'sma' => 2100000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1600000, 'tkb' => 1600000, 'sd' => 2500000, 'smp' => 2900000, 'sma' => 2900000],
             ];
         }
 
@@ -399,6 +528,7 @@ class HomeController extends Controller
         $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
 
         return view('front.depan', compact('start', 'tp', 'units', 'berita'));
+        // return view('front.template_lama.depan', compact('start', 'tp', 'units', 'berita'));
     }
 
     public function ukuranseragam()
@@ -431,11 +561,6 @@ class HomeController extends Controller
 
     public function coba(Request $request)
     {
-        $files = Storage::disk('gdrive')->allFiles();
-        $details = Storage::disk('gdrive')->getMetadata($files[0]);
-        $urls = Storage::disk('gdrive')->url($files[0]);
-        dump($details['filename']);
-        dump($details['extension']);
-        dump($urls);
+        return view('tes_wawancara.index');
     }
 }

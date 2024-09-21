@@ -60,6 +60,40 @@ class CalonTagihanPSBController extends Controller
         }
     }
 
+    public function impruf()
+    {
+        if (auth('api')->user()->isHaveAccess([1, 4])) {
+            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if (auth('api')->user()->isAdminUnit()) {
+            $unit = auth('api')->user()->unit_id;
+            $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        }
+
+        if (auth('api')->user()->isHaveAccess([1, 4]) || auth('api')->user()->isAdminUnit()) {
+            $calons = Calon::whereIn('gel_id', $gelombang)->pluck('id');
+            return CalonTagihanPSB::with('calonnya')->whereIn('calon_id', $calons)->get();
+            // $calonnya = DB::table('calon_tagihan_p_s_b_s')
+            //     ->select(
+            //         'calons.id',
+            //         'calons.name',
+            //         'calons.jk',
+            //         'gelombangs.kode_va',
+            //         'calon_tagihan_p_s_b_s.lain',
+            //         'calons.urut',
+            //         DB::raw('CONCAT(gelombangs.kode_va, LPAD(calons.urut, 3, 0)) as uruts'),
+            //     )
+            //     ->leftJoin('calons', 'calon_tagihan_p_s_b_s.calon_id', '=', 'calons.id')
+            //     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+            //     ->whereIn('calons.id', $calons)
+            //     ->where('calons.status', 1)
+            //     ->where('calons.aktif', true)
+            //     ->orderBy('calons.name', 'asc')
+            //     ->get();
+        }
+    }
+
     public function store(Request $request)
     {
         $pots = [
@@ -67,39 +101,48 @@ class CalonTagihanPSBController extends Controller
                 'potongan' => 0,
                 'keterangan' => 'Tidak ada potongan',
                 'notif' => 0
-            ], [
+            ],
+            [
                 'potongan' => 10,
                 'keterangan' => 'Asal dari NF (Depok/Bogor)',
                 'notif' => 0
-            ], [
+            ],
+            [
                 'potongan' => 5,
                 'keterangan' => 'Memiliki Saudara kandung PERTAMA di NF',
                 'notif' => 1
-            ], [
+            ],
+            [
                 'potongan' => 10,
                 'keterangan' => 'Memiliki Saudara kandung KEDUA di NF',
                 'notif' => 1
-            ], [
+            ],
+            [
                 'potongan' => 10,
                 'keterangan' => 'Diskon Mendaftarkan lebih dari 1',
                 'notif' => 1
-            ], [
-                'potongan' => 50,
-                'keterangan' => 'Diskon anak PEGAWAI TETAP',
-                'notif' => 1
-            ], [
-                'potongan' => 50,
-                'keterangan' => 'Diskon anak PEGAWAI KONTRAK',
-                'notif' => 1
-            ], [
+            ],
+            [
                 'potongan' => 25,
                 'keterangan' => 'Diskon Undangan Khusus asal NF (Depok/Bogor)',
                 'notif' => 0
-            ], [
+            ],
+            [
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI TETAP',
+                'notif' => 1
+            ],
+            [
+                'potongan' => 50,
+                'keterangan' => 'Diskon anak PEGAWAI KONTRAK',
+                'notif' => 1
+            ],
+            [
                 'potongan' => 50,
                 'keterangan' => 'Diskon Pemenang Lomba tingkat Nasional (Bertingkat)',
                 'notif' => 0
-            ], [
+            ],
+            [
                 'potongan' => 25,
                 'keterangan' => 'Diskon Hafal minimal 15 Juz',
                 'notif' => 0
@@ -127,6 +170,7 @@ class CalonTagihanPSBController extends Controller
                 'saudara' => $saudara,
                 'daul' => 0,
                 'lunas' => false,
+                'lain' => $request['lain']
             ]
         );
 

@@ -16,11 +16,11 @@ class TahunPelajaranController extends Controller
         $ta = TahunPelajaran::where('status', true)->first();
 
         $ta_skrg = intval(substr($ta->name, 0, 4));
-        $tanya = ($ta_skrg - 1).'/'.$ta_skrg;
+        $tanya = ($ta_skrg - 1) . '/' . $ta_skrg;
         $tas = array(
             [
                 'id' => 0,
-                'name' => $tanya .' dan '. $ta->name,
+                'name' => $tanya . ' dan ' . $ta->name,
             ],
             [
                 'id' => 1,
@@ -45,7 +45,7 @@ class TahunPelajaranController extends Controller
 
     public function store(Request $request)
     {
-        if($request['status'] === 1) {
+        if ($request['status'] === 1) {
             DB::table('tahun_pelajarans')->update(['status' => 0]);
         }
 
@@ -57,7 +57,7 @@ class TahunPelajaranController extends Controller
 
     public function update(Request $request, $id)
     {
-        if($request['status'] === 1) {
+        if ($request['status'] === 1) {
             DB::table('tahun_pelajarans')->update(['status' => 0]);
         }
 
@@ -75,5 +75,4 @@ class TahunPelajaranController extends Controller
     {
         return TahunPelajaran::orderBy('name', 'asc')->paginate(1000);
     }
-
 }
