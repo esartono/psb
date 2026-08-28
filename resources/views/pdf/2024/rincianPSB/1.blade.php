@@ -97,7 +97,7 @@ Lampiran 1
 </tr>
 </table>
 @if($calon->rencana_masuk == 7)
-  <p style="font-size: 80%; font-weight: bold"><i>*Pembayaran SPP Juli 2024 dibayarkan pada tanggal 5 - 15 Juni 2024</i></p>
+  <p style="font-size: 80%; font-weight: bold"><i>*Pembayaran SPP Juli 2024 dibayarkan pada tanggal 5 - 15 Juni 2025</i></p>
 @endif
         <br>
         <table align="center" width="100%" style="font-size: 14px;">

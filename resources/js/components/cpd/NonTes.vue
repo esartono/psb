@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-info">
@@ -98,7 +97,7 @@
                                 <div class="col-sm-7">
                                     <select class="form-control" v-model="form.jadwal_id">
                                         <option v-for="jadwal in jadwals" :key="jadwal.id"
-                                            v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.gelnya.unitnya.catnya.name }} ( {{ jadwal.ikut }} )</option>
+                                            v-bind:value="jadwal.id">{{ jadwal.seleksi | Tanggal }} - {{ jadwal.unit_name }} ( {{ jadwal.ikut }} )</option>
                                     </select>
                                 </div>
                             </div>
@@ -112,8 +111,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</template>/>
+</template>
 
 <script>
     export default {

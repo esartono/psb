@@ -43,21 +43,17 @@
     <p class="nav-link status active">
       6. Daftar Ulang
       @if($calon->tahap >= 5)
-      <i class="fa-solid fa-circle-check float-end text-success"></i>
+        @if($calon->hasil['hasil']->lulus == 1)
+          <i class="fa-solid fa-circle-check float-end text-success"></i>
+        @else
+          <i class="fa-solid fa-circle-xmark float-end text-danger"></i>
+        @endif
       @else
         <i class="fa-solid fa-circle-xmark float-end text-danger"></i>
       @endif
     </p>
     <p class="nav-link status active">
       7. Input Seragam
-      @if($calon->tahap >= 6)
-      <i class="fa-solid fa-circle-check float-end text-success"></i>
-      @else
-        <i class="fa-solid fa-circle-xmark float-end text-danger"></i>
-      @endif
-    </p>
-    <p class="nav-link status active">
-      8. Pengambilan Seragam
       @if($calon->tahap >= 7)
       <i class="fa-solid fa-circle-check float-end text-success"></i>
       @else
@@ -65,7 +61,15 @@
       @endif
     </p>
     <p class="nav-link status active">
-      9. Pengambilan Media Pembelajaran
+      8. Pengambilan Seragam
+      @if($calon->tahap >= 8)
+      <i class="fa-solid fa-circle-check float-end text-success"></i>
+      @else
+        <i class="fa-solid fa-circle-xmark float-end text-danger"></i>
+      @endif
+    </p>
+    <p class="nav-link status active">
+      9. Pengambilan Buku Paket
       @if($calon->tahap >= 9)
       <i class="fa-solid fa-circle-check float-end text-success"></i>
       @else

@@ -15,6 +15,8 @@
         <th>Nama Ibu</th>
         <th>No. Telepon Ibu</th>
         <th>Alamat</th>
+        <th>Asal Sekolah</th>
+        <th>Asal Alamat Sekolah</th>
     </tr>
     </thead>
     <tbody>
@@ -34,6 +36,8 @@
             <td>{{ $calon->ibu_nama }}</td>
             <td>{{ $calon->ibu_hp }}</td>
             <td>{{ $calon->alamat }}</td>
+            <td>{{ $calon->asal_sekolah }}</td>
+            <td>{{ $calon->asal_alamat_sekolah }}</td>
         </tr>
     @endforeach
     </tbody>

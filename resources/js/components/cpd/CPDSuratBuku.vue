@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-info">
@@ -27,32 +26,33 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
-                                    <v-th sortKey="unitnya.name">Unit</v-th>
-                                    <v-th sortKey="pendaftaran">No. ID</v-th>
-                                    <v-th sortKey="calonnya.name">Nama Lengkap</v-th>
+                                    <v-th sortKey="unit">Unit</v-th>
+                                    <v-th sortKey="uruts">No. ID</v-th>
+                                    <v-th sortKey="name">Nama Lengkap</v-th>
                                     <v-th sortKey="lunas_daul">Lunas</v-th>
                                     <v-th sortKey="siap">SIAP</v-th>
-                                    <th>Tanggal & Jam</th>
-                                    <th>Chromebook</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Tanggal & Jam</th>
+                                    <th>Keterangan</th>
+                                    <th>Aksi</th> -->
                                     <th>Print</th>
                                 </tr>
                             </thead>
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
-                                    <td class="text-center">{{ row.unitnya.name }}</td>
-                                    <td class="text-center">{{ row.pendaftaran }}</td>
-                                    <td>{{ row.calonnya.name }}</td>
-                                    <td class="text-center">{{ row.lunas_daul }}</td>
-                                    <td>{{ row.siap }}</td>
-                                    <td>{{ (row.hari == '' ? 'belum' : row.hari + ', ' + row.tanggal + ' (' + row.jam + ')') }}</td>
-                                    <td>{{ (row.chromebook == '' ? '-' : row.chromebook) }}</td>
+                                    <td class="text-center">{{ row.unit }}</td>
+                                    <td class="text-center">{{ row.uruts }}</td>
+                                    <td>{{ row.name }}</td>
+                                    <!-- KHUSUS TAHUN AJARAN 2025/2026 -->
+                                    <td class="text-center">LUNAS</td>
+                                    <td>SIAP</td>
+                                    <!-- <td></td>
+                                    <td>{{ (row.keterangan == '' ? '-' : row.keterangan) }}</td>
                                     <td>
                                         <a href="#" @click="editModal(row)"><i class="fas fa-edit blue"></i> Edit</a>
-                                    </td>
+                                    </td> -->
                                     <td>
-                                        <a :href="'AmbilBukuPDF/'+row.calonnya.idc" class="btn btn-success"><i class="fas fa-print"></i>Print</a>
+                                        <a :href="'AmbilBukuPDF/'+row.id" class="btn btn-success"><i class="fas fa-print"></i>Print</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -130,8 +130,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</template>/>
+</template>
 
 <script>
     export default {
@@ -159,7 +158,7 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["unitnya.name", "pendaftaran", "calonnya.name", "lunas_daul", "siap"]
+                        keys: ["unit", "uruts", "name"]
                     },
                 },
                 currentPage: 1,

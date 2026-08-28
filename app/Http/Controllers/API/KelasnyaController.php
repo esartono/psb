@@ -21,7 +21,8 @@ class KelasnyaController extends Controller
 
     public function index()
     {
-        return Kelasnya::with('unitnya')->where('name', 'not like', '%Toddler%')->orderBy('id', 'asc')->get()->toArray();
+        // return Kelasnya::with('unitnya')->where('name', 'not like', '%Toddler%')->orderBy('id', 'asc')->get()->toArray();
+        return Kelasnya::with('unitnya')->orderBy('id', 'asc')->get()->toArray();
     }
 
     public function store(Request $request)

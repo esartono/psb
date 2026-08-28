@@ -69,12 +69,12 @@
                                 <li>Membayar biaya pendaftaran sesuai ketentuan</li>
                                 <li>Melakukan upload dokumen (Maksimal 5 hari setelah pelunasan):
                                     <ol class="step1">
-                                        <li>Scan KTP orangtua</li>
+                                        {{-- <li>Scan KTP orangtua</li> --}}
                                         <li>Scan kartu Keluarga</li>
                                         <li>Scan Akte Kelahiran</li>
                                         <li>Scan Rapor dengan ketentuan sebagai berikut :
                                             <ul class="step2">
-                                                <li>Untuk calon SMP scan rapor SD hanya kelas 4 dan kelas 5</li>
+                                                <li>Untuk calon SMP scan rapor SD kelas 4 dan kelas 5</li>
                                                 <li>Untuk calon SMA scan rapor SMP kelas 7 dan kelas 8</li>
                                             </ul>
                                         </li>
@@ -97,7 +97,6 @@
                                             <ol class="biasa">
                                                 <li>Observasi (dibantu Psikolog)</li>
                                                 <li>Wawancara Orang Tua</li>
-                                                <li>Mengisi Form surat keterangan sehat</li>
                                                 <li>Minimal usia :
                                                     <table class="khusus">
                                                         <tr>
@@ -126,7 +125,16 @@
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
                                                 <li>Wawancara Orang tua</li>
-                                                <li>Mengisi form surat Keterangan Sehat</li>
+                                                <li>
+                                                    Surat keterangan sehat, dengan mencantumkan
+                                                    <ul>
+                                                        <li>Tinggi badan</li>
+                                                        <li>Berat badan</li>
+                                                        <li>Tekan darah</li>
+                                                        <li>Penyakit kronis yg di derita</li>
+                                                        <li>Alergi obat/makanan</li>
+                                                    </ul>
+                                                </li>
                                                 <li>Usia minimal 5 tahun 10 bulan pada Juli {{ $patokan }} Kelahiran Maksimal Oktober {{ $patokan-6 }}</li>
                                                 <li>Tes Akademik (bagi Siswa mutasi/pindahan)</li>
                                             </ol>
@@ -137,8 +145,17 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Potensi Akademik (Kemampuan Matematika dan Literasi)</li>
-                                                <li>Mengisi form surat Keterangan Sehat</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Matematika, Literasi, IPA dan IPS)</li>
+                                                <li>
+                                                    Surat keterangan sehat, dengan mencantumkan
+                                                    <ul>
+                                                        <li>Tinggi badan</li>
+                                                        <li>Berat badan</li>
+                                                        <li>Tekan darah</li>
+                                                        <li>Penyakit kronis yg di derita</li>
+                                                        <li>Alergi obat/makanan</li>
+                                                    </ul>
+                                                </li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
                                             </ol>
@@ -149,9 +166,18 @@
                                         <td>
                                             <ol class="biasa">
                                                 <li>Psikotes</li>
-                                                <li>Tes Potensi Akademik (Kemampuan Matematika dan Literasi)</li>
+                                                <li>Tes Potensi Akademik (Kemampuan Matematika, Literasi, IPA dan IPS)</li>
                                                 <li>Menyerahkan Hasil Tes Bebas Narkoba dari Rumah Sakit, Klinik atau Laboratorium dengan komponen minimal : Amphetamine (AMP), Metamphitamine ( MET), Cocaine (COC), Ganja (THC)</li>
-                                                <li>Mengisi form surat Keterangan Sehat</li>
+                                                <li>
+                                                    Surat keterangan sehat, dengan mencantumkan
+                                                    <ul>
+                                                        <li>Tinggi badang</li>
+                                                        <li>Berat badan</li>
+                                                        <li>Tekan darah</li>
+                                                        <li>Penyakit kronis yg di derita</li>
+                                                        <li>Alergi obat/makanan</li>
+                                                    </ul>
+                                                </li>
                                                 <li>Wawancara Orang tua</li>
                                                 <li>Wawancara Siswa</li>
                                             </ol>

@@ -15,7 +15,8 @@ class WaitingController extends Controller
 
     public function __construct()
     {
-        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        // $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        $this->tp_berjalan = taAktif();
     }
 
     public function index()

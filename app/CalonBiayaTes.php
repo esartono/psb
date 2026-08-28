@@ -65,7 +65,7 @@ class CalonBiayaTes extends Model
     public function pilihjadwal($gel, $asal)
     {
         if ($asal == 1) {
-            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(1)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 1)
                 ->whereColumn('kuota', '>', 'ikut')
@@ -77,7 +77,7 @@ class CalonBiayaTes extends Model
             // return 0;
         }
 
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(1)->timezone('Asia/Jakarta')->toDateString())
             ->where('gel_id', $gel)
             ->where('internal', 0)
             ->whereColumn('kuota', '>', 'ikut')

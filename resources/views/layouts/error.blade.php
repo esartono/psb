@@ -26,7 +26,7 @@
             IT Team - SIT Nurul Fikri
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2019 <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
+        <strong>Copyright © {{ date('Y') }}. <a href="https://nurulfikri.sch.id">SIT Nurul Fikri</a>.</strong>
     </footer>
 </div>
 <!-- ./wrapper -->

@@ -28,6 +28,7 @@ use App\Exports\CpdAktifExport;
 use App\Exports\CpdJadwalTes;
 use App\Exports\CpdExportBank;
 use App\Exports\CpdExportSeragam;
+use App\Exports\CpdExportImpruf;
 
 class CalonController extends Controller
 {
@@ -39,7 +40,7 @@ class CalonController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'exportSeragam', 'updateJurusan');
+        $this->middleware('auth:api')->except('exportsiswabaru', 'exportbaru', 'exportaktif', 'exportjadwal', 'exportBank', 'exportSeragam', 'updateJurusan', 'exportImpruf');
     }
 
     public function index()
@@ -129,7 +130,7 @@ class CalonController extends Controller
             $calonbiaya = CalonBiayaTes::create([
                 'calon_id' => $calon->id,
                 'biaya_id' => $biaya->id,
-                'expired' => date("Y-m-d", strtotime("+3 days"))
+                'expired' => date("Y-m-d", strtotime("+1 days"))
             ]);
 
             // Maja::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")));
@@ -230,15 +231,16 @@ class CalonController extends Controller
                 $calons = DB::table('calons')
                     ->select(
                         'calons.id',
-                        'calons.ck_id',
+                        'calon_kategoris.name as ck',
                         'calons.name',
                         'calons.asal_nf',
                         'units.name as unit',
                         DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
-                        DB::raw("GROUP_CONCAT(j_dokus.name ORDER BY j_dokus.name SEPARATOR ',') as sudah")
+                        DB::raw("GROUP_CONCAT(j_dokus.id ORDER BY j_dokus.id SEPARATOR ',') as sudah")
                     )
                     ->groupBy('calons.id')
                     ->leftJoin('dokus', 'calons.id', '=', 'dokus.calon_id')
+                    ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
                     ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
                     ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
                     ->leftJoin('j_dokus', 'dokus.jdoku', '=', 'j_dokus.code')
@@ -248,38 +250,116 @@ class CalonController extends Controller
                     ->orderBy('calons.name', 'asc')
                     ->get();
 
-                return $calons->map(function ($arr) {
-                    // $ck = array('', 'Umum', 'Siswa SIT NF', 'Pegawai SIT NF');
-                    // $cknya = $ck[$arr->ck_id];
-                    // if ($arr->asal_nf == 1) {
-                    //     $cknya = 'Siswa SIT NF';
-                    // }
-                    $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
-                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
-                    $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
-                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
-                    $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
-                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
-                    $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
-                    // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
+                $jdoku['CCEC Nurul Fikri'] = JDoku::where('unit', 'like', '%CCEC%')->pluck('id')->toArray();
+                $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('id')->toArray();
+                $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('id')->toArray();
+                $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('id')->toArray();
+                $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('id')->toArray();
 
-                    $u = trim(str_replace('IT Nurul Fikri', '', $arr->unit));
-                    $s = explode(',', $arr->sudah);
+                $jname = JDoku::get()->pluck('name', 'id')->toArray();
+
+                $no = 0;
+                foreach ($calons as $c) {
+                    $u = trim(str_replace('IT Nurul Fikri', '', $c->unit));
+                    $s = explode(',', $c->sudah);
                     $sdh = implode(', ', array_diff($jdoku[$u], $s));
-
-                    return [
-                        'id' => $arr->id,
-                        'name' => $arr->name,
-                        'unit' => $arr->unit,
-                        'uruts' => $arr->uruts,
-                        'sudah' => ($sdh == '') ? 'Lengkap' : $sdh
+                    $lengkap = ($sdh == '') ? 'Lengkap' : 'Belum';
+                    $kurang = ' - ';
+                    if ($lengkap == 'Belum') {
+                        $isi = array();
+                        $i = 0;
+                        $sdh = explode(', ', $sdh);
+                        foreach ($sdh as $s) {
+                            $isi[$i] = $jname[$s];
+                            $i++;
+                        }
+                        $kurang = $i . ' berkas';
+                        $lengkap = implode(', ', $isi);
+                    }
+                    $datas[$no] = [
+                        'id' => $c->id,
+                        'name' => $c->name,
+                        'unit' => $c->unit,
+                        'uruts' => $c->uruts,
+                        'sudah' => $lengkap,
+                        'kurang' => $kurang
                     ];
-                });
+                    $no++;
+                }
+                return $datas;
 
+                // $data = $calons->map(function ($arr) {
+                //     // $ck = array('', 'Umum', 'Siswa SIT NF', 'Pegawai SIT NF');
+                //     // $cknya = $ck[$arr->ck_id];
+                //     // if ($arr->asal_nf == 1) {
+                //     //     $cknya = 'Siswa SIT NF';
+                //     // }
+                //     $jdoku['CCEC Nurul Fikri'] = JDoku::where('unit', 'like', '%CCEC%')->pluck('name')->toArray();
+                //     $jdoku['TK'] = JDoku::where('unit', 'like', '%TK%')->pluck('name')->toArray();
+                //     // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
+                //     $jdoku['SD'] = JDoku::where('unit', 'like', '%SD%')->pluck('name')->toArray();
+                //     // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
+                //     $jdoku['SMP'] = JDoku::where('unit', 'like', '%SMP%')->pluck('name')->toArray();
+                //     // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
+                //     $jdoku['SMA'] = JDoku::where('unit', 'like', '%SMA%')->pluck('name')->toArray();
+                //     // ->where('khusus', 'like', '%' . $cknya . '%')->pluck('name')->toArray();
+
+                //     $u = trim(str_replace('IT Nurul Fikri', '', $arr->unit));
+
+                //     $s = explode(',', $arr->sudah);
+                //     $sdh = implode(', ', array_diff($jdoku[$u], $s));
+
+                //     return [
+                //         'id' => $arr->id,
+                //         'name' => $arr->name,
+                //         'unit' => $arr->unit,
+                //         'uruts' => $arr->uruts,
+                //         'sudah' => ($sdh == '') ? 'Lengkap' : $sdh
+                //     ];
+                // });
+
+                // return $data;
                 // return compact('calons');
+                // id, name, unit, uruts, sudah
             }
         }
 
+        if (auth('api')->user()->isAdmin()) {
+            if ($id === '1002') {
+                $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+                $calons = Calon::whereIn('gel_id', $gelombang)->pluck('id');
+
+                return DB::table('tes_wawancaras')
+                    ->select(
+                        'tes_wawancaras.id AS id',
+                        'calon_id',
+                        'calons.name AS name',
+                        'units.name as unit',
+                        'kelasnyas.name as kelas',
+                        'instrumen_wawancaras.instrumen AS instrumen',
+                        'users.name AS pewawancara',
+                        'tes_wawancaras.skor',
+                        'tes_wawancaras.status',
+                        'tes_wawancaras.rubrik',
+                        DB::raw('FLOOR((tes_wawancaras.skor / (4*tes_wawancaras.rubrik)) * 100) AS total'),
+                        DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts')
+                    )
+                    ->leftJoin('instrumen_wawancaras', 'tes_wawancaras.instrumen_id', '=', 'instrumen_wawancaras.id')
+                    ->leftJoin('users', 'tes_wawancaras.pewawancara_id', '=', 'users.id')
+                    ->leftJoin('calons', 'tes_wawancaras.calon_id', '=', 'calons.id')
+                    ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                    ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                    ->leftJoin('kelasnyas', 'calons.kelas_tujuan', '=', 'kelasnyas.id')
+                    ->whereIn('calon_id', $calons)
+                    ->orderBy('status', 'asc')
+                    ->orderBy('calons.name', 'asc')
+                    ->orderBy('instrumen', 'asc')
+                    ->get()
+                    ->toArray();
+
+                // return response()->json(['data' => array_values($wawancara)], 200);
+            }
+        }
         if (auth('api')->user()->isAdmin() || auth('api')->user()->isPsikotes()) {
             if ($id === '101') {
                 return DB::table('calons')
@@ -485,6 +565,12 @@ class CalonController extends Controller
     {
         return Excel::download(new CpdAktifExport, 'cpdAktif.xlsx');
     }
+
+    public function exportImpruf()
+    {
+        return Excel::download(new CpdExportImpruf, 'cpdImpruf.xlsx');
+    }
+
 
     public function exportjadwal()
     {

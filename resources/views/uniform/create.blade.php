@@ -1,23 +1,35 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
+@push('css_khusus')
+    <style>
+        .table.table-bordered > tbody > tr > td {
+            padding: 7px !important;
+        }
+        .table.table-bordered > tbody > tr > th {
+            padding: 7px !important;
+            text-align: center;
+        }
+        form, .form-control{
+            font-size: 14px !important;
+        }
+    </style>
+@endpush
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="mt-2 col-md-8">
+        <div class="mt-2 col-lg-6 col-md-6 col-sm-12" style="margin-bottom: 125px;">
             <div class="card card-primary card-outline">
                 <div class="card-header bg-primary">
-                    <h3 class="card-title">
+                    <h5 class="card-title text-white">
                         <i class="fas fa-tshirt"></i>
                         Form Pengisian Ukuran Seragam Calon Siswa
-                    </h3>
-                    <div class="card-tools">
-                        <a href="/home" type="button" class="btn bg-danger btn-sm">
+                        <a href="/home" type="button" class="btn bg-secondary btn-sm text-white float-end">
                             <i class="fas fa-times"></i>
                         </a>
-                    </div>
+                    </h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-narrow table-bordered">
+                    <table class="table table-bordered">
                         <tr>
                             <td style="width: 35%"> Nomor Pendaftaran </td>
                             <td> {{ $calon->uruts }}</td>
@@ -46,8 +58,8 @@
                     </ul>
                     <br> --}}
                     <form role="form" method="POST" action="{{ route('uniform.update', $calon->id) }}">
-                    @method('PUT')
-                    @csrf
+                        @method('PUT')
+                        @csrf
                         <div class="form-group row">
                             <div class="col-sm-8 row">
                                 <label for="name" class="col-sm-7 col-form-label mb-2">Pilih ukuran Baju atau Blouse</label>
@@ -80,7 +92,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="row">
+                    <div class="row mt-4">
                         @include('uniform.ukuran.'.$calon->gelnya->unitnya->catnya->name.'_'.$calon->kelamin)
                         {{-- <div class="col-sm-12 col-md-7">
                             <table style="width: 100%; margin: 0 auto;">

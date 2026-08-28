@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 
 use App\Gelombang;
@@ -22,22 +24,28 @@ class SuratBukuController extends Controller
      */
     public function index()
     {
-        if (auth('api')->user()->isAdmin()) {
-            $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
-        }
-
-        if (auth('api')->user()->isAdminUnit()) {
-            $unit = auth('api')->user()->unit_id;
-            $gelombang = Gelombang::where('unit_id', $unit)->where('tp', auth('api')->user()->tpid)->get()->pluck('kode_va');
-        }
-
-        if (auth('api')->user()->isAdmin() || auth('api')->user()->isAdminUnit()) {
-            return AmbilBuku::Where(function ($query) use ($gelombang) {
-                for ($i = 0; $i < count($gelombang); $i++) {
-                    $query->orwhere('pendaftaran', 'like',  $gelombang[$i] . '%');
-                }
-            })->orderBy('pendaftaran', 'asc')->get()->toArray();
-        }
+        $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        return DB::table('calons')
+            ->select(
+                'calons.id',
+                'calons.name',
+                'calons.jk',
+                'units.name as unit',
+                DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                'bayar_spps.tanggal_bayar as tgl_bayar',
+                'bayar_spps.jumlahbayar as bayar',
+                'bayar_spps.lunas as lunas',
+            )
+            ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+            ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+            ->leftJoin('bayar_spps', 'calons.id', '=', 'bayar_spps.calon_id')
+            ->whereIn('gel_id', $gelombang)
+            ->where('calons.status', 1)
+            ->where('calons.aktif', true)
+            ->where('bayar_spps.verifikasi', 1)
+            ->orderBy('bayar_spps.id', 'desc')
+            ->get()
+            ->toArray();
     }
 
     /**

@@ -32,7 +32,7 @@
             .qrsecurity {
                 position: absolute;
                 float: left;
-                bottom: 35px;
+                bottom: 33px;
             }
 
             .halaman {
@@ -43,7 +43,7 @@
 
             .page-break {
                 page-break-before: always;
-                margin-top: 125px;
+                margin-top: 128px;
             }
 
             main {
@@ -67,7 +67,7 @@
             }
 
             .main {
-                font-size: 16px;
+                font-size: 16.5px;
                 text-align: justify;
                 text-justify: inter-word;
             }
@@ -89,7 +89,7 @@
         </table>
     </header>
     <footer>
-        <div class="panitia" style= "padding-left: 100px">
+        <div class="panitia" style= "padding-left: 80px">
             <b>Panitia Penerimaan Peserta Didik Baru SIT Nurul Fikri, Kota Depok - Jawa Barat </b>
             <br>informasi lebih lanjut hubungi Panitia +62 822 1133 3434 (Whatsapp/Telegram)
             <br>Telepon: TK +62 21 870 8919, SD +62 21 872 0645, SMP +62 21 870 8300, SMA +62 21 872 2070
@@ -97,7 +97,7 @@
         </div>
         <div class="halaman">{{ Str::title($calon->name) }} ({{ $calon->uruts }}) - hal. <span class="pagenum"></span></div>
         <div class="qrsecurity">
-            <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(100)->margin(0.7)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
+            <img class="qrcode" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(75)->margin(0.7)->merge('img/logo.png', .2, true)->generate($calon->uruts.'::')) !!} ">
         </div>
     </footer>
     <main>

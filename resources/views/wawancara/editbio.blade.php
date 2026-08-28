@@ -139,7 +139,8 @@ table.table-invoice th, table.table-invoice td {
 </section>
 @endsection
 
-@push('js')
+@push('jawa')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     var url = window.location.origin;
     var kotaasal = "{{ $calon->kota }}"
@@ -148,26 +149,27 @@ table.table-invoice th, table.table-invoice td {
 
     $(document).ready(function() {
         var provinceID = $("#provinsi").find(":selected").val();
-        if(provinceID){
-            if(kotaasal){
-                listKota(provinceID, kotaasal)
-                if(camatasal){
-                    listCamat(kotaasal, camatasal)
-                    if(lurahasal){
-                        listLurah(camatasal, lurahasal)
-                    } else {
-                        listLurah(camatasal)
-                    }
-                } else {
-                    listCamat(kotaasal)
-                }
-            } else {
-                listKota(provinceID)
-            }
-        }
+        // if(provinceID){
+        //     if(kotaasal){
+        //         listKota(provinceID, kotaasal)
+        //         if(camatasal){
+        //             listCamat(kotaasal, camatasal)
+        //             if(lurahasal){
+        //                 listLurah(camatasal, lurahasal)
+        //             } else {
+        //                 listLurah(camatasal)
+        //             }
+        //         } else {
+        //             listCamat(kotaasal)
+        //         }
+        //     } else {
+        //         listKota(provinceID)
+        //     }
+        // }
     });
 
-    var listKota = function(e, a) {
+    function listKota(e, a) {
+        var url = window.location.origin;
         if(e){
             axios
             .get( url + "/api/kotas/" + e)

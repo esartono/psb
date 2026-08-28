@@ -114,37 +114,72 @@ class DraftCalonController extends Controller
         if ($step == 2) {
             $ok = $calon->pindahan;
             $csma = '';
+            $jk = array();
             if ($ok === 1) {
                 $cekunit = Kelasnya::where('status', 1)
-                    ->whereIn('tahun_ajaran', [0, 2])
+                    ->whereIn('tahun_ajaran', [0, 1, 2, 3])
+                    // ->whereNotIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
+                // dd($cekunit);
+                foreach ($cekunit as $c) {
+                    $jk[$c] = 0;
+                }
             }
             if ($ok === 0) {
                 $cekunit = Kelasnya::where('status', 1)
-                    ->where('tahun_ajaran', 1)
+                    ->whereIn('tahun_ajaran', [0, 1])
+                    ->whereIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
                     ->get()
                     ->groupBy('unit_id')->keys()->toArray();
+
+                //cek kelas tersedia
+                foreach ($cekunit as $c) {
+                    $jk[$c] = 0;
+                    $cekKelas = Kelasnya::where('unit_id', $c)
+                        ->whereIn('tahun_ajaran', [0, 1])
+                        ->whereIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
+                        ->where('status', 1)
+                        ->first();
+                    if ($cekKelas) {
+                        $jk[$c] = $cekKelas->kelamin;
+                    }
+                }
             }
 
             $units = Unit::with('catnya')->whereIn('id', $cekunit)->orderBy('id', 'asc')->get();
-            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon'));
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'units', 'calon', 'jk'));
         }
 
         if ($step == 3) {
             $csma = '';
 
             $cekunit = Gelombang::whereId($calon->gel_id)->first()->unit_id;
+            $cekkelasAtas = Kelasnya::where('status', 1)
+                ->where('unit_id', $cekunit)
+                ->whereIn('tahun_ajaran', [0, 1])
+                ->whereNotIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
+                ->get();
+
             $cekkelas = Kelasnya::where('status', 1)
                 ->where('unit_id', $cekunit)
-                ->whereIn('tahun_ajaran', [0, 2])
+                ->whereIn('tahun_ajaran', [0])
+                ->whereIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
                 ->get();
-            if ($cekunit == 1) {
+
+            $cekkelas = $cekkelas->concat($cekkelasAtas);
+
+            if ($cekunit == 1 || $cekunit == 0) {
                 $cekkelas = Kelasnya::where('status', 1)
                     ->where('unit_id', $cekunit)
                     ->get();
             }
-            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'csma', 'cekkelas', 'cekunit'));
+
+            $jk = array();
+            foreach ($cekkelas as $c) {
+                $jk[$c->id] = $c->kelamin;
+            }
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'csma', 'cekkelas', 'cekunit', 'jk'));
         }
 
         if ($step == 4) {
@@ -172,7 +207,25 @@ class DraftCalonController extends Controller
                 $age = date('Y-m-d', strtotime($calon->tgl_lahir));
             }
 
-            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agama', 'infos'));
+            //cek Jenis Kelamin
+            $jk = 0;
+            $cekUnit = Gelombang::whereId($calon->gel_id)->first()->unit_id;
+            // if ($calon->pindahan == 1) {
+            $cekKelas = Kelasnya::where('unit_id', $cekUnit)
+                ->where('tahun_ajaran', '<', 3)
+                ->where('id', $calon->kelas_tujuan)
+                ->where('status', 1)
+                ->first();
+            // $jk = $cekKelas->kelamin;
+            // }
+            // if ($calon->pindahan == 0) {
+            // $cekKelas = Kelasnya::where('unit_id', $cekUnit)->whereIn('name', ['1', '7', '10'])->whereIn('tahun_ajaran', [0, 1])->where('status', 1)->first();
+            if ($cekKelas) {
+                $jk = $cekKelas->kelamin;
+            }
+            // }
+
+            return view('user.create', compact('step', 'pilihan', 'age', 'min_age', 'calon', 'agama', 'infos', 'jk'));
         }
 
         if ($step == 8) {
@@ -257,7 +310,7 @@ class DraftCalonController extends Controller
             $calon = DraftCalon::where('user_id', auth()->user()->id)->first();
 
             $cekUnit = Unit::whereId($request->unit)->first();
-            if ($cekUnit->cat_id == 1 || $calon->pindahan == 1) {
+            if ($cekUnit->cat_id == 0 || $cekUnit->cat_id == 1 || $calon->pindahan == 1) {
                 $calon->update(['gel_id' => $gelombang, 'step' => 3]);
                 $step = 3;
             } else {
@@ -359,6 +412,38 @@ class DraftCalonController extends Controller
                     ]);
                     $step = 7;
                 } else {
+                    if ($unit->cat_id == 1) {
+                        $cekSimmsit = Simmsit::where('nama_unit', 'like', '%Depok')
+                            ->where('nis', $request->nis)
+                            ->where('tahun_ajaran', $ta)
+                            ->where(function ($query) {
+                                $query->where('kelas', 'like', 'A%')
+                                    ->orWhere('kelas', 'like', 'B%');
+                            })->first();
+
+                        if (!$cekSimmsit) {
+
+                            $cekSiswaNF = SiswaNF::where('nis', $request->nis)->first();
+                            if ($cekSiswaNF) {
+                                // dd('EKO');
+                                $cekSimmsit = $cekSiswaNF;
+                                $adadariCCEC = $cekSiswaNF;
+                                // $calon->update([
+                                //     'asal_nf' => true,
+                                //     'name' => $cekSiswaNF->nama,
+                                //     'jk' => $jk,
+                                //     'asal_sekolah' => 'TKIT Nurul Fikri',
+                                //     'asal_alamat_sekolah' => 'Jl. Tugu Raya No. 61 Kelapa Dua',
+                                //     'asal_provinsi_sekolah' => 32,
+                                //     'asal_kota_sekolah' => 3276,
+                                //     'asal_kecamatan_sekolah' => 3276040,
+                                //     'asal_kelurahan_sekolah' => 3276040012,
+                                //     'step' => 7,
+                                // ]);
+                                // $step = 7;
+                            }
+                        }
+                    }
                     if ($unit->cat_id == 2) {
                         $cekSimmsit = Simmsit::where('nama_unit', 'like', '%Depok')
                             ->where('nis', $request->nis)
@@ -394,18 +479,72 @@ class DraftCalonController extends Controller
                             ->where('tahun_ajaran', $ta)
                             ->where('kelas', 'like', '6%')
                             ->first();
+                        // Harusnya gak ada, tapi klo error harus di aktifin lagi
+
+                        // if (!$cekSimmsit) {
+                        //     $cekSiswaNF = SiswaNF::where('nis', $request->nis)->first();
+                        //     if ($cekSiswaNF) {
+                        //         $cekSimmsit = $cekSiswaNF;
+                        //         if (str_contains($request->nis, '.')) {
+                        //             $adadariNFBS = $cekSimmsit;
+                        //         }
+                        //     }
+                        // }
                     }
                     if ($unit->cat_id == 4) {
                         $cekSimmsit = Simmsit::where('nis', $request->nis)
                             ->where('tahun_ajaran', $ta)
                             ->where('kelas', 'like', '9%')
                             ->first();
+                        if (!$cekSimmsit) {
+                            $cekSiswaNF = SiswaNF::where('nis', $request->nis)->first();
+                            if ($cekSiswaNF) {
+                                $cekSimmsit = $cekSiswaNF;
+                                if (str_contains($request->nis, '.')) {
+                                    $adadariNFBS = $cekSiswaNF;
+                                }
+                            }
+                        }
                     }
 
                     if ($cekSimmsit) {
                         $jk = ($cekSimmsit->jk == "L" ? 1 : 2);
+                        if ($unit->cat_id == 1) {
+                            if (!isset($adadariCCEC)) {
+                                dd('EKO');
+                                $calon->update([
+                                    'name' => $cekSimmsit->nama,
+                                    'jk' => $jk,
+                                    'tempat_lahir' => $cekSimmsit->tempat_lahir,
+                                    'tgl_lahir' => $cekSimmsit->tanggal_lahir,
+                                    'asal_nf' => true,
+                                    'asal_sekolah' => 'CCEC Nurul Fikri',
+                                    'asal_alamat_sekolah' => 'Jalan Haji Rijin No. 100',
+                                    'asal_provinsi_sekolah' => 32,
+                                    'asal_kota_sekolah' => 3276,
+                                    'asal_kecamatan_sekolah' => 3276040,
+                                    'asal_kelurahan_sekolah' => 3276040012,
+                                    'step' => 7,
+                                ]);
+                                $step = 7;
+                            } else {
+                                $calon->update([
+                                    'name' => $adadariCCEC->name,
+                                    'jk' => $jk,
+                                    'asal_nf' => true,
+                                    'asal_sekolah' => 'CCEC Nurul Fikri',
+                                    'asal_alamat_sekolah' => 'Jalan Haji Rijin No. 100',
+                                    'asal_provinsi_sekolah' => 32,
+                                    'asal_kota_sekolah' => 3276,
+                                    'asal_kecamatan_sekolah' => 3276040,
+                                    'asal_kelurahan_sekolah' => 3276040012,
+                                    'step' => 7,
+                                ]);
+                                $step = 7;
+                            }
+                        }
                         if ($unit->cat_id == 2) {
-                            if (!$adadariTKNF) {
+                            if (!isset($adadariTKNF)) {
                                 $calon->update([
                                     'name' => $cekSimmsit->nama,
                                     'jk' => $jk,
@@ -421,8 +560,7 @@ class DraftCalonController extends Controller
                                     'step' => 7,
                                 ]);
                                 $step = 7;
-                            }
-                            if ($adadariTKNF) {
+                            } else {
                                 $calon->update([
                                     'name' => $adadariTKNF->name,
                                     'jk' => $jk,
@@ -439,6 +577,7 @@ class DraftCalonController extends Controller
                             }
                         }
                         if ($unit->cat_id == 3) {
+                            // if (!$adadariNFBS) {
                             $calon->update([
                                 'nisn' => $cekSimmsit->nisn,
                                 'name' => $cekSimmsit->nama,
@@ -455,22 +594,44 @@ class DraftCalonController extends Controller
                                 'step' => 7,
                             ]);
                             $step = 7;
+                            // }
+                            // if ($adadariNFBS) {
+                            //     $calon->update([
+                            //         'name' => $adadariNFBS->name,
+                            //         'asal_nf' => true,
+                            //         'asal_sekolah' => 'SMPIT NFBS',
+                            //         'asal_alamat_sekolah' => 'Jl. Jami Atas, Sukaluyu',
+                            //         'step' => 7,
+                            //     ]);
+                            //     $step = 7;
+                            // }
                         }
                         if ($unit->cat_id == 4) {
-                            $calon->update([
-                                'asal_nf' => true,
-                                'name' => $cekSimmsit->nama,
-                                'jk' => $jk,
-                                'tempat_lahir' => $cekSimmsit->tempat_lahir,
-                                'tgl_lahir' => $cekSimmsit->tanggal_lahir,
-                                'asal_sekolah' => 'SMPIT Nurul Fikri',
-                                'asal_alamat_sekolah' => 'Jl. Tugu Raya No. 61 Kelapa Dua',
-                                'asal_provinsi_sekolah' => 32,
-                                'asal_kota_sekolah' => 3276,
-                                'asal_kecamatan_sekolah' => 3276040,
-                                'asal_kelurahan_sekolah' => 3276040012,
-                                'step' => 7,
-                            ]);
+                            if (isset($adadariNFBS)) {
+                                $calon->update([
+                                    'name' => $adadariNFBS->name,
+                                    'asal_nf' => true,
+                                    'asal_sekolah' => 'SMPIT NFBS',
+                                    'asal_alamat_sekolah' => 'Jl. Jami Atas, Sukaluyu',
+                                    'step' => 7,
+                                ]);
+                                $step = 7;
+                            } else {
+                                $calon->update([
+                                    'asal_nf' => true,
+                                    'name' => $cekSimmsit->nama,
+                                    'jk' => $jk,
+                                    'tempat_lahir' => $cekSimmsit->tempat_lahir,
+                                    'tgl_lahir' => $cekSimmsit->tanggal_lahir,
+                                    'asal_sekolah' => 'SMPIT Nurul Fikri',
+                                    'asal_alamat_sekolah' => 'Jl. Tugu Raya No. 61 Kelapa Dua',
+                                    'asal_provinsi_sekolah' => 32,
+                                    'asal_kota_sekolah' => 3276,
+                                    'asal_kecamatan_sekolah' => 3276040,
+                                    'asal_kelurahan_sekolah' => 3276040012,
+                                    'step' => 7,
+                                ]);
+                            }
                             $step = 7;
                         }
                     }
@@ -634,13 +795,13 @@ class DraftCalonController extends Controller
                 ->where('ck_id', $calon['ck_id'])
                 ->get()->first();
             if ($biaya) {
-                $maja = Maja::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+3 days")), auth()->user()->email);
+                $maja = Maja::create($calon->uruts, $biaya->biaya, $calon->name, $calon->tgl_daftar, date("Y-m-d", strtotime("+1 days")), auth()->user()->email);
                 $calonbiaya = CalonBiayaTes::updateOrCreate([
                     'calon_id' => $calon->id
                 ], [
                     'biaya_id' => $biaya->id,
                     'idTransaction' => $maja->data->transactionId,
-                    'expired' => date("Y-m-d", strtotime("+3 days"))
+                    'expired' => date("Y-m-d", strtotime("+1 days"))
                 ]);
 
                 $calonsnya = Calon::with('gelnya.unitnya.catnya', 'cknya', 'kelasnya', 'biayates.biayanya', 'usernya')->where('id', $calon->id)->first();

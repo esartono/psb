@@ -44,7 +44,7 @@ class TagihanPSBController extends Controller
             ->first();
         $kelas = Kelasnya::whereId($request['kelas'])->first()->name;
 
-        if ($gel->nama !== 'TK') {
+        if ($gel->nama !== 'TK' || $gel->nama !== 'KB' || $gel->nama !== 'CCEC') {
             if ($kelas === '1' || $kelas === '7' || $kelas === '10') {
                 $kls = Kelasnya::where('unit_id', $gel->unit)->get();
                 $dp1 = $request['biaya1'];
@@ -97,7 +97,7 @@ class TagihanPSBController extends Controller
             }
         }
 
-        if ($gel->nama === 'TK') {
+        if ($gel->nama === 'TK' || $gel->nama === 'KB' || $gel->nama === 'CCEC') {
             TagihanPSB::updateOrCreate([
                 'gel_id' => $request['gel_id'],
                 'kelas' => $request['kelas'],
@@ -118,7 +118,8 @@ class TagihanPSBController extends Controller
 
     public function show($tgh)
     {
-        $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        // $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        $tp_now = taAktif();
         $cekTp = intval(substr($tp_now, 0, 4));
         if ($cekTp < 2024) {
             $tp = explode("/", $tp_now);
@@ -303,7 +304,7 @@ class TagihanPSBController extends Controller
             $totalTahunan = 0;
             $no = 1;
             $dauls = 0;
-            $spp_naik = [0, 0, 200000, 100000, 100000, 100000, 100000, 100000];
+            $spp_naik = [0, 0, 100000, 100000, 100000, 100000, 100000, 100000];
             $daul = [
                 'TK A' => 2000000,
                 'TK B' => 2000000,

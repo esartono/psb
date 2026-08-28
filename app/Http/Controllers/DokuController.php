@@ -42,6 +42,7 @@ class DokuController extends Controller
 
             $jd = JDoku::where('unit', 'like', '%' . $unit . '%')->get();
 
+            // dd($calon->toArray());
             $oke = array();
             $idsnya = -1;
 
@@ -52,6 +53,7 @@ class DokuController extends Controller
                     $file = $doku->file;
                 } else {
                     $ids = $idsnya;
+                    // $ids = 0;
                     $file = 'kosong';
                 }
                 $oke[] = [
@@ -61,6 +63,7 @@ class DokuController extends Controller
                 ];
             }
 
+            // dd($oke);
             return $oke;
         }
 

@@ -37,6 +37,7 @@
                     </ul>
                 </li>
                 <li>Masukan nominal pembayaran, <b>harus sesuai dengan jumlah tagihan</b></li>
+                <li>Pastikan menggunakan metode transfer online bukan menggunakan Bi Fast</li>
                 <li>Akan muncul konfirmasi transfer</li>
             </ol>
             <a href='biayatesPDF/{{ $calon->id }}' class="btn btn-primary mt-2 mb-5 text-white" target="_blank">Tata Cara Pembayaran</a>

@@ -27,6 +27,6 @@ class Rubrik extends Model
 
     public function instrumennya()
     {
-        return $this->belongsTo(Instrumen::class, 'id_instrumen');
+        return $this->belongsTo(InstrumenWawancara::class, 'id_instrumen');
     }
 }

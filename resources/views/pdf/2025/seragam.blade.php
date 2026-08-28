@@ -2,6 +2,8 @@
 
 @section('isi')
     <div class="hal1">
+        <br>
+        <br>
         <center>
             <b>Ketentuan dan Prosedur Pengambilan Seragam Calon Siswa Baru <br>
                 SEKOLAH ISLAM TERPADU NURUL FIKRI <br>
@@ -14,7 +16,7 @@
                 <li>Pengambilan seragam dilakukan di <b>SDIT-SMPIT Nurul Fikri</b> sesuai dengan jadwal yang ditentukan oleh panitia.</li>
                 <li>Pengambilan seragam dilaksanakan dengan teknis <b><i>Drive Thru</i>, tidak diperkenankan turun dari kendaraan</b></li>
                 <li>Pengambilan seragam dilaksanakan pada hari, tanggal dan jam yang sudah ditentukan.</li>
-                <li>Pengambilan seragam dijadwalkan <b>per sesi dengan durasi 30 menit, untuk 15 orang</b>.</li>
+                <li>Pengambilan seragam dijadwalkan <b>per sesi dengan durasi 30 menit, untuk 25 orang</b>.</li>
                 <li><b>Jadwal pengambilan</b> seragam dapat dilihat pada <b>Lembar Pengambilan Seragam</b>, yang dapat dicetak dari laman ppdb.nurulfikri.sch.id</li>
                 <li>Bagi ananda yang <b>belum menerima jadwal</b> pembagian seragam, akan dijadwalkan kemudian.</li>
                 <li>Informasi lebih lanjut tentang pembagian seragam silakan melalui pesan <i>whats app</i> ke nomor <b>+62 813-3533-0100</b>.</li>
@@ -110,9 +112,9 @@
         <p>Silahkan cetak formulir ini sebagai bukti dalam proses pengambilan seragam</p>
         <table class="ttd">
             <tr>
-                <td>Petugas Pemeriksa</td>
+                <td>Penerima</td>
                 <td width="30%"></td>
-                <td>Petugas Pembagian Seragam</td>
+                <td>Petugas</td>
             </tr>
             <tr>
                 <td>
@@ -121,7 +123,7 @@
                     <br>
                     <br>
                     <hr>
-                    Tanda tangan dan Stempel
+                    Nama dan Tanda tangan
                 </td>
                 <td width="30%"></td>
                 <td>
@@ -134,4 +136,17 @@
                 </td>
             </tr>
         </table>
+        </div>
+    </div>
+
+    @if($calonsnya->gelnya->unitnya->name == 'SMPIT Nurul Fikri' || $calonsnya->gelnya->unitnya->name == 'SMAIT Nurul Fikri')
+        <div class="page-break"></div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        @include('pdf.2025.chromebook')
+    @endif
 @endsection

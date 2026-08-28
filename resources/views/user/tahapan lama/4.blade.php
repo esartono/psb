@@ -23,7 +23,11 @@
                 <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
                 <li>Apabila sampai dengan batas waktu yang ditentukan belum melakukan pembayaran daftar ulang, maka siswa dianggap mengundurkan diri. </li>
                 <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:
-                    <center><h3 class="mt-3 red"><u><b>888 276 {{ $calon->uruts }} 0</b></u></h3>
+                    @if($calon->hasil['hasil']->va == '')
+                        <center><h3 class="mt-3 red"><u><b>888 276 {{ $calon->uruts }} 0</b></u></h3>
+                    @else
+                        <center><h3 class="mt-3 red"><u><b>888 876 {{ $calon->uruts }} 1</b></u></h3>
+                    @endif
                     <p><strong>atas nama: {{ $calon->name }}</strong></p></center>
                 </li>
             </ul>

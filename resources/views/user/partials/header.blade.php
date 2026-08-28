@@ -2,17 +2,18 @@
 <div class="header-top-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="logo-area">
                     <a href="/"><img style="max-width: 50px" src="/img/logo.png" alt="" /> PPDB SIT Nurul Fikri - Depok</a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                 <div class="logo-area mt-1 text-end">
                     <div class="btn-group me-3" role="group" aria-label="Button group with nested dropdown">
                         <a href="/" class="btn">Home</a>
                         <a href="/jadwal" target="_blank" class="btn">Jadwal</a>
                         <a href="/biaya" target="_blank" class="btn">Biaya Pendidikan</a>
+                        <a href="/syarat" target="_blank" class="btn">Syarat & Ketentuan</a>
                         <a href="/download" target="_blank" class="btn">Download</a>
                     </div>
                     <a class="btn btn-secondary text-white" href="{{ route('logout')}}" onclick="event.preventDefault();
@@ -48,6 +49,7 @@
                         @endisset
                     @endif
                     <a class="btn btn-primary text-white" href="/tambahcalon"><i class="fa-solid fa-user-plus"></i> Tambah Calon Siswa</a>
+                    {{-- <a class="btn btn-primary text-white" href=""><i class="fa-solid fa-user-plus"></i> COMING SOON</a> --}}
                 </div>
             </div>
         </div>

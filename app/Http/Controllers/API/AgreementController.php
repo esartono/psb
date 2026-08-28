@@ -54,7 +54,7 @@ class AgreementController extends Controller
      */
     public function update(Request $request)
     {
-        $agree = Agreement::findOrFail(1);
+        $agree = Agreement::findOrFail($request->id);
         $agree->update($request->all());
     }
 
@@ -66,7 +66,7 @@ class AgreementController extends Controller
      */
     public function destroy($id)
     {
-        $agree = Agreement::findOrFail(1);
+        $agree = Agreement::findOrFail($id);
         $agree->delete();
     }
 }

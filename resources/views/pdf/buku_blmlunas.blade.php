@@ -5,7 +5,7 @@
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
         <center><h1>MOHON MAAF, MOHON MENUNGGU JADWAL PEMBAGIAN MEDIA PEMBELAJARAN PADA BATCH BERIKUTNYA.</h1></center>
         <br>
-        Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran 2021/2022, untuk data peserta didik adalah sebagai berikut :
+        Penerimaan Peserta Didik Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran {{ Auth::user()->tpname }}, untuk data peserta didik adalah sebagai berikut :
         </div>
         <table class="biodata">
             <tr>

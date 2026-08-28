@@ -33,8 +33,8 @@
             }
 
             main {
-                margin-top: 3.25cm;
-                margin-bottom: 1.5cm;
+                margin-top: 2.75cm;
+                margin-bottom: 1.3cm;
                 /* font-size: 90% !important: */
             }
 

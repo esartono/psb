@@ -9,8 +9,8 @@
                     <div class="breadcomb-wp" style="padding: 0 !important; display: block !important">
                         <div class="breadcomb-ctn" style="margin: 0px !important">
                             {{-- <h5 class="mt-2">Umum</h5> --}}
-                            <h5 class="mt-2">Umum <br>
-                                <span style="font-size: smaller">Non Pegawai SIT Nurul Fikri</span>
+                            <h5 class="mt-2">Non Pegawai SIT Nurul Fikri
+                                {{-- <span style="font-size: smaller">Non Pegawai SIT Nurul Fikri</span> --}}
                             </h5>
                         </div>
                     </div>

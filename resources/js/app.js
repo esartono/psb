@@ -53,9 +53,36 @@ Vue.use(VueDatePicker)
 import tinymce from 'vue-tinymce-editor'
 Vue.component('tinymce', tinymce)
 
+Vue.component('grafikNya', require('./components/addOns/ChartComponent.vue'));
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js'
+import { Line } from 'vue-chartjs'  
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+)
+Vue.component('gLine', Line)
+
+import LoaderComponent from './components/addOns/LoaderComponent.vue';
+Vue.component('loader-componet', LoaderComponent)
+
 const newLocal = '/ppdb';
 let routes = [
     { path: '/dashboard', component: require('./components/Home.vue').default},
+    { path: '/statistik', component: require('./components/Statistik.vue').default},
     { path: '/siswa', component: require('./components/CPDSiswa.vue').default},
     { path: '/profile', component: require('./components/Profile.vue').default},
 
@@ -121,6 +148,11 @@ let routes = [
     { path: '/berkas', component: require('./components/cpd/Berkas.vue').default},
 
     /**
+     * Input ambil seragam, buku dan Chromebook
+     */
+    { path: '/ambil', component: require('./components/cpd/Ambil.vue').default},
+
+    /**
      * Data Waiting List
      */
     { path: '/waitingList', component: require('./components/cpd/Waiting.vue').default},
@@ -143,6 +175,7 @@ let routes = [
      */
     { path: '/wawancara/instrumen-wawancara', component: require('./components/tes_wawancara/Instrumen.vue').default},
     { path: '/wawancara/rubrik-wawancara', component: require('./components/tes_wawancara/Rubrik.vue').default},
+    { path: '/wawancara/aspek-perilaku', component: require('./components/tes_wawancara/AspekPerilaku.vue').default},
     { path: '/wawancara/pewawancara', component: require('./components/tes_wawancara/Pewawancara.vue').default},
     { path: '/wawancara/rekap', component: require('./components/tes_wawancara/OrtunSiswa.vue').default},
 
@@ -151,7 +184,8 @@ let routes = [
      */
     { path: '/tagihan', component: require('./components/cpd/CPDTagihan.vue').default},
     { path: '/bayartagihan', component: require('./components/cpd/CPDBayarTagihan.vue').default},
-    { path: '/bayarspps', component: require('./components/wawancara/BayarSPP.vue').default},
+    // { path: '/bayarspps', component: require('./components/wawancara/BayarSPP.vue').default},
+    { path: '/bayarspps', component: require('./components/cpd/CPDBayarSPP.vue').default},
 
     /**
      * Component untuk page yang blank

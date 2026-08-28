@@ -41,12 +41,14 @@ Route::apiResources([
     'tagihanpsbs' => 'API\TagihanPSBController',
     'calontagihanpsbs' => 'API\CalonTagihanPSBController',
     'bayartagihans' => 'API\BayarTagihanController',
+    'bayarspps' => 'API\BayarSppController',
     'spps' => 'API\SppController',
     'immersions' => 'API\ImmersionController',
     'diskons' => 'API\DiskonController',
     'pewawancaras' => 'API\PewawancaraController',
     'instrumens' => 'API\InstrumenWawancaraController',
     'rubriks' => 'API\RubrikController',
+    'aspekperilakus' => 'API\AspekPerilakuController',
     //'telegrams' => 'API\TelegramController',
 ]);
 
@@ -60,7 +62,11 @@ Route::middleware('auth:api')->get('jtagihaninvoce', 'API\TagihanPSBController@j
 Route::middleware('auth:api')->get('simmsit', 'API\TagihanPSBController@simmsit');
 Route::middleware('auth:api')->get('calonimpruf', 'API\CalonTagihanPSBController@impruf');
 Route::middleware('auth:api')->get('gelImpruf', 'API\GelombangController@impruf');
+Route::middleware('auth:api')->get('ambil', 'API\CalonTagihanController@ambil');
+Route::middleware('auth:api')->get('cekambil/{id}', 'API\CalonTagihanController@cekambil');
+Route::middleware('auth:api')->post('ambil', 'API\CalonTagihanController@inputambil');
 
+Route::get('unit_wawancara', 'API\UnitController@unitWawancara');
 Route::post('mundur', 'API\CalonHasilController@mundur');
 Route::post('rpass/{id}', 'API\UserController@resetPassword');
 Route::post('gpass/{id}', 'API\UserController@gantiPassword');

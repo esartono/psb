@@ -28,7 +28,8 @@ class WawancaraController extends Controller
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
-        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        // $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        $this->tp_berjalan = taAktif();
     }
 
     public function wawancaraKeuangan()
@@ -763,12 +764,11 @@ class WawancaraController extends Controller
             $diskonpegawai2 = 0;
             $diskonpegawai3 = 0;
 
-            if ($ctg->keterangan === 'Diskon anak PEGAWAI TETAP' || $ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
+            if ($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
                 // $diskonpegawai = $biaya1['SPP bulan Juli'] * ($ctg->potongan / 100);
                 // $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'] - $diskonpegawai;
                 // $biaya1['SPP bulan Juli'] = $biaya1['SPP bulan Juli'];
                 // $totalpegawai = $biaya1['Dana Pengembangan'];
-
                 if ($ctg->keterangan != 'Diskon anak PEGAWAI KONTRAK') {
                     $diskonpegawai2 = $biaya1['Dana Pengembangan'] * ($ctg->potongan / 100);
                     $biaya1['Dana Pengembangan'] = $biaya1['Dana Pengembangan'] - $diskonpegawai2;
@@ -780,13 +780,16 @@ class WawancaraController extends Controller
                 $total1 = $total1 - $diskonpegawai - $diskonpegawai2 - $diskonpegawai3;
             }
 
-            // dd($biaya1);
-
             $kls = Kelasnya::where('id', $calon->kelas_tujuan)->first();
             $kelass = Kelasnya::where('unit_id', $kls->unit_id)->where('id', '>=', $kls->id)->get();
 
             $spp_naik = [0, 0, 100000, 100000, 100000, 100000, 100000, 100000];
+            // $spp_naik_pindahan = [0, 0, 100000, 100000, 100000, 100000, 100000, 100000];
             $spp_naik_pindahan = [0, 0, 100000, 100000, 100000, 100000, 100000, 100000];
+            if ($calon->tahun_sekarang == 1 && $tp_awal == 2025) {
+                $spp_naik_pindahan = [0, 0, 200000, 150000, 100000, 100000, 100000, 100000];
+            }
+
             // $spp_naik1 = 100000;
             // $spp_naik2 = 200000;
 
@@ -832,7 +835,7 @@ class WawancaraController extends Controller
 
                 if ($calon->rencana_masuk <= 6) {
                     $bulan = 'SPP ' . $bln[($calon->rencana_masuk)] . ' s/d SPP Juni ' . ($tp_akhir + $no - 2);
-                    $hitungbln = 6 - $calon->rencana_masuk;
+                    $hitungbln = 7 - $calon->rencana_masuk;
                     $khusus = 1;
                 }
             }
@@ -898,16 +901,131 @@ class WawancaraController extends Controller
                             2 => 2000000
                         ]
                     ],
-                ]
+                ],
+                '2026' => [
+                    'TK' => [
+                        'nama' => '-',
+                        'langsung' => 0,
+                        'tahunan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ],
+                        'bulanan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ]
+                    ],
+                    'SD' => [
+                        'nama' => '-',
+                        'langsung' => 0,
+                        'tahunan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ],
+                        'bulanan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ]
+                    ],
+                    'SMP' => [
+                        'nama' => 'Program Umroh plus Quran Character Camp (QCC)',
+                        'langsung' => 42500000,
+                        'tahunan' => [
+                            1 => 15000000,
+                            2 => 15000000,
+                            3 => 12500000
+                        ],
+                        'bulanan' => [
+                            1 => 1250000,
+                            2 => 1250000,
+                            3 => 2085000
+                        ]
+                    ],
+                    'SMA' => [
+                        'nama' => 'Immersion Program Nurul Fikri',
+                        'langsung' => 31000000,
+                        'tahunan' => [
+                            1 => 24000000,
+                            2 => 7000000
+                        ],
+                        'bulanan' => [
+                            1 => 2000000,
+                            2 => 2335000
+                        ]
+                    ],
+                ],
+                '2027' => [
+                    'TK' => [
+                        'nama' => '-',
+                        'langsung' => 0,
+                        'tahunan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ],
+                        'bulanan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ]
+                    ],
+                    'SD' => [
+                        'nama' => '-',
+                        'langsung' => 0,
+                        'tahunan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ],
+                        'bulanan' => [
+                            1 => 0,
+                            2 => 0,
+                            3 => 0
+                        ]
+                    ],
+                    'SMP' => [
+                        'nama' => 'Program Umroh plus Quran Character Camp (QCC)',
+                        'langsung' => 48000000,
+                        'tahunan' => [
+                            1 => 19000000,
+                            2 => 19000000,
+                            3 => 10000000
+                        ],
+                        'bulanan' => [
+                            1 => 1600000,
+                            2 => 1600000,
+                            3 => 2000000
+                        ]
+                    ],
+                    'SMA' => [
+                        'nama' => 'Immersion Program Nurul Fikri',
+                        'langsung' => 38000000,
+                        'tahunan' => [
+                            1 => 28000000,
+                            2 => 10000000
+                        ],
+                        'bulanan' => [
+                            1 => 2400000,
+                            2 => 2400000
+                        ]
+                    ],
+                ],
             ];
 
-            $biayaProgramNF = $biayaProgram['2025'][$unitd]['langsung'];
-            $ketProgramNF = $biayaProgram['2025'][$unitd]['nama'];
-            $programNF = [
-                'langsung' => $biayaProgram['2025'][$unitd]['langsung'],
-                'tahunan' => $biayaProgram['2025'][$unitd]['tahunan'],
-                'bulanan' => $biayaProgram['2025'][$unitd]['bulanan']
-            ];
+            $thimpruf = ['2025', '2026', '2027'];
+            foreach ($thimpruf as $t) {
+                $biayaProgramNF = $biayaProgram[$t][$unitd]['langsung'];
+                $ketProgramNF = $biayaProgram[$t][$unitd]['nama'];
+                $programNF = [
+                    'langsung' => $biayaProgram[$t][$unitd]['langsung'],
+                    'tahunan' => $biayaProgram[$t][$unitd]['tahunan'],
+                    'bulanan' => $biayaProgram[$t][$unitd]['bulanan']
+                ];
+            }
 
             if (!empty($ctg->lain)) {
                 $skema = $ctg->lain['program'];
@@ -941,8 +1059,9 @@ class WawancaraController extends Controller
                 if ($no > 1) {
                     $sppfull = $sppfull + $spp_naik[$no];
                     $sppnya = $sppfull;
-                    // if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
-                    if ($calon->pindahan == 1) {
+
+                    if ($calon->pindahan == 1 && $calon->rencana_masuk != 7) {
+                        // if ($calon->pindahan == 1) {
                         $sppnya = $biayas->spppindahan + ($spp_naik_pindahan[$no] * ($no - 1));
                     }
                     if ($ctg->keterangan === 'Diskon anak PEGAWAI KONTRAK') {
@@ -997,103 +1116,109 @@ class WawancaraController extends Controller
 
             $cjadwal = CalonJadwal::where('calon_id', $ctg->calon_id)->first();
             if ($cjadwal) {
-                $pengumuman = Jadwal::whereId($cjadwal->jadwal_id)->first()->pengumuman->addDays(30);
-            } else {
-                $pengumuman = $ctg->created_at->addDays(5);
+                if ($cjadwal->jadwal_id == 0) {
+                    $pengumumannya = $ctg->created_at->addDays(5);
+                } else {
+                    $pengumumannya = Jadwal::whereId($cjadwal->jadwal_id)->first()->pengumuman->addDays(30);
+                }
             }
 
             $bataskolom = new \DateTime($ctg->created_at->toDateString());
             $diskon = array();
             $kontrak = false;
+            $tahunAwal = $tp_awal - 1;
+            $tahunAkhir = $tp_awal;
 
-            $tgl = new \DateTime('2025-6-31 00:00:00');
+            $tgl = new \DateTime($tahunAkhir . '-07-10 00:00:00');
             if ($tgl > $bataskolom) {
                 $diskon = [
                     2 => [
                         'no' => 1,
-                        'tgl' => new \DateTime('2025-1-1 00:00:00'),
-                        'tanggal' => "",
-                        'diskon' => $diskonUnit[0][$unitd]
+                        'tgl' => new \DateTime($tahunAkhir . '-1-1 00:00:00'),
+                        'tanggal' => formatIndo($ctg->created_at->addDays(5)->format('d-m-Y')),
+                        'diskon' => 0
                     ]
                 ];
             }
 
-            $tgl = new \DateTime('2025-1-1 00:00:00');
+            $tgl = new \DateTime($tahunAkhir . '-01-01 00:00:00');
             if ($tgl > $bataskolom) {
                 $kontrak = true;
                 $diskon = array();
                 $diskon = [
-                    1 => [
+                    2 => [
                         'no' => 1,
-                        'tgl' => new \DateTime('2025-1-1 00:00:00'),
-                        'tanggal' => "31 Desember 2024",
+                        'tgl' => new \DateTime($tahunAkhir . '-1-1 00:00:00'),
+                        'tanggal' => "31 Desember " . $tahunAwal,
                         'diskon' => $diskonUnit[3][$unitd]
                     ],
-                    2 => [
+                    3 => [
                         'no' => 2,
-                        'tgl' => new \DateTime('2025-1-1 00:00:00'),
+                        'tgl' => new \DateTime($tahunAkhir . '-1-1 00:00:00'),
                         'tanggal' => "",
                         'diskon' => $diskonUnit[0][$unitd]
                     ]
                 ];
             }
 
-            $tgl = new \DateTime('2024-12-1 00:00:00');
+            $tgl = new \DateTime($tahunAwal . '-12-01 00:00:00');
             if ($tgl > $bataskolom) {
                 $kontrak = true;
                 $diskon = array();
                 $diskon = [
                     1 => [
                         'no' => 1,
-                        'tgl' => new \DateTime('2024-12-1 00:00:00'),
-                        'tanggal' => "30 November 2024",
+                        'tgl' => new \DateTime($tahunAwal . '-12-1 00:00:00'),
+                        'tanggal' => "30 November " . $tahunAwal,
                         'diskon' => $diskonUnit[2][$unitd]
                     ],
                     2 => [
                         'no' => 2,
-                        'tgl' => new \DateTime('2025-1-1 00:00:00'),
-                        'tanggal' => "31 Desember 2024",
+                        'tgl' => new \DateTime($tahunAkhir  . '-1-1 00:00:00'),
+                        'tanggal' => "31 Desember " . $tahunAwal,
                         'diskon' => $diskonUnit[3][$unitd]
                     ]
                 ];
             }
 
-            $tgl = new \DateTime('2024-11-1 00:00:00');
+            $tgl = new \DateTime($tahunAwal . '-11-01 00:00:00');
             if ($tgl > $bataskolom) {
                 $kontrak = true;
                 $diskon = array();
                 $diskon = [
                     1 => [
                         'no' => 1,
-                        'tgl' => new \DateTime('2024-11-1 00:00:00'),
-                        'tanggal' => "31 Oktober 2024",
+                        'tgl' => new \DateTime($tahunAwal . '-11-1 00:00:00'),
+                        'tanggal' => "31 Oktober " . $tahunAwal,
                         'diskon' => $diskonUnit[1][$unitd]
                     ],
                     2 => [
                         'no' => 2,
-                        'tgl' => new \DateTime('2024-12-1 00:00:00'),
-                        'tanggal' => "30 November 2024",
+                        'tgl' => new \DateTime($tahunAwal . '-12-1 00:00:00'),
+                        'tanggal' => "30 November " . $tahunAwal,
                         'diskon' => $diskonUnit[2][$unitd]
                     ],
                     3 => [
                         'no' => 3,
-                        'tgl' => new \DateTime('2025-1-1 00:00:00'),
-                        'tanggal' => "31 Desember 2024",
+                        'tgl' => new \DateTime($tahunAkhir . '-1-1 00:00:00'),
+                        'tanggal' => "31 Desember " . $tahunAwal,
                         'diskon' => $diskonUnit[3][$unitd]
                     ]
                 ];
             }
 
-            if ($pengumuman < $diskon[1]['tgl']) {
-                $diskon = array();
-                $diskon = [
-                    1 => [
-                        'no' => 1,
-                        'tgl' => new \DateTime('2024-11-1 00:00:00'),
-                        'tanggal' => formatIndo($pengumuman),
-                        'diskon' => $diskonUnit[1][$unitd]
-                    ]
-                ];
+            if (array_key_exists(1, $diskon)) {
+                if ($pengumumannya < $diskon[1]['tgl']) {
+                    $diskon = array();
+                    $diskon = [
+                        1 => [
+                            'no' => 1,
+                            'tgl' => new \DateTime($tahunAwal . '-11-01 00:00:00'),
+                            'tanggal' => formatIndo($pengumumannya),
+                            'diskon' => $diskonUnit[1][$unitd]
+                        ]
+                    ];
+                }
             }
 
             // $cekdiskon[1] = $diskon[1]['diskon'];
@@ -1118,6 +1243,8 @@ class WawancaraController extends Controller
                     $batas = 2;
                 }
             }
+
+            $pengumuman = formatIndo($pengumumannya);
 
             $agreement = Agreement::orderBy('id', 'asc')->get();
             if ($ctg->khusus == 1) {

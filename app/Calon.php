@@ -93,8 +93,11 @@ class Calon extends Model
         'lengkapdata',
         'masuk',
         'inggris',
+        'vanya'
         // 'bayarspp'
     ];
+
+    public function getVanyaAttribute() {}
 
     public function getTahapAttribute()
     {
@@ -137,8 +140,12 @@ class Calon extends Model
                                 $tahap = 9;
                             }
                         }
-                        $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
-                        if ($ambilBuku) {
+                        // $ambilBuku = AmbilBuku::where('pendaftaran', $daftar)->where('siap', 'SIAP')->first();
+                        // if ($ambilBuku) {
+                        //     $tahap = 9;
+                        // }
+                        $lunasSPP = BayarSpp::where('calon_id', $this->attributes['id'])->where('lunas', 1)->where('verifikasi', 1)->first();
+                        if ($lunasSPP) {
                             $tahap = 9;
                         }
                     }
@@ -147,9 +154,15 @@ class Calon extends Model
         }
 
         // Script saat ujicoba Wawancara keuangan
-        if ($tahap >= 3) {
-            return 3;
-        }
+        // if ($tahap >= 3) {
+        //     return 3;
+        // }
+
+        // Cek form input rapot
+        // if ($this->attributes['id'] == 5732) {
+        //     return 3;
+        // }
+
         return $tahap;
     }
 
@@ -173,6 +186,10 @@ class Calon extends Model
             $tpnya = $tp;
         } else {
             $tpnya = $tp - 1;
+        }
+
+        if ($this->attributes['tahun_sekarang'] == 1) {
+            $tpnya = $tp;
         }
         return $bulan[$this->attributes['rencana_masuk']] . ' ' . $tpnya;
     }
@@ -338,6 +355,11 @@ class Calon extends Model
                     ->where('khusus', 'LIKE', '%' . $ck . '%')
                     ->pluck('code');
                 $itungdataygharus = $jlhdoku->count();
+
+                // Khusus screening Awal perkembangan tubuh Calon Siswa diisi ortu SD
+                if ($cekunitnya === 'SD') {
+                    $itungdataygharus = $itungdataygharus - 1;
+                }
             }
         }
 

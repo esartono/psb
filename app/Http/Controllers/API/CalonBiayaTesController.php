@@ -61,7 +61,7 @@ class CalonBiayaTesController extends Controller
     public function update(Request $request, $id)
     {
         $start = date("Y-m-d");
-        $end = date("Y-m-d", strtotime("+3 days"));
+        $end = date("Y-m-d", strtotime("+1 days"));
 
         $biayates = CalonBiayaTes::with('calonnya', 'biayanya')->where('calon_id', $id)->first();
         $biayates->update(

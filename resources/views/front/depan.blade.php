@@ -9,7 +9,8 @@
 	  display: flex;
 	  flex-direction: row;
 	  justify-content: flex-start;
-	  color: var(--primary);
+	  /* color: var(--primary); */
+	  color: white;
 	}
 
 	@media only screen and (max-width: 1024px) {
@@ -102,48 +103,6 @@
   </style>
 @endpush
 @section('isi')
-<div class="container-xxl py-5">
-	<div class="container px-lg-5">
-		<div class="row g-5 align-items-center">
-			<div class="col-lg-7 wow fadeInUp" data-wow-delay="0.1s">
-				<div class="section-title position-relative mb-4 pb-4">
-					<h2 class="mb-2">{{ __('Welcome') }}</h2>
-					<h5 class="mb-2">{{ __('unit') }}</h5>
-				</div>
-				<p class="mb-4">{{ __('Vision') }}</p>
-				<div class="row g-3">
-					<div class="col-sm-12 wow fadeIn" data-wow-delay="0.1s">
-						<div class="bg-light rounded text-center p-4">
-							{{-- <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
-							<h2 class="mb-1" data-toggle="counter-up">1234</h2>
-							<p class="mb-0">Experts</p> --}}
-							{{-- @include('partials.countdown') --}}
-							<p>New Student Admission for the 2025/2026 Academic Year open in<br> 1th of September 2024 at 07.00 WIB</p>
-						</div>
-					</div>
-					{{-- <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
-						<div class="bg-light rounded text-center p-4">
-							<i class="fa fa-users fa-2x text-primary mb-2"></i>
-							<h2 class="mb-1" data-toggle="counter-up">1234</h2>
-							<p class="mb-0">Clients</p>
-						</div>
-					</div>
-					<div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
-						<div class="bg-light rounded text-center p-4">
-							<i class="fa fa-check fa-2x text-primary mb-2"></i>
-							<h2 class="mb-1" data-toggle="counter-up">1234</h2>
-							<p class="mb-0">Projects</p>
-						</div>
-					</div> --}}
-				</div>
-			</div>
-			<div class="col-lg-5">
-				<img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="/img/Kartun SDIT NF.png">
-				{{-- <img class="img-fluid wow zoomIn" data-wow-delay="0.5s" src="https://www.shutterstock.com/image-vector/cartoon-happy-muslim-arabian-kids-600nw-1919177957.jpg"> --}}
-			</div>
-		</div>
-	</div>
-</div>
 
 <!-- Pricing Start -->
 <div class="container-xxl py-5">
@@ -152,19 +111,39 @@
 			<h1 class="mb-3">{{ __('Academic Programs') }}</h1>
 			<p class="mb-1">{{ __('Kurikulum') }}</p>
 		</div>
-		<div class="row gy-5 gx-4">
+		<div class="row gy-5 gx-4 justify-content-center">
+			<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+				<div class="position-relative shadow rounded border-top border-5 border-kb">
+					<div class="d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle bg-kb rounded-circle" style="width: 45px; height: 45px; margin-top: -3px;">
+						<i class="fa-solid fa-school text-white"></i>
+					</div>
+					<div class="text-center border-bottom p-4 pt-5">
+						<h4 class="fw-bold color-kb">Children Care and Education Center (CCEC)</h4>
+						<p class="mb-0">Jalan Haji Rijin No. 100</p>
+						<p class="mb-0">Tugu, Cimanggis, Depok</p>
+						<p class="mb-2">Jawa Barat</p>
+					</div>
+					<div class="p-3">
+						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-kb me-3"></i><a href="#" class="color-kb">021-870 8919</a></p>
+						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-kb me-3"></i><a class="color-kb" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=ccec@nurulfikri.sch.id" target="_blank">ccec@nurulfikri.sch.id</a></p>
+						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-kb me-3"></i><a class="color-kb" href="https://www.instagram.com/ccecnf" target="_blank">@ccecnf_</a></p>
+						<p class="mb-0"><i class="fa-solid fa-globe color-kb me-3"></i><a class="color-kb" href="https://tkit.nurulfikri.sch.id" target="_blank">tkit.nurulfikri.sch.id</a></p>
+					</div>
+				</div>
+			</div>
 			<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
 				<div class="position-relative shadow rounded border-top border-5 border-tk">
 					<div class="d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle bg-tk rounded-circle" style="width: 45px; height: 45px; margin-top: -3px;">
 						<i class="fa-solid fa-school text-white"></i>
 					</div>
 					<div class="text-center border-bottom p-4 pt-5">
-						<h4 class="fw-bold color-tk">{{ __('Kindergarten') }}</h4>
+						<h4 class="fw-bold color-tk"><br>{{ __('Kindergarten') }}</h4>
+						<br>
 						<p class="mb-0">Jalan Haji Rijin No. 100</p>
 						<p class="mb-0">Tugu, Cimanggis, Depok</p>
 						<p class="mb-2">Jawa Barat</p>
 					</div>
-					<div class="p-4">
+					<div class="p-3">
 						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-tk me-3"></i><a href="#" class="color-tk">021-870 8919</a></p>
 						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-tk me-3"></i><a class="color-tk" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=tkit@nurulfikri.sch.id" target="_blank">tkit@nurulfikri.sch.id</a></p>
 						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-tk me-3"></i><a class="color-tk" href="https://www.instagram.com/tkitnf_" target="_blank">@tkitnf_</a></p>
@@ -178,12 +157,13 @@
 						<i class="fa-solid fa-school text-white"></i>
 					</div>
 					<div class="text-center border-bottom p-4 pt-5">
-						<h4 class="fw-bold color-sd">{{ __('Elementary') }}</h4>
+						<h4 class="fw-bold color-sd"><br>{{ __('Elementary') }}</h4>
+						<br>
 						<p class="mb-0">Jalan Tugu Raya No. 61</p>
 						<p class="mb-0">Tugu, Cimanggis, Depok</p>
 						<p class="mb-2">Jawa Barat</p>
 					</div>
-					<div class="p-4">
+					<div class="p-3">
 						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-sd me-3"></i><a class="color-sd" href="#">021-872 0647</a></p>
 						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-sd me-3"></i><a class="color-sd" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=sdit@nurulfikri.sch.id" target="_blank">sdit@nurulfikri.sch.id</a></p>
 						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-sd me-3"></i><a class="color-sd" href="https://www.instagram.com/sditnf_" target="_blank">@sditnf_</a></p>
@@ -191,18 +171,21 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="row gy-5 gx-4 justify-content-center mt-4">
 			<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
 				<div class="position-relative shadow rounded border-top border-5 border-smp">
 					<div class="d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle bg-smp rounded-circle" style="width: 45px; height: 45px; margin-top: -3px;">
 						<i class="fa-solid fa-school text-white"></i>
 					</div>
 					<div class="text-center border-bottom p-4 pt-5">
-						<h4 class="fw-bold color-smp">{{ __('Middle School') }}</h4>
+						<h4 class="fw-bold color-smp"><br>{{ __('Middle School') }}</h4>
+						<br>
 						<p class="mb-0">Jalan Tugu Raya No. 61</p>
 						<p class="mb-0">Tugu, Cimanggis, Depok</p>
 						<p class="mb-2">Jawa Barat</p>
 					</div>
-					<div class="p-4">
+					<div class="p-3">
 						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-smp me-3"></i><a class="color-smp" href="#">021-872 0646</a></p>
 						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-smp me-3"></i><a class="color-smp" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=smpit@nurulfikri.sch.id" target="_blank">smpit@nurulfikri.sch.id</a></p>
 						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-smp me-3"></i><a class="color-smp" href="https://www.instagram.com/smpitnf" target="_blank">@smpitnf</a></p>
@@ -216,12 +199,13 @@
 						<i class="fa-solid fa-school text-white"></i>
 					</div>
 					<div class="text-center border-bottom p-4 pt-5">
-						<h4 class="fw-bold color-sma">{{ __('High School') }}</h4>
+						<h4 class="fw-bold color-sma"><br>{{ __('High School') }}</h4>
+						<br>
 						<p class="mb-0">Jalan H. Sairi No. 145</p>
 						<p class="mb-0">Tugu, Cimanggis, Depok</p>
 						<p class="mb-2">Jawa Barat</p>
 					</div>
-					<div class="p-4">
+					<div class="p-3">
 						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-sma me-3"></i><a class="color-sma" href="#">021-872 2070</a></p>
 						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-sma me-3"></i><a class="color-sma" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=smait@nurulfikri.sch.id" target="_blank">smait@nurulfikri.sch.id</a></p>
 						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-sma me-3"></i><a class="color-sma" href="https://www.instagram.com/smaitnf" target="_blank">@smaitnf</a></p>
@@ -229,11 +213,28 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+				<div class="position-relative shadow rounded border-top border-5 border-smp">
+					<div class="d-flex align-items-center justify-content-center position-absolute top-0 start-50 translate-middle bg-smp rounded-circle" style="width: 45px; height: 45px; margin-top: -3px;">
+						<i class="fa-solid fa-school text-white"></i>
+					</div>
+					<div class="text-center border-bottom p-4 pt-5">
+						<h4 class="fw-bold color-smp">Nurul Fikri Boarding School - BOGOR</h4>
+						<p class="mb-0">Jalan Jami, Sukaluyu</p>
+						<p class="mb-0">Tamansari, Bogor</p>
+						<p class="mb-2">Jawa Barat</p>
+					</div>
+					<div class="p-2">
+						<p class="border-bottom pb-3"><i class="fa-solid fa-phone color-smp me-3"></i><a class="color-smp" href="#">+62 857 7979 8040</a></p>
+						<p class="border-bottom pb-3"><i class="fa-solid fa-envelope color-smp me-3"></i><a class="color-smp" href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=humas.nfbsbogor@gmail.com" target="_blank">humas.nfbsbogor@gmail.com</a></p>
+						<p class="border-bottom pb-3"><i class="fa-brands fa-instagram color-smp me-3"></i><a class="color-smp" href="https://www.instagram.com/nfbsbogorofficial/" target="_blank">@nfbsbogorofficial</a></p>
+						<p class="mb-0"><i class="fa-solid fa-globe color-smp me-3"></i><a class="color-smp" href="https://nfbs-bogor.sch.id" target="_blank">nfbs-bogor.sch.id</a></p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-<!-- Pricing End -->
-
 <!-- Testimonial Start -->
 {{-- <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
 	<div class="container px-lg-5">
@@ -294,41 +295,55 @@
 	</div>
 </div> --}}
 <!-- Testimonial End -->
-
+{{-- <div class="modal modal-lg fade" id="modalTutupUnit" role="dialog" arialabelledby="modalLabel" area-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+				<img src="img/smaTutup.jpeg" width="auto" height="450px" alt="...">
+				<img src="img/smpTutup.jpeg" width="auto" height="450px" alt="...">
+            </div>
+        </div>
+    </div>
+</div> --}}
 @endsection
 
 @push('java')
 <script>
-	function getCounter() {
-		var countDownDate = new Date("Sep 1, 2024 07:00:00").getTime();
+	// var myModal = new bootstrap.Modal(document.getElementById("modalTutupUnit"), {});
+	// document.onreadystatechange = function () {
+	// 	myModal.show();
+	// };
 
-		var x = setInterval(function () {
-			var now = new Date().getTime();
+	// function getCounter() {
+	// 	var countDownDate = new Date("Aug 10, 2025 08:00:00").getTime();
 
-			var distance = countDownDate - now;
+	// 	var x = setInterval(function () {
+	// 		var now = new Date().getTime();
 
-			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			var hours = Math.floor(
-			(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-			);
-			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	// 		var distance = countDownDate - now;
 
-			var textDays = document.getElementById("days");
-			var textHours = document.getElementById("hours");
-			var textMinutes = document.getElementById("minutes");
-			var textSeconds = document.getElementById("seconds");
+	// 		var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	// 		var hours = Math.floor(
+	// 		(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+	// 		);
+	// 		var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	// 		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-			textDays.innerHTML = days < 10 ? "0" + days : days;
-			textHours.innerHTML = hours < 10 ? "0" + hours : hours;
-			textMinutes.innerHTML = minutes < 10 ? "0" + minutes : minutes;
-			textSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+	// 		var textDays = document.getElementById("days");
+	// 		var textHours = document.getElementById("hours");
+	// 		var textMinutes = document.getElementById("minutes");
+	// 		var textSeconds = document.getElementById("seconds");
 
-			if (distance < 0) {
-			clearInterval(x);
-			}
-		}, 1000);
-	}
-	getCounter();
+	// 		textDays.innerHTML = days < 10 ? "0" + days : days;
+	// 		textHours.innerHTML = hours < 10 ? "0" + hours : hours;
+	// 		textMinutes.innerHTML = minutes < 10 ? "0" + minutes : minutes;
+	// 		textSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+	// 		if (distance < 0) {
+	// 		clearInterval(x);
+	// 		}
+	// 	}, 1000);
+	// }
+	// getCounter();
 </script>
 @endpush

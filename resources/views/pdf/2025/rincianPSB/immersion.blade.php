@@ -22,7 +22,7 @@
 
     {{-- Lampiran 3 --}}
     <center>
-        <h3 style="margin: 5px">FORM KESEDIAAN MENGIKUTI</h3>
+        <h3 style="margin: 5px">FORMULIR TABUNGAN</h3>
         <h3 style="margin: 5px">IMMERSION PROGRAM NURUL FIKRI (IMPRUF)</h3>
     </center>
     <table align="center" width="100%" style="margin-top: 30px">
@@ -112,13 +112,13 @@
                 <td><img src="img/box.png" style="width: 25px; height: auto"></td>
             @endif    
         </td>
-        <td> Bersedia mengikuti, dengan skema pembayaran sebagai berikut :</td>
+        <td> Bersedia mengikuti, dengan skema tabungan sebagai berikut :</td>
     </tr>
 </table>
 <br>
-    <h4 style="margin: 15px 0px">Rencana Pembiayaan {{ $ketProgramNF }}</h4>
+    <h4 style="margin: 15px 0px">Rencana Tabungan {{ $ketProgramNF }}</h4>
     <ol>
-        <li>Untuk pembayaran setiap bulan digabungkan dengan pembayaran SPP (SPP + {{ $ketProgramNF }}).</li>
+        <li>Digabungkan dengan pembayaran SPP (SPP + {{ $ketProgramNF }}).</li>
         <li>Bagian keuangan akan mengingatkan proses pembayaran program ini setiap bulannya.</li>
         <li>Tabel pembiayaan {{ $ketProgramNF }}
             <table class="rincian">
@@ -151,7 +151,7 @@
             </table>
         </li>
         <div class="page-break"></div>
-        <li>Orang tua menetapkan model pilihan pembiayaan {{ $ketProgramNF }}
+        <li>Orang tua menetapkan model pilihan tabungan {{ $ketProgramNF }}
             <table width="100%" style="margin-top: 20px;">
                 <tr>
                     @if($ctg->lain['program'] == 'tahunan')

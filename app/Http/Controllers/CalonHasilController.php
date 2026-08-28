@@ -9,6 +9,8 @@ use App\Exports\Statistik;
 use App\Exports\Terima;
 use App\Exports\Raw;
 use App\Exports\RawTerima;
+use App\Exports\CpdExportImpruf;
+use App\Exports\CpdExportRapot;
 
 class CalonHasilController extends Controller
 {
@@ -30,6 +32,15 @@ class CalonHasilController extends Controller
             if ($id === 'terima') {
                 return Excel::download(new Terima($id), 'Statistik-' . $id . '.xlsx');
             }
+
+            if ($id === 'impruf') {
+                return Excel::download(new CpdExportImpruf, 'Data Impruf Diterima - ' . substr(auth()->user()->tpname, 0, 4) . '.xlsx');
+            }
+
+            if ($id === 'rapot') {
+                return Excel::download(new CpdExportRapot, 'Data Nilai Rapot Siswa Diterima - ' . substr(auth()->user()->tpname, 0, 4) . '.xlsx');
+            }
         }
+        return 'Belum Ada';
     }
 }

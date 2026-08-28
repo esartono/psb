@@ -103,7 +103,7 @@
                             @include('wawancara.'.substr($tp,0,4).'.ketentuan')
                             @if((int)substr($tp,0,4) > 2024)
                             <ol class="roman" start="4">
-                                <li>Pembiayaan Program Immersion</li>
+                                <li>Tabungan Program Immersion</li>
                                 @include('wawancara.'.substr($tp,0,4).'.program')
                             </ol>
                             @endif

@@ -40,7 +40,7 @@ class TahunPelajaranController extends Controller
 
     public function index()
     {
-        return TahunPelajaran::orderBy('name', 'asc')->get()->toArray();
+        return TahunPelajaran::orderBy('name', 'desc')->get()->toArray();
     }
 
     public function store(Request $request)

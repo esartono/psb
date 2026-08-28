@@ -1,6 +1,11 @@
 @extends('layouts.login')
 
 @section('content')
+<a href="/wawancara" class="btn btn-warning btn-block sign-in" style="margin-top: 1em; color: green">
+    <img src="/img/favicon.ico">
+    LOGIN PEWAWANCARA
+</a>
+<hr>
 <p class="login-box-msg" style="color: red">
     <span><i class="fas fa-shield-alt fa-5x"></i></span><br>
     Khusus PANITIA<br>

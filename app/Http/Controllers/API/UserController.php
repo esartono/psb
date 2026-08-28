@@ -34,8 +34,8 @@ class UserController extends Controller
     public function index()
     {
         $user = User::orderBy('name', 'asc')
-                ->where('level', 2)
-                ->get();
+            ->where('level', 2)
+            ->get();
 
         return compact('user');
     }
@@ -46,7 +46,6 @@ class UserController extends Controller
         return User::orderBy('name', 'asc')
             ->where('level', '!=', 2)
             ->get()->toArray();
-
     }
 
     /**
@@ -109,7 +108,7 @@ class UserController extends Controller
     public function dataUser()
     {
         $users = User::selectRaw('id as id, name as label')
-                ->get();
+            ->get();
 
         return $users;
     }
@@ -131,7 +130,7 @@ class UserController extends Controller
 
     public function gantiPassword($pass)
     {
-        $user = User::where('id', auth('api')->user()->id);
+        $user = User::where('id', auth('api')->user()->id)->first();
         $user->update([
             'password' => Hash::make($pass),
         ]);
@@ -141,5 +140,4 @@ class UserController extends Controller
     {
         return Excel::download(new UserExport, 'users.xlsx');
     }
-
 }

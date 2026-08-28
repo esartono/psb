@@ -49,7 +49,9 @@ class SiswaBaruExport implements FromView
                     'urut',
                     DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
                     'calon_tagihan_p_s_b_s.lunas as lunas',
-                    'calons.alamat'
+                    'calons.alamat',
+                    'calons.asal_sekolah',
+                    'calons.asal_alamat_sekolah',
                 )
                 ->leftJoin('calon_kategoris', 'calons.ck_id', '=', 'calon_kategoris.id')
                 ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')

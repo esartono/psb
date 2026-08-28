@@ -106,7 +106,7 @@
                                             <div class="inputText required">Pilih Tahun Ajaran</div>
                                             <select name="ta" class="input" required>
                                                 <option selected disabled style="color: red">Pilih Tahun Ajaran</option>
-                                                @for ($i = 0; $i < 4; $i++)
+                                                @for ($i = 0; $i < 3; $i++)
                                                     <option value="{{ $patokan+$i }}">{{ $patokan+$i }}/{{ $patokan+1+$i }}</option>
                                                 @endfor
                                             </select>

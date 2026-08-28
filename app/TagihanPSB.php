@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class TagihanPSB extends Model
 {
     protected $fillable = [
-        'gel_id', 'kelas', 'kelamin', 'biaya1', 'biaya2', 'biaya3'
+        'gel_id',
+        'kelas',
+        'kelamin',
+        'biaya1',
+        'biaya2',
+        'biaya3'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     protected $casts = [
@@ -31,7 +37,8 @@ class TagihanPSB extends Model
     }
 
     protected $appends = [
-        'total', 'spp'
+        'total',
+        'spp'
     ];
 
     public function getTotalAttribute()
@@ -95,7 +102,8 @@ class TagihanPSB extends Model
         $total[3] = 0;
         $sppnya = 0;
 
-        $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        // $tp_now = TahunPelajaran::where('status', 1)->first()->name;
+        $tp_now = taAktif();
         $tp_cek = explode("/", $tp_now);
         $tp_awal = intval($tp_cek[0]);
         $tp_pindahan = $tp_awal - 1 . '/' . $tp_awal;

@@ -2,6 +2,7 @@
     @if($calon->bayarppdb['cpsb']->lunas == 0)
         <div class="callout callout-danger">
             <h5>Status Daftar Ulang : Belum Lunas</h5>
+            <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
         </div>
     @endif
     @if($calon->bayarppdb['cpsb']->lunas == 1)
@@ -46,16 +47,55 @@
             </tr>
         </table>
     </div>
+    @isset($chromebook['username'])
+    <hr>
+    <h5 class="mt-2">Username dan Password Chromebook</h5>
+    <table class="table table-sm table-bordered">
+        <tr>
+            <td>Username Chromebook</td>
+            <td> {{ $chromebook['username'] }} </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td> {{ $chromebook['password'] }} </td>
+        </tr>
+    </table>
+    @endisset
     <div class="callout callout-warning">
-        <a href='/file/017-Eks-PPDB-SITNF-V-2024, Surat Edaran Info Pembayaran SPP Peserta Didik Baru TP 2024-2025.pdf' class="btn btn-danger mb-3" style="color: white; text-decoration: none;" target="_blank"><b>Surat Edaran informasi SPP SIT Nurul Fikri</b></a>
+        {{-- <a href='/file/017-Eks-PPDB-SITNF-V-2024, Surat Edaran Info Pembayaran SPP Peserta Didik Baru TP 2024-2025.pdf' class="btn btn-danger" style="color: white; text-decoration: none;" target="_blank"><b>Surat Edaran informasi SPP SIT Nurul Fikri</b></a>
+        <hr> --}}
         @if($bayarspp == 'Belum')
-            <a href='/bayarSPP/{{ $calon->id }}' class="btn btn-success mb-2" style="color: white; text-decoration: none;"><i class="fas fa-paper-plane"> </i> &nbsp;Kirim Bukti Bayar SPP</a>
-            <h5 class="mt-2">Ketentuan Pengambilan Media Pembelajaran</h5>
+            <div class="callout callout-success">
+                <h5>Status Lunas SPP : Belum Lunas</h5>
+                {{-- <a href='/buktiBayarPPDB/{{ $calon->id }}' class="btn btn-danger" style="color: white; text-decoration: none;" target="_blank"><b>Cetak Bukti Pembayaran <br>Daftar Ulang PPDB SIT Nurul Fikri</br></a> --}}
+            </div>
+            <h5 class="mt-2">Ketentuan Pengambilan Buku Paket</h5>
             <ul>
-                <li>Sudah melunasi SPP Juli 2024 sebesar : <b>Rp. {{ number_format($spp) }}</b></li>
-                <li>Pembayaran dapat dilakukan mulai tanggal : 5 Juni 2024</li>
-                <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>:
-                    <h4 class="mt-3 red"><u><b>888 276 {{ $calon->uruts }} 0</b></u></h4>
+                <li>Sudah melunasi SPP Juli {{ (int)taAktif() }} sebesar : <b>Rp. {{ number_format($spp) }}</b></li>
+                <li>Pembayaran dapat dilakukan mulai tanggal : 5 Juni {{ (int)taAktif() }}</li>
+                {{-- <li>Pembayaran melalui <strong>Rekening Virtual BJB Syariah </strong>: --}}
+                <li>Pembayaran melalui <strong>Rekening Virtual Bank Muamalat Indonesia </strong>:    
+                    {{-- @if($calon->hasil['hasil']->va == '')
+                        <h4 class="mt-3 red"><u><b>888 276 {{ $calon->uruts }} 0</b></u></h4>
+                    @else
+                        <h4 class="mt-3 red"><u><b>888 876 {{ $calon->uruts }} 1</b></u></h4>
+                    @endif --}}
+                    @php
+                    $va_unit = 0;
+                        if(substr($calon->uruts, 4, 2) == '31'){
+                            $va_unit = '011';
+                        }
+                        if(substr($calon->uruts, 4, 2) == '32'){
+                            $va_unit = '012';
+                        }
+                        if(substr($calon->uruts, 4, 2) == '33'){
+                            $va_unit = '013';
+                        }
+                        if(substr($calon->uruts, 4, 2) == '34'){
+                            $va_unit = '014';
+                        }
+                    @endphp
+                    <h4 class="mt-3 red"><u><b>8600 {{ $va_unit }} {{ $calon->uruts }}</b></u></h4>
                     <p><strong>atas nama: {{ $calon->name }}</strong></p>
                 </li>
             </ul>    

@@ -13,6 +13,8 @@
 
 // use Telegram;
 use Illuminate\Http\Request;
+// use Symfony\Component\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 /* Tester untuk WebHook */
 
@@ -66,6 +68,8 @@ Auth::routes([
     'verify' => false,
 ]);
 Route::get('login/admin', 'HomeController@adminLogin');
+Route::get('wawancara', 'HomeController@wawancaraLogin');
+Route::post('loginWawancara', 'TesWawancaraController@Login')->name('loginWawancara');
 Route::resource('waiting', 'WaitingController');
 Route::resource('faqs', 'FaqController');
 
@@ -80,6 +84,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/DaftarUlangPDF/{id}', 'CalonPDFController@daul')->name('DaftarUlangPDF');
     Route::get('/AmbilSeragamPDF/{id}', 'CalonPDFController@seragam')->name('AmbilSeragamPDF');
     Route::get('/AmbilBukuPDF/{id}', 'CalonPDFController@buku')->name('AmbilBukuPDF');
+    Route::get('/AmbilChromebookPDF/{id}', 'CalonPDFController@chromebook')->name('AmbilChromebookPDF');
     Route::get('/SuratKeteranganDiterimaPDF/{id}', 'CalonPDFController@terima')->name('SuratKeteranganDiterimaPDF');
     Route::get('/dokumen/{id}', 'DokuController@calon')->name('dokumen');
     Route::get('/pilihJadwal/{id}', 'DokuController@pilihjadwal')->name('pilihjadwal');
@@ -91,7 +96,10 @@ Route::middleware('auth')->group(function () {
     Route::post('updatejadwal', 'DokuController@updatejadwal')->name('doku.updatejadwal');
 
     //Tes Script
-    Route::get('/cek', 'UjicobaController@cek3')->name('cek');
+    Route::get('/cek', 'UjicobaController@cek31')->name('cek');
+
+    Route::get('/teswawancara', 'TesWawancaraController@wawancara')->name('tesWawancara');
+    Route::get('/prawawancara', 'PraWawancaraController@item')->name('itemPraWawancara');
 });
 
 Route::middleware('auth', 'user')->group(function () {
@@ -116,6 +124,9 @@ Route::middleware('auth', 'user')->group(function () {
     Route::get('/printTagihanPPDB/{id}', 'WawancaraController@PDFKeuangan')->name('print.tagihan');
     Route::get('/photo/{id}', 'DraftCalonController@photo')->name('editpp');
     Route::post('/photo', 'DraftCalonController@photopp')->name('postpp');
+    Route::get('/kelengkapanData/{id}', 'PraWawancaraController@item')->name('kelengkapandata.item');
+    Route::get('/praWawancara', 'PraWawancaraController@create')->name('praWawancara.create');
+    Route::post('/simpanPraWawancara', 'PraWawancaraController@store')->name('praWawancara.store');
 });
 
 Route::middleware('auth', 'psikotes')->group(function () {
@@ -125,18 +136,29 @@ Route::middleware('auth', 'psikotes')->group(function () {
 
 Route::middleware('auth', 'pengadaan')->group(function () {
     Route::get('/seragam', 'HomeController@front')->name('seragam');
+    Route::get('/ambil', 'HomeController@front')->name('ambil');
     Route::get('/EksportSeragam', 'API\CalonController@exportSeragam');
+});
+
+Route::middleware('auth', 'pewawancara')->group(function () {
+    Route::get('/list_praWawancara', 'PraWawancaraController@list')->name('praWawancara.list');
+    Route::get('/praWawancara/{id}', 'PraWawancaraController@show')->name('praWawancara.show');
+    Route::post('/simpanJawaban', 'TesWawancaraController@store')->name('simpanJawaban');
+    Route::get('/observasiPPDB', 'TesWawancaraController@observasi')->name('observasiPPDB');
+    Route::post('/observasiPPDB', 'TesWawancaraController@simpanObservasi')->name('observasiPPDB');
 });
 
 Route::middleware('auth', 'admin')->group(function () {
     Route::get('/login_as', 'HomeController@loginJadiUser')->name('login_as');
     Route::post('/login_as', 'HomeController@login_as')->name('login_as');
     Route::get('/dashboard', 'HomeController@front')->name('dashboard');
+    Route::get('/statistik', 'HomeController@front');
     Route::get('/profile', 'HomeController@front');
     Route::get('/siswa', 'HomeController@front');
     Route::get('/statistik/{id}', 'CalonHasilController@statistik');
-
-    Route::get('/graph', 'GraphController@harian')->name('grafik');
+    Route::get('/ambil', 'HomeController@front')->name('ambil');
+    Route::get('/graph', 'GraphController@harian')->name('graph');
+    Route::get('/grafikNya/{harinya}', 'GraphController@grafikNya')->name('grafikNya');
 
     //Route untuk folder Master
     Route::get('/master/admin', 'HomeController@front');
@@ -168,6 +190,10 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/EksportPsikotes/{id}', 'API\CalonJadwalController@exportPsikoTes');
     Route::get('/EksportVABank/{id}', 'API\CalonController@exportBank');
     Route::get('/EksportBayar', 'API\BayarTagihanController@export');
+    Route::get('/EksportImpruf', 'API\CalonController@exportImpruf');
+    Route::get('/EksportTesWawancara', 'TesWawancaraController@export');
+    Route::get('/EksportDataTesWawancara/{e}/{unit}', 'TesWawancaraController@exportData');
+    Route::get('/EksportCpdWaiting/{filters}', 'TesWawancaraController@exportWaiting');
 
     //Route untuk data siswa n Pegawai
     Route::get('/datasiswanf', 'HomeController@front');
@@ -205,11 +231,11 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/wawancara/pewawancara', 'HomeController@front');
     Route::get('/wawancara/instrumen-wawancara', 'HomeController@front');
     Route::get('/wawancara/rubrik-wawancara', 'HomeController@front');
+    Route::get('/wawancara/aspek-perilaku', 'HomeController@front');
     Route::get('/wawancara/rekap', 'HomeController@front');
+    Route::get('/PDFwawancara/{id}', 'TesWawancaraController@PDFWawancara')->name('PDFwawancara');
     // Route::get('/wawancara', 'TesWawancaraController@index');
-    Route::get('/wawancara', 'TesWawancaraController@wawancara')->name('tesWawancara');
     // Route::get('/formWawancara', 'TesWawancaraController@formWawancara')->name('formWawancara');
-    Route::post('/simpanJawaban', 'TesWawancaraController@store')->name('simpanJawaban');
 
     //Route::resource('calontagihans', 'CalonTagihanController');
 
@@ -226,8 +252,21 @@ Route::middleware('auth', 'admin')->group(function () {
     //Route untuk lihat file SPP
     Route::get('lihatspp/{uruts}', 'FileController@lihatSpp')->name('lihatspp');
 
+    //Route untuk ujicoba script
+    Route::get('/cekscript', 'UjicobaController@cek1')->name('cekscript');
+
+    //Route untuk lihat Jadwal untuk cek ada yg selisih atau tidak
+    Route::get('/generateJadwal', 'UjicobaController@cek3')->name('generatejadwal');
+
+    //Route untuk lihat Jadwal untuk cek ada yg selisih atau tidak
+    Route::get('/cekLihatJadwal', 'UjicobaController@lihatjadwal')->name('lihatjadwal');
+
+
     //Untuk Cek PHP INFO
     Route::get('phpmyinfo', function () {
-        phpinfo();
+        phpinfo(INFO_GENERAL | INFO_CREDITS | INFO_CONFIGURATION | INFO_MODULES);
     })->name('phpmyinfo');
+
+    //export Harapan Ortu PPDB
+    Route::get('harapan', 'TesWawancaraController@harapan')->name('harapan');
 });

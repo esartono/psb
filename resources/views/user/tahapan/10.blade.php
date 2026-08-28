@@ -2,6 +2,7 @@
     @if($calon->bayarppdb['cpsb']->lunas == 0)
         <div class="callout callout-danger">
             <h5>Status Daftar Ulang : Belum Lunas</h5>
+            <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
         </div>
     @endif
     @if($calon->bayarppdb['cpsb']->lunas == 1)

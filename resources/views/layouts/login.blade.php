@@ -26,12 +26,13 @@
       border-radius: 0.25rem 0 0 0.25rem;
     }
   </style>
+  @stack('style')
 </head>
 <body class="hold-transition login-page">
 <div class="login-box" style="margin-top: 0 !important">
   <div class="login-logo">
     <img src="/img/logo.png" style="width: 30%; heigth: auto"><br>
-    <h4>PPDB Online <br> SIT Nurul Fikri - Depok</h4>
+    <h4>PPDB Online <br> Nurul Fikri Islamic School - Depok</h4>
   </div>
   <div class="card">
     <div class="card-body login-card-body">
@@ -40,6 +41,6 @@
   </div>
 </div>
 <script src="/js/app.js"></script>
-
+@stack('jawa')
 </body>
 </html>

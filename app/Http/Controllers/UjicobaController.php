@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -25,7 +26,8 @@ use App\CalonTagihanPSB;
 use App\BayarTagihan;
 use App\JTagihan;
 use App\SiswaNF;
-
+use App\TesWawancara;
+use App\Rubrik;
 
 use App\Facades\Edupay;
 use App\Notifications\Wa;
@@ -64,6 +66,15 @@ class UjicobaController extends Controller
 
     public function cek1()
     {
+        $cekunit = Kelasnya::where('status', 1)
+            ->whereIn('tahun_ajaran', [0, 1, 2])
+            // ->whereNotIn('name', ['Toddler', 'Play Group', 'TK A', 'TK B', '1', '7', '10'])
+            ->get()
+            ->groupBy('unit_id')->keys()->toArray();
+        dd($cekunit);
+        foreach ($cekunit as $c) {
+            $jk[$c] = 0;
+        }
         // $tes = Wa::kirim(auth()->user()->phone, 'Tes kirim dari PPDB NF');
         // dd($tes);
         // $lihat = Calon::with('usernya')->where('status', 0)->where('aktif', 1)->get();
@@ -141,13 +152,61 @@ class UjicobaController extends Controller
 
     public function cek31()
     {
-        $jadwal = Jadwal::get();
-        foreach ($jadwal as $j) {
-            $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
-            $n[$j->id] = $c;
-            $j->update(['ikut' => $c]);
+        // $jadwal = Jadwal::get();
+        // foreach ($jadwal as $j) {
+        //     $c = CalonJadwal::where('jadwal_id', $j->id)->get()->count();
+        //     $n[$j->id] = $c;
+        //     $j->update(['ikut' => $c]);
+        // }
+        // dd($n);
+        $tesWawancara = TesWawancara::get();
+        foreach ($tesWawancara as $t) {
+            $rubrik = $skor = 0;
+            $rubrik = Rubrik::where('id_instrumen', $t->instrumen_id)->orderBy('id', 'asc')->get()->count();
+
+            foreach ($t->jawaban as $r) {
+                $skor = $skor + intval($r);
+            }
+
+            $data = TesWawancara::updateOrCreate([
+                'calon_id' => $t->calon_id,
+                'instrumen_id' => $t->instrumen_id
+            ], [
+                'skor' => $skor,
+                'rubrik' => $rubrik,
+                'status' => 1
+            ]);
         }
-        dd($n);
+    }
+
+    public function lihatjadwal()
+    {
+        if (auth()->user()->isAdmin()) {
+            // $gelombang = Gelombang::where('tp', auth()->user()->tpid)->get()->pluck('id');
+            $gelombang = array(21);
+            $calons = DB::table('calons')
+                ->select(
+                    'calons.id AS id',
+                    'calons.name',
+                    'jk',
+                    'gelombangs.kode_va',
+                    'units.name as unit',
+                    'urut',
+                    DB::raw('CONCAT(gelombangs.kode_va, LPAD(urut, 3, 0)) as uruts'),
+                    'calon_jadwals.jadwal_id as jadwal'
+                )
+                ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
+                ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                ->leftJoin('calon_jadwals', 'calons.id', '=', 'calon_jadwals.calon_id')
+                ->whereIn('gel_id', $gelombang)
+                ->where('status', 1)
+                ->whereNotIn('calon_jadwals.jadwal_id', [192, 194, 195])
+                ->orderBy('units.name', 'asc')
+                ->orderBy('calons.name', 'asc')
+                ->get();
+            // $calons = Calon::whereIn('gel_id', $gelombang)->where('status', 1)->get();
+        }
+        return view('lisJadwalnya', compact('calons'));
     }
 
     public function pilihjadwal($gel, $asal)
@@ -155,7 +214,7 @@ class UjicobaController extends Controller
         // return Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())->first();
 
         if ($asal == 1) {
-            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+            $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(1)->timezone('Asia/Jakarta')->toDateString())
                 ->where('gel_id', $gel)
                 ->where('internal', 1)
                 ->whereColumn('kuota', '>=', 'ikut')
@@ -165,7 +224,7 @@ class UjicobaController extends Controller
             }
         }
 
-        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(3)->timezone('Asia/Jakarta')->toDateString())
+        $jadwal = Jadwal::whereDate('seleksi', '>', Carbon::today()->addDays(1)->timezone('Asia/Jakarta')->toDateString())
             ->where('gel_id', $gel)
             ->where('internal', 0)
             ->whereColumn('kuota', '>=', 'ikut')
@@ -184,16 +243,25 @@ class UjicobaController extends Controller
 
         ini_set('max_execution_time', 1200);
 
-        $calons = Calon::whereIn('gel_id', [6, 7, 8, 9])->where('status', 1)->get();
+        $calons = Calon::whereIn('gel_id', [24, 25, 26, 27, 28])->where('status', 1)->orderBy('updated_at', 'asc')->get();
         // $c = Calon::where('id', 2637)->first();
         // $jd = $this->pilihjadwal($c->gel_id, $c->asal_nf);
 
-        // dd($jd);
+        // dd($calons);
 
         foreach ($calons as $c) {
             $cek = CalonJadwal::where('calon_id', $c->id)->first();
 
             if (is_null($cek)) {
+                $jd = $this->pilihjadwal($c->gel_id, $c->asal_nf);
+                // $jadwal = Jadwal::where('gel_id', $c->gel_id)->where('internal', $c->asal_nf)->first();
+                CalonJadwal::updateOrCreate([
+                    'calon_id' => $c->id
+                ], [
+                    'jadwal_id' => $jd,
+                ]);
+            }
+            if ($cek->jadwal_id == 0) {
                 $jd = $this->pilihjadwal($c->gel_id, $c->asal_nf);
                 // $jadwal = Jadwal::where('gel_id', $c->gel_id)->where('internal', $c->asal_nf)->first();
                 CalonJadwal::updateOrCreate([

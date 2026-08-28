@@ -225,7 +225,9 @@ class CalonTagihanPSBController extends Controller
     {
         $regis = array();
         $cta = CalonTagihanPSB::get()->pluck('calon_id');
-        $calon = Calon::whereIn('id', $cta)->orderBy('name')->get()->pluck('registrasi');
+
+        $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
+        $calon = Calon::whereIn('id', $cta)->whereIn('gel_id', $gelombang)->orderBy('name')->get()->pluck('registrasi');
 
         return $calon;
     }

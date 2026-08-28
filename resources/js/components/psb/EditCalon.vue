@@ -580,8 +580,7 @@
                             <div v-else>
                                 <h2>{{ form.asal_sekolah }}</h2>
                                 <p>Alamat Asal Sekolah :</p>
-                                <p>{{ form.asal_alamat_sekolah }} Kelurahan Tugu </p>
-                                <p>Kec. Cimanggis Kota Depok - Jawa Barat</p>
+                                <p>{{ form.asal_alamat_sekolah }} </p>
                             </div>
                         </tab-content>
                         <button type="primary" class="btn btn-warning" slot="prev">Back</button>

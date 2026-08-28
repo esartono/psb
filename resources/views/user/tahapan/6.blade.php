@@ -2,6 +2,7 @@
     @if($calon->bayarppdb['cpsb']->lunas == 0)
         <div class="callout callout-danger">
             <h5>Status Daftar Ulang : Belum Lunas</h5>
+            <a href='/printTagihanPPDB/{{ $calon->id }}' class="btn btn-danger mb-3 col-md-12" target="_blank"><b>Cetak Form Wawancara Keuangan PPDB SIT Nurul Fikri</b></a>
         </div>
     @endif
     @if($calon->bayarppdb['cpsb']->lunas == 1)
@@ -12,7 +13,7 @@
     @if($calon->bayarppdb['cpsb']->lunas == 0 && $calon->ck_id == 3)
         <div class="callout callout-danger">
             <h5 class="mb-3">Input Ukuran Seragam</h5>
-            <p>Input Ukutan Seragam Mulai Januari 2024</p>
+            <p>Input Ukutan Seragam Mulai Januari 2025</p>
             {{-- <a href='/uniform/{{ $calon->id }}' class="btn btn-success mb-2" style="color: white; text-decoration: none;"><i class="fas fa-tshirt"> </i> &nbsp;Pilih Ukuran Seragam</a>
             <table class="table table-bordered">
                 <tr>

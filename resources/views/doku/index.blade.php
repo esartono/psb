@@ -64,7 +64,12 @@
                                 @empty($doku[$j->code])
                                 <tr>    
                                     <th>{{ $no++ }}</th>
-                                    <td>{{ $j->name }}</td>
+                                    <td>
+                                        {{ $j->name }}
+                                        @if($j->code == 'screening')
+                                            <br><a href='/dokumen_ppdb/Lembar Screening Awal Tumbuh Kembang Anak SDIT NF (2025) - Diisi Ortu.pdf' class="btn btn-info btn-sm text-white" target="_blank">Download blanko kosong form isian</a>
+                                        @endif
+                                    </td>
                                     <th><span class="text-danger">Belum Terupload</span></th>
                                     <th><a class="btn btn-warning" href="{{ route('doku.upload', ['calon' => $calon->id, 'code' => $j->code ]) }}">Upload</a></th>
                                 </tr>

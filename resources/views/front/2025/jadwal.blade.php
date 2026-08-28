@@ -43,7 +43,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Kegiatan</th>
-                                <th>TK</th>
+                                <th>CCEC & TK</th>
                                 <th>SD</th>
                                 <th>SMP</th>
                                 <th>SMA</th>

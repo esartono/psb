@@ -34,19 +34,66 @@
                                 <td><span class="mdi mdi-calendar-text"></span></td>
                                 <td>Terdaftar pada tanggal : <b>{{ formatIndo($calon->tgl_daftar) }}</b></td>
                             </tr>
+                            @if($calon->tahap !== 9)
                             <tr>
                                 <td><span class="mdi mdi-email-check"></span></td>
                                 <td>Email pendaftar : <b>{{ auth()->user()->email }}</b></td>
                             </tr>
+                            @endif
+                            @if($calon->tahap == 4)
+                            <tr>
+                                <td></td>
+                                <td><a href='/dokumen/{{ $calon->id }}' class="btn btn-sm btn-danger btn-block "><i class="fa fa-book"> </i> &nbsp;Upload Dokumen</a></td>
+                            </tr>
+                            @endif
                             @if($calon->tahap >= 5)
-                            <tr>
-                                <td><span class="mdi mdi-bank-check"></span></td>
-                                <td style="font-weight: 700">Rekening Virtual Account Bank BJB Syariah</td>
-                            </tr>
-                            <tr>
-                                <td><span class="mdi mdi-credit-card-check"></span></td>
-                                <td style="font-weight: 700">Nomor Virtual Account : 888 276 {{ $calon->uruts }} 0</td>
-                            </tr>
+                                @if($calon->hasil['hasil']->lulus == 1)
+                                    <tr>
+                                        <td><span class="mdi mdi-bank-check"></span></td>
+                                        {{-- <td style="font-weight: 700">Rekening Virtual Account Bank BJB Syariah</td> --}}
+                                        <td style="font-weight: 700">Rekening Virtual Account Bank Muamalat Indonesia</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="mdi mdi-credit-card-check"></span></td>
+                                        <td style="font-weight: 700">
+                                            {{-- @if($calon->hasil['hasil']->va == '')
+                                                Nomor Virtual Account : 888 276 {{ $calon->uruts }} 0
+                                            @else
+                                                Nomor Virtual Account : 888 876 {{ $calon->uruts }} 1
+                                            @endif --}}
+                                            @php
+                                                $va_unit = 0;
+                                                if(substr($calon->uruts, 4, 2) == '31'){
+                                                    $va_unit = '011';
+                                                }
+                                                if(substr($calon->uruts, 4, 2) == '32'){
+                                                    $va_unit = '012';
+                                                }
+                                                if(substr($calon->uruts, 4, 2) == '33'){
+                                                    $va_unit = '013';
+                                                }
+                                                if(substr($calon->uruts, 4, 2) == '34'){
+                                                    $va_unit = '014';
+                                                }
+                                            @endphp
+                                            Nomor Virtual Account : 8600 {{ $va_unit }} {{ $calon->uruts }}
+                                        </td>
+                                    </tr>
+                                @else
+                                    OKE
+                                @endif
+                            @endif
+                            @if(substr($calon->uruts, 4, 2) == '33' || substr($calon->uruts, 4, 2) == '34')
+                                @if($calon->tahap == 9)
+                                    <tr>
+                                        <td><span class="mdi mdi-email-check"></span></td>
+                                        <td>Username Chromebook : <b>{{ $chromebook['username'] ?? '-' }} </b></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="mdi mdi-key-outline"></span></td>
+                                        <td>Password Chromebook : <b>{{ $chromebook['password'] ?? '-' }} </b></td>
+                                    </tr>
+                                @endif
                             @endif
                             @if($calon->inggris <> 'Kosong')
                             <tr>

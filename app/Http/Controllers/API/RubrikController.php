@@ -16,7 +16,8 @@ class RubrikController extends Controller
      */
     public function index()
     {
-        return Rubrik::orderBy('id', 'asc')->get()->toArray();
+        return Rubrik::orderBy('id_instrumen', 'asc')->orderBy('id', 'asc')->get()->toArray();
+        // return Rubrik::where('id_instrumen', 1)->orderBy('id', 'asc')->get()->toArray();
     }
 
     /**

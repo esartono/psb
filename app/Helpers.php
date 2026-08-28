@@ -44,7 +44,7 @@ if (!function_exists("folderID")) {
 if (!function_exists("unit")) {
     function unit($id)
     {
-        $unit = ["", "tk", "sd", "smp", "sma"];
+        $unit = ["kb", "tk", "sd", "smp", "sma"];
         return $unit[$id];
     }
 }
@@ -103,6 +103,15 @@ if (!function_exists("formatIndo")) {
         $split = substr($x, 0, 10);
         $split = explode('-', $split);
         return $split[2] . ' ' . $namaBulan[(int)$split[1]] . ' ' . $split[0];
+    }
+}
+
+if (!function_exists("formatWaktu")) {
+    function formatWaktu($x)
+    {
+        $split = substr($x, 0, 10);
+        $split = explode('-', $split);
+        // return $split[2] . '/' . $split[1] . '/' . $split[0] . ' ' . substr($x, 10);
     }
 }
 

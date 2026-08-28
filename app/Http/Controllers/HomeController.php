@@ -24,6 +24,8 @@ use App\TagihanPSB;
 use App\FileGdrive;
 use App\Faq;
 use App\BayarSpp;
+use App\CalonTagihanPSB;
+use App\Chromebook;
 
 // use Wa;
 use Auth;
@@ -62,8 +64,10 @@ class HomeController extends Controller
             'coba',
             'sitemap',
             'tesPPDB',
+            'wawancaraLogin'
         );
-        $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        // $this->tp_berjalan = TahunPelajaran::where('status', 1)->first()->name;
+        $this->tp_berjalan = taAktif();
     }
 
     /**
@@ -92,11 +96,20 @@ class HomeController extends Controller
             return redirect()->route('seragam');
             // return view('psb');
         }
+
+        if (auth()->user()->isPewawancara()) {
+            return redirect()->route('tesWawancara');
+        }
     }
 
     public function adminLogin()
     {
         return view('auth.admin');
+    }
+
+    public function wawancaraLogin()
+    {
+        return view('auth.wawancara');
     }
 
     public function loginJadiUser()
@@ -212,6 +225,7 @@ class HomeController extends Controller
         if ($cekTotalCalons == 1) {
             return redirect()->route('ppdb_detail', $calons[0]->id);
         }
+
         return view('user.dashboard', compact('calons', 'cekTotalCalons'));
     }
 
@@ -260,6 +274,7 @@ class HomeController extends Controller
             ->whereIn('gel_id', $gelombang)
             ->where('calons.id', $id)->first();
 
+        // dd($calon);
         $bayarspp = 'Belum';
         if ($calon) {
             $spp = 100000000;
@@ -268,6 +283,13 @@ class HomeController extends Controller
                 ->where('kelas', $calon->kelas_tujuan)
                 ->where('kelamin', $calon->jk)
                 ->first();
+            $diskon = CalonTagihanPSB::where('calon_id', $calon->id)->first();
+            $diskonwawancara = 100;
+            if (isset($diskon->keterangan)) {
+                if ($diskon->keterangan == 'Diskon anak PEGAWAI TETAP' || $diskon->keterangan == 'Diskon anak PEGAWAI KONTRAK') {
+                    $diskonwawancara = $diskon->potongan;
+                }
+            }
             if ($biayas) {
                 $diskonSPP = array(
                     242531058 => 675000,
@@ -295,11 +317,12 @@ class HomeController extends Controller
                     242534016 => 1050000,
                     242534312 => 1050000,
                     242534070 => 1050000,
+                    // 252634137 => 1150007,
                 );
                 if (array_key_exists($calon->uruts, $diskonSPP)) {
                     $spp = $diskonSPP[$calon->uruts];
                 } else {
-                    $spp = $biayas->spp;
+                    $spp = ($diskonwawancara / 100) * $biayas->spp;
                 }
             }
             $cekbayarspp = BayarSpp::where('calon_id', $calon->id)->first();
@@ -310,8 +333,14 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
 
+        $chromebook = array();
+        $cb = Chromebook::where('pendaftaran', $calon->uruts)->first();
+        if ($cb) {
+            $chromebook['username'] = $cb->username;
+            $chromebook['password'] = $cb->password;
+        }
         $cekCalons = count($calons);
-        return view('user.dashboard', compact('calons', 'calon', 'pp', 'spp', 'bayarspp', 'cekbayarspp', 'cekCalons'));
+        return view('user.dashboard', compact('calons', 'calon', 'pp', 'spp', 'bayarspp', 'cekbayarspp', 'cekCalons', 'chromebook'));
     }
 
     public function addUser(Request $request)
@@ -426,6 +455,28 @@ class HomeController extends Controller
             ];
         }
 
+        if ($tp === '2026/2027') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka' => 8500000, 'tkb' => 6000000, 'sd' => 22500000, 'smp' => 22500000, 'sma' => 22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 8500000, 'tkb' => 8000000, 'sd' => 14000000, 'smp' => 15000000, 'sma' => 15000000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka' => 1300000, 'tkb' => 1300000, 'sd' => 1900000, 'smp' => 2000000, 'sma' => 2100000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1600000, 'tkb' => 1600000, 'sd' => 2500000, 'smp' => 2900000, 'sma' => 2900000],
+            ];
+        }
+
+        if ($tp === '2027/2028') {
+            $biaya = [
+                ['komponen' => 'Dana Pengembangan', 'tka' => 9000000, 'tkb' => 6000000, 'sd' => 22500000, 'smp' => 22500000, 'sma' => 22500000],
+                ['komponen' => 'Dana Pendidikan', 'tka' => 9000000, 'tkb' => 8000000, 'sd' => 14000000, 'smp' => 16000000, 'sma' => 16000000],
+            ];
+            $seragam = [
+                ['komponen' => 'Seragam Putra', 'tka' => 1400000, 'tkb' => 1400000, 'sd' => 2000000, 'smp' => 2100000, 'sma' => 2200000],
+                ['komponen' => 'Seragam Putri', 'tka' => 1700000, 'tkb' => 1700000, 'sd' => 2600000, 'smp' => 3000000, 'sma' => 3000000],
+            ];
+        }
+
         $patokan = (int)substr($tp, 0, 4);
 
         if (isset($biaya)) {
@@ -519,15 +570,17 @@ class HomeController extends Controller
         // $gelombang = Gelombang::with('unitnya', 'tpnya')->where('tp', $tp->id)->orderBy('start', 'asc')->first();
         $gelombang = Gelombang::where('tp', $tp->id)->orderBy('start', 'asc')->first();
         if ($gelombang) {
-            $start = date('M d, Y H:i:s', strtotime($gelombang->start));
+            $start = date('jS \o\f F Y \a\t H.i', strtotime(date($gelombang->start) . ' 08:00:00'));
+            $mulai_pendaftaran = date('Y-m-d', strtotime($gelombang->start)) . ' 08:00:00';
         } else {
-            $start = date('M d, Y H:i:s', strtotime(date('Y') . '-09-01'));
+            $start = date('jS \o\f F Y \a\t H.i', strtotime(date('Y') . '-09-01 08:00:00'));
+            $mulai_pendaftaran = date('Y-m-d', strtotime(date('Y') . '-09-01 08:00:00'));
         }
 
         $units = Unit::with('catnya')->orderBy('id', 'asc')->get();
         $berita = Berita::orderBy('updated_at', 'desc')->paginate(3);
 
-        return view('front.depan', compact('start', 'tp', 'units', 'berita'));
+        return view('front.depan', compact('start', 'tp', 'units', 'berita', 'mulai_pendaftaran'));
         // return view('front.template_lama.depan', compact('start', 'tp', 'units', 'berita'));
     }
 

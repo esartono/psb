@@ -73,12 +73,21 @@ class CalonHasilController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $va = '';
         $ids = explode(":", $id);
+        if ($ids[0] == 262732028) {
+            return 'EKO';
+        }
+
         $hasils = CalonHasil::where('id', $ids[0])->first();
+        if ($ids[1] == 1 || $ids[1] == 2) {
+            $va = '888876' . $ids[0] . '1';
+        }
         $hasils->update(
             [
                 'lulus' => $ids[1],
-                'catatan' => $ids[2]
+                'catatan' => $ids[2],
+                'va' => $va
             ]
         );
     }

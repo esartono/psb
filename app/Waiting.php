@@ -8,10 +8,25 @@ use Illuminate\Support\Facades\DB;
 class Waiting extends Model
 {
     protected $fillable = [
-        'nama', 'asal_sekolah', 'unit', 'ta', 'wa', 'email', 'status'
+        'nama',
+        'asal_sekolah',
+        'unit',
+        'ta',
+        'wa',
+        'email',
+        'status'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'updated_at'
     ];
+
+    protected $appends = [
+        'tpname',
+    ];
+
+    public function getTpNameAttribute()
+    {
+        return $this->ta . '/' . $this->ta + 1;
+    }
 }

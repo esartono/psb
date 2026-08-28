@@ -37,17 +37,15 @@ class LoginController extends Controller
         $role = Auth::user()->level;
 
         // Check user role
-        switch ($role) {
-            case '1':
-                return '/home';
-                break;
-            case '2':
-                return '/ppdb';
-                break;
-            default:
-                return '/login';
-                break;
+        if ($role == 1) {
+            return '/home';
         }
+
+        if ($role == 2) {
+            return '/ppdb';
+        }
+
+        return '/login';
     }
 
     /**

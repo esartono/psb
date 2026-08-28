@@ -193,19 +193,19 @@
       <div class="modal-dialog " role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <h4>Form Pembiayaan Program</h4>
+            <h4>Form Tabungan Program</h4>
             <hr>
             <a type="submit" class="btn btn-app btn-lg black bg-blue" v-on:click="Program('belum')">
               <i class="fas fa-comment-dots"></i>
-              Belum Bersedia
+              Tidak Menabung
             </a>
             <a class="btn btn-app btn-lg black bg-yellow" v-on:click="Program('tahunan')">
               <i class="fas fa-calendar"></i>
-              Pembayaran Tahunan
+              Tabungan Tahunan
             </a>
             <a class="btn btn-app btn-lg white bg-green" v-on:click="Program('bulanan')">
               <i class="fas fa-calendar-alt"></i>
-              Pembayaran Bulanan
+              Tabungan Bulanan
             </a>
             <hr>
             <button type="button" class="btn btn-secondary col-md-12" data-dismiss="modal">Batal</button>

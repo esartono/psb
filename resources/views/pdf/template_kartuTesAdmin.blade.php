@@ -8,7 +8,7 @@
     <style type="text/css">
             /** Define the margins of your page **/
             @page {
-                margin: 1cm 0cm;
+                margin: 1.3cm 0cm;
             }
 
             .page-break {
@@ -26,7 +26,7 @@
             }
 
             .kartuAdmin td {
-                padding: 8px;
+                padding: 12px;
             }
 
             .qr {
@@ -53,8 +53,12 @@
             }
 
             .cardTest th h3 {
-                margin: 10px 0px 0px 0px;
+                margin: 10px 0px 0px 10px;
                 font-size: 16px !important;
+            }
+
+            .cardTest th, .cardTest td {
+                vertical-align: middle;
             }
 
             .wrapper-page {

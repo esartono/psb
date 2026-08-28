@@ -69,7 +69,7 @@
     </div>
     <div class="container">
         <div class="row justify-content-center d-flex align-items-center">
-            <h3 class="mt-40">Pembiayaan Program Immersion</h3>
+            <h3 class="mt-40">Tabungan Program Immersion</h3>
             <div class="col-sm-12">
                 @include('wawancara.'.substr($tp,0,4).'.program')
             </div>

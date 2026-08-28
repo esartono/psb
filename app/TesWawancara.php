@@ -12,8 +12,10 @@ class TesWawancara extends Model
         'instrumen_id',
         'jawaban',
         'skor',
+        'rubrik',
         'rekomendasi',
-        'catatan'
+        'catatan',
+        'status'
     ];
 
     protected $casts = [
@@ -34,5 +36,10 @@ class TesWawancara extends Model
     public function usernya()
     {
         return $this->belongsTo(User::class, 'pewawancara_id');
+    }
+
+    public function instrumennya()
+    {
+        return $this->belongsTo(InstrumenWawancara::class, 'instrumen_id');
     }
 }

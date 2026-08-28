@@ -69,7 +69,7 @@
                             <li>Pada kolom penerima/nama rekening tujuan masukkan nama siswa</li>
                             <li>Pada kolom nomor rekening penerima/pemilik di isi dengan no virtual account</li>
                             <li>Pada kolom sirim/penyetor masukkan nama siswa atau nama orang tua siswa</li>
-                            <li>Masukkan nilai nominal setor/transfer dengan nominal SPP</li>
+                            <li>Masukkan nilai nominal setor/transfer dengan nominal SPP/Daftar Ulang</li>
                         </ol>
                         <li>Melalui ATM Bank Jabar Banten Syariah</li>
                         <ol class="biasa">
@@ -78,7 +78,7 @@
                             <li>Pilih transfer pada menu ATM</li>
                             <li>Pilih transfer ke BJB Syariah</li>
                             <li>Masukkan no rekening tujuan yaitu virtual account (VA)</li>
-                            <li>Masukkan nominal SPP</li>
+                            <li>Masukkan nominal SPP/Daftar Ulang</li>
                             <li>Dilayar selanjutnya akan tampil permintaan nomor referensi, bisa diisi dengan no bulan bayar atau no HP atau dapat juga dikosongkan dan memilih Benar</li>
                             <li>Lakukan konfirmasi transaksi transfer setelah nomor rekenig dan nama pemilik rekening muncul di layar, apabila data sudah benar maka pilih Ya</li>
                             <li>Mesin ATM akan mengeluarkan struk ATM sebagai bukti transaksi</li>

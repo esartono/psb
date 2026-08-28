@@ -36,11 +36,18 @@
                 <div class="form-group row">
                     <label class="col-lg-2 col-md-6 col-form-label mb-3 required">Jenis Kelamin</label>
                     <div class="col-lg-5 col-md-6 mb-3">
-                        <select v-model="form.jk" name="jk" class="form-control" id="jk" required>
-                            <optgroup label="Pilih Jenis Kelamin">
-                                <option value=1 {{ $calon->jk == 1 ? 'selected="true"' : '' }}>Laki-Laki</option>
-                                <option value=2 {{ $calon->jk == 2 ? 'selected="true"' : '' }}>Perempuan</option>
-                            </optgroup>
+                        <select name="jk" class="form-control" id="jk" required>
+                            <option selected=true disabled value="">Jenis Kelamin</option>
+                            @if($jk == 0)
+                                    <option value=1 {{ $calon->jk == 1 ? 'selected="true"' : '' }}>Laki-Laki</option>
+                                    <option value=2 {{ $calon->jk == 2 ? 'selected="true"' : '' }}>Perempuan</option>
+                            @endif
+                            @if($jk == 1)
+                                    <option value=1 {{ $calon->jk == 1 ? 'selected="true"' : '' }}>Laki-Laki</option>
+                            @endif
+                            @if($jk == 2)
+                                    <option value=2 {{ $calon->jk == 2 ? 'selected="true"' : '' }}>Perempuan</option>
+                            @endif
                         </select>
                     </div>
                     <label class="col-lg-2 col-md-6 col-form-label col-form-label">Agama</label>

@@ -5,18 +5,23 @@
                     @if(Request::path() <>  'tesPPDB')
                     <div class="col-lg-5 col-md-12">
                         <div class="row gy-5 g-4">
-                            <div class="col-md-6">
-                                <h5 class="fw-bold text-white mb-4">Academic Programs</h5>
-                                <a class="btn btn-link" href="https://nurulfikri.sch.id" target="_blank">Integrated Islamic School</a>
-                                <a class="btn btn-link" href="https://tkit.nurulfikri.sch.id" target="_blank">Kindergarten</a>
-                                <a class="btn btn-link" href="https://sdit.nurulfikri.sch.id" target="_blank">Elementary</a>
-                            </div>
-                            <div class="col-md-6">
-                                <h5 class="fw-bold text-white mb-4"></h5>
-                                <br>
-                                <a class="btn btn-link" href="https://smpit.nurulfikri.sch.id" target="_blank">Middle School</a>
-                                <a class="btn btn-link" href="https://smait.nurulfikri.sch.id" target="_blank">High School</a>
-                            </div>
+                            <table style="border: 0px !important">
+                                <tr style="border: 0px !important">
+                                    <td colspan="2" style="border: 0px !important"><h5 class="fw-bold text-white mb-4">Academic Programs</h5></td>
+                                </tr>
+                                <tr style="border: 0px !important">
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://nurulfikri.sch.id" target="_blank">NFIS</a></td>
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://smpit.nurulfikri.sch.id" target="_blank">Middle School</a></td>
+                                </tr>
+                                <tr style="border: 0px !important">
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://tkit.nurulfikri.sch.id" target="_blank">Kindergarten</a></td>
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://smait.nurulfikri.sch.id" target="_blank">High School</a></td>
+                                </tr>
+                                <tr style="border: 0px !important">
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://sdit.nurulfikri.sch.id" target="_blank">Elementary</a></td>
+                                    <td style="border: 0px !important"><a class="btn btn-link" href="https://nfbs-bogor.sch.id" target="_blank">Boarding School</a></td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
@@ -27,11 +32,12 @@
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62 872 0645</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>psb@nurulfikri.sch.id</p>
                         <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href="https://twitter.com/SIT_NurulFikri"><i class="fa-brands fa-x-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/SIT.Nurul.Fikri"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="https://www.tiktok.com/@sit_nurulfikri"><i class="fa-brands fa-tiktok"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="https://www.youtube.com/@SekolahIslamTerpaduNurulFikri"><i class="fa-brands fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/sit_nurulfikri/?hl=id"><i class="fa-brands fa-instagram"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://twitter.com/nfislamicschool"><i class="fa-brands fa-x-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/nurulfikri.islamicschool"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.tiktok.com/@nurulfikri_islamicschool"><i class="fa-brands fa-tiktok"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.youtube.com/@NurulFikri_IslamicSchool"><i class="fa-brands fa-youtube"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/nurulfikri_islamicschool/"><i class="fa-brands fa-instagram"></i></a>
+
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mt-lg-n5">
@@ -44,13 +50,12 @@
                 <div class="copyright">
                     <div class="row">
                         @if(Request::path() <>  'tesPPDB')
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="/">PPDB SIT Nurul Fikri</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        <div class="col-md-8 text-center text-md-start mb-3 mb-md-0">
+                            &copy; 2026<a class="border-bottom" href="/">PPDB Nurul Fikri Islamic School </a>
+                            {{-- , All Right Reserved. 
 							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                             </br>
-                            Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                            Distributed By <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a> --}}
                         </div>
                         @endif
                     </div>

@@ -49,15 +49,12 @@ class CalonJadwalController extends Controller
     {
         if (auth('api')->user()->isAdmin()) {
             $gelombang = Gelombang::where('tp', auth('api')->user()->tpid)->get()->pluck('id');
-
             $calonSesuaiGelombang = Calon::whereIn('gel_id', $gelombang)->where('status', 1)->pluck('id');
-
             $calonnya = CalonJadwal::whereIn('calon_id', $calonSesuaiGelombang)->where('jadwal_id', 0)->get()->pluck('calon_id');
-
             // $calons = Calon::whereIn('id', $calonnya)->get();
             $calons = DB::table('calons')
                 ->select(
-                    'calons.id',
+                    'calon_jadwals.id AS id',
                     'calons.name',
                     'jk',
                     'gelombangs.kode_va',
@@ -67,6 +64,7 @@ class CalonJadwalController extends Controller
                 )
                 ->leftJoin('gelombangs', 'calons.gel_id', '=', 'gelombangs.id')
                 ->leftJoin('units', 'gelombangs.unit_id', '=', 'units.id')
+                ->leftJoin('calon_jadwals', 'calons.id', '=', 'calon_jadwals.calon_id')
                 ->whereIn('calons.id', $calonnya)
                 ->orderBy('units.name', 'asc')
                 ->orderBy('calons.name', 'asc')
@@ -104,7 +102,7 @@ class CalonJadwalController extends Controller
      */
     public function update(Request $request)
     {
-        $calon = CalonJadwal::where('id', $request->id);
+        $calon = CalonJadwal::findOrFail($request->id);
         $calon->update([
             'jadwal_id' => $request->jadwal_id
         ]);

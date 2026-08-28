@@ -21,7 +21,8 @@ class SiswaNFController extends Controller
      */
     public function index()
     {
-        return SiswaNF::with('tpnya', 'kelasnya')->orderBy('name', 'asc')->get()->toArray();
+        $taKemarinId = taId() - 1;
+        return SiswaNF::with('tpnya', 'kelasnya')->where('tp', $taKemarinId)->orderBy('name', 'asc')->get()->toArray();
     }
 
     /**

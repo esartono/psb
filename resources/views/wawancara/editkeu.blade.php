@@ -59,11 +59,7 @@
                         <div class="form-group row">
                             <label class="col-md-4 col-form-label">Saudara</label>
                             <div class="col-md-8">
-                                <input type="text" name="saudara" class="form-control" id="saudara"
-                                    @if($potongan->saudara)
-                                        value={{ $potongan->saudara }}
-                                    @endif
-                                >
+                                <input type="text" name="saudara" class="form-control" id="saudara" value={{ $potongan->saudara == '' ? '' : $potongan->saudara }}>
                             </div>
                         </div>
                         <hr>

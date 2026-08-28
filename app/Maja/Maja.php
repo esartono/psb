@@ -101,7 +101,7 @@ class Maja
                 'email' => 'eko.sartono@nurulfikri.sch.id',
                 'va' =>  '12345',
                 'openPayment' => false,
-                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'attribute1' => 'PPDB Nurul Fikri Islamic School',
                 'items' => [],
                 'attributes' => []
             ];
@@ -172,7 +172,7 @@ class Maja
                 'email' => $email,
                 'va' =>  $idtagihan,
                 'openPayment' => false,
-                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'attribute1' => 'PPDB Nurul Fikri Islamic School',
                 'items' => [],
                 'attributes' => []
             ];
@@ -209,7 +209,7 @@ class Maja
                 'name' => $nama,
                 'va' =>  $idtagihan,
                 'openPayment' => false,
-                'attribute1' => 'PPDB SIT Nurul Fikri',
+                'attribute1' => 'PPDB Nurul Fikri Islamic School',
                 'items' => [],
                 'attributes' => []
             ];

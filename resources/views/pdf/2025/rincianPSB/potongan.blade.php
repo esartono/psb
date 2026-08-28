@@ -37,23 +37,29 @@
                 $d2 = 0;
                 $d3 = 0;
                 $n = $biaya1[$b];
+                $ctg_pot = $ctg->potongan;
+                if($ctg->keterangan == 'Diskon anak PEGAWAI KONTRAK') {
+                  $ctg_pot = 0;
+                }
                 
-                if($ctg->potongan > 0) {
+                if($ctg_pot > 0) {
                   if($batas == 2) {
-                    $d1 = ($n-$diskon[1]['diskon'])*($ctg->potongan/100);
+                    if (array_key_exists(1, $diskon)) {
+                      $d1 = ($n-$diskon[1]['diskon'])*($ctg_pot/100);
+                    }
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg_pot/100);
                     }
                   }
                   if($batas == 1) {
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg_pot/100);
                     }
                     $d3 = $n*($ctg->potongan/100);
                   }
                   if($batas == 0) {
                     if (array_key_exists(2, $diskon)) {
-                      $d2 = ($n-$diskon[2]['diskon'])*($ctg->potongan/100);
+                      $d2 = ($n-$diskon[2]['diskon'])*($ctg_pot/100);
                     }
                   }
                 }
@@ -125,7 +131,7 @@
               <th width="15%">Diskon</th>
               <th width="15%">Pembayaran</th>
             </tr>
-            @if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP') {
+            @if($ctg->keterangan === 'Diskon anak PEGAWAI TETAP')
               @isset($diskon[1])
                 <tr>
                   <td>1</td>
@@ -143,7 +149,7 @@
                 </tr>
               @endisset
             @endif
-            @if($ctg->keterangan != 'Diskon anak PEGAWAI TETAP') {
+            @if($ctg->keterangan != 'Diskon anak PEGAWAI TETAP')
               @isset($diskon[1])
                 <tr>
                   <td>{{ $diskon[1]['no'] }}</td>
@@ -161,6 +167,43 @@
                 </tr>
               @endisset
             @endif
+            <tr>
+              <td colspan="4" style="text-align: left !important">
+                <b>Keterangan </b>:
+                <ul>
+                  {{-- <li>Dana Pengembangan yang digunakan untuk perhitungan diskon khusus adalah setelah dikurangi potongan umum pada ketentuan umum</li>
+                  <li>Ketentuan khusus potongan biaya penerimaan siswa baru tidak bersifat akumulatif</li> --}}
+                  <li>Potongan sesuai dengan ketentuan yang telah berlaku</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+        @endif
+        @if($ctg->keterangan == 'Diskon anak PEGAWAI KONTRAK')
+          <h4>Diskon Pembiayaan PPDB SIT Nurul Fikri</h4>
+          <table class="rincian">
+            <tr>
+              <th width="4%">No.</th>
+              <th width="66%">Keterangan Diskon</th>
+              <th width="15%">Diskon</th>
+              <th width="15%">Pembayaran</th>
+            </tr>
+              @isset($diskon[1])
+                <tr>
+                  <td>{{ $diskon[1]['no'] }}</td>
+                  <td>Diskon Pelunasan untuk pembayaran maksimal tanggal : <b>{{ $diskon[1]['tanggal'] }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }} </i></td>
+                  <td> {{ number_format($diskon[1]['diskon']+$d1) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[1]['diskon']+$d1)) }} </td>
+                </tr>
+              @endisset
+              @isset($diskon[2])
+                <tr>
+                  <td>{{ $diskon[2]['no'] }}</td>
+                  <td>Diskon Pelunasan untuk pembayaran maksimal tanggal : <b>{{ $pengumuman->isoFormat('D MMMM Y') }}</b><br>*<i style="font-size: 75%">Diskon khusus : {{ $ctg->keterangan }}</i></td>
+                  <td> {{ number_format($diskon[2]['diskon']+$d2) }} </td>
+                  <td> {{ number_format($total1+$ctg->infaq+$ctg->infaqnfpeduli-($diskon[2]['diskon']+$d2)) }} </td>
+                </tr>
+              @endisset
             <tr>
               <td colspan="4" style="text-align: left !important">
                 <b>Keterangan </b>:

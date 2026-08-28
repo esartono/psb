@@ -1,7 +1,7 @@
 <table class="table table-bordered table-sm" style="font-size: 11px">
     <tr>
         <th colspan="5" style="background-color: black; color: white">Ukuran Baju Putri - SMP</th>
-        <th rowspan="8" style="width: 7%"></th>
+        <th rowspan="8" style="width: 5%"></th>
         <th colspan="3" style="background-color: black; color: white">Ukuran Celana atau Rok</th>
     </tr>
     <tr>

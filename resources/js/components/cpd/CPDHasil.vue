@@ -1,5 +1,4 @@
 <template>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-info">
@@ -69,7 +68,8 @@
                                     <th v-else-if="row.lulus === 4">Status : Mengundurkan Diri</th>
                                     <th v-else>
                                         <a @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a>
-                                        <a @click="updateHasil(row.id+':1:'+catatannya)" class="btn btn-sm btn-primary mb-2">Diterima dengan Catatan</a>
+                                        <a @click="catatan(row)" class="btn btn-sm btn-primary mb-2">Diterima dengan Catatan</a>
+                                        <!-- <a @click="updateHasil(row.id+':1:'+catatannya)" class="btn btn-sm btn-primary mb-2">Diterima dengan Catatan</a> -->
                                         <!-- <a v-if="row.unitnya.school_type !== 'SMA'" @click="updateHasil(row.id+':1:')" class="btn btn-sm btn-success mb-2">Diterima</a> -->
                                         <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPA')" class="btn btn-sm btn-success">Diterima IPA</a> -->
                                         <!-- <a v-if="row.unitnya.school_type === 'SMA'" @click="updateHasil(row.id+':1:JURUSAN IPS')" class="btn btn-sm btn-info mt-2 mb-2">Diterima IPS</a><br> -->
@@ -141,11 +141,84 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                    <div
+                        class="modal fade"
+                        id="catatanModal"
+                        tabindex="-1"
+                        role="dialog"
+                        aria-labelledby="catatanModalLabel"
+                        aria-hidden="true"
+                    >
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form @submit.prevent="updateEko()">
+                                <div class="modal-header">
+                                    <h5
+                                    class="modal-title"
+                                    id="addModalLabel"
+                                    >Form di Terima dengan Catatan Peserta PPDB</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">No. Peserta</label>
+                                        <div class="col-sm-8">
+                                            <input
+                                            v-model="dataCalon.pendaftaran"
+                                            type="text"
+                                            name="pendaftaran"
+                                            class="form-control"
+                                            disabled
+                                            :class="{ 'is-invalid':form.errors.has('pendaftaran') }"
+                                            >
+                                            <has-error :form="form" field="pendaftaran"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Nama Peserta</label>
+                                        <div class="col-sm-8">
+                                            <input
+                                            v-model="dataCalon.name"
+                                            type="text"
+                                            name="name"
+                                            class="form-control"
+                                            disabled
+                                            :class="{ 'is-invalid':form.errors.has('name') }"
+                                            >
+                                            <has-error :form="form" field="name"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Alasan</label>
+                                        <div class="col-sm-8">
+                                            <input
+                                            v-model="form.alasan"
+                                            type="text"
+                                            name="alasan"
+                                            class="form-control"
+                                            :class="{ 'is-invalid':form.errors.has('alasan') }"
+                                            placeholder="Alasan"
+                                            >
+                                            <has-error :form="form" field="alasan"></has-error>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</template>/>
+</template>
 
 <script>
     export default {
@@ -161,6 +234,12 @@
                 },
                 currentPage: 1,
                 totalPages: 0,
+                dataCalon: new Form({
+                    id: "",
+                    pendaftaran: "",
+                    name: "",
+                    catatan: "",
+                }),
                 form: new Form({
                     idpeserta: "",
                     alasan: "",
@@ -196,6 +275,17 @@
                     .catch(() => {
                         this.$Progress.fail();
                     });
+            },
+
+            catatan(row) {
+                this.dataCalon.reset();
+                this.dataCalon.pendaftaran = row.pendaftaran
+                this.dataCalon.name = row.calonnya.name
+                $("#catatanModal").modal("show");
+            },
+
+            updateCatatan(id) {
+                console.log('EKO Catatan');
             },
 
             mundur(idpeserta) {

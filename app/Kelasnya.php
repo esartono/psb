@@ -10,11 +10,17 @@ class Kelasnya extends Model
     use HasApiTokens;
 
     protected $fillable = [
-        'name', 'unit_id', 'status', 'kelamin', 'jurusan', 'tahun_ajaran'
+        'name',
+        'unit_id',
+        'status',
+        'kelamin',
+        'jurusan',
+        'tahun_ajaran'
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at'
+        'created_at',
+        'updated_at'
     ];
 
     public function unitnya()
@@ -38,7 +44,8 @@ class Kelasnya extends Model
             $ta = [0, 1];
         }
 
-        $kls = static::select('id', 'name', 'jurusan')->where('unit_id', $unit)->where('name', 'not like', "%Toddler%")->whereIn('tahun_ajaran', $ta)->get();
+        // $kls = static::select('id', 'name', 'jurusan')->where('unit_id', $unit)->where('name', 'not like', "%Toddler%")->whereIn('tahun_ajaran', $ta)->get();
+        $kls = static::select('id', 'name', 'jurusan')->where('unit_id', $unit)->whereIn('tahun_ajaran', $ta)->get();
         return $kls;
     }
 
@@ -49,7 +56,7 @@ class Kelasnya extends Model
             $cjk = $cek->kelamin;
         }
 
-        if ($cari === 'TK' || $cari === 'SD') {
+        if ($cari === 'TK' || $cari === 'SD' || $cari === 'KB') {
             $cjk = 0;
         }
 

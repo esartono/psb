@@ -9,14 +9,26 @@ class AmbilBuku extends Model
 {
     protected $table = 'calon_ambil_buku';
 
-    public $timestamps = false;
-
     protected $fillable = [
-        'pendaftaran', 'siap', 'hari', 'lunas_daul', 'tanggal', 'jam', 'chromebook'
+        'pendaftaran',
+        'siap',
+        'hari',
+        'lunas_daul',
+        'tanggal',
+        'jam',
+        'keterangan',
+        'sudah'
     ];
 
     protected $appends = [
-        'calonnya', 'unitnya'
+        'calonnya',
+        'unitnya',
+        // 'chromebook'
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at'
     ];
 
     public function getCalonnyaAttribute()
@@ -39,4 +51,14 @@ class AmbilBuku extends Model
             ->where('kode_va', substr($this->attributes['pendaftaran'], 0, 6))
             ->first();
     }
+
+    // public function getChromebookAttribute()
+    // {
+    //     $hasil = Chromebook::where('pendaftaran', $this->attributes['pendaftaran'])->first();
+    //     if (!$hasil) {
+    //         return '-';
+    //     }
+
+    //     return $hasil->toArray();
+    // }
 }

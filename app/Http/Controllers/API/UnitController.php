@@ -12,6 +12,9 @@ use Excel;
 use App\Exports\UnitExport;
 
 use App\Unit;
+use App\Calon;
+use App\Gelombang;
+use App\TesWawancara;
 
 class UnitController extends Controller
 {
@@ -102,5 +105,45 @@ class UnitController extends Controller
     public function export()
     {
         return Excel::download(new UnitExport, 'units.xlsx');
+    }
+
+    public function unitWawancara()
+    {
+        $units = Unit::orderBy('id', 'asc')->get();
+        $no = 0;
+        foreach ($units as $u) {
+            // $tesWawancara = TesWawancara::where('unit_id', $u->id)->count();
+            $gelombang = Gelombang::where('unit_id', $u->id)->where('tp', auth()->user()->tpid)->get()->pluck('id');
+            $getCalon = Calon::whereIn('gel_id', $gelombang)->get()->pluck('id');
+            $totalData = TesWawancara::whereIn('calon_id', $getCalon)->get()->pluck('calon_id')->count();
+
+            $split = 150;
+            if ($totalData > 0) {
+                if ($totalData <= $split) {
+                    $data[$no] = [
+                        'id'   => $u->id . '::0::' . $totalData,
+                        'name' => $u->name . ' - 0 s/d ' . $totalData,
+                    ];
+                    $no++;
+                } else {
+                    $totalKelompok = ceil($totalData / $split);
+                    for ($i = 1; $i <= $totalKelompok; $i++) {
+                        if ($i == 1) {
+                            $awal  = 0;
+                            $akhir = $split;
+                        } else {
+                            $awal  = (($i - 1) * $split) + 1;
+                            $akhir = ($i == $totalKelompok) ? $totalData : ($i * $split);
+                        }
+                        $data[$no] = [
+                            'id'   => $u->id . '::' . $awal . '::' . $akhir,
+                            'name' => $u->name . ' - ' . $awal . ' s/d ' . $akhir,
+                        ];
+                        $no++;
+                    }
+                }
+            }
+        }
+        return $data;
     }
 }

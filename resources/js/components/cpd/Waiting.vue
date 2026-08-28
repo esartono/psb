@@ -1,22 +1,27 @@
 <template>
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card border-info">
                     <div class="card-header bg-info">
                         <h3 class="card-title">Daftar Peserta PPDB Online - SIT Nurul Fikri</h3>
                         <div class="card-tools">
-                            <!-- <a href="/EksportCpdAll" class="btn btn-sm btn-warning mr-2 ml-2">
+                            <a :href="`/EksportCpdWaiting/filters?name=${filters.name.value}&unit=${filters.unit.value}&ta=${filters.ta.value}`" class="btn btn-sm btn-warning mr-2 ml-2">
                                 <i class="fas fa-file-excel"></i>
                                 Export
-                            </a> -->
+                            </a>
                             <div class="input-group input-group-sm float-right mt-1" style="width: auto;">
                                 <select class="ml-1 form-control" v-model="filters.unit.value">
-                                    <option value="" selected disabled> -- Pilih Unit -- </option>
-                                    <option value="TK">Unit TK</option>
-                                    <option value="SD">Unit SD</option>
-                                    <option value="SMP">Unit SMP</option>
-                                    <option value="SMA">Unit SMA</option>
+                                    <option value="" selected> -- Pilih Unit -- </option>
+                                    <option value="tk">Unit TK</option>
+                                    <option value="sd">Unit SD</option>
+                                    <option value="smp">Unit SMP</option>
+                                    <option value="sma">Unit SMA</option>
+                                </select>
+                            </div>
+                            <div class="mt-1 input-group input-group-sm float-right " style="width: 200px;">
+                                <select class="ml-1 form-control" v-model="filters.ta.value">
+                                    <option value="" selected > -- Pilih Tahun Ajaran -- </option>
+                                    <option v-for="n in 6" :key="n" :value="2023+n">{{  (2023+n)+'/'+(2024+n) }}</option>
                                 </select>
                             </div>
                             <div class="mt-1 input-group input-group-sm" style="width: 200px;">
@@ -37,6 +42,7 @@
                             <thead slot="head">
                                 <tr>
                                     <th>No.</th>
+                                    <v-th sortKey="created_at">Tanggal</v-th>
                                     <v-th sortKey="unit">Unit</v-th>
                                     <v-th sortKey="nama">Nama Lengkap</v-th>
                                     <v-th sortKey="asal_sekolah">Asal Sekolah</v-th>
@@ -49,6 +55,7 @@
                             <tbody slot="body" slot-scope="{displayData}">
                                 <tr v-for="(row, index) in displayData" :key="row.id">
                                     <td>{{ index+((currentPage-1) * 7)+1 }}</td>
+                                    <td class="text-center">{{ row.created_at | Tanggal }}</td>
                                     <td class="text-center">{{ row.unit.toUpperCase() }}</td>
                                     <td>{{ row.nama }}</td>
                                     <td class="text-center">{{ row.asal_sekolah }}</td>
@@ -67,8 +74,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</template>/>
+</template>
 
 <script>
     export default {
@@ -79,11 +85,15 @@
                 filters: {
                     name: {
                         value: "",
-                        keys: ["nama", "ta", "asal_sekolah", "wa", "email"]
+                        keys: ["nama", "asal_sekolah", "wa", "email"]
                     },
                     unit: {
                         value: "",
                         keys: ['unit']
+                    },
+                    ta: {
+                        value: "",
+                        keys: ['ta']
                     }
                 },
                 currentPage: 1,

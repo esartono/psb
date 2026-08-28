@@ -1,9 +1,9 @@
 <div class="mt-4">
     @if($calon->jadwal->seleksi_online === '-')
         <h5 style="font-size: large">Tes Seleksi ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum Tersedia"}}</b> )</h5>
-        @if($calon->jadwal->akademik_link)
+        @isset($calon->jadwal->akademik_link)
             <a target="_blank" class="btn btn-outline-success" href="{{ $calon->jadwal->akademik_link }}">Silahkan klik di sini untuk gabung ke Whatsapp Grup Tes </a>
-        @endif
+        @endisset
     @else
         <h5 style="font-size: large">Tes Seleksi - Offline ( <b>{{ $calon->jadwal->seleksi !== '-' ? $calon->jadwal->seleksi->isoFormat('D MMMM Y') : "Jadwal belum Tersedia"}}</b> )</h5>
         @if(is_null($calon->jadwal->seleksi_online))

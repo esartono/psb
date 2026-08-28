@@ -24,6 +24,7 @@
         <th>Nama Ibu</th>
         <th>No. HP Ibu</th>
         <th>Saudara</th>
+        <th>Alamat</th>
     </tr>
     </thead>
     <tbody>
@@ -50,6 +51,7 @@
             <td>{{ $calon->calonnya->ibu_nama }}</td>
             <td>{{ $calon->calonnya->ibu_hp }}</td>
             <td>{{ $calon->saudara }}</td>
+            <td>{{ $calon->calonnya->alamat }}, Kel. {{ App\Kelurahan::nama($calon->calonnya->kelurahan) }} Kec. {{ App\Kecamatan::nama($calon->calonnya->kecamatan) }} {{ App\Kota::nama($calon->calonnya->kota) }} {{ App\Provinsi::nama($calon->calonnya->provinsi) }}</td>
         </tr>
     @endforeach
     </tbody>

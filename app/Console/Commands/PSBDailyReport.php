@@ -46,22 +46,22 @@ class PSBDailyReport extends Command
         $tp = TahunPelajaran::where('status', 1)->first();
 
         $gelombang = Gelombang::with('unitnya.catnya')->where('tp', $tp->id)
-                ->orderBy('unit_id', 'asc')->get()->toArray();
+            ->orderBy('unit_id', 'asc')->get()->toArray();
 
-        $cek = 'Update Pendaftaran PPDB SIT NF'.PHP_EOL.'Tanggal: '.date('d M Y').' ('.date('H:i').')'.PHP_EOL;
+        $cek = 'Update Pendaftaran PPDB SIT NF' . PHP_EOL . 'Tanggal: ' . date('d M Y') . ' (' . date('H:i') . ')' . PHP_EOL;
         // foreach ($gelombang as $gel) {
         //     $cek = $cek.PHP_EOL.$gel['unitnya']['catnya']['name'] . ' : ' . ($gel['jlhrekap']['laktif']+$gel['jlhrekap']['paktif']);
         // }
         foreach ($gelombang as $gel) {
-            $cek = $cek.PHP_EOL.$gel['unitnya']['name'] . ' : '.PHP_EOL.
-                '  Umum : '.$gel['jlhrekap']['umumaktif'].PHP_EOL.
-                '  Internal : '.$gel['jlhrekap']['nfaktif'].PHP_EOL.
-                '  Pegawai : '.$gel['jlhrekap']['pegaktif'].PHP_EOL.
-                '  TOTAL : '.($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif']).PHP_EOL.
-                '  TARGET : '.round(($gel['jlhrekap']['umumaktif']+$gel['jlhrekap']['nfaktif']+$gel['jlhrekap']['pegaktif'])*1000/($gel['kuota']*15), 3).' %'.PHP_EOL;
+            $cek = $cek . PHP_EOL . $gel['unitnya']['name'] . ' : ' . PHP_EOL .
+                '  Umum : ' . $gel['jlhrekap']['umumaktif'] . PHP_EOL .
+                '  Internal : ' . $gel['jlhrekap']['nfaktif'] . PHP_EOL .
+                '  Pegawai : ' . $gel['jlhrekap']['pegaktif'] . PHP_EOL .
+                '  TOTAL : ' . ($gel['jlhrekap']['umumaktif'] + $gel['jlhrekap']['nfaktif'] + $gel['jlhrekap']['pegaktif']) . PHP_EOL .
+                '  TARGET : ' . round(($gel['jlhrekap']['umumaktif'] + $gel['jlhrekap']['nfaktif'] + $gel['jlhrekap']['pegaktif']) * 1000 / ($gel['kuota'] * 15), 3) . ' %' . PHP_EOL;
         }
 
-        $q = PHP_EOL.'Update Jumlah Peserta Tes :'.PHP_EOL;
+        $q = PHP_EOL . 'Update Jumlah Peserta Tes :' . PHP_EOL;
 
         // Telegram::sendMessage(
         //     [
@@ -76,18 +76,18 @@ class PSBDailyReport extends Command
         //     ]);
 
         Telegram::sendMessage(
-            [
-                'chat_id' => '330501661',
-                'text' => $cek . $q
-            ],
-            [
-                'chat_id' => '11095399',
-                'text' => $cek . $q
-            ],
+            // [
+            //     'chat_id' => '330501661',
+            //     'text' => $cek . $q
+            // ],
+            // [
+            //     'chat_id' => '11095399',
+            //     'text' => $cek . $q
+            // ],
             [
                 'chat_id' => '643982879',
                 'text' => $cek . $q
             ]
-            );
+        );
     }
 }

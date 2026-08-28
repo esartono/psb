@@ -3,7 +3,7 @@
 @section('isi')
     <div>
         <b><i>Assalamu'alaikum wa Rahmatullah wa Barakatuh</i></b><br><br>
-        <center><h1>MOHON MAAF, MOHON MENUNGGU JADWAL PEMBAGIAN MEDIA PEMBELAJARAN PADA BATCH BERIKUTNYA.</h1></center>
+        <center><h1>MOHON MAAF, MOHON MENUNGGU JADWAL PEMBAGIAN BUKU PADA BATCH BERIKUTNYA.</h1></center>
         <br>
         Penerimaan Peserta Dididk Baru Sekolah Islam Terpadu Nurul Fikri tahun ajaran {{ Auth::user()->tpname }}, untuk data peserta didik adalah sebagai berikut :
         </div>
@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th>Tempat, Tanggal Lahir</th>
-                <td>{{ $calonsnya->tgl_lahir->isoFormat('D MMMM Y') }}</td>
+                <td>{{ $calonsnya->tempat_lahir }}, {{ $calonsnya->tgl_lahir->isoFormat('D MMMM Y') }}</td>
             </tr>
             <tr>
                 <th>Kelas Tujuan</th>

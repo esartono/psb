@@ -128,6 +128,7 @@
     });
 
     function listKota(e, a) {
+        var url = window.location.origin;
         if(e){
             axios
             .get( url + "/api/kotas/" + e)

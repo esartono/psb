@@ -16,6 +16,9 @@
         border: 1px solid grey;
         padding: 0.5rem !important;
     }
+    .nav-item {
+        margin-right: -1.5px !important; 
+    }
 </style>
 @endpush
 @section('content')
@@ -24,17 +27,19 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                 @isset($modelWawancara)
-                    @isset($calon)
                     @php
                         $wawancaranya = [
                             'ortu' => 'Wawancara Orangtua Calon Siswa',
                             'siswa' => 'Wawancara Calon Siswa',
                         ]
                     @endphp
+                    @isset($calon)
                         <br>
                         @include('tes_wawancara.datasiswa')
                     @endisset
                     @empty($calon)
+                        <h4>Seleksi {{ $wawancaranya[$modelWawancara] }}</h4>
+                        <hr>
                         <h5 style="font-size: 1.2em" class="mb-3 mt-3">Silahkan Masukan No. Pendaftaran :</h5>
                         <form class="mb-3" role="form" method="GET" action="{{ route('tesWawancara') }}">
                             @if(!empty($message))
@@ -67,45 +72,9 @@
             </div>
         </div>
     </div>
-    <div class="container mt-5">
-    <div class="card">
-        <div class="card-body p-4">
-            <table class="table table-sm align-middle">
-                <thead class="align-middle text-center">
-                    <tr>
-                        <th rowspan="3">No.</th>
-                        <th rowspan="3">No. Pendaftaran</th>
-                        <th rowspan="3">Nama Calon Siswa</th>
-                        <th colspan="4">Wawancara</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Orang Tua</th>
-                        <th colspan="2">Siswa</th>
-                    </tr>
-                    <tr>
-                        <th>Skor</th>
-                        <th>Rekomendasi</th>
-                        <th>Skor</th>
-                        <th>Rekomendasi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($wawancara as $w)
-                        <tr>
-                            <td class="text-center">{{ $w['no'] }}</td>
-                            <td class="text-center">{{ $w['no_pendaftaran'] }}</td>
-                            <td>{{ $w['nama'] }}</td>
-                            <td>100</td>
-                            <td>Rekomendasi Ortu</td>
-                            <td>100</td>
-                            <td>Rekomendasi Siswa</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>   
-        </div>
-    </div>
-    </div>
+    @empty($calon)
+        @include('tes_wawancara.table')
+    @endempty
 </div>
 @endsection
 @push('jawa')

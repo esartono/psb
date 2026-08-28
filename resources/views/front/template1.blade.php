@@ -55,8 +55,11 @@
         @include('partials.footer')
         <!-- Footer End -->
 
-        <div class="contact_center">
+        {{-- <div class="contact_center"> --}}
         @include('partials.floating')
+        @if(Request::path() ===  '/')
+            @include('partials.unit_tutup')
+        @endif
 
     </div>
 
